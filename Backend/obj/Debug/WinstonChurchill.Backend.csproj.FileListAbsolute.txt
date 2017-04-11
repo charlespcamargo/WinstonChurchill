@@ -1,0 +1,12 @@
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\Backend.dll.config
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\Backend.dll
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\Backend.pdb
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\EntityFramework.dll
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\EntityFramework.SqlServer.dll
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\MySql.Data.dll
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\MySql.Data.Entity.EF6.dll
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\EntityFramework.xml
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\EntityFramework.SqlServer.xml
+G:\Brown\Projetos\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.csprojResolveAssemblyReference.cache
+G:\Brown\Projetos\WinstonChurchill\Backend\obj\Debug\Backend.dll
+G:\Brown\Projetos\WinstonChurchill\Backend\obj\Debug\Backend.pdb
