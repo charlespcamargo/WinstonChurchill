@@ -12,7 +12,7 @@ using SqlProviderServices = System.Data.Entity.SqlServer.SqlProviderServices;
 
 namespace WinstonChurchill.Backend.Repository
 {
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))] // MySQL
     public partial class dbContext : DbContext
     {
         public dbContext(DbConnection dbConnection, DbCompiledModel compileModel) : base(dbConnection, compileModel, true)
