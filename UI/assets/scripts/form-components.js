@@ -78,14 +78,45 @@ var FormComponents = function () {
     var handleDatePickers = function () {
 
         if (jQuery().datepicker) {
-            $('.date-picker').datepicker({
-                rtl : App.isRTL()
+            $(".date-picker").datepicker({
+                isRTL: false,
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                language: 'pt-BR'
             });
         }
     }
 
     var handleTimePickers = function () {
-        
+
+        if ($('#hfRangeDataSelecionado')
+            && $('#hfRangeDataSelecionado') != undefined && $('#hfRangeDataSelecionado') != 'undefined' && $('#hfRangeDataSelecionado').length > 0) {
+            var dataInicio;
+
+            var qtdDias = $('#hfRangeDataSelecionado').attr("qtdDias");
+            if (qtdDias != null && qtdDias != undefined && qtdDias > 0)
+                dataInicio = Date.today().add({ days: qtdDias * -1 });
+            else
+                dataInicio = Date.today().add({ days: -29 });
+
+            var dataFim = Date.today();
+            $('#hfRangeDataSelecionado').val(dataInicio.toString('dd/MM/yyyy') + "|" + dataFim.toString('dd/MM/yyyy'));
+            var method = eval('(' + $('#hfRangeDataSelecionado').attr("funcaoCallback") + ')');
+            method(dataInicio.toString('dd/MM/yyyy'), dataFim.toString('dd/MM/yyyy'));
+        }
+
+        if (jQuery().datepicker) {
+
+            $(".date-picker").datepicker({
+                isRTL: false,
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                language: 'pt-BR'
+            });
+
+
+        }
+
         if (jQuery().timepicker) {
             $('.timepicker-default').timepicker();
             $('.timepicker-24').timepicker({
@@ -101,36 +132,85 @@ var FormComponents = function () {
             return;
         }
 
-        $('.date-range').daterangepicker(
-            {
-                opens: (App.isRTL() ? 'left' : 'right'),
-                format: 'MM/dd/yyyy',
-                separator: ' to ',
-                startDate: Date.today().add({
+        $('.date-range').daterangepicker();
+
+        $('.date-range-concurso').daterangepicker({
+            endDate: Date.today().add({ 'days': 90 }),
+            minDate: Date.today(),
+            maxDate: Date.today().add({ 'days': 90 })
+        });
+
+        $('#dashboard-report-range').daterangepicker({
+            ranges: {
+                'Últimos 3 dias': [Date.today().add({
+                    days: -3
+                }), 'today'],
+                'Últimos 7 dias': [Date.today().add({
+                    days: -6
+                }), 'today'],
+                'Últimos 30 dias': [Date.today().add({
                     days: -29
-                }),
-                endDate: Date.today(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2014',
+                }), 'today'],
+                'Este mês': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
+                'Último mês': [Date.today().moveToFirstDayOfMonth().add({
+                    months: -1
+                }), Date.today().moveToFirstDayOfMonth().add({
+                    days: -1
+                })],
+                'Últimos 3 meses': [Date.today().moveToFirstDayOfMonth().add({
+                    months: -3
+                }), Date.today().moveToFirstDayOfMonth().add({
+                    days: -1
+                })]
+            },
+            opens: 'left',
+            format: 'dd/MM/yyyy',
+            separator: ' to ',
+            startDate: Date.today().add({
+                days: -29
+            }),
+            endDate: Date.today(),
+            minDate: '01/01/2012',
+            maxDate: '31/12/2014',
+            showWeekNumbers: false,
+            buttonClasses: ['btn-danger']
+        },
+
+        function (start, end) {
+            App.blockUI(jQuery("#dashboard"));
+
+            $('#dashboard-report-range span').html(start.toString('d MMMM, yyyy') + ' - ' + end.toString('d MMMM, yyyy'));
+
+            if ($('#hfRangeDataSelecionado')
+                 && $('#hfRangeDataSelecionado') != undefined && $('#hfRangeDataSelecionado') != 'undefined' && $('#hfRangeDataSelecionado').length > 0) {
+                $('#hfRangeDataSelecionado').val(start.toString('dd/MM/yyyy') + "|" + end.toString('dd/MM/yyyy'));
+                var method = eval('(' + $('#hfRangeDataSelecionado').attr("funcaoCallback") + ')');
+                method(start.toString('dd/MM/yyyy'), end.toString('dd/MM/yyyy'));
             }
-        );
+        });
+
+        $('#dashboard-report-range').show();
+
+        $('#dashboard-report-range span').html(Date.today().add({
+            days: -29
+        }).toString('d MMMM, yyyy') + ' - ' + Date.today().toString('d MMMM, yyyy'));
 
         $('#form-date-range').daterangepicker({
             ranges: {
                 'Today': ['today', 'today'],
                 'Yesterday': ['yesterday', 'yesterday'],
                 'Last 7 Days': [Date.today().add({
-                        days: -6
-                    }), 'today'],
+                    days: -6
+                }), 'today'],
                 'Last 29 Days': [Date.today().add({
-                        days: -29
-                    }), 'today'],
+                    days: -29
+                }), 'today'],
                 'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
                 'Last Month': [Date.today().moveToFirstDayOfMonth().add({
-                        months: -1
-                    }), Date.today().moveToFirstDayOfMonth().add({
-                        days: -1
-                    })]
+                    months: -1
+                }), Date.today().moveToFirstDayOfMonth().add({
+                    days: -1
+                })]
             },
             opens: (App.isRTL() ? 'left' : 'right'),
             format: 'MM/dd/yyyy',
@@ -142,9 +222,9 @@ var FormComponents = function () {
             minDate: '01/01/2012',
             maxDate: '12/31/2014',
             locale: {
-                applyLabel: 'Submit',
-                fromLabel: 'From',
-                toLabel: 'To',
+                applyLabel: 'Aplicar',
+                fromLabel: 'De',
+                toLabel: 'Ate',
                 customRangeLabel: 'Custom Range',
                 daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -170,17 +250,17 @@ var FormComponents = function () {
                 'Today': ['today', 'today'],
                 'Yesterday': ['yesterday', 'yesterday'],
                 'Last 7 Days': [Date.today().add({
-                        days: -6
-                    }), 'today'],
+                    days: -6
+                }), 'today'],
                 'Last 29 Days': [Date.today().add({
-                        days: -29
-                    }), 'today'],
+                    days: -29
+                }), 'today'],
                 'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
                 'Last Month': [Date.today().moveToFirstDayOfMonth().add({
-                        months: -1
-                    }), Date.today().moveToFirstDayOfMonth().add({
-                        days: -1
-                    })]
+                    months: -1
+                }), Date.today().moveToFirstDayOfMonth().add({
+                    days: -1
+                })]
             },
             opens: (App.isRTL() ? 'left' : 'right'),
             format: 'MM/dd/yyyy',
@@ -192,9 +272,9 @@ var FormComponents = function () {
             minDate: '01/01/2012',
             maxDate: '12/31/2014',
             locale: {
-                applyLabel: 'Submit',
-                fromLabel: 'From',
-                toLabel: 'To',
+                applyLabel: 'Aplicar',
+                fromLabel: 'De',
+                toLabel: 'Ate',
                 customRangeLabel: 'Custom Range',
                 daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -214,31 +294,65 @@ var FormComponents = function () {
 
     }
 
-    var handleDatetimePicker = function () {        
+    var handleDatetimePicker = function () {
+
+        $(".form_datetimeAgendamento").datetimepicker({
+            isRTL: App.isRTL(),
+            format: "dd/mm/yyyy - hh:ii",
+            todayBtn: true,
+            language: 'pt-BR',
+            startDate: App.ConverteData((new Date().setMinutes(new Date().getMinutes() + 10)), "dd/MM/yyyy HH:ss"),
+            minuteStep: 5,
+            pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
+        });
+
+        $(".form_datetimeMarco").datetimepicker({
+            isRTL: App.isRTL(),
+            format: "dd/mm/yyyy - hh:ii",
+            todayBtn: true,
+            language: 'pt-BR',
+            startDate: Date.today().add({
+                years: -1
+            }),
+            endDate: Date.today(),
+            minuteStep: 5,
+            pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
+        });
+
+
+        $('.form_datetimeAgendamento').on('changeDate', function (e) {
+            console.log(e.date);
+            $('#datahoraselecionada').html(App.ConverteData(e.date, "dd/mm/yyyy HH:ss"));
+        });
 
         $(".form_datetime").datetimepicker({
             isRTL: App.isRTL(),
             format: "dd MM yyyy - hh:ii",
+            todayBtn: true,
+            language: 'pt-BR',
+            minuteStep: 5,
             pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
         });
 
-         $(".form_advance_datetime").datetimepicker({
+        $(".form_advance_datetime").datetimepicker({
             isRTL: App.isRTL(),
             format: "dd MM yyyy - hh:ii",
             autoclose: true,
             todayBtn: true,
-            startDate: "2017-02-14 10:00",
+            language: 'pt-BR',
+            startDate: "2014-02-14 10:00",
             pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left"),
             minuteStep: 10
         });
 
-         $(".form_meridian_datetime").datetimepicker({
+        $(".form_meridian_datetime").datetimepicker({
             isRTL: App.isRTL(),
             format: "dd MM yyyy - HH:ii P",
             showMeridian: true,
             autoclose: true,
             pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left"),
-            todayBtn: true
+            todayBtn: true,
+            language: 'pt-BR'
         });
     }
 
@@ -288,7 +402,7 @@ var FormComponents = function () {
     var handleSelect2 = function () {
 
         $('#select2_sample1').select2({
-            placeholder: "Select an option",
+            placeholder: "Selecione uma Opção",
             allowClear: true
         });
 
@@ -403,7 +517,7 @@ var FormComponents = function () {
     var handleSelect2Modal = function () {
 
         $('#select2_sample_modal_1').select2({
-            placeholder: "Select an option",
+            placeholder: "Selecione uma Opção",
             allowClear: true
         });
 
@@ -519,7 +633,7 @@ var FormComponents = function () {
         $('#my_multi_select1').multiSelect();
         $('#my_multi_select2').multiSelect({
             selectableOptgroup: true
-        });        
+        });
     }
 
     var handleInputMasks = function () {
@@ -527,29 +641,80 @@ var FormComponents = function () {
             'autounmask': true
         });
 
-        $("#mask_date").inputmask("d/m/y", {autoUnmask: true});  //direct mask        
-        $("#mask_date1").inputmask("d/m/y",{ "placeholder": "*"}); //change the placeholder
-        $("#mask_date2").inputmask("d/m/y",{ "placeholder": "dd/mm/yyyy" }); //multi-char placeholder
-        $("#mask_phone").inputmask("mask", {"mask": "(999) 999-9999"}); //specifying fn & options
-        $("#mask_tin").inputmask({"mask": "99-9999999"}); //specifying options only
+        $("#mask_date").inputmask("d/m/y", { autoUnmask: true });  //direct mask        
+        $("#mask_date1").inputmask("d/m/y", { "placeholder": "*" }); //change the placeholder
+        $("#mask_date2").inputmask("d/m/y", { "placeholder": "dd/mm/yyyy" }); //multi-char placeholder
+        $("#mask_phone").inputmask("mask", { "mask": "(999) 999-9999" }); //specifying fn & options
+        $("#mask_tin").inputmask({ "mask": "99-9999999" }); //specifying options only
         $("#mask_number").inputmask({ "mask": "9", "repeat": 10, "greedy": false });  // ~ mask "9" or mask "99" or ... mask "9999999999"
         $("#mask_decimal").inputmask('decimal', { rightAlignNumerics: false }); //disables the right alignment of the decimal input
         $("#mask_currency").inputmask('€ 999.999.999,99', { numericInput: true });  //123456  =>  € ___.__1.234,56
-       
-        $("#mask_currency2").inputmask('€ 999,999,999.99', { numericInput: true, rightAlignNumerics: false, greedy: false}); //123456  =>  € ___.__1.234,56
-        $("#mask_ssn").inputmask("999-99-9999", {placeholder:" ", clearMaskOnLostFocus: true }); //default
-    }
 
-    var handleIPAddressInput = function () {
-        $('#input_ipv4').ipAddress();
-        $('#input_ipv6').ipAddress({v:6});
+        $("#mask_currency2").inputmask('€ 999,999,999.99', { numericInput: true, rightAlignNumerics: false, greedy: false }); //123456  =>  € ___.__1.234,56
+        $("#mask_ssn").inputmask("999-99-9999", { placeholder: " ", clearMaskOnLostFocus: true }); //default
+
+
+        $(".maskdecimal").each(function () {
+            $(this).maskMoney({ showSymbol: true, symbol: "%", decimal: ",", thousands: ".", allowZero: true, defaultZero: true });
+        });
+
+
+        $("*[mascara]").each(function () {
+            $(this).inputmask($(this).attr("mascara"), { autoUnmask: true });  //direct mask 
+        });
+
+        $(".maskdecimal").each(function () {
+            $(this).maskMoney({ showSymbol: false, symbol: "", decimal: ",", thousands: ".", allowZero: true, defaultZero: true, precision: $(this).attr("precisao") != undefined || $(this).attr("precisao") != null ? parseInt($(this).attr("precisao")) : 2 });
+        });
+
+        $(".masknegativo").each(function () {
+            $(this).maskMoney({ showSymbol: false, symbol: "", decimal: ",", thousands: ".", allowZero: true, defaultZero: true, allowNegative: true });
+        });
+
+        $(".maskdolar").each(function () {
+            $(this).maskMoney({ showSymbol: false, symbol: "", decimal: ".", thousands: ",", allowZero: true, defaultZero: true });
+        });
+
+        $(".maskdecimallimite").each(function () {
+            $(this).maskMoney({ showSymbol: false, symbol: "", decimal: ",", thousands: ".", allowZero: true, defaultZero: true });
+
+        }).on("blur",
+
+            function () {
+
+                var valor = null;
+                var valorMaximo = null;
+
+                if ($(this).val().length > 0)
+                    valor = Number(UFSCar.formataDecimal($(this).val()));
+
+                if ($(this).attr("valormaximo") != undefined && $(this).attr("valormaximo").length > 0)
+                    valorMaximo = Number(UFSCar.formataDecimal($(this).attr("valormaximo")));
+
+                if (valorMaximo != null)
+                {
+                    if (valor > valorMaximo)
+                    {
+                        var exibicaoValor = UFSCar.formatMoney(valor, 2, ".", ",");
+                        var exibicaoValorMaximo = UFSCar.formatMoney(valorMaximo, 2, ".", ",");
+
+                        $(this).val(exibicaoValorMaximo);
+                        UFSCar.showAlert('Valor informado(' + exibicaoValor + ') invalido. O valor foi alterado para o valor limite(' + exibicaoValorMaximo + ').');
+                    }
+                }
+
+
+            }
+
+        );
+
     }
 
     var handlePasswordStrengthChecker = function () {
         var initialized = false;
         var input = $("#password_strength");
 
-        input.keydown(function(){
+        input.keydown(function () {
             if (initialized === false) {
                 // set base options
                 input.pwstrength({
@@ -565,27 +730,27 @@ var FormComponents = function () {
                 }, 10, true);
 
                 // set progress bar's width according to the input width
-                $('.progress', input.parents('.password-strength')).css('width', input.outerWidth() - 2); 
+                $('.progress', input.parents('.password-strength')).css('width', input.outerWidth() - 2);
 
                 // set as initialized 
                 initialized = true;
             }
-        });        
+        });
     }
 
     var handleUsernameAvailabilityChecker1 = function () {
         var input = $("#username1_input");
 
-        $("#username1_checker").click(function(e){
+        $("#username1_checker").click(function (e) {
 
             if (input.val() === "") {
-                input.popover('destroy');    
+                input.popover('destroy');
                 input.popover({
-                    'placement' : App.isRTL() ? 'left' : 'right',
+                    'placement': App.isRTL() ? 'left' : 'right',
                     'html': true,
                     'title': 'Username Availability',
                     'content': 'Please enter a username to check its availability.',
-                });                
+                });
                 // add error class to the popover
                 input.data('popover').tip().addClass('error');
                 // set last poped popover to be closed on click(see App.js => handlePopovers function)     
@@ -604,16 +769,16 @@ var FormComponents = function () {
                 attr("disabled", true).
                 addClass("spinner");
 
-            $.post('demo/username_checker.php', {username: input.val()}, function(res) {
+            $.post('demo/username_checker.php', { username: input.val() }, function (res) {
                 btn.attr('disabled', false);
 
                 input.attr("readonly", false).
                     attr("disabled", false).
                     removeClass("spinner");
 
-                input.popover('destroy');    
+                input.popover('destroy');
                 input.popover({
-                    'placement' : App.isRTL() ? 'left' : 'right',
+                    'placement': App.isRTL() ? 'left' : 'right',
                     'html': true,
                     'title': 'Username Availability',
                     'content': res.message,
@@ -633,11 +798,11 @@ var FormComponents = function () {
 
             }, 'json');
 
-        });        
+        });
     }
 
     var handleUsernameAvailabilityChecker2 = function () {
-        $("#username2_input").change(function(){
+        $("#username2_input").change(function () {
             var input = $(this);
 
             if (input.val() === "") {
@@ -648,15 +813,15 @@ var FormComponents = function () {
                 attr("disabled", true).
                 addClass("spinner");
 
-            $.post('demo/username_checker.php', {username: input.val()}, function(res) {
+            $.post('demo/username_checker.php', { username: input.val() }, function (res) {
                 input.attr("readonly", false).
                     attr("disabled", false).
                     removeClass("spinner");
 
-                input.popover('destroy');    
+                input.popover('destroy');
                 input.popover({
                     'html': true,
-                    'placement' : App.isRTL() ? 'left' : 'right',
+                    'placement': App.isRTL() ? 'left' : 'right',
                     'title': 'Username Availability',
                     'content': res.message,
                 });
@@ -675,11 +840,11 @@ var FormComponents = function () {
 
             }, 'json');
 
-        });        
+        });
     }
 
     var handleUsernameAvailabilityChecker3 = function () {
-        $("#username3_input").change(function(){
+        $("#username3_input").change(function () {
             var input = $(this);
 
             if (input.val() === "") {
@@ -690,15 +855,15 @@ var FormComponents = function () {
                 attr("disabled", true).
                 addClass("spinner");
 
-            $.post('demo/username_checker.php', {username: input.val()}, function(res) {
+            $.post('demo/username_checker.php', { username: input.val() }, function (res) {
                 input.attr("readonly", false).
                     attr("disabled", false).
                     removeClass("spinner");
 
-                input.popover('destroy');    
+                input.popover('destroy');
                 input.popover({
                     'html': true,
-                    'placement' : App.isRTL() ? 'left' : 'right',
+                    'placement': App.isRTL() ? 'left' : 'right',
                     'title': 'Username Availability',
                     'content': res.message,
                 });
@@ -706,7 +871,7 @@ var FormComponents = function () {
                 // change popover font color based on the result
                 if (res.status == 'OK') {
                     input.closest('.control-group').removeClass('error').addClass('success');
-                    input.after('<span class="help-inline ok"></span>');                    
+                    input.after('<span class="help-inline ok"></span>');
                 } else {
                     input.closest('.control-group').removeClass('success').addClass('error');
                     $('.help-inline.ok', input.closest('.control-group')).remove();
@@ -719,7 +884,7 @@ var FormComponents = function () {
 
             }, 'json');
 
-        });        
+        });
     }
 
     return {
@@ -737,7 +902,6 @@ var FormComponents = function () {
             handleSelect2();
             handleSelect2Modal();
             handleInputMasks();
-            handleIPAddressInput();
             handleMultiSelect();
             handlePasswordStrengthChecker();
             handleUsernameAvailabilityChecker1();

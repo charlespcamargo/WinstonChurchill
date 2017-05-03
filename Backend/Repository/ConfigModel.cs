@@ -1,4 +1,4 @@
-﻿using WinstonChurchill.Backend.Models;
+﻿using WinstonChurchill.Backend.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -62,7 +62,9 @@ namespace WinstonChurchill.Backend.Repository
             var builder = new System.Data.Entity.DbModelBuilder();
 
             builder.Configurations.Add(new EntityTypeConfiguration<Usuario>());
-         
+            builder.Configurations.Add(new EntityTypeConfiguration<GrupoUsuario>());
+            builder.Configurations.Add(new EntityTypeConfiguration<UsuarioXGrupoUsuario>());
+
             return builder;
         }
 

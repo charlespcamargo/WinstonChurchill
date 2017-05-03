@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UI</RootNamespace>
-    <AssemblyName>UI</AssemblyName>
+    <RootNamespace>WinstonChurchill.UI</RootNamespace>
+    <AssemblyName>WinstonChurchill.UI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -66,6 +66,223 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\plugins\bootstrap-confirmation.js" />
+    <Content Include="assets\plugins\chosen\chosen-sprite%402x.png" />
+    <Content Include="assets\plugins\chosen\chosen-sprite.png" />
+    <Content Include="assets\plugins\chosen\chosen.css" />
+    <Content Include="assets\plugins\chosen\chosen.jquery.js" />
+    <Content Include="assets\plugins\chosen\chosen.jquery.min.js" />
+    <Content Include="assets\plugins\chosen\chosen.min.css" />
+    <Content Include="assets\plugins\chosen\chosen.proto.js" />
+    <Content Include="assets\plugins\chosen\chosen.proto.min.js" />
+    <Content Include="assets\plugins\chosen\docsupport\chosen.png" />
+    <Content Include="assets\plugins\chosen\docsupport\oss-credit.png" />
+    <Content Include="assets\plugins\chosen\docsupport\prism.css" />
+    <Content Include="assets\plugins\chosen\docsupport\prism.js" />
+    <Content Include="assets\plugins\chosen\docsupport\style.css" />
+    <Content Include="assets\plugins\chosen\index.html" />
+    <Content Include="assets\plugins\chosen\index.proto.html" />
+    <Content Include="assets\plugins\chosen\options.html" />
+    <Content Include="assets\plugins\handsontable\dist\handsontable.css" />
+    <Content Include="assets\plugins\handsontable\dist\handsontable.full.css" />
+    <Content Include="assets\plugins\handsontable\dist\handsontable.full.js" />
+    <Content Include="assets\plugins\handsontable\dist\handsontable.full.min.css" />
+    <Content Include="assets\plugins\handsontable\dist\handsontable.full.min.js" />
+    <Content Include="assets\plugins\handsontable\dist\handsontable.js" />
+    <Content Include="assets\plugins\handsontable\dist\handsontable.min.css" />
+    <Content Include="assets\plugins\handsontable\dist\handsontable.min.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\af.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ar-ma.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ar-sa.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ar-tn.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ar.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\az.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\be.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\bg.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\bn.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\bo.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\br.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\bs.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ca.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\cs.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\cv.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\cy.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\da.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\de-at.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\de.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\el.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\en-au.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\en-ca.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\en-gb.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\eo.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\es.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\et.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\eu.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\fa.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\fi.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\fo.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\fr-ca.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\fr.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\fy.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\gl.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\he.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\hi.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\hr.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\hu.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\hy-am.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\id.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\is.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\it.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ja.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\jv.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ka.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\km.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ko.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\lb.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\lt.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\lv.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\me.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\mk.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ml.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\mr.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ms-my.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ms.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\my.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\nb.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ne.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\nl.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\nn.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\pl.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\pt-br.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\pt.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ro.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\ru.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\si.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\sk.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\sl.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\sq.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\sr-cyrl.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\sr.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\sv.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\th.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\tl-ph.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\tr.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\tzl.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\tzm-latn.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\tzm.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\uk.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\uz.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\vi.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\zh-cn.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\locale\zh-tw.js" />
+    <Content Include="assets\plugins\handsontable\dist\moment\moment.js" />
+    <Content Include="assets\plugins\handsontable\dist\pikaday\pikaday.css" />
+    <Content Include="assets\plugins\handsontable\dist\pikaday\pikaday.js" />
+    <Content Include="assets\plugins\handsontable\dist\zeroclipboard\ZeroClipboard.js" />
+    <Content Include="assets\plugins\handsontable\dist\zeroclipboard\ZeroClipboard.swf" />
+    <Content Include="assets\plugins\highcharts\adapters\standalone-framework.js" />
+    <Content Include="assets\plugins\highcharts\adapters\standalone-framework.src.js" />
+    <Content Include="assets\plugins\highcharts\highcharts-3d.js" />
+    <Content Include="assets\plugins\highcharts\highcharts-3d.src.js" />
+    <Content Include="assets\plugins\highcharts\highcharts-all.js" />
+    <Content Include="assets\plugins\highcharts\highcharts-more.js" />
+    <Content Include="assets\plugins\highcharts\highcharts-more.src.js" />
+    <Content Include="assets\plugins\highcharts\highcharts.js" />
+    <Content Include="assets\plugins\highcharts\highcharts.src.js" />
+    <Content Include="assets\plugins\highcharts\modules\canvas-tools.js" />
+    <Content Include="assets\plugins\highcharts\modules\canvas-tools.src.js" />
+    <Content Include="assets\plugins\highcharts\modules\data.js" />
+    <Content Include="assets\plugins\highcharts\modules\data.src.js" />
+    <Content Include="assets\plugins\highcharts\modules\drilldown.js" />
+    <Content Include="assets\plugins\highcharts\modules\drilldown.src.js" />
+    <Content Include="assets\plugins\highcharts\modules\exporting.js" />
+    <Content Include="assets\plugins\highcharts\modules\exporting.src.js" />
+    <Content Include="assets\plugins\highcharts\modules\funnel.js" />
+    <Content Include="assets\plugins\highcharts\modules\funnel.src.js" />
+    <Content Include="assets\plugins\highcharts\modules\heatmap.js" />
+    <Content Include="assets\plugins\highcharts\modules\heatmap.src.js" />
+    <Content Include="assets\plugins\highcharts\modules\no-data-to-display.js" />
+    <Content Include="assets\plugins\highcharts\modules\no-data-to-display.src.js" />
+    <Content Include="assets\plugins\highcharts\modules\solid-gauge.js" />
+    <Content Include="assets\plugins\highcharts\modules\solid-gauge.src.js" />
+    <Content Include="assets\plugins\highcharts\themes\dark-blue.js" />
+    <Content Include="assets\plugins\highcharts\themes\dark-green.js" />
+    <Content Include="assets\plugins\highcharts\themes\dark-unica.js" />
+    <Content Include="assets\plugins\highcharts\themes\gray.js" />
+    <Content Include="assets\plugins\highcharts\themes\grid-light.js" />
+    <Content Include="assets\plugins\highcharts\themes\grid.js" />
+    <Content Include="assets\plugins\highcharts\themes\sand-signika.js" />
+    <Content Include="assets\plugins\highcharts\themes\skies.js" />
+    <Content Include="assets\plugins\highmaps\br-all.js" />
+    <Content Include="assets\plugins\highmaps\data.js" />
+    <Content Include="assets\plugins\highmaps\highmaps.js" />
+    <Content Include="assets\plugins\highmaps\map.js" />
+    <Content Include="assets\plugins\jOrgChart\css\custom.css" />
+    <Content Include="assets\plugins\jOrgChart\css\jquery.jOrgChart.css" />
+    <Content Include="assets\plugins\jOrgChart\css\prettify.css" />
+    <Content Include="assets\plugins\jOrgChart\d3.min.js" />
+    <Content Include="assets\plugins\jOrgChart\jquery.jOrgChart.js" />
+    <Content Include="assets\plugins\jOrgChart\prettify.js" />
+    <Content Include="assets\plugins\jquery-loadTemplate\jquery.loadTemplate-1.4.3.js" />
+    <Content Include="assets\plugins\jquery-loadTemplate\jquery.loadTemplate-1.4.3.min.js" />
+    <Content Include="assets\plugins\jquery-loadTemplate\jquery.tmpl.js" />
+    <Content Include="assets\plugins\maskmoney\maskMoney.js" />
+    <Content Include="assets\plugins\modal.js" />
+    <Content Include="assets\plugins\multiselect-master\css\style.css" />
+    <Content Include="assets\plugins\multiselect-master\index.html" />
+    <Content Include="assets\plugins\multiselect-master\js\multiselect.js" />
+    <Content Include="assets\plugins\multiselect-master\js\multiselect.min.js" />
+    <Content Include="assets\plugins\multiselect-master\lib\google-code-prettify\prettify.css" />
+    <Content Include="assets\plugins\raty\img\black\star-half.png" />
+    <Content Include="assets\plugins\raty\img\black\star-off.png" />
+    <Content Include="assets\plugins\raty\img\black\star-on.png" />
+    <Content Include="assets\plugins\raty\img\cancel-off.png" />
+    <Content Include="assets\plugins\raty\img\cancel-on.png" />
+    <Content Include="assets\plugins\raty\img\default\star-half.png" />
+    <Content Include="assets\plugins\raty\img\default\star-off.png" />
+    <Content Include="assets\plugins\raty\img\default\star-on.png" />
+    <Content Include="assets\plugins\raty\jquery.raty.js" />
+    <Content Include="assets\plugins\raty\jquery.raty.min.js" />
+    <Content Include="assets\plugins\uploadify\Change Log.txt" />
+    <Content Include="assets\plugins\uploadify\check-exists.php" />
+    <Content Include="assets\plugins\uploadify\index.php" />
+    <Content Include="assets\plugins\uploadify\jquery.uploadifive.js" />
+    <Content Include="assets\plugins\uploadify\jquery.uploadifive.min.js" />
+    <Content Include="assets\plugins\uploadify\jquery.uploadify.js" />
+    <Content Include="assets\plugins\uploadify\jquery.uploadify.min.js" />
+    <Content Include="assets\plugins\uploadify\license.txt" />
+    <Content Include="assets\plugins\uploadify\uploadifive-cancel.png" />
+    <Content Include="assets\plugins\uploadify\uploadifive.css" />
+    <Content Include="assets\plugins\uploadify\uploadify-cancel.png" />
+    <Content Include="assets\plugins\uploadify\uploadify.css" />
+    <Content Include="assets\plugins\uploadify\uploadify.php" />
+    <Content Include="assets\plugins\uploadify\uploadify.swf" />
+    <Content Include="assets\scripts\bootstrap.min.js" />
+    <Content Include="assets\scripts\funcoes\combos.js" />
+    <Content Include="assets\scripts\funcoes\extensoes.js" />
+    <Content Include="assets\scripts\HelperJS.js" />
+    <Content Include="assets\scripts\jquery-3.1.1.min.js" />
+    <Content Include="assets\scripts\jquery.fileDownload.js" />
+    <Content Include="assets\scripts\jquery.min.js" />
+    <Content Include="assets\scripts\jquery.xdomainrequest.min.js" />
+    <Content Include="assets\scripts\Mensagem.js" />
+    <Content Include="assets\scripts\table-fnReloadAjax.js" />
+    <Content Include="assets\scripts\tableHeadFixer.js" />
+    <Content Include="controls\menu.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="controls\ucMenu.js" />
+    <Content Include="Login.aspx" />
+    <Content Include="pages\Comprador.aspx" />
+    <Content Include="pages\exemplo.js" />
+    <Content Include="pages\Fornecedor.aspx" />
+    <Content Include="pages\Grupo.aspx" />
+    <Content Include="pages\leilao.js" />
+    <Content Include="pages\parametrizacao.js" />
+    <Content Include="pages\Produto.aspx" />
+    <Content Include="pages\usuario.js" />
+    <Content Include="pages\dashboard.js" />
+    <Content Include="pages\Leilao.aspx" />
     <Content Include="packages.config" />
     <Content Include="assets\fonts\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
     <Content Include="assets\fonts\DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff" />
@@ -262,7 +479,16 @@
     <Content Include="assets\plugins\select2\select2_locale_en.js.template" />
     <Content Include="assets\plugins\uniform\css\uniform.default.scss" />
     <Content Include="assets\plugins\uniform\README.textile" />
-    <Content Include="MasterDefault.Master" />
+    <Content Include="pages\MasterDefault.Master" />
+    <Content Include="assets\plugins\handsontable\dist\moment\LICENSE" />
+    <Content Include="assets\plugins\handsontable\dist\pikaday\LICENSE" />
+    <Content Include="assets\plugins\handsontable\dist\README.md" />
+    <Content Include="assets\plugins\handsontable\dist\zeroclipboard\LICENSE" />
+    <Content Include="assets\plugins\multiselect-master\bower.json" />
+    <Content Include="assets\plugins\multiselect-master\LICENSE" />
+    <Content Include="assets\plugins\multiselect-master\package.json" />
+    <Content Include="assets\plugins\multiselect-master\README.md" />
+    <Content Include="assets\plugins\jOrgChart\flare.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1976,7 +2202,7 @@
     <Content Include="assets\scripts\ui-tree.js" />
     <Content Include="controls\ucMenu.ascx" />
     <Content Include="controls\ucTopo.ascx" />
-    <Content Include="Exemplo.aspx" />
+    <Content Include="pages\Exemplo.aspx" />
     <Content Include="htmls\charts.html" />
     <Content Include="htmls\email1.html" />
     <Content Include="htmls\email2.html" />
@@ -2058,9 +2284,13 @@
     <Content Include="htmls\ui_tree.html" />
     <Content Include="htmls\ui_typography.html" />
     <Content Include="icones.html" />
+    <Content Include="pages\Dashboard.aspx" />
+    <Content Include="pages\Parametrizacao.aspx" />
+    <Content Include="pages\Usuario.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="classes\Configuracao.cs" />
     <Compile Include="controls\ucMenu.ascx.cs">
       <DependentUpon>ucMenu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2075,21 +2305,84 @@
     <Compile Include="controls\ucTopo.ascx.designer.cs">
       <DependentUpon>ucTopo.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Exemplo.aspx.cs">
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Comprador.aspx.cs">
+      <DependentUpon>Comprador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Comprador.aspx.designer.cs">
+      <DependentUpon>Comprador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Fornecedor.aspx.cs">
+      <DependentUpon>Fornecedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Fornecedor.aspx.designer.cs">
+      <DependentUpon>Fornecedor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Grupo.aspx.cs">
+      <DependentUpon>Grupo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Grupo.aspx.designer.cs">
+      <DependentUpon>Grupo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Leilao.aspx.cs">
+      <DependentUpon>Leilao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Leilao.aspx.designer.cs">
+      <DependentUpon>Leilao.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Exemplo.aspx.cs">
       <DependentUpon>Exemplo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Exemplo.aspx.designer.cs">
+    <Compile Include="pages\Exemplo.aspx.designer.cs">
       <DependentUpon>Exemplo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MasterDefault.Master.cs">
+    <Compile Include="pages\MasterDefault.Master.cs">
       <DependentUpon>MasterDefault.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MasterDefault.Master.designer.cs">
+    <Compile Include="pages\MasterDefault.Master.designer.cs">
       <DependentUpon>MasterDefault.Master</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Parametrizacao.aspx.cs">
+      <DependentUpon>Parametrizacao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Parametrizacao.aspx.designer.cs">
+      <DependentUpon>Parametrizacao.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Produto.aspx.cs">
+      <DependentUpon>Produto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Produto.aspx.designer.cs">
+      <DependentUpon>Produto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="pages\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Usuario.aspx.cs">
+      <DependentUpon>Usuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Usuario.aspx.designer.cs">
+      <DependentUpon>Usuario.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\plugins\jquery-file-upload\server\php\files\thumbnail\" />

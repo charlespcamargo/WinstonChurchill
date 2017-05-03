@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>API</RootNamespace>
-    <AssemblyName>API</AssemblyName>
+    <RootNamespace>WinstonChurchill.API</RootNamespace>
+    <AssemblyName>WinstonChurchill.API</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -114,6 +114,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\API.Commom\WinstonChurchill.API.Common.csproj">
+      <Project>{30A8DD59-9C44-4D2B-AD76-CF64EA08FB1A}</Project>
+      <Name>WinstonChurchill.API.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Backend\WinstonChurchill.Backend.csproj">
       <Project>{488f62e7-2b52-4ec6-a148-d71a4dead421}</Project>
       <Name>WinstonChurchill.Backend</Name>

@@ -1,6 +1,6 @@
-G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\IHARA.WebApi.Common.dll.config
-G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\IHARA.WebApi.Common.dll
-G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\IHARA.WebApi.Common.pdb
+G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\WinstonChurchill.API.Common.dll.config
+G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\WinstonChurchill.API.Common.dll
+G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\WinstonChurchill.API.Common.pdb
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\EPPlus.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\Ionic.Zip.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\itextsharp.dll
@@ -17,5 +17,5 @@ G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\System.Web.Http.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\System.Web.Http.WebHost.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\Microsoft.Web.Infrastructure.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.csprojResolveAssemblyReference.cache
-G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Debug\IHARA.WebApi.Common.dll
-G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Debug\IHARA.WebApi.Common.pdb
+G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.dll
+G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.pdb

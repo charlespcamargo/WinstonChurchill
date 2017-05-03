@@ -1,4 +1,4 @@
-﻿using WinstonChurchill.Backend.Models;
+﻿using WinstonChurchill.Backend.Model;
 using WinstonChurchill.Backend.Repository;
 using WinstonChurchill.Backend.Utils;
 using System;
@@ -32,21 +32,22 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public BootgridResponseData<Usuario> Listar(int current, int rowCount, string busca)
+        public DataTableResponseData<Usuario> Listar(int current, int rowCount, string busca)
         {
             current = (current == 0 ? 1 : current);
             rowCount = (rowCount == 0 ? 10 : rowCount);
 
             MontarFiltro(busca);
 
-            BootgridResponseData<Usuario> dataSource = new BootgridResponseData<Usuario>();
+            DataTableResponseData<Usuario> dataSource = new DataTableResponseData<Usuario>();
 
             using (UnitOfWork uow = new UnitOfWork())
             {
-                dataSource.current = current;
-                dataSource.rowCount = rowCount;
-                dataSource.rows = uow.UsuarioRepository.Listar(predicate).Skip((current - 1) * rowCount).Take(rowCount).ToList();
-                dataSource.total = uow.UsuarioRepository.Contar(predicate);
+                dataSource.draw = 1;
+                dataSource.start = current;
+                dataSource.length = rowCount;
+                dataSource.data = uow.UsuarioRepository.Listar(predicate).Skip((current - 1) * rowCount).Take(rowCount).ToList();
+                dataSource.recordsTotal = uow.UsuarioRepository.Contar(predicate);
             }
 
             return dataSource;

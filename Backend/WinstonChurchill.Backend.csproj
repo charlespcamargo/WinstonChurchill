@@ -7,8 +7,8 @@
     <ProjectGuid>{488F62E7-2B52-4EC6-A148-D71A4DEAD421}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Backend</RootNamespace>
-    <AssemblyName>Backend</AssemblyName>
+    <RootNamespace>WinstonChurchill.Backend</RootNamespace>
+    <AssemblyName>WinstonChurchill.Backend</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,6 +46,7 @@
       <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -61,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\UsuarioBusiness.cs" />
+    <Compile Include="Model\GrupoUsuario.cs" />
     <Compile Include="Model\Usuario.cs" />
+    <Compile Include="Model\UsuarioXGrupoUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\ConfigModel.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Repository\UnitOfWorkBase.cs" />
     <Compile Include="Repository\UtilEntity.cs" />
     <Compile Include="Utils\BootgridResponseData.cs" />
+    <Compile Include="Utils\DataTableResponseData.cs" />
     <Compile Include="Utils\SortData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +81,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\API.Commom\WinstonChurchill.API.Common.csproj">
+      <Project>{30A8DD59-9C44-4D2B-AD76-CF64EA08FB1A}</Project>
+      <Name>WinstonChurchill.API.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

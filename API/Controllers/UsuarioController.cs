@@ -1,29 +1,30 @@
-﻿using WinstonChurchill.Backend.Repository;
-using WinstonChurchill.Backend.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WinstonChurchill.Backend.Utils;
 using WinstonChurchill.Backend.Business;
+using WinstonChurchill.Backend.Repository;
+using WinstonChurchill.API.Common.Util.Captcha;
+using WinstonChurchill.Backend.Model;
+using WinstonChurchill.Backend.Utils;
 
 namespace WinstonChurchill.API.Controllers
 {
     [RoutePrefix("usuario")]
     public class UsuarioController : ApiController
     {
-        [HttpGet, Route("listar")]
-        public HttpResponseMessage Listar()
+        [HttpPost , Route("listar")]
+        public HttpResponseMessage Listar([FromBody] Array parametros)
         {
             try
             {
-                int current = Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "current").FirstOrDefault().Value);
-                int rowCount = Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "rowCount").FirstOrDefault().Value);
-                string busca = Request.GetQueryNameValuePairs().Where(c => c.Key == "searchPhrase").FirstOrDefault().Value;
+                int current = 0;/*Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "current").FirstOrDefault().Value);*/
+                int rowCount = 0;/*Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "rowCount").FirstOrDefault().Value);*/
+                string busca = "";/*Request.GetQueryNameValuePairs().Where(c => c.Key == "searchPhrase").FirstOrDefault().Value;*/
 
-                BootgridResponseData<Usuario> dataSource = UsuarioBusiness.New.Listar(current, rowCount, busca);
+                DataTableResponseData<Usuario> dataSource = UsuarioBusiness.New.Listar(current, rowCount, busca);
 
                 return Request.CreateResponse(HttpStatusCode.OK, dataSource);
             }
@@ -94,6 +95,9 @@ namespace WinstonChurchill.API.Controllers
             {
                 using (UnitOfWork uow = new UnitOfWork())
                 {
+                    string senha = Encrypting.sha512encrypt("");
+
+
                     if (talento.ID == 0)
                         uow.UsuarioRepository.Inserir(talento);
                     else

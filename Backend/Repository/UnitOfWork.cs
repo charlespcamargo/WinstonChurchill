@@ -1,4 +1,4 @@
-﻿using WinstonChurchill.Backend.Models;
+﻿using WinstonChurchill.Backend.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,32 @@ namespace WinstonChurchill.Backend.Repository
                 return usuarioRepository;
             }
         }
-           
+
+        private BaseRepository<UsuarioXGrupoUsuario> usuarioXGrupoUsuarioRepository;
+        public BaseRepository<UsuarioXGrupoUsuario> UsuarioXGrupoUsuarioRepository
+        {
+            get
+            {
+                if (this.usuarioXGrupoUsuarioRepository == null)
+                {
+                    this.usuarioXGrupoUsuarioRepository = new BaseRepository<UsuarioXGrupoUsuario>(context);
+                }
+                return usuarioXGrupoUsuarioRepository;
+            }
+        }
+
+        private BaseRepository<GrupoUsuario> grupoUsuarioRepository;
+        public BaseRepository<GrupoUsuario> GrupoUsuarioRepository
+        {
+            get
+            {
+                if (this.grupoUsuarioRepository == null)
+                {
+                    this.grupoUsuarioRepository = new BaseRepository<GrupoUsuario>(context);
+                }
+                return grupoUsuarioRepository;
+            }
+        }
 
     }
 }

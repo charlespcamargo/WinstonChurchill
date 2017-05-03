@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace WinstonChurchill.API.Common.Util.Captcha
 {
@@ -70,6 +71,43 @@ namespace WinstonChurchill.API.Common.Util.Captcha
             // Convert the plaintext stream to a string. 
             return System.Text.Encoding.Unicode.GetString(ms.ToArray());
         }
+
+
+        public static string sha256encrypt(string plaintext)
+        {
+            UTF8Encoding encoder = new UTF8Encoding();
+            SHA256Managed sha256hasher = new SHA256Managed();
+            byte[] hashedDataBytes = sha256hasher.ComputeHash(encoder.GetBytes(plaintext));
+            return byteArrayToString(hashedDataBytes);
+        }
+
+        public static string sha384encrypt(string frase)
+        {
+            UTF8Encoding encoder = new UTF8Encoding();
+            SHA384Managed sha384hasher = new SHA384Managed();
+            byte[] hashedDataBytes = sha384hasher.ComputeHash(encoder.GetBytes(frase));
+            return byteArrayToString(hashedDataBytes);
+        }
+
+        public static string sha512encrypt(string frase)
+        {
+            UTF8Encoding encoder = new UTF8Encoding();
+            SHA512Managed sha512hasher = new SHA512Managed();
+            byte[] hashedDataBytes = sha512hasher.ComputeHash(encoder.GetBytes(frase));
+            return byteArrayToString(hashedDataBytes);
+        }
+
+        public static string byteArrayToString(byte[] inputArray)
+        {
+            StringBuilder output = new StringBuilder("");
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                output.Append(inputArray[i].ToString("X2"));
+            }
+            return output.ToString();
+        }
+
+
     }
 }
 
