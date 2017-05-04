@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\CaracteristicasProdutoBusiness.cs" />
     <Compile Include="Business\CategoriaBusiness.cs" />
     <Compile Include="Business\ProdutoBusiness.cs" />
     <Compile Include="Business\UsuarioBusiness.cs" />

@@ -282,6 +282,7 @@
     <Content Include="pages\leilao.js" />
     <Content Include="pages\parametrizacao.js" />
     <Content Include="pages\Produto.aspx" />
+    <Content Include="pages\produto.js" />
     <Content Include="pages\usuario.js" />
     <Content Include="pages\dashboard.js" />
     <Content Include="pages\Leilao.aspx" />

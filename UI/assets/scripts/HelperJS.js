@@ -417,6 +417,7 @@ var HelperJS = function () {
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (resultado) {
+                            debugger;
                             return fnCallback($.parseJSON(resultado.data));
 
                             //console.log(resultado);
@@ -435,8 +436,8 @@ var HelperJS = function () {
                     });
                 },
                 "fnServerParams": function (aoData) {
-                    for (var i = 0; i < param.length; i++) {
-                        aoData.push(param[i]);
+                    for (var i = 0; i < objPost.length; i++) {
+                        aoData.push(objPost[i]);
                     }
 
                 },
