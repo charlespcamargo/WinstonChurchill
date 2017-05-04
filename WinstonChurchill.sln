@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinstonChurchill.API", "API
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinstonChurchill.API.Common", "API.Commom\WinstonChurchill.API.Common.csproj", "{30A8DD59-9C44-4D2B-AD76-CF64EA08FB1A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEnd", "BackEnd", "{B84AAF84-B759-498D-8B4E-851217E4C189}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{875A90EF-E478-4C7A-BE66-EC04FC1A5A37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinstonChurchill.BackEnd.Test", "WinstonChurchill.BackEnd.Test\WinstonChurchill.BackEnd.Test.csproj", "{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,8 +48,21 @@ Global
 		{30A8DD59-9C44-4D2B-AD76-CF64EA08FB1A}.LocalOffLine|Any CPU.Build.0 = LocalOffLine|Any CPU
 		{30A8DD59-9C44-4D2B-AD76-CF64EA08FB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30A8DD59-9C44-4D2B-AD76-CF64EA08FB1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}.LocalOffLine|Any CPU.ActiveCfg = Release|Any CPU
+		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}.LocalOffLine|Any CPU.Build.0 = Release|Any CPU
+		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1D9F4258-6470-4B1A-91F6-124DE7E7DEC4} = {875A90EF-E478-4C7A-BE66-EC04FC1A5A37}
+		{488F62E7-2B52-4EC6-A148-D71A4DEAD421} = {B84AAF84-B759-498D-8B4E-851217E4C189}
+		{B98613CA-646B-47E6-A707-2812D0408000} = {B84AAF84-B759-498D-8B4E-851217E4C189}
+		{30A8DD59-9C44-4D2B-AD76-CF64EA08FB1A} = {B84AAF84-B759-498D-8B4E-851217E4C189}
+		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B} = {B84AAF84-B759-498D-8B4E-851217E4C189}
 	EndGlobalSection
 EndGlobal

@@ -7,20 +7,20 @@ namespace WinstonChurchill.Backend.Model
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("ID")]
-        public decimal ID { get; set; }
+        public int ID { get; set; }
 
 
         #region ForeignKeys
 
         [Column("CategoriaID")]
-        public decimal CategoriaID { get; set; }
+        public int CategoriaID { get; set; }
 
         [ForeignKey("CategoriaID")]
-        public CategoriaProdutos Categoria { get; set; }
+        public Categorias Categoria { get; set; }
 
 
         [Column("ImagemID")]
-        public decimal ImagemID { get; set; }
+        public int ImagemID { get; set; }
 
         [ForeignKey("ImagemID")]
         public Imagem Imagem { get; set; }

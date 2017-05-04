@@ -62,8 +62,16 @@ namespace WinstonChurchill.Backend.Repository
             var builder = new System.Data.Entity.DbModelBuilder();
 
             builder.Configurations.Add(new EntityTypeConfiguration<Usuario>());
-            builder.Configurations.Add(new EntityTypeConfiguration<GrupoUsuario>());
-            builder.Configurations.Add(new EntityTypeConfiguration<UsuarioXGrupoUsuario>());
+            //builder.Configurations.Add(new EntityTypeConfiguration<GrupoUsuario>());
+            //builder.Configurations.Add(new EntityTypeConfiguration<UsuarioXGrupoUsuario>());
+
+            builder.Configurations.Add(new EntityTypeConfiguration<Produtos>());
+            builder.Configurations.Add(new EntityTypeConfiguration<Categorias>());
+            builder.Configurations.Add(new EntityTypeConfiguration<CategoriasProdutos>());
+            builder.Configurations.Add(new EntityTypeConfiguration<CategoriaImagens>());
+            builder.Configurations.Add(new EntityTypeConfiguration<ProdutosImagens>());
+            builder.Configurations.Add(new EntityTypeConfiguration<Imagem>());
+            builder.Configurations.Add(new EntityTypeConfiguration<CaracteristicasProduto>());
 
             return builder;
         }

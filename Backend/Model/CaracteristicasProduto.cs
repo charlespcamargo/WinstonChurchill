@@ -12,7 +12,7 @@ namespace WinstonChurchill.Backend.Model
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("ID")]
-        public decimal ID { get; set; }
+        public int ID { get; set; }
 
         [Column("Nome"), StringLength(50)]
         [Required(ErrorMessage = "Nome é obrigatório")]
@@ -22,7 +22,7 @@ namespace WinstonChurchill.Backend.Model
         #region ForeignKeys
 
         [Column("ProdutoID")]
-        public decimal ProdutoID { get; set; }
+        public int ProdutoID { get; set; }
 
         [ForeignKey("ProdutoID")]
         public Produtos Produtos { get; set; }

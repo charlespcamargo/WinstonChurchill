@@ -48,5 +48,98 @@ namespace WinstonChurchill.Backend.Repository
             }
         }
 
+
+        private BaseRepository<Categorias> categoriaRepository;
+        public BaseRepository<Categorias> CategoriaRepository
+        {
+            get
+            {
+                if (this.categoriaRepository == null)
+                {
+                    this.categoriaRepository = new BaseRepository<Categorias>(context);
+                }
+                return categoriaRepository;
+            }
+        }
+
+
+        private BaseRepository<CategoriasProdutos> categoriaProdutosRepository;
+        public BaseRepository<CategoriasProdutos> CategoriaProdutosRepository
+        {
+            get
+            {
+                if (this.categoriaProdutosRepository == null)
+                {
+                    this.categoriaProdutosRepository = new BaseRepository<CategoriasProdutos>(context);
+                }
+                return categoriaProdutosRepository;
+            }
+        }
+
+        private BaseRepository<CategoriaImagens> categoriaImagensRepository;
+        public BaseRepository<CategoriaImagens> CategoriaImagensRepository
+        {
+            get
+            {
+                if (this.categoriaImagensRepository == null)
+                {
+                    this.categoriaImagensRepository = new BaseRepository<CategoriaImagens>(context);
+                }
+                return categoriaImagensRepository;
+            }
+        }
+
+        private BaseRepository<Produtos> produtosRepository;
+        public BaseRepository<Produtos> ProdutosRepository
+        {
+            get
+            {
+                if (this.produtosRepository == null)
+                {
+                    this.produtosRepository = new BaseRepository<Produtos>(context);
+                }
+                return produtosRepository;
+            }
+        }
+
+
+        private BaseRepository<ProdutosImagens> produtoImagensRepository;
+        public BaseRepository<ProdutosImagens> ProdutoImagensRepository
+        {
+            get
+            {
+                if (this.produtoImagensRepository == null)
+                {
+                    this.produtoImagensRepository = new BaseRepository<ProdutosImagens>(context);
+                }
+                return produtoImagensRepository;
+            }
+        }
+
+        private BaseRepository<CaracteristicasProduto> caracteristicasProdutoRepository;
+        public BaseRepository<CaracteristicasProduto> CaracteristicasProdutoRepository
+        {
+            get
+            {
+                if (this.caracteristicasProdutoRepository == null)
+                {
+                    this.caracteristicasProdutoRepository = new BaseRepository<CaracteristicasProduto>(context);
+                }
+                return caracteristicasProdutoRepository;
+            }
+        }
+
+        private BaseRepository<Imagem> imagemRepository;
+        public BaseRepository<Imagem> ImagemRepository
+        {
+            get
+            {
+                if (this.imagemRepository == null)
+                {
+                    this.imagemRepository = new BaseRepository<Imagem>(context);
+                }
+                return imagemRepository;
+            }
+        }
     }
 }

@@ -53,6 +53,17 @@ namespace WinstonChurchill.Backend.Business
             return dataSource;
         }
 
+        public Usuario Carregar(int id) {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                Usuario usuario = uow.UsuarioRepository.Carregar(p => p.ID == id, ord=>ord.OrderBy(p=>p.ID));
+                if (usuario == null)
+                    throw new ArgumentException("Usuário não encontrado!");
+
+                return usuario;
+            }
+        }
+
         public void Excluir(int id)
         {
             Usuario talento = new Usuario();

@@ -61,13 +61,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\CategoriaBusiness.cs" />
+    <Compile Include="Business\ProdutoBusiness.cs" />
     <Compile Include="Business\UsuarioBusiness.cs" />
     <Compile Include="Model\CaracteristicasProduto.cs" />
     <Compile Include="Model\CategoriaImagens.cs" />
-    <Compile Include="Model\CategoriaProdutos.cs" />
+    <Compile Include="Model\Categorias.cs" />
+    <Compile Include="Model\CategoriasProdutos.cs" />
     <Compile Include="Model\GrupoUsuario.cs" />
     <Compile Include="Model\Imagem.cs" />
-    <Compile Include="Model\ProdutoImagens.cs" />
+    <Compile Include="Model\ProdutosImagens.cs" />
     <Compile Include="Model\Produtos.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Model\UsuarioXGrupoUsuario.cs" />
