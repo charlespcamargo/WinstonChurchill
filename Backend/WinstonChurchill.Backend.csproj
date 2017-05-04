@@ -62,7 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\UsuarioBusiness.cs" />
+    <Compile Include="Model\CaracteristicasProduto.cs" />
+    <Compile Include="Model\CategoriaImagens.cs" />
+    <Compile Include="Model\CategoriaProdutos.cs" />
     <Compile Include="Model\GrupoUsuario.cs" />
+    <Compile Include="Model\Imagem.cs" />
+    <Compile Include="Model\ProdutoImagens.cs" />
+    <Compile Include="Model\Produtos.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Model\UsuarioXGrupoUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

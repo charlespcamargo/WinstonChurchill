@@ -273,6 +273,8 @@
     </Content>
     <Content Include="controls\ucMenu.js" />
     <Content Include="Login.aspx" />
+    <Content Include="pages\Categoria.aspx" />
+    <Content Include="pages\categoria.js" />
     <Content Include="pages\Comprador.aspx" />
     <Content Include="pages\exemplo.js" />
     <Content Include="pages\Fornecedor.aspx" />
@@ -2311,6 +2313,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Categoria.aspx.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Categoria.aspx.designer.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\Comprador.aspx.cs">
       <DependentUpon>Comprador.aspx</DependentUpon>
