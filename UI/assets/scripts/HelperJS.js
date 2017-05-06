@@ -30,7 +30,7 @@ var HelperJS = function () {
             else {
                 apiUrl = $(APIs.API.IDHiddenField).val();
             }
-            
+
             return apiUrl != undefined ? apiUrl : "";
         },
 
@@ -53,16 +53,13 @@ var HelperJS = function () {
             });
         },
 
-        callApi: function (api, url, type, dataSend, functionOnSucess, functionOnError) {
-
-
+        callApi: function (_oSettings) {
             if (App.isIE8() || App.isIE9()) {
-                HelperJS.callApiIE(api, url, type, dataSend, functionOnSucess, functionOnError);
+                HelperJS.callApiIE( _oSettings.url, _oSettings.type, _oSettings.data, _oSettings.functionOnSucess, _oSettings.functionOnError);
             }
             else {
-                HelperJS.callApiGoodBrowser(api, url, type, dataSend, functionOnSucess, functionOnError);
+                HelperJS.callApiGoodBrowser(_oSettings.url, _oSettings.type, _oSettings.data, _oSettings.functionOnSucess, _oSettings.functionOnError);
             }
-
         },
         simpleRequest: function (url, method, data, functionOnSucess, functionOnError) {
 
@@ -98,7 +95,7 @@ var HelperJS = function () {
 
         },
 
-        callApiGoodBrowser: function (api, url, type, dataSend, functionOnSucess, functionOnError) {
+        callApiGoodBrowser: function (url, type, dataSend, functionOnSucess, functionOnError) {
 
             // fixbug
             if (dataSend != undefined && dataSend != null && ($.isArray(dataSend) || typeof dataSend != 'object')) {
@@ -108,7 +105,7 @@ var HelperJS = function () {
             $.ajax({
                 global: true,
                 type: type,
-                url: HelperJS.getURLApi(url, api),
+                url: HelperJS.getURLApi(url),
                 cache: false,
                 data: dataSend,
                 success: function (data) {
@@ -142,9 +139,9 @@ var HelperJS = function () {
             });
         },
 
-        getURLApi: function (url, api) {
+        getURLApi: function (url) {
 
-            var baseURL = HelperJS.getBaseURL(api);
+            var baseURL = HelperJS.getBaseURL(API);
 
             if (App.isIE8() || App.isIE9()) {
                 var urlProxy = "/proxy.ashx?tipo=GET&api=" + baseURL + "&url=" + url;
@@ -172,7 +169,7 @@ var HelperJS = function () {
 
             if (jqXHR != null) {
                 if (jqXHR.status == 405) {//Erro de validação
-                    $('*[dataFieldUFSCar]').each(function () { $(this).removeClass("required"); });
+                    $('*[data-json]').each(function () { $(this).removeClass("required"); });
                     var titulo = "Atenção";
                     var texto = "";
                     for (var i = 0; i < jqXHR.responseJSON.length; i++) {
@@ -286,260 +283,13 @@ var HelperJS = function () {
         },
 
         pintaValidacoes: function (idControle) {
-            $('*[dataFieldUFSCar]').each(function () {
-                if (idControle == $(this).attr("dataFieldUFSCar"))
+            $('*[data-json]').each(function () {
+                if (idControle == $(this).attr("data-json"))
                     $(this).addClass("required");
             });
         },
 
-        dataTableResult: function (ID, columns, sorter, data, bPaginate, bSort, fnDrawCallback) {
-
-            $("#" + ID).dataTable().fnDestroy();
-
-            if (bPaginate == undefined) {
-                bPaginate = true;
-            }
-
-            if (bSort == undefined) {
-                bSort = true;
-            }
-
-            var tabela = $("#" + ID).dataTable({
-                "aLengthMenu": [
-                [5, 10, 15, 20, 50, 100], //, -1
-                [5, 10, 15, 20, 50, 100] //, "Todos"  // change per page values here
-                ],
-                // set the initial value
-                "iDisplayLength": $('#' + ID).attr("data-qtdRegistros") != undefined ? parseInt($('#' + ID).attr("data-qtdRegistros")) : 10,
-                "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 text-align-center no-margin-left margin-top-5'p>>",
-                "sPaginationType": "bootstrap",
-                "bSort": bSort,
-                "bDestroy": true,
-                "bRetrieve": true,
-                "bStateSave": true,
-                "bPaginate": bPaginate,
-                "aaSorting": sorter,
-                "oLanguage": {
-                    "sLengthMenu": "Registros por p&aacute;gina: <br/> _MENU_",
-                    "sInfo": "Mostrando de _START_ a _END_ de um total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 de 0 total de 0",
-                    "sInfoFiltered": "(filtrado de _MAX_ registros)",
-                    "sSearch": "Filtrar:<br/>",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "oPaginate": {
-                        "sPrevious": "Anterior",
-                        "sNext": "Pr&oacute;ximo"
-                    }
-                },
-                "aaData": data,
-                "aoColumns": columns,
-                "cache": false,
-                "fnDrawCallback": function (oSettings) {
-                    if (fnDrawCallback != undefined) {
-                        fnDrawCallback(oSettings);
-                    }
-                }
-            });
-
-
-            var CreateColumns = function (cols) {
-                var colunas = [];
-                for (i in cols) {
-                    var ao = { "mDataProp": "string" };
-                    colunas.push(ao);
-                }
-                return colunas;
-            }
-
-            if ($("#" + ID).attr("no-pagination") != undefined) {
-                $("#" + ID + "_length").css({ "display": "none" });
-                $("select[name=" + ID + "_length]").css({ "display": "none" });
-                $(".dataTables_paginate").css({ "display": "none" });
-                $("#" + ID + "_info").css({ "display": "none" });
-            }
-
-            if ($("#" + ID).attr("no-filter") != undefined) {
-                $("#" + ID + "_filter").remove();
-                // $(".dataTables_filter").css({ "display": "none" });
-            }
-
-            return tabela;
-        },
-
-
-        dataTableServer: function (ID, columns, api, url, objPost, fnDrawCallback) {
-
-            if (ID.indexOf("#") == -1)
-                ID = "#" + ID;
-
-            $(ID).dataTable().fnDestroy();
-
-
-            url = HelperJS.getURLApi(url, api);
-
-
-            var table = $(ID).dataTable({
-                "aLengthMenu": [
-                [5, 10, 15, 20, 50, 100], //, -1
-                [5, 10, 15, 20, 50, 100] //, "Todos"  // change per page values here
-                ],
-                // set the initial value
-                "iDisplayLength": $(ID).attr("data-qtdRegistros") != undefined ? parseInt($(ID).attr("data-qtdRegistros")) : 10,
-                "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 text-align-center no-margin-left margin-top-5'p>>",
-                "sPaginationType": "bootstrap",
-                "bDestroy": true,
-                "bSort": true,
-                "bRetrieve": true,
-                "bStateSave": true,
-                "bFilter": false,
-                "iDisplayStart": 0,
-                "oLanguage": {
-                    "sLengthMenu": "Registros por p&aacute;gina: <br/> _MENU_",
-                    "sInfo": "Mostrando de _START_ a _END_ de um total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 de 0 total de 0",
-                    "sInfoFiltered": "(filtrado de _MAX_ registros)",
-                    "sSearch": "Filtrar:<br/>",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "oPaginate": {
-                        "sPrevious": "Anterior",
-                        "sNext": "Pr&oacute;ximo"
-                    }
-                },
-                "bProcessing": true,
-                "bServerSide": true,
-                "sAjaxSource": url,
-                "fnServerData": function (sSource, aoData, fnCallback, oSettings) { 
-
-                    $.ajax({
-                        type: "POST",
-                        url: sSource,
-                        data: objPost,
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (resultado) {
-                            debugger;
-                            return fnCallback($.parseJSON(resultado.data));
-
-                            //console.log(resultado);
-
-                            //return resultado;
-                        },
-                        error: function (e, d, m) {
-                            if (e.responseText != undefined) {
-                                var response = $.parseJSON(e.responseText);
-                                alert(response.Message);
-                            } else {
-                                alert(e);
-                            }
-                        }
-
-                    });
-                },
-                "fnServerParams": function (aoData) {
-                    for (var i = 0; i < objPost.length; i++) {
-                        aoData.push(objPost[i]);
-                    }
-
-                },
-                "fnDrawCallback": fnDrawCallback,
-                "aoColumns": columns,
-                "cache": false
-            });
-
-
-            var CreateColumns = function (cols) {
-                var colunas = [];
-                for (i in cols) {
-                    var ao = { "mDataProp": "string" };
-                    colunas.push(ao);
-                }
-                return colunas;
-            }
-
-            if ($(ID).attr("no-pagination") != undefined)
-            {
-                $(ID + "_length").remove();
-                $("select[name=" + ID + "_length]").remove();
-                $(".dataTables_paginate").remove();
-                $(ID + "_info").remove();
-            }
-
-            if ($(ID).attr("no-filter") != undefined) {
-                $(ID + "_filter").remove();
-            }
-
-            return table;
-        },
-
-
-        LoadDataTable: function (api, ACAO, tipo, ID, columns, sorter, drawCallback, completeCallBack) {
-
-            if (!jQuery().dataTable) {
-                return;
-            }
-
-            $("#" + ID).dataTable().fnDestroy();
-
-            var table = $("#" + ID).dataTable({
-                "aLengthMenu": [
-                [5, 10, 15, 20, 50, 100], //, -1
-                [5, 10, 15, 20, 50, 100] //, "Todos"  // change per page values here
-                ],
-                // set the initial value
-                "iDisplayLength": $('#' + ID).attr("data-qtdRegistros") != undefined ? parseInt($('#' + ID).attr("data-qtdRegistros")) : 10,
-                "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 text-align-center no-margin-left margin-top-5'p>>",
-                "sPaginationType": "bootstrap",
-                "bDestroy": true,
-                "bRetrieve": true,
-                "bStateSave": true,
-                "aaSorting": sorter,
-                "oLanguage": {
-                    "sLengthMenu": "Registros por p&aacute;gina: <br/> _MENU_",
-                    "sInfo": "Mostrando de _START_ a _END_ de um total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 de 0 total de 0",
-                    "sInfoFiltered": "(filtrado de _MAX_ registros)",
-                    "sSearch": "Filtrar:<br/>",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "oPaginate": {
-                        "sPrevious": "Anterior",
-                        "sNext": "Pr&oacute;ximo"
-                    }
-                },
-                "bProcessing": true,
-                "sAjaxSource": HelperJS.getURLApi(ACAO, api),
-                "sAjaxDataProp": "",
-                "sServerMethod": tipo,
-                "aoColumns": columns,
-                "cache": false,
-                "fnDrawCallback": drawCallback,
-                "fnInitComplete": completeCallBack
-            });
-
-
-            var CreateColumns = function (cols) {
-                var colunas = [];
-                for (i in cols) {
-                    var ao = { "mDataProp": "string" };
-                    colunas.push(ao);
-                }
-                return colunas;
-            }
-
-            if ($("#" + ID).attr("no-pagination") != undefined) {
-                $("#" + ID + "_length").css({ "display": "none" });
-                $("select[name=" + ID + "_length]").css({ "display": "none" });
-                $(".dataTables_paginate").css({ "display": "none" });
-                $("#" + ID + "_info").css({ "display": "none" });
-            }
-
-            if ($("#" + ID).attr("no-filter") != undefined) {
-                $("#" + ID + "_filter").remove();
-            }
-
-            return table;
-        },
-
-        iniciarUploadify: function (api, controleId, ehMultiplo, recurso, onUploadComplete, formato, limiteFila) {
+        iniciarUploadify: function (controleId, ehMultiplo, recurso, onUploadComplete, formato, limiteFila) {
 
 
             $(controleId).uploadify({
@@ -551,7 +301,7 @@ var HelperJS = function () {
                 'auto': false,
                 'multi': ehMultiplo,
                 'swf': $("#swfUrl").attr("urlAbsoluta") + 'uploadify.swf',
-                'uploader': HelperJS.getURLApi(recurso, api),
+                'uploader': HelperJS.getURLApi(recurso),
                 'fileTypeExts': formato,
                 'onQueueComplete': onUploadComplete,
                 'onUploadComplete': onUploadComplete,
@@ -574,7 +324,7 @@ var HelperJS = function () {
             return null;
         },
 
-        ComboAutoComplete: function (api, hiddenID, valueID, tituloCampo, URLApi, isMultiple, funcaoRender, funcaoSelection, funcaoID, qtdCaracteres, changeEvent, allowClear, ajaxOption) {
+        ComboAutoComplete: function (hiddenID, valueID, tituloCampo, URLApi, isMultiple, funcaoRender, funcaoSelection, funcaoID, qtdCaracteres, changeEvent, allowClear, ajaxOption) {
 
 
             var sid = '#' + hiddenID;
@@ -590,7 +340,7 @@ var HelperJS = function () {
                 allowClear: allowClear,
                 multiple: isMultiple,
                 ajax: {
-                    url: HelperJS.getURLApi(URLApi, api),
+                    url: HelperJS.getURLApi(URLApi),
                     dataType: 'json',
                     data: function (term, page) {
                         return {
@@ -612,7 +362,7 @@ var HelperJS = function () {
                     var id = $('#' + valueID).val();
 
                     if (id != undefined && id !== null && id.length > 0) {
-                        $.ajax(HelperJS.getURLApi(URLApi, api) + "/" + id,
+                        $.ajax(HelperJS.getURLApi(URLApi) + "/" + id,
                         {
                             dataType: "json",
                             params: {
@@ -668,7 +418,7 @@ var HelperJS = function () {
             var idPesquisa = HelperJS.getId(containerHml, dataField);
 
             if (dataField == null || dataField == undefined) {
-                dataField = "dataFieldUFSCar";
+                dataField = "data-json";
             }
 
             $(idPesquisa).each(function () {
@@ -686,7 +436,7 @@ var HelperJS = function () {
 
 
                     //inicio - esse pedaço é usado para montar o json quando usamos o componente de data com intervalo, ele já monta o objeto com a data inicial e final
-                    // informar no atributo do html o datafield ex: dataFieldUFSCar="NomeAtributoJson1,NomeAtributoJson1", senão ele pega por padrão (DataInicio,DataFim)
+                    // informar no atributo do html o datafield ex: data-json="NomeAtributoJson1,NomeAtributoJson1", senão ele pega por padrão (DataInicio,DataFim)
                     //Pode incluir qtos atributos achar necessário no atributo
                 else if ($(this).hasClass("periododata")) {
                     var atributosSplit = null;
@@ -706,7 +456,7 @@ var HelperJS = function () {
 
 
                     //inicio - esse pedaço é usado para montar o json quando usamos intervalo de valor. Exemplo: 0-100
-                    // informar no atributo do html o datafield ex: dataFieldUFSCar="Valor1,Valor1", senão ele pega por padrão (Range1,Range2). 
+                    // informar no atributo do html o datafield ex: data-json="Valor1,Valor1", senão ele pega por padrão (Range1,Range2). 
                     // Pode incluir qtos atributos achar necessário no atributo
                 else if ($(this).hasClass("rangepadrao")) {
                     var atributosSplit = null;
@@ -735,7 +485,7 @@ var HelperJS = function () {
             var idPesquisa = HelperJS.getId(containerHml, dataField);
 
             if (dataField == null || dataField == undefined) {
-                dataField = "dataFieldUFSCar";
+                dataField = "data-json";
             }
 
 
@@ -744,7 +494,7 @@ var HelperJS = function () {
                 var value;
                 var bindDataField = $(this).attr(dataField);
 
-                if (bindDataField.split('.').length > 1) { // nesse caso eu posso recuperar e preencher um controle que contenha várias propriedades. Ex: dataFieldUFSCar="Evento.Participante.Nome"
+                if (bindDataField.split('.').length > 1) { // nesse caso eu posso recuperar e preencher um controle que contenha várias propriedades. Ex: data-json="Evento.Participante.Nome"
                     var objSplit = bindDataField.split('.');
                     var objAux = jsonDados[objSplit[0]];
                     if (objAux != null) {
@@ -806,7 +556,7 @@ var HelperJS = function () {
             var idPesquisa = HelperJS.getId(containerHml, dataField);
 
             if (dataField == null || dataField == undefined) {
-                dataField = "dataFieldUFSCar";
+                dataField = "data-json";
             }
 
             $(idPesquisa).each(function () {
@@ -893,7 +643,7 @@ var HelperJS = function () {
 
         getId: function (containerHml, dataField) {
             var idPesquisa = "";
-            var idDataField = "dataFieldUFSCar"
+            var idDataField = "data-json"
 
             idPesquisa = "*[" + idDataField + "]";
 
@@ -1313,7 +1063,7 @@ var HelperJS = function () {
         },
         toNumber: function (number) {
 
-            
+
             return parseFloat(HelperJS.formataDecimal(number));
 
         },
@@ -1464,7 +1214,7 @@ var HelperJS = function () {
         },
 
         //função de upload usando HTML 5
-        iniciarUploadifive: function (api, controleId, ehMultiplo, recurso, onUploadComplete, formato, limiteFila) {
+        iniciarUploadifive: function (controleId, ehMultiplo, recurso, onUploadComplete, formato, limiteFila) {
 
             $(controleId).uploadifive({
                 'successTimeout': 1200000,
@@ -1474,7 +1224,7 @@ var HelperJS = function () {
                 'sizeLimit': '10000000',
                 'auto': false,
                 'multi': ehMultiplo,
-                'uploadScript': HelperJS.getURLApi(recurso, api),
+                'uploadScript': HelperJS.getURLApi(recurso),
                 'fileTypeExts': formato,
                 'fileType': true,
                 'width': 180,

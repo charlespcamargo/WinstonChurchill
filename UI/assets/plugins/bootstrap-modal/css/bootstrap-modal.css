@@ -94,6 +94,16 @@
   margin-left: -470px;
 }
 
+.modal.container-full {
+  width: 98%;
+  margin-left: -660px;
+}
+
+.modal.container.fixedwidth {
+  width: 620px;
+  margin-left: -310px;
+}
+
 /* Modal Overflow */
 
 .modal-overflow.modal {
@@ -120,6 +130,7 @@
 		width: 1170px;
 		margin-left: -585px;
 	}
+     
 }
 
 @media (max-width: 979px) {

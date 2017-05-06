@@ -1,69 +1,110 @@
 ﻿var Produtos = function () {
-
-    var table;
-
     return {
-
         init: function () {
-            //Produtos.inicializaGrid();
-            Produtos.carregarGrid();
+            Produtos.eventos();
+            Produtos.listar();
         },
 
+        eventos: function () {
+            $('#btnNovo').click(function () {
+                $("#modalNovo").modal('layout');
+                $("#modalNovo").modal('show');
+            });
 
-        carregarGrid: function () {
-            debugger;
-            var param = [];
-            var fnDrawCallback = function (oSettings) {
-                alert('DataTables has redrawn the table');
+            $('#btnSalvar').click(function () {Produtos.salvar();});
+        },
+
+        listar: function () {
+            var fnColunas = function () {
+                var colunas = new Array();
+                colunas.push({ mData: "Nome", sClass: "text-left", sType: "string" });
+
+                colunas.push({ mData: "Ativo", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return source ? 'Ativo' : 'Inativo' } });
+
+                colunas.push({ mData: "DataCadastro", sClass: "text-left", sType: "string" });
+
+                colunas.push({
+                    mData: "ID", sClass: "text-left", sType: "string", mRender: function (source, type, full) {
+                        var categorias = '';
+                        if (full.CategoriasProdutos && full.CategoriasProdutos.length > 0) {
+                            $.each(full.CategoriasProdutos, function (i, obj) {
+                                if (obj.Categoria)
+                                    categorias += ' | ' + obj.Categoria.Nome;
+                            });
+                            categorias = categorias.substring(1);
+                        }
+                        return categorias;
+                    }
+                });
+
+                colunas.push({
+                    mData: "ID", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
+                        var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="FCCI.excluir(' + full.ID + ')"><i class="icon-remove"></i></a>';
+                        var editar = '&nbsp<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="FCCI.editar(' + full.ID + ')"><i class="icon-edit"></i></a>';
+                        var visualizarImagens = '&nbsp<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Visualizar Imagens" onclick="FCCI.visualizarImagens(' + full.ID + ')"><i class="icon-search"></i></a>';
+                        return visualizarImagens + editar + excluir;
+                    }
+                });
+
+                return colunas;
             }
 
-            table = HelperJS.dataTableServer("gridItens", Produtos.montarColunasGrid(), APIs.API, "/produto/listar/", param, Produtos.carregarSucesso);
+            var fnSucess = function (data) {
+                $('#gridItens').bindDataTable({
+                    columns: fnColunas(),
+                    sorter: [[0, 'asc']],
+                    data: data,
+                });
+            }
 
-            //table.fnReloadAjax();
+            HelperJS.callApi({
+                url: "produto/listar/",
+                type: "POST",
+                data: null,
+                functionOnSucess: fnSucess,
+                functionOnError: HelperJS.showError
+            });
         },
 
-        carregarSucesso: function (data) {
-            debugger;
-            console.log("data", data);
+
+        carregar: function () {
+            var fnSucesso = function () {
+                HelperJS.bindJsonCrud(data, "Dados", "data-json");
+                $('*[campos-valores]').each(function (i, obj) {
+                    var controle = $(obj);
+                    var codigo = controle.val();
+                    var ref = controle.attr('campos-valores');
+                    if (codigo != "")
+                        Produtos.carregarCombos(controle, codigo, ref);
+                });
+            }
+
+            HelperJS.callApi(APIs.API_ADMINISTRATIVO, "produto/carregar/", "GET", null, fnSucesso, HelperJS.showError);
         },
 
-        inicializaGrid: function () {
-            HelperJS.dataTableResult("gridItens", Produtos.montarColunasGrid(), [[0, 'asc'], [1, 'asc']], []);
-        },
-
-        montarColunasGrid: function () {
-
-            var colunas = [];
-
-            colunas.push({ "mData": "ID", "mRender": function (source, type, full) { return source; } });
-
-            colunas.push({ "mData": "Nome" });
-
-            colunas.push({
-                "mData": "Ativo",
-                "mRender": function (source, type, full) {
-                    if (source)
-                        return "Ativo";
-                    else
-                        return "Inativo";
+        validarCampos: function () {
+            var listMsg = new Array();
+            $('*[dataFieldHelperJS]').each(function (i, obj) {
+                if ($(obj).val() == "") {
+                    listMsg.push({ Mensagem: $('#' + $(obj).attr('for')).html() + " é obrigatório", IdControle: '#' + $(obj).attr('id') });
                 }
             });
+            if (listMsg.length > 0) {
+                HelperJS.showListaAlert(listMsg);
+                return false;
+            }
+            return true;
+        },
 
-            colunas.push({ "mData": "DataCadastro" });
+        salvar: function () {
+            if (Produtos.validarCampos()) {
+                var obj = HelperJS.getJsonCrud("Dados", "dataFieldHelperJS");
+                HelperJS.callApi(APIs.API_ADMINISTRATIVO, "parametroscontabeis/salvar/", "POST", obj, Produtos.salvar_sucesso, HelperJS.showError);
+            }
+        },
 
-            colunas.push({
-                "mData": "ID",
-                "mRender": function (source, type, full) {
-                    var editar = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Editar' onclick='Produtos.editar(" + source + ")' href='javascript:;'><i class='icon-edit'></i></a>";
-                    var excluir = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Remover' onclick='Produtos.remover(" + source + ")' href='javascript:;'><i class='icon-remove'></i></a>";
-
-                    return "<center> " + editar + excluir + "</center>";
-                }
-            });
-
-            return colunas;
+        salvar_sucesso: function (data) {
+            HelperJS.showSuccess("Dados alterados com sucesso");
         }
-
-    }
-
+    };
 }();

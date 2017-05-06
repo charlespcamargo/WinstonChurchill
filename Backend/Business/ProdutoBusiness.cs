@@ -55,35 +55,25 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public DataTableResponseData<Produtos> Listar(int current, int rowCount, string busca)
+        public List<Produtos> Listar(Produtos filtro)
         {
-            current = (current == 0 ? 1 : current);
-            rowCount = (rowCount == 0 ? 10 : rowCount);
-            MontarFiltro(busca);
-
-            DataTableResponseData<Produtos> dataSource = new DataTableResponseData<Produtos>();
-
             using (UnitOfWork uow = new UnitOfWork())
             {
-                dataSource.draw = 1;
-                dataSource.start = current;
-                dataSource.length = rowCount;
-                dataSource.data = uow.ProdutosRepository.Listar(predicate).Skip((current - 1) * rowCount).Take(rowCount).ToList();
-                dataSource.recordsTotal = uow.ProdutosRepository.Contar(predicate);
+                MontarFiltro(filtro);
+                return uow.ProdutosRepository.Listar(predicate).ToList();
             }
 
-            return dataSource;
         }
 
-        //public Produtos Carregar(int id)
-        //{
-        //    using (UnitOfWork uow = new UnitOfWork())
-        //    {
-        //        MontarFiltro(new Produtos { ID = id });
-        //        Produtos objeto = uow.ProdutosRepository.Carregar(predicate);
-        //        return objeto;
-        //    }
-        //}
+        public Produtos Carregar(int id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                MontarFiltro(new Produtos { ID = id });
+                Produtos objeto = uow.ProdutosRepository.Carregar(predicate);
+                return objeto;
+            }
+        }
 
         public void Excluir(int id)
         {
@@ -96,28 +86,20 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        private void MontarFiltro(string busca)
+        private void MontarFiltro(Produtos filtro)
         {
             predicate = UtilEntity.True<Produtos>();
 
-            if (!string.IsNullOrEmpty(busca))
-                predicate = predicate.And(a => a.Nome.Contains(busca));
-            else
-                predicate = predicate.And(a => a.ID >= 0);
+            if (!string.IsNullOrEmpty(filtro.Nome))
+                predicate = predicate.And(p => p.Nome.Contains(filtro.Nome));
+
+            if (filtro.Ativo.HasValue)
+                predicate = predicate.And(p => p.Ativo == filtro.Ativo);
+
+            if (filtro.ID > 0)
+                predicate = predicate.And(p => p.ID == filtro.ID);
+
+            predicate = predicate.And(p => p.UsuarioID == filtro.UsuarioID);
         }
-
-        //private void MontarFiltro(Produtos filtro)
-        //{
-        //    predicate = UtilEntity.True<Produtos>();
-
-        //    if (!string.IsNullOrEmpty(filtro.Nome))
-        //        predicate = predicate.And(p => p.Nome.Contains(filtro.Nome));
-
-        //    if (filtro.Ativo.HasValue)
-        //        predicate = predicate.And(p => p.Ativo == filtro.Ativo);
-
-        //    if (filtro.ID > 0)
-        //        predicate = predicate.And(p => p.ID == filtro.ID);
-        //}
     }
 }

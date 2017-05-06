@@ -4,11 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 using WinstonChurchill.Backend.Business;
 using WinstonChurchill.Backend.Model;
-using WinstonChurchill.Backend.Repository;
-using WinstonChurchill.Backend.Utils;
 
 namespace WinstonChurchill.API.Controllers
 {
@@ -18,16 +15,16 @@ namespace WinstonChurchill.API.Controllers
     {
 
         [HttpPost, Route("listar")]
-        public HttpResponseMessage Listar([FromBody] Array parametros)
+        public HttpResponseMessage Listar([FromBody] Produtos filtro)
         {
             try
             {
-                int current = 0;/*Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "current").FirstOrDefault().Value);*/
-                int rowCount = 0;/*Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "rowCount").FirstOrDefault().Value);*/
-                string busca = "";/*Request.GetQueryNameValuePairs().Where(c => c.Key == "searchPhrase").FirstOrDefault().Value;*/
-
-                DataTableResponseData<Produtos> dataSource = ProdutoBusiness.New.Listar(current, rowCount, busca);
-
+                if (filtro == null)
+                    filtro = new Produtos();
+                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
+                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                filtro.UsuarioID = usuario.ID;
+                List<Produtos> dataSource = ProdutoBusiness.New.Listar(filtro);
                 return Request.CreateResponse(HttpStatusCode.OK, dataSource);
             }
             catch (ArgumentException aex)
@@ -47,15 +44,9 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                Produtos talento = new Produtos();
+                Produtos produto = ProdutoBusiness.New.Carregar(id);
 
-                using (UnitOfWork uow = new UnitOfWork())
-                {
-                    talento = uow.ProdutosRepository.Carregar(c => c.ID == id,
-                                                             o => o.OrderBy(by => by.ID));
-                }
-
-                return Request.CreateResponse(HttpStatusCode.OK, talento);
+                return Request.CreateResponse(HttpStatusCode.OK, produto);
             }
             catch (ArgumentException aex)
             {

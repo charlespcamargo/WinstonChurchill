@@ -93,7 +93,7 @@
             <!-- END SIDEBAR -->
             <!-- BEGIN PAGE -->
             <div class="page-content">
-                <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+             <%--   <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
                 <div id="portlet-config" class="modal hide">
                     <div class="modal-header">
                         <button data-dismiss="modal" class="close" type="button"></button>
@@ -102,11 +102,13 @@
                     <div class="modal-body">
                         <p>Here will be a configuration form</p>
                     </div>
-                </div>
+                </div>--%>
                 <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
                 <!-- BEGIN PAGE CONTAINER-->
-                <asp:ContentPlaceHolder ID="cphContent" runat="server">
-                </asp:ContentPlaceHolder>
+                 <div class="container-fluid">
+                    <asp:ContentPlaceHolder ID="cphContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
                 <!-- END PAGE CONTAINER-->
             </div>
             <!-- END PAGE -->
