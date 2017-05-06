@@ -33,6 +33,7 @@ namespace WinstonChurchill.Backend.Business
                 {
                     entidade.UsuarioID = usuario.ID;
                     entidade.DataCadastro = DateTime.Now;
+                    entidade.Ativo = true;
                     uow.ProdutosRepository.Inserir(entidade);
                 }
                 else
@@ -40,13 +41,15 @@ namespace WinstonChurchill.Backend.Business
                     Produtos objSalvo = uow.ProdutosRepository.Carregar(p => p.ID == entidade.ID, ord => ord.OrderBy(p => p.ID));
                     if (objSalvo != null)
                     {
+                        entidade.AdicionarProdutosFilhos();
                         objSalvo.Descricao = entidade.Descricao;
                         objSalvo.Ativo = entidade.Ativo;
                         objSalvo.Nome = entidade.Nome;
                         objSalvo.UsuarioID = usuario.ID;
                         objSalvo.Descricao = entidade.Descricao;
-                        uow.ProdutosRepository.Alterar(entidade);
-                        CaracteristicasProdutoBusiness.New.Salvar(objSalvo.Caracteristicas, objSalvo.ID, uow);
+                        uow.ProdutosRepository.Alterar(objSalvo);
+                        CaracteristicasProdutoBusiness.New.Salvar(entidade.Caracteristicas, objSalvo.ID, uow);
+                        CategoriasProdutoBusiness.New.Salvar(entidade.CategoriasProdutos, objSalvo.ID, uow);
                     }
                 }
 
@@ -60,28 +63,30 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                return uow.ProdutosRepository.Listar(predicate).ToList();
+                return uow.ProdutosRepository.Listar(predicate, null, "CategoriasProdutos.Categoria").ToList();
             }
 
         }
 
-        public Produtos Carregar(int id)
+        public Produtos Carregar(Produtos filtro)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                MontarFiltro(new Produtos { ID = id });
-                Produtos objeto = uow.ProdutosRepository.Carregar(predicate);
+                MontarFiltro(filtro);
+                Produtos objeto = uow.ProdutosRepository.Carregar(predicate, ord=>ord.OrderBy(p=>p.ID), "CategoriasProdutos.Categoria");
                 return objeto;
             }
         }
 
-        public void Excluir(int id)
+        public void Excluir(Produtos filtro)
         {
-            if (id == 0)
+            if (filtro == null)
                 throw new ArgumentException("Informe o produto para realizar a exclusão");
             using (UnitOfWork uow = new UnitOfWork())
             {
-                uow.ProdutosRepository.Excluir(id);
+                MontarFiltro(filtro);
+                Produtos produtoExcluir = uow.ProdutosRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "CategoriasProdutos");
+                uow.ProdutosRepository.Excluir(produtoExcluir);
                 uow.Save();
             }
         }

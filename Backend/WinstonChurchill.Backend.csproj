@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Business\CaracteristicasProdutoBusiness.cs" />
     <Compile Include="Business\CategoriaBusiness.cs" />
+    <Compile Include="Business\CategoriasProdutoBusiness.cs" />
     <Compile Include="Business\ProdutoBusiness.cs" />
     <Compile Include="Business\UsuarioBusiness.cs" />
     <Compile Include="Model\CaracteristicasProduto.cs" />

@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/pages/MasterDefault.Master" AutoEventWireup="true" CodeBehind="Produto.aspx.cs" Inherits="UI.pages.Produto" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphContent" runat="server">
-    
-    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+        <!-- BEGIN PAGE CONTAINER-->
         <!-- BEGIN PAGE HEADER-->
         <div class="row-fluid">
             <div class="span12">
@@ -34,19 +35,19 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                      <div class="clearfix noPrint">
-                            <div class="btn-group pull-left" style="width: 200px">
-                                <a id="btnNovo" class="btn btn-margin-5px input-medium">Novo <i class="icon-plus"></i></a>
-                            </div>
-                            <div class="btn-group pull-right">
-                                <a id="btnOpcoes" class="btn btn-margin-5px">Opções</a>
-                            </div>
+                    <div class="clearfix noPrint">
+                        <div class="btn-group pull-left" style="width: 200px">
+                            <a id="btnNovo" class="btn blue btn-margin-5px input-medium">Novo <i class="icon-plus"></i></a>
                         </div>
+                        <div class="btn-group pull-right">
+                            <a id="btnOpcoes" class="btn btn-margin-5px">Opções</a>
+                        </div>
+                    </div>
 
                     <div class="row-fluid">
                         <!-- Listagem -->
                         <div class="portlet-body no-more-tables">
-                            <table id="gridItens" class="table table-striped table-bordered table-hover table-full-width" cellspacing="0" width="100%" data-qtdRegistros="10">
+                            <table id="gridItens" class="table table-striped table-bordered table-hover table-full-width" cellspacing="0" width="100%" data-qtdregistros="10">
                                 <thead>
                                     <tr>
                                         <%--<th style="width: 10%">Cód.</th>--%>
@@ -61,28 +62,58 @@
                                 </tbody>
                             </table>
                         </div>
-                    <!-- FIM - Listagem -->
+                        <!-- FIM - Listagem -->
                     </div>
 
                 </div>
             </div>
         </div>
         <!-- END PAGE CONTENT-->
-    <!-- END PAGE CONTAINER-->
+        <!-- END PAGE CONTAINER-->
 
-    <div id="modalNovo" class="modal hide fade container" tabindex="-1" data-backdrop="fixed">
-        <div class="portlet box light-grey">
-            <div class="portlet-title">
-                <div class="caption"><i class="icon-exclamation-sign"></i>Falha na Transmissão dos dados</div>
+        <div id="modalNovo" class="modal hide fade container" tabindex="-1" data-backdrop="fixed">
+            <div class="portlet box grey">
+                <div class="portlet-title">
+                    <div class="caption"><i class="icon-edit"></i>Novo Produto</div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span12 no-margin-left">
+                        <div class="portlet-body form" id="Dados">
+                            <div class="clearfix noPrint">
+                                <div class="btn-group">
+                                </div>
+                                <div class="btn-group pull-right">
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="controls span12">
+                                    <span>Nome</span>
+                                    <input type="text" class="span12 m-wrap" id="txtNome" data-json="Nome" maxlength="50" validate-json="Informe o nome" />
+                                </div>
+                                <div class="controls span12">
+                                    <span style="margin-left: -27px;">Descrição</span>
+                                    <textarea class="span12 m-wrap" id="txtDescricao" data-json="Descricao" validate-json="Informe uma descrição" maxlength="255" style="height: 100px; margin-left: -27px;"></textarea>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="controls span12">
+                                    <span>Categorias</span>
+                                    <input type="hidden" class="select2-offscreen" id="hfCategoria" style="width: 100%" value="" for="ddlProduto" data-json validate-json="Informe pelo menos uma categoria"/>
+                                    <input type="text" class="hidden" id="ddlCategoria" name="ddlCategoria" value=""  />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="btnSalvar" class="btn green btn-margin-5px" style="width: 110px; margin-top: 30px;">Salvar| <i class="icon-save"></i></a>
+                <a class="btn red btn-margin-5px" style="width: 110px; margin-top: 30px;" data-dismiss="modal">Fechar| <i class="icon-off"></i></a>
             </div>
         </div>
-        <div class="modal-body" id="divTexto">
-        </div>
-        <div class="modal-footer">
-            <a type="button" class="btn btn-margin-5px" id="btnCancelarContrato" data-dismiss="modal">Fechar <i class="icon-off"></i></a>
-        </div>
     </div>
-      
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="PageScript" runat="server">
 </asp:Content>

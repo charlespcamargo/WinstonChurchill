@@ -23,7 +23,7 @@ namespace WinstonChurchill.Backend.Model
         public string Descricao { get; set; }
 
         [Column("Ativo")]
-        public bool Ativo { get; set; }
+        public bool? Ativo { get; set; }
 
         [Column("DataCadastro")]
         [JsonConverter(typeof(CustomDateTime))]

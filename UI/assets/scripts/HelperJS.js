@@ -413,143 +413,6 @@ var HelperJS = function () {
             HelperJS.popularSelect2(idHidden, null);
         },
 
-        getJsonCrud: function (containerHml, dataField) {
-            var objRequest = {};
-            var idPesquisa = HelperJS.getId(containerHml, dataField);
-
-            if (dataField == null || dataField == undefined) {
-                dataField = "data-json";
-            }
-
-            $(idPesquisa).each(function () {
-
-
-                if ($(this).hasClass("maskdecimal") || $(this).hasClass("masknegativo")) {
-                    objRequest[$(this).attr(dataField)] = $(this).toDecimal();
-                }
-
-                else if ($(this).hasClass("maskdolar"))
-                    objRequest[$(this).attr(dataField)] = $(this).preparaDolar();
-
-                else if ($(this).hasClass("date-picker"))
-                    objRequest[$(this).attr(dataField)] = HelperJS.RecuperarData($(this).val());
-
-
-                    //inicio - esse pedaço é usado para montar o json quando usamos o componente de data com intervalo, ele já monta o objeto com a data inicial e final
-                    // informar no atributo do html o datafield ex: data-json="NomeAtributoJson1,NomeAtributoJson1", senão ele pega por padrão (DataInicio,DataFim)
-                    //Pode incluir qtos atributos achar necessário no atributo
-                else if ($(this).hasClass("periododata")) {
-                    var atributosSplit = null;
-                    if ($(this).attr(dataField) != undefined) {
-                        atributosSplit = $(this).attr(dataField).split(',');
-                    }
-                    else {
-                        var itens = 'DataInicio,DataFim';
-                        atributosSplit = itens.split(',');
-                    }
-                    var dataSplit = $(this).val().split('-');
-                    $.each(dataSplit, function (i, obj) {
-                        objRequest[atributosSplit[i]] = (obj != undefined && obj != '' ? HelperJS.RecuperarData(obj.toString().trim()) : null);
-                    });
-                }
-                    //fim - esse pedaço é usado para montar o json quando usamos o componente de data com intervalo, ele já monta o objeto com a data inicial e final
-
-
-                    //inicio - esse pedaço é usado para montar o json quando usamos intervalo de valor. Exemplo: 0-100
-                    // informar no atributo do html o datafield ex: data-json="Valor1,Valor1", senão ele pega por padrão (Range1,Range2). 
-                    // Pode incluir qtos atributos achar necessário no atributo
-                else if ($(this).hasClass("rangepadrao")) {
-                    var atributosSplit = null;
-                    if ($(this).attr(dataField) != undefined) {
-                        atributosSplit = $(this).attr(dataField).split(',');
-                    }
-                    else {
-                        var itens = 'Range1,Range2';
-                        atributosSplit = itens.split(',');
-                    }
-                    var dataSplit = $(this).val().split('-');
-                    $.each(dataSplit, function (i, obj) {
-                        objRequest[atributosSplit[i]] = (obj != undefined && obj != '' ? obj.toString().trim() : null);
-                    });
-                }
-                    //fim - esse pedaço é usado para montar o json quando usamos intervalo de valor. Exemplo: 0-100
-
-                else
-                    objRequest[$(this).attr(dataField)] = $(this).val();
-            });
-
-            return objRequest;
-        },
-
-        bindJsonCrud: function (jsonDados, containerHml, dataField) {
-            var idPesquisa = HelperJS.getId(containerHml, dataField);
-
-            if (dataField == null || dataField == undefined) {
-                dataField = "data-json";
-            }
-
-
-            $(idPesquisa).each(function () {
-                var tipo = $(this).getType();
-                var value;
-                var bindDataField = $(this).attr(dataField);
-
-                if (bindDataField.split('.').length > 1) { // nesse caso eu posso recuperar e preencher um controle que contenha várias propriedades. Ex: data-json="Evento.Participante.Nome"
-                    var objSplit = bindDataField.split('.');
-                    var objAux = jsonDados[objSplit[0]];
-                    if (objAux != null) {
-                        for (var i = 1; i < objSplit.length; i++) {
-                            objAux = objAux[objSplit[i]];
-                        }
-                        value = objAux;
-                    }
-                }
-                else {
-                    value = jsonDados[bindDataField];
-                }
-
-                if (value != null && value != undefined) {
-                    switch (tipo) {
-                        case 'text':
-                            $(this).val(value);
-                            break;
-                        case "hidden":
-                            $(this).val(value);
-                            break;
-                        case 'select':
-                            $(this).val(value);
-                            break;
-                        case "checkbox":
-                        case "radio":
-                            //Quando utilizar fazwer testes
-                            $(this).attr("checked", value);
-                            $.uniform.update($(this));
-                            break;
-                        case "select2":
-                            HelperJS.popularSelect2($(this).prop('id'), value);
-                            break;
-                        case "chosen":
-                            $(this).val(value).trigger("liszt:updated");
-                            break;
-                        default:
-                        case "html":
-                            $(this).html(value);
-                            break;
-                        case "textarea":
-                            $(this).val(value);
-                            break;
-                    }
-                }
-                else { // caso seja nulo eu obrigo o select (chosen) ficar desmarcado
-                    switch (tipo) {
-                        case "chosen":
-                            $(this).val('').trigger("liszt:updated");
-                            break;
-                    }
-                }
-            });
-
-        },
 
         //inicio - Método sumarizados usado para exibir os totais no footer do datatable
         bindJsonSum: function (jsonDados, containerHml, dataField) {
@@ -593,45 +456,6 @@ var HelperJS = function () {
         },
 
         //fim - Método sumarizados usado para exibir os totais no footer do datatable
-
-        limparCampos: function (containerHml, dataField) {
-            var idPesquisa = HelperJS.getId(containerHml, dataField);
-
-            $(idPesquisa).each(function () {
-                var tipo = $(this).getType();
-
-                switch (tipo) {
-                    case "text":
-                        $(this).val("");
-                        break;
-                    case "hidden":
-                        $(this).val("");
-                        break;
-                    case "checkbox":
-                    case "radio":
-                        var elemento = $(this).attr("checked", false);
-                        $.uniform.update(elemento);
-                        break;
-                    case "select":
-                        $(this).prop('selectedIndex', 0);
-                        break;
-                    case "select2":
-                        //  $('.select2-container').select2('val', '');
-                        HelperJS.popularSelect2($(this).prop('id'), null);
-                        break;
-                    case "chosen":
-                        $(this).val('').trigger("liszt:updated");
-                        break;
-                    case "html":
-                        $(this).empty();
-                        break;
-                    case "textarea":
-                        $(this).val('');
-                        break;
-                }
-                $(this).removeClass("required");
-            });
-        },
 
         mudarAtributoReadOnly: function (containerHml, dataField, ehReadOnly) {
             var idPesquisa = HelperJS.getId(containerHml, dataField);
@@ -1113,20 +937,7 @@ var HelperJS = function () {
             }
         },
 
-        getSelect2Data: function (idHidden, propriedade) {
-            if (idHidden.indexOf("#") == -1)
-                idHidden = "#" + idHidden;
-
-            var obj = $(idHidden).select2('data');
-
-            if (obj == null)
-                return obj;
-
-            if (propriedade != null && propriedade != '')
-                return $(obj).prop(propriedade);
-            else
-                return obj;
-        },
+       
         getCol: function (matrix, col) {
             var column = [];
             for (var i = 1; i < matrix.length; i++) {
@@ -1278,8 +1089,24 @@ var HelperJS = function () {
                 $(controle).modal('layout');
             },
             tempo);
-        },
-
+        }
     };
 
 }();
+
+
+//Extensions
+$.fn.getType = function () {
+    var tipo = "";
+    if ($(this[0]).attr("class") == "select2-offscreen")
+        return "select2";
+
+    if (this[0] != undefined) {
+        if (this[0].tagName == "INPUT")
+            return this[0].type.toLowerCase()
+        else
+            tipo = HelperJS.ObterTipoIndefinido(this[0]);
+    }
+
+    return tipo;
+};

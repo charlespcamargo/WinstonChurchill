@@ -63,16 +63,16 @@ namespace WinstonChurchill.Backend.Repository
         }
 
 
-        private BaseRepository<CategoriasProdutos> categoriaProdutosRepository;
-        public BaseRepository<CategoriasProdutos> CategoriaProdutosRepository
+        private BaseRepository<CategoriasProdutos> categoriasProdutosRepository;
+        public BaseRepository<CategoriasProdutos> CategoriasProdutosRepository
         {
             get
             {
-                if (this.categoriaProdutosRepository == null)
+                if (this.categoriasProdutosRepository == null)
                 {
-                    this.categoriaProdutosRepository = new BaseRepository<CategoriasProdutos>(context);
+                    this.categoriasProdutosRepository = new BaseRepository<CategoriasProdutos>(context);
                 }
-                return categoriaProdutosRepository;
+                return categoriasProdutosRepository;
             }
         }
 

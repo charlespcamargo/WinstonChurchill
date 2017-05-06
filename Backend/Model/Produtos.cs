@@ -63,12 +63,23 @@ namespace WinstonChurchill.Backend.Model
 
         private void AdicionarUsuarioFilhos()
         {
-            if (this.Imagens != null)
+            if (this.Imagens != null && this.UsuarioID > 0)
             {
                 foreach (var item in this.Imagens)
                 {
                     if (item.Imagem != null)
                         item.Imagem.UsuarioID = this.UsuarioID;
+                }
+            }
+        }
+
+        public void AdicionarProdutosFilhos()
+        {
+            if (this.CategoriasProdutos != null && this.ID > 0)
+            {
+                foreach (var item in this.CategoriasProdutos)
+                {
+                    item.ProdutoID = ID;
                 }
             }
         }

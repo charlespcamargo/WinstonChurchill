@@ -7,22 +7,26 @@
 
 <html>
 <head runat="server">
-    <title></title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/style-metro.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/style-responsive.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <!-- END GLOBAL MANDATORY STYLES -->
-
-    <link rel="shortcut icon" href="favicon.ico" />
+<meta charset="utf-8" />
+	 <title></title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+	<link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/css/style.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+	<link href="/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+	<!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link rel="stylesheet" type="text/css" href="/assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css"/>
+	<link href="/assets/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+	<!-- END PAGE LEVEL STYLES -->
+	<link rel="shortcut icon" href="favicon.ico" />
 
     <script src="/assets/plugins/jquery-1.10.1.min.js" type="text/javascript"></script>
     <%--<script src="/assets/scripts/jquery.min.js" type="text/javascript"></script>--%>
@@ -30,12 +34,7 @@
 
 
 
-
-
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="<%=this.Page.ResolveClientUrl("~/Assets/Plugins/bootstrap/css/bootstrap.css")%>" rel="stylesheet" type="text/css" />
-    <link href="<%=this.Page.ResolveClientUrl("~/assets/plugins/bootstrap/css/bootstrap-responsive.min.css")%>" rel="stylesheet" type="text/css" />
-    <link href="<%=this.Page.ResolveClientUrl("~/assets/plugins/font-awesome/css/font-awesome.min.css")%>" rel="stylesheet" type="text/css" />
+      <link href="<%=this.Page.ResolveClientUrl("~/assets/plugins/font-awesome/css/font-awesome.min.css")%>" rel="stylesheet" type="text/css" />
     <%--<link href="<%=this.Page.ResolveClientUrl("~/assets/css/style-m.css")%>" rel="stylesheet" type="text/css" />--%>
     <link href="<%=this.Page.ResolveClientUrl("~/assets/css/style.css")%>" rel="stylesheet" type="text/css" />
     <link href="<%=this.Page.ResolveClientUrl("~/assets/css/style-responsive.css")%>" rel="stylesheet" type="text/css" />
@@ -45,7 +44,7 @@
     <link href="<%=this.Page.ResolveClientUrl("~/assets/plugins/bootstrap-colorpicker/css/colorpicker.css")%>" rel="stylesheet" type="text/css" />
 
 
-    <!-- BEGIN PAGE LEVEL STYLES -->
+      <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="<%=this.Page.ResolveClientUrl("~/Assets/Plugins/uploadify/uploadify.css")%>" rel="stylesheet" />
     <link href="<%=this.Page.ResolveClientUrl("~/Assets/Plugins/uploadify/uploadifive.css")%>" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="<%=this.Page.ResolveClientUrl("~/assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css")%>" />
@@ -67,9 +66,6 @@
     <!-- DATATABLES -->
     <link href="<%=this.Page.ResolveClientUrl("~/assets/plugins/data-tables/DT_bootstrap.css")%>" rel="stylesheet" />
     <!-- END DATATBALES -->
-
-    
-
 
     <asp:ContentPlaceHolder ID="cphHead" runat="server">
     </asp:ContentPlaceHolder>

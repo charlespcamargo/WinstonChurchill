@@ -14,7 +14,7 @@ namespace WinstonChurchill.API.Controllers
     public class ProdutoController : ApiController
     {
 
-        [HttpPost, Route("listar")]
+        [HttpPost HttpGet, Route("listar")]
         public HttpResponseMessage Listar([FromBody] Produtos filtro)
         {
             try
@@ -39,12 +39,17 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
-        [HttpGet, Route("obter/{id}")]
-        public HttpResponseMessage Obter(int id)
+        [HttpGet, Route("{id}")]
+        public HttpResponseMessage Carregar(int id)
         {
             try
             {
-                Produtos produto = ProdutoBusiness.New.Carregar(id);
+                Produtos filtro =  new Produtos();
+                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
+                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                filtro.UsuarioID = usuario.ID;
+                filtro.ID = id;
+                Produtos produto = ProdutoBusiness.New.Carregar(filtro);
 
                 return Request.CreateResponse(HttpStatusCode.OK, produto);
             }
@@ -60,12 +65,17 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
-        [HttpPost, Route("excluir/{id}")]
+        [HttpDelete, Route("{id}")]
         public HttpResponseMessage Excluir(int id)
         {
             try
             {
-                ProdutoBusiness.New.Excluir(id);
+                Produtos filtro = new Produtos();
+                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
+                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                filtro.UsuarioID = usuario.ID;
+                filtro.ID = id;
+                ProdutoBusiness.New.Excluir(filtro);
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
