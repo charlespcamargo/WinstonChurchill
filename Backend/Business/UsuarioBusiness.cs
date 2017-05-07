@@ -32,25 +32,18 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public DataTableResponseData<Usuario> Listar(int current, int rowCount, string busca)
+        public List<Usuario> Listar(Usuario filtro)
         {
-            current = (current == 0 ? 1 : current);
-            rowCount = (rowCount == 0 ? 10 : rowCount);
+            MontarFiltro(filtro);
 
-            MontarFiltro(busca);
+            List<Usuario> data = new List<Usuario>();
 
-            DataTableResponseData<Usuario> dataSource = new DataTableResponseData<Usuario>();
-
-            using (UnitOfWork uow = new UnitOfWork())
+            using (UnitOfWork UoW = new UnitOfWork())
             {
-                dataSource.draw = 1;
-                dataSource.start = current;
-                dataSource.length = rowCount;
-                dataSource.data = uow.UsuarioRepository.Listar(predicate).Skip((current - 1) * rowCount).Take(rowCount).ToList();
-                dataSource.recordsTotal = uow.UsuarioRepository.Contar(predicate);
+                data = UoW.UsuarioRepository.Listar(predicate); 
             }
 
-            return dataSource;
+            return data;
         }
 
         public Usuario Carregar(int id) {

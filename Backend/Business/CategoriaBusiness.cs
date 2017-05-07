@@ -12,7 +12,7 @@ namespace WinstonChurchill.Backend.Business
 {
     public class CategoriaBusiness
     {
-        Expression<Func<Categorias, bool>> predicate;
+        Expression<Func<Categoria, bool>> predicate;
 
         public static CategoriaBusiness New
         {
@@ -22,7 +22,7 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public Categorias Salvar(Categorias entidade, Usuario usuario)
+        public Categoria Salvar(Categoria entidade, Usuario usuario)
         {
             if (entidade == null)
                 throw new ArgumentException("Erro: nenhuma informação foi gerado");
@@ -37,7 +37,7 @@ namespace WinstonChurchill.Backend.Business
                 }
                 else
                 {
-                    Categorias objSalvo = uow.CategoriaRepository.Carregar(p => p.ID == entidade.ID, ord => ord.OrderBy(p => p.ID));
+                    Categoria objSalvo = uow.CategoriaRepository.Carregar(p => p.ID == entidade.ID, ord => ord.OrderBy(p => p.ID));
                     if (objSalvo != null)
                     {
                         objSalvo.Descricao = entidade.Descricao;
@@ -54,7 +54,7 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public List<Categorias> Listar(Categorias filtro)
+        public List<Categoria> Listar(Categoria filtro)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
@@ -64,12 +64,12 @@ namespace WinstonChurchill.Backend.Business
 
         }
 
-        public Categorias Carregar(int id)
+        public Categoria Carregar(int id)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                MontarFiltro(new Categorias { ID = id });
-                Categorias objeto = uow.CategoriaRepository.Carregar(predicate);
+                MontarFiltro(new Categoria { ID = id });
+                Categoria objeto = uow.CategoriaRepository.Carregar(predicate);
                 return objeto;
             }
         }
@@ -85,9 +85,9 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        private void MontarFiltro(Categorias filtro)
+        private void MontarFiltro(Categoria filtro)
         {
-            predicate = UtilEntity.True<Categorias>();
+            predicate = UtilEntity.True<Categoria>();
 
             if (!string.IsNullOrEmpty(filtro.Nome))
                 predicate = predicate.And(p => p.Nome.Contains(filtro.Nome));

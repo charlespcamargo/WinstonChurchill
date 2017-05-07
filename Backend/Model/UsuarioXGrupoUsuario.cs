@@ -13,13 +13,13 @@ namespace WinstonChurchill.Backend.Model
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("ID")]
-        public decimal ID { get; set; }
+        public int ID { get; set; }
         
         [Column("UsuarioID")]
-        public decimal UsuarioID { get; set; }
+        public int UsuarioID { get; set; }
 
         [Column("GrupoUsuarioID")]
-        public decimal GrupoUsuarioID { get; set; }
+        public int GrupoUsuarioID { get; set; }
 
         [Column("Ativo")]
         public bool Ativo { get; set; }
@@ -28,7 +28,7 @@ namespace WinstonChurchill.Backend.Model
         public DateTime DataCadastro { get; set; }
 
         [Column("ResponsavelID")]
-        public decimal ResponsavelID { get; set; }
+        public int ResponsavelID { get; set; }
 
 
         [ForeignKey("UsuarioID")]

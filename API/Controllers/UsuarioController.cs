@@ -16,17 +16,19 @@ namespace WinstonChurchill.API.Controllers
     public class UsuarioController : ApiController
     {
         [HttpPost , Route("listar")]
-        public HttpResponseMessage Listar([FromBody] Array parametros)
+        public HttpResponseMessage Listar([FromBody] Usuario filtro)
         {
             try
             {
-                int current = 0;/*Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "current").FirstOrDefault().Value);*/
-                int rowCount = 0;/*Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "rowCount").FirstOrDefault().Value);*/
-                string busca = "";/*Request.GetQueryNameValuePairs().Where(c => c.Key == "searchPhrase").FirstOrDefault().Value;*/
+                if (filtro == null)
+                    filtro = new Usuario();
 
-                DataTableResponseData<Usuario> dataSource = UsuarioBusiness.New.Listar(current, rowCount, busca);
+                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
+                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                filtro.ID = usuario.ID;
+                List<Usuario> data = UsuarioBusiness.New.Listar(filtro);
 
-                return Request.CreateResponse(HttpStatusCode.OK, dataSource);
+                return Request.CreateResponse(HttpStatusCode.OK, data); 
             }
             catch (ArgumentException aex)
             {

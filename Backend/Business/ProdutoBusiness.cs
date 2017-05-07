@@ -12,7 +12,7 @@ namespace WinstonChurchill.Backend.Business
 {
     public class ProdutoBusiness
     {
-        Expression<Func<Produtos, bool>> predicate;
+        Expression<Func<Produto, bool>> predicate;
 
         public static ProdutoBusiness New
         {
@@ -22,7 +22,7 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public Produtos Salvar(Produtos entidade, Usuario usuario)
+        public Produto Salvar(Produto entidade, Usuario usuario)
         {
             if (entidade == null)
                 throw new ArgumentException("Erro: nenhuma informação foi gerado");
@@ -38,7 +38,7 @@ namespace WinstonChurchill.Backend.Business
                 }
                 else
                 {
-                    Produtos objSalvo = uow.ProdutosRepository.Carregar(p => p.ID == entidade.ID, ord => ord.OrderBy(p => p.ID));
+                    Produto objSalvo = uow.ProdutosRepository.Carregar(p => p.ID == entidade.ID, ord => ord.OrderBy(p => p.ID));
                     if (objSalvo != null)
                     {
                         entidade.AdicionarProdutosFilhos();
@@ -48,7 +48,7 @@ namespace WinstonChurchill.Backend.Business
                         objSalvo.UsuarioID = usuario.ID;
                         objSalvo.Descricao = entidade.Descricao;
                         uow.ProdutosRepository.Alterar(objSalvo);
-                        CaracteristicasProdutoBusiness.New.Salvar(entidade.Caracteristicas, objSalvo.ID, uow);
+                        CaracteristicaProdutoBusiness.New.Salvar(entidade.Caracteristicas, objSalvo.ID, uow);
                         CategoriasProdutoBusiness.New.Salvar(entidade.CategoriasProdutos, objSalvo.ID, uow);
                     }
                 }
@@ -58,7 +58,7 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public List<Produtos> Listar(Produtos filtro)
+        public List<Produto> Listar(Produto filtro)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
@@ -68,32 +68,32 @@ namespace WinstonChurchill.Backend.Business
 
         }
 
-        public Produtos Carregar(Produtos filtro)
+        public Produto Carregar(Produto filtro)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                Produtos objeto = uow.ProdutosRepository.Carregar(predicate, ord=>ord.OrderBy(p=>p.ID), "CategoriasProdutos.Categoria");
+                Produto objeto = uow.ProdutosRepository.Carregar(predicate, ord=>ord.OrderBy(p=>p.ID), "CategoriasProdutos.Categoria");
                 return objeto;
             }
         }
 
-        public void Excluir(Produtos filtro)
+        public void Excluir(Produto filtro)
         {
             if (filtro == null)
                 throw new ArgumentException("Informe o produto para realizar a exclusão");
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                Produtos produtoExcluir = uow.ProdutosRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "CategoriasProdutos");
+                Produto produtoExcluir = uow.ProdutosRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "CategoriasProdutos");
                 uow.ProdutosRepository.Excluir(produtoExcluir);
                 uow.Save();
             }
         }
 
-        private void MontarFiltro(Produtos filtro)
+        private void MontarFiltro(Produto filtro)
         {
-            predicate = UtilEntity.True<Produtos>();
+            predicate = UtilEntity.True<Produto>();
 
             if (!string.IsNullOrEmpty(filtro.Nome))
                 predicate = predicate.And(p => p.Nome.Contains(filtro.Nome));

@@ -18,7 +18,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                Categorias filtro = new Categorias();
+                Categoria filtro = new Categoria();
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.UsuarioID = usuario.ID;
@@ -33,7 +33,7 @@ namespace WinstonChurchill.API.Controllers
                     if (filtro.ID == 0)
                         filtro.Nome = termo;
                 }
-               List<Categorias> lista = CategoriaBusiness.New.Listar(filtro);
+               List<Categoria> lista = CategoriaBusiness.New.Listar(filtro);
 
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }

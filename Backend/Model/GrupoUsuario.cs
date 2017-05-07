@@ -13,7 +13,7 @@ namespace WinstonChurchill.Backend.Model
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("ID")]
-        public decimal ID { get; set; }
+        public int ID { get; set; }
 
         [Column("Nome"), StringLength(50)]
         [Required(ErrorMessage = "Nome é obrigatório")]
