@@ -13,6 +13,7 @@ using WinstonChurchill.Backend.Utils;
 namespace WinstonChurchill.API.Controllers
 {
     [RoutePrefix("usuario")]
+    //[TokenAutenticacao]
     public class UsuarioController : ApiController
     {
         [HttpPost , Route("listar")]
@@ -42,20 +43,20 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
-        [HttpGet, Route("obter/{id}")]
-        public HttpResponseMessage Obter(int id)
+        [HttpGet, Route("{id}")]
+        public HttpResponseMessage Carregar(int id)
         {
             try
             {
-                Usuario talento = new Usuario();
+                Usuario usuario = new Usuario();
 
                 using (UnitOfWork uow = new UnitOfWork())
                 {
-                    talento = uow.UsuarioRepository.Carregar(c => c.ID == id,
+                    usuario = uow.UsuarioRepository.Carregar(c => c.ID == id,
                                                              o => o.OrderBy(by => by.ID));
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, talento);
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
             }
             catch (ArgumentException aex)
             {
@@ -69,7 +70,7 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
-        [HttpPost, Route("excluir/{id}")]
+        [HttpDelete, Route("{id}")]
         public HttpResponseMessage Excluir(int id)
         {
             try
@@ -91,24 +92,13 @@ namespace WinstonChurchill.API.Controllers
         }
 
         [HttpPost, Route("salvar")]
-        public HttpResponseMessage Salvar([FromBody] Usuario talento)
+        public HttpResponseMessage Salvar([FromBody] Usuario usuario)
         {
             try
             {
-                using (UnitOfWork uow = new UnitOfWork())
-                {
-                    string senha = Encrypting.sha512encrypt("");
+                UsuarioBusiness.New.Salvar(usuario);
 
-
-                    if (talento.ID == 0)
-                        uow.UsuarioRepository.Inserir(talento);
-                    else
-                        uow.UsuarioRepository.Alterar(talento);
-
-                    uow.Save();
-                }
-
-                return Request.CreateResponse(HttpStatusCode.OK, talento);
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
             }
             catch (ArgumentException aex)
             {

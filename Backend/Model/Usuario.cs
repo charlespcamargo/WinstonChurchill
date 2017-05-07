@@ -34,5 +34,11 @@ namespace WinstonChurchill.Backend.Model
         [NotMapped]
         public string Senha { get; set; }
 
+        [NotMapped]
+        public string SenhaNova { get; set; }
+
+        [NotMapped]
+        public string SenhaNovaConfirmar { get; set; }
+
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using WinstonChurchill.API.Common.Util.Captcha;
 
 namespace WinstonChurchill.Backend.Business
 {
@@ -40,16 +41,17 @@ namespace WinstonChurchill.Backend.Business
 
             using (UnitOfWork UoW = new UnitOfWork())
             {
-                data = UoW.UsuarioRepository.Listar(predicate); 
+                data = UoW.UsuarioRepository.Listar(predicate);
             }
 
             return data;
         }
 
-        public Usuario Carregar(int id) {
+        public Usuario Carregar(int id)
+        {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                Usuario usuario = uow.UsuarioRepository.Carregar(p => p.ID == id, ord=>ord.OrderBy(p=>p.ID));
+                Usuario usuario = uow.UsuarioRepository.Carregar(p => p.ID == id, ord => ord.OrderBy(p => p.ID));
                 if (usuario == null)
                     throw new ArgumentException("Usuário não encontrado!");
 
@@ -64,7 +66,7 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 talento = uow.UsuarioRepository.Carregar(c => c.ID == id, o => o.OrderBy(by => by.ID));
-                
+
                 uow.UsuarioRepository.Excluir(talento.ID);
 
                 uow.Save();
@@ -86,8 +88,46 @@ namespace WinstonChurchill.Backend.Business
             predicate = UtilEntity.True<Usuario>();
 
             if (!string.IsNullOrEmpty(entidade.Nome))
-                predicate = predicate.And(o => o.Nome.Contains(entidade.Nome)); 
+                predicate = predicate.And(o => o.Nome.Contains(entidade.Nome));
         }
 
+        public void Salvar(Usuario usuario)
+        {
+            if (String.IsNullOrEmpty(usuario.Senha))
+                throw new ArgumentException("Informe a Senha!");
+
+            if (String.IsNullOrEmpty(usuario.SenhaNova) != String.IsNullOrEmpty(usuario.SenhaNovaConfirmar))
+                throw new ArgumentException("Informe a Nova Senha e Confirme-a!");
+            else
+            {
+                if (usuario.SenhaNova != usuario.SenhaNovaConfirmar)
+                    throw new ArgumentException("A confirmação da nova senha não esta correta!");
+
+                usuario.Senha = Encrypting.sha512encrypt(usuario.Senha);
+                usuario.SenhaNova = Encrypting.sha512encrypt(usuario.SenhaNova);
+            }
+
+            Usuario usuarioSalvo;
+
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                if (usuario.ID == 0)
+                    uow.UsuarioRepository.Inserir(usuario);
+                else
+                {
+                    usuarioSalvo = uow.UsuarioRepository.Carregar(c => c.ID == usuario.ID && c.Senha == usuario.Senha,
+                                                                  o => o.OrderBy(by => by.ID));
+
+                    if (usuarioSalvo == null)
+                        throw new ArgumentException("Senha inválida!");
+
+
+                    usuario.Senha = usuario.SenhaNova;
+                    uow.UsuarioRepository.Alterar(usuario);
+                }
+
+                uow.Save();
+            }
+        }
     }
 }
