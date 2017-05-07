@@ -127,7 +127,7 @@ $.fn.obterJson = function (_oSettings) {
     var id = $(this).attr('id');
     var idPesquisa;
     if (_oSettings) {
-        if (!_oSettings.dataField ) {
+        if (!_oSettings.dataField) {
             _oSettings.dataField = "data-json";
         }
         idPesquisa = HelperJS.getId(id, _oSettings.dataField);
@@ -322,3 +322,37 @@ $.fn.limpar = function (_oSettings) {
         $(this).removeClass("required");
     });
 }
+
+
+//INICIO - Configura o upload
+$.fn.configurarUpload = function (_oSettings) {
+    if (!_oSettings) return;
+
+    if (HelperJS.temSuporteFlash()) { // se tiver suporte ao flash usa o uploadfy
+        HelperJS.iniciarUploadify("#" + $(this[0]).attr('id'), _oSettings.ehMultiplo, _oSettings.url, _oSettings.onUploadComplete, _oSettings.formato, _oSettings.limiteFila);
+    }
+    else { // Senão tiver suporte ao flash, usa o uploadifive - HTML 5
+        HelperJS.iniciarUploadifive("#" + $(this[0]).attr('id'), _oSettings.ehMultiplo, _oSettings.url, _oSettings.onUploadComplete, formato, _oSettings.limiteFila);
+    }
+};
+
+
+$.fn.fazerUpload = function () {
+    if (HelperJS.temSuporteFlash()) { // se tiver suporte ao flash usa o uploadfy
+        $(this[0]).uploadify('upload', '*');
+    }
+    else { // Senão tiver suporte ao flash, usa o uploadifive - HTML 5
+        $(this[0]).uploadifive('upload');
+    }
+};
+
+$.fn.cancelarUpload = function () {
+    if (HelperJS.temSuporteFlash()) { // se tiver suporte ao flash usa o uploadfy
+        $(this[0]).uploadify('cancel');
+    }
+    else {
+        $(this[0]).uploadifive('cancel');
+    }
+};
+
+//Fim - Configura o upload

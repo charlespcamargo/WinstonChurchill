@@ -6,7 +6,7 @@ namespace WinstonChurchill.Backend.Model
     [Table("ProdutosImagens")]
     public class ProdutosImagens
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         [Column("ID")]
         public int ID { get; set; }
 
@@ -27,5 +27,6 @@ namespace WinstonChurchill.Backend.Model
         public Imagem Imagem { get; set; }
 
         #endregion
+
     }
 }

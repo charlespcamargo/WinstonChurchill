@@ -10,7 +10,7 @@ namespace WinstonChurchill.Backend.Model
     [Table("CaracteristicasProduto")]
     public class CaracteristicasProduto
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         [Column("ID")]
         public int ID { get; set; }
 

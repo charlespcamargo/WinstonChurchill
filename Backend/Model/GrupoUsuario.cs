@@ -11,7 +11,7 @@ namespace WinstonChurchill.Backend.Model
     [Table("GrupoUsuario")]
     public class GrupoUsuario
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         [Column("ID")]
         public decimal ID { get; set; }
 

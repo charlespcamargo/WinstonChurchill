@@ -5,7 +5,7 @@ namespace WinstonChurchill.Backend.Model
     [Table("CategoriaImagens")]
     public class CategoriaImagens
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         [Column("ID")]
         public int ID { get; set; }
 

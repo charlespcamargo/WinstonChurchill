@@ -73,7 +73,7 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                Produtos objeto = uow.ProdutosRepository.Carregar(predicate, ord=>ord.OrderBy(p=>p.ID), "CategoriasProdutos.Categoria");
+                Produtos objeto = uow.ProdutosRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "CategoriasProdutos.Categoria");
                 return objeto;
             }
         }
@@ -82,12 +82,48 @@ namespace WinstonChurchill.Backend.Business
         {
             if (filtro == null)
                 throw new ArgumentException("Informe o produto para realizar a exclusão");
+
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                Produtos produtoExcluir = uow.ProdutosRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "CategoriasProdutos");
+                Produtos produtoExcluir = uow.ProdutosRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "CategoriasProdutos,ProdutosImagens,Caracteristicas");
+                if (produtoExcluir == null)
+                    throw new ArgumentException("Nenhum produto encontrado");
+
+                List<Imagem> listaImagens = new List<Imagem>();
+                if(produtoExcluir.ProdutosImagens != null)
+                {
+                    foreach (var item 
+                        in produtoExcluir.ProdutosImagens)
+                    {
+                        Imagem imagem = uow.ImagemRepository.Carregar(p => p.ID == item.ImagemID, ord => ord.OrderBy(p => p.ID));
+                        if(imagem != null)
+                        {
+                            listaImagens.Add(imagem);
+                        }
+                    }
+                }
+
                 uow.ProdutosRepository.Excluir(produtoExcluir);
+
+                if (listaImagens != null)
+                {
+                    foreach (var imagem in listaImagens)
+                    {
+                        uow.ImagemRepository.Excluir(imagem);
+                        AnexoBusiness.New.ExcluirArquivoFisico<Imagem>(imagem);
+                    }
+                }
+
                 uow.Save();
+            }
+        }
+
+        public List<CaracteristicasProduto> ListarCaracteristicas(int idProduto)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.CaracteristicasProdutoRepository.Listar(p => p.ProdutoID == idProduto);
             }
         }
 
@@ -106,5 +142,7 @@ namespace WinstonChurchill.Backend.Business
 
             predicate = predicate.And(p => p.UsuarioID == filtro.UsuarioID);
         }
+
+
     }
 }

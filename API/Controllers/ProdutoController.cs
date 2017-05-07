@@ -24,8 +24,8 @@ namespace WinstonChurchill.API.Controllers
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.UsuarioID = usuario.ID;
-                List<Produtos> dataSource = ProdutoBusiness.New.Listar(filtro);
-                return Request.CreateResponse(HttpStatusCode.OK, dataSource);
+                List<Produtos> lista = ProdutoBusiness.New.Listar(filtro);
+                return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (ArgumentException aex)
             {
@@ -100,6 +100,26 @@ namespace WinstonChurchill.API.Controllers
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 ProdutoBusiness.New.Salvar(entidade, usuario);
                 return Request.CreateResponse(HttpStatusCode.OK, entidade);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
+        [HttpGet, Route("listarCaracteristicas/{idProduto}")]
+        public HttpResponseMessage ListarCaracteristicas(int idProduto)
+        {
+            try
+            {
+                List<CaracteristicasProduto> lista = ProdutoBusiness.New.ListarCaracteristicas(idProduto);
+                return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (ArgumentException aex)
             {

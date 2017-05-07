@@ -236,7 +236,7 @@
         </script>
         <!-- END JAVASCRIPTS -->
     </form>
-
+    <input type="hidden" urlabsoluta="<%=this.Page.ResolveClientUrl("~/Assets/Plugins/uploadify/")%>" id="swfUrl" />
 
 
     <asp:ContentPlaceHolder ID="cphScripts" runat="server">

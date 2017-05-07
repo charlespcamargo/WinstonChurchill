@@ -12,7 +12,7 @@ namespace WinstonChurchill.Backend.Model
     [Table("Usuario")]
     public class Usuario
     {
-        [Key]//, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         [Column("ID")]
         public int ID { get; set; }
 

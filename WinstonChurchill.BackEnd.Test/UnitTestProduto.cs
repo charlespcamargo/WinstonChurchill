@@ -18,7 +18,7 @@ namespace WinstonChurchill.BackEnd.Test
                 produto.Ativo = true;
                 produto.Descricao = "Produto teste para leilão";
                 produto.Nome = "Produto teste 1";
-                produto.Imagens = ListarImagens();
+                produto.ProdutosImagens = ListarImagens();
                 produto.Caracteristicas = ListarCaracteristicas();
 
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
@@ -42,7 +42,7 @@ namespace WinstonChurchill.BackEnd.Test
                 produto.Ativo = true;
                 produto.Descricao = "Produto teste para leilão - alteração";
                 produto.Nome = "Produto teste 1 - alterado";
-                produto.Imagens = ListarImagens();
+                produto.ProdutosImagens = ListarImagens();
                 produto.Caracteristicas = ListarCaracteristicas();
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
 

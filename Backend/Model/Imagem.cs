@@ -6,13 +6,15 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using WinstonChurchill.API.Common.Conversores;
+using WinstonChurchill.Backend.Model.Interfaces;
+using System.Configuration;
 
 namespace WinstonChurchill.Backend.Model
 {
     [Table("Imagem")]
-    public class Imagem
+    public class Imagem : IAnexo
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         [Column("ID")]
         public int ID { get; set; }
 
@@ -44,5 +46,16 @@ namespace WinstonChurchill.Backend.Model
         public Usuario Usuario { get; set; }
 
         #endregion
+
+        #region NotMapped
+        [NotMapped]
+        public string Url
+        {
+            get
+            {
+                return $"{ConfigurationManager.AppSettings["URL.SITE"]}Anexos/{this.DiretorioFisico}/{this.NomeArquivo}";
+            }
+            #endregion
+        }
     }
 }

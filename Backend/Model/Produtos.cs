@@ -15,7 +15,7 @@ namespace WinstonChurchill.Backend.Model
     public class Produtos
     {
         [DataMember]
-        [Key]//, DatabaseGenerated(DatabaseGeneratedOption.Identity)]  -- Não usa isso pq da pau no insert do MYSQL
+        [Key]
         [Column("ID")]
         public int ID { get; set; }
 
@@ -42,36 +42,11 @@ namespace WinstonChurchill.Backend.Model
 
         #region Foreign Keys
 
-        private int _UsuarioID;
 
         [DataMember]
         [Column("UsuarioID")]
-        public int UsuarioID
-        {
-            get
-            {
-                return _UsuarioID;
-            }
+        public int UsuarioID { get; set; }
 
-
-            set
-            {
-                this._UsuarioID = value;
-                AdicionarUsuarioFilhos();
-            }
-        }
-
-        private void AdicionarUsuarioFilhos()
-        {
-            if (this.Imagens != null && this.UsuarioID > 0)
-            {
-                foreach (var item in this.Imagens)
-                {
-                    if (item.Imagem != null)
-                        item.Imagem.UsuarioID = this.UsuarioID;
-                }
-            }
-        }
 
         public void AdicionarProdutosFilhos()
         {
@@ -91,7 +66,7 @@ namespace WinstonChurchill.Backend.Model
 
         [DataMember]
         [ForeignKey("ProdutoID")]
-        public List<ProdutosImagens> Imagens { get; set; }
+        public List<ProdutosImagens> ProdutosImagens { get; set; }
 
 
         [DataMember]
