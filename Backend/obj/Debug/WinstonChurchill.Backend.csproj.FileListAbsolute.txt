@@ -44,8 +44,6 @@ C:\Projetos\Charles\WinstonChurchill\Backend\bin\Debug\EntityFramework.SqlServer
 C:\Projetos\Charles\WinstonChurchill\Backend\bin\Debug\EPPlus.xml
 C:\Projetos\Charles\WinstonChurchill\Backend\bin\Debug\Ionic.Zip.xml
 C:\Projetos\Charles\WinstonChurchill\Backend\bin\Debug\itextsharp.xml
-C:\Projetos\Charles\WinstonChurchill\Backend\bin\Debug\System.Web.Http.xml
-C:\Projetos\Charles\WinstonChurchill\Backend\bin\Debug\System.Net.Http.Formatting.xml
 C:\Projetos\Charles\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.csprojResolveAssemblyReference.cache
 C:\Projetos\Charles\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.dll
 C:\Projetos\Charles\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.pdb

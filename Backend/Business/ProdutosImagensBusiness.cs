@@ -12,7 +12,7 @@ namespace WinstonChurchill.Backend.Business
 {
     public class ProdutosImagensBusiness
     {
-        Expression<Func<ProdutosImagens, bool>> predicate;
+        Expression<Func<ProdutoImagem, bool>> predicate;
         public static ProdutosImagensBusiness New
         {
             get
@@ -21,9 +21,9 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public ProdutosImagens Salvar(byte[] data, HttpPostedFile arquivo, Usuario usuario, int idProduto)
+        public ProdutoImagem Salvar(byte[] data, HttpPostedFile arquivo, Usuario usuario, int idProduto)
         {
-            ProdutosImagens produtoImagem = new ProdutosImagens();
+            ProdutoImagem produtoImagem = new ProdutoImagem();
             produtoImagem.ProdutoID = idProduto;
             produtoImagem.Imagem = new Imagem();
             produtoImagem.Imagem.DataCadastro = DateTime.Now;
@@ -49,22 +49,22 @@ namespace WinstonChurchill.Backend.Business
             return produtoImagem;
         }
 
-        public List<ProdutosImagens> Carregar(ProdutosImagens filtro)
+        public List<ProdutoImagem> Carregar(ProdutoImagem filtro)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                List<ProdutosImagens> lista = uow.ProdutoImagensRepository.Listar(predicate, ord => ord.OrderBy(p => p.ID), "Imagem");
+                List<ProdutoImagem> lista = uow.ProdutoImagensRepository.Listar(predicate, ord => ord.OrderBy(p => p.ID), "Imagem");
                 return lista;
             }
         }
 
-        public void Excluir(ProdutosImagens filtro)
+        public void Excluir(ProdutoImagem filtro)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                ProdutosImagens objProdutoImagem = uow.ProdutoImagensRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID));
+                ProdutoImagem objProdutoImagem = uow.ProdutoImagensRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID));
                 if (objProdutoImagem == null)
                     throw new ArgumentException("Imagem não encontrada!");
 
@@ -77,9 +77,9 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        private void MontarFiltro(ProdutosImagens filtro)
+        private void MontarFiltro(ProdutoImagem filtro)
         {
-            predicate = UtilEntity.True<ProdutosImagens>();
+            predicate = UtilEntity.True<ProdutoImagem>();
 
             if (filtro.ID != 0)
                 predicate = predicate.And(p => p.ID == filtro.ID);

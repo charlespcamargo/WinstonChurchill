@@ -20,18 +20,25 @@ namespace WinstonChurchill.Backend.Model
         [Required(ErrorMessage = "Nome é obrigatório")]
         public string Nome { get; set; }
 
-        //[Column("Email"), StringLength(50)]
-        //[Required(ErrorMessage = "Email é obrigatório")]
-        //public string Email { get; set; }
+        [Column("Email"), StringLength(50)]
+        [Required(ErrorMessage = "Email é obrigatório")]
+        public string Email { get; set; }
 
-        //[Column("Ativo")] 
-        //public bool Ativo { get; set; }
+        [Column("Ativo")]
+        public bool Ativo { get; set; }
 
-        //[Column("DataCadastro")]
-        //public DateTime DataCadastro { get; set; }
+        [Column("DataCadastro")]
+        [JsonConverter(typeof(CustomDate))]
+        public DateTime DataCadastro { get; set; }
 
-        //[NotMapped]
-        //public string Senha { get; set; }
+        [NotMapped]
+        public string Senha { get; set; }
+
+        [NotMapped]
+        public string SenhaNova { get; set; }
+
+        [NotMapped]
+        public string SenhaNovaConfirmar { get; set; }
 
     }
 }

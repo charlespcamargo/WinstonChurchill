@@ -7,27 +7,28 @@ using WinstonChurchill.API.Common.Conversores;
 
 namespace WinstonChurchill.Backend.Model
 {
-    [Table("CaracteristicasProduto")]
-    public class CaracteristicasProduto
+    [Table("CategoriaProduto")]
+    public class CategoriaProduto
     {
         [Key]
         [Column("ID")]
         public int ID { get; set; }
 
-        [Column("Nome"), StringLength(50)]
-        [Required(ErrorMessage = "Nome é obrigatório")]
-        public string Nome { get; set; }
 
+        #region Foreign Keys
 
-        #region ForeignKeys
+        [Column("CategoriaID")]
+        public int CategoriaID { get; set; }
+
+        [ForeignKey("CategoriaID")]
+        public Categoria Categoria { get; set; }
 
         [Column("ProdutoID")]
         public int ProdutoID { get; set; }
 
         [ForeignKey("ProdutoID")]
-        public Produtos Produtos { get; set; }
+        public Produto Produto { get; set; }
 
         #endregion
-
     }
 }

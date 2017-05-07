@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace WinstonChurchill.Backend.Model
 {
-    [Table("CategoriaImagens")]
-    public class CategoriaImagens
+    [Table("ProdutoImagem")]
+    public class ProdutoImagem
     {
         [Key]
         [Column("ID")]
@@ -12,11 +13,11 @@ namespace WinstonChurchill.Backend.Model
 
         #region ForeignKeys
 
-        [Column("CategoriaID")]
-        public int CategoriaID { get; set; }
+        [Column("ProdutoID")]
+        public int ProdutoID { get; set; }
 
-        [ForeignKey("CategoriaID")]
-        public Categorias Categoria { get; set; }
+        [ForeignKey("ProdutoID")]
+        public Produto Produtos { get; set; }
 
 
         [Column("ImagemID")]
@@ -26,5 +27,6 @@ namespace WinstonChurchill.Backend.Model
         public Imagem Imagem { get; set; }
 
         #endregion
+
     }
 }

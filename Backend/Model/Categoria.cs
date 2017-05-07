@@ -7,8 +7,8 @@ using WinstonChurchill.API.Common.Conversores;
 
 namespace WinstonChurchill.Backend.Model
 {
-    [Table("Categorias")]
-   public class Categorias
+    [Table("Categoria")]
+   public class Categoria
     {
         [Key]
         [Column("ID")]
@@ -40,11 +40,11 @@ namespace WinstonChurchill.Backend.Model
 
 
         [ForeignKey("CategoriaID")]
-        public List<CategoriaImagens> Imagens { get; set; }
+        public List<CategoriaImagem> Imagens { get; set; }
 
 
         [ForeignKey("CategoriaID")]
-        public List<CategoriasProdutos> CategoriasProdutos { get; set; }
+        public List<CategoriaProduto> CategoriasProdutos { get; set; }
 
         #endregion
     }

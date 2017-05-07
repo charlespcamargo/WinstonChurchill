@@ -25,15 +25,9 @@ C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\WinstonChurchill.API.C
 C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\EPPlus.dll
 C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\Ionic.Zip.dll
 C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\itextsharp.dll
-C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\Microsoft.Web.Infrastructure.dll
 C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\EPPlus.xml
 C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\Ionic.Zip.xml
 C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\itextsharp.xml
-C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\Newtonsoft.Json.xml
-C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\System.Net.Http.Formatting.xml
-C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\System.Web.Http.xml
-C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\System.Web.Http.WebHost.xml
-C:\Projetos\Charles\WinstonChurchill\API.Commom\bin\Debug\Microsoft.Web.Infrastructure.xml
 C:\Projetos\Charles\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.csprojResolveAssemblyReference.cache
 C:\Projetos\Charles\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.dll
 C:\Projetos\Charles\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.pdb

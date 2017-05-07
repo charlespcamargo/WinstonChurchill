@@ -14,7 +14,7 @@ namespace WinstonChurchill.BackEnd.Test
         {
             try
             {
-                Produtos produto = new Produtos();
+                Produto produto = new Produto();
                 produto.Ativo = true;
                 produto.Descricao = "Produto teste para leilão";
                 produto.Nome = "Produto teste 1";
@@ -37,7 +37,7 @@ namespace WinstonChurchill.BackEnd.Test
         {
             try
             {
-                Produtos produto = new Produtos();
+                Produto produto = new Produto();
                 produto.ID = 1;
                 produto.Ativo = true;
                 produto.Descricao = "Produto teste para leilão - alteração";
@@ -56,19 +56,19 @@ namespace WinstonChurchill.BackEnd.Test
         }
 
 
-        private List<CaracteristicasProduto> ListarCaracteristicas()
+        private List<CaracteristicaProduto> ListarCaracteristicas()
         {
-            List<CaracteristicasProduto> lista = new List<CaracteristicasProduto>();
-            lista.Add(new CaracteristicasProduto { Nome = "Produto de plásticio" });
-            lista.Add(new CaracteristicasProduto { Nome = "Elétrico" });
-            lista.Add(new CaracteristicasProduto { Nome = "Cor branca" });
+            List<CaracteristicaProduto> lista = new List<CaracteristicaProduto>();
+            lista.Add(new CaracteristicaProduto { Nome = "Produto de plásticio" });
+            lista.Add(new CaracteristicaProduto { Nome = "Elétrico" });
+            lista.Add(new CaracteristicaProduto { Nome = "Cor branca" });
             return lista;
         }
 
-        public System.Collections.Generic.List<ProdutosImagens> ListarImagens()
+        public System.Collections.Generic.List<ProdutoImagem> ListarImagens()
         {
-            List<ProdutosImagens> lista = new List<ProdutosImagens>();
-            lista.Add(new ProdutosImagens
+            List<ProdutoImagem> lista = new List<ProdutoImagem>();
+            lista.Add(new ProdutoImagem
             {
                 Imagem = new Imagem
                 {
@@ -80,7 +80,7 @@ namespace WinstonChurchill.BackEnd.Test
                 }
             });
 
-            lista.Add(new ProdutosImagens
+            lista.Add(new ProdutoImagem
             {
                 Imagem = new Imagem
                 {

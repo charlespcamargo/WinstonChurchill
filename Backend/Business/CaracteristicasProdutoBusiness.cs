@@ -8,56 +8,56 @@ using WinstonChurchill.Backend.Repository;
 
 namespace WinstonChurchill.Backend.Business
 {
-    public class CaracteristicasProdutoBusiness
+    public class CaracteristicaProdutoBusiness
     {
-        public static CaracteristicasProdutoBusiness New
+        public static CaracteristicaProdutoBusiness New
         {
             get
             {
-                return new CaracteristicasProdutoBusiness();
+                return new CaracteristicaProdutoBusiness();
             }
         }
 
-        public void Salvar(List<CaracteristicasProduto> lista, int produtoId, UnitOfWork uow)
+        public void Salvar(List<CaracteristicaProduto> lista, int produtoId, UnitOfWork uow)
         {
             if (lista == null || lista.Count == 0)
             {
-                List<CaracteristicasProduto> listaExcluir = uow.CaracteristicasProdutoRepository.Listar(p => p.ProdutoID == produtoId);
+                List<CaracteristicaProduto> listaExcluir = uow.CaracteristicaProdutoRepository.Listar(p => p.ProdutoID == produtoId);
                 Excluir(uow, listaExcluir);
             }
             else
             {
-                List<CaracteristicasProduto> listaSalva = uow.CaracteristicasProdutoRepository.Listar(p => p.ProdutoID == produtoId);
-                List<CaracteristicasProduto> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.ID == w.ID)).ToList();
+                List<CaracteristicaProduto> listaSalva = uow.CaracteristicaProdutoRepository.Listar(p => p.ProdutoID == produtoId);
+                List<CaracteristicaProduto> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.ID == w.ID)).ToList();
                 Excluir(uow, listaExcluir);
                 Alterar(uow, listaSalva, lista);
             }
         }
 
-        private void Alterar(UnitOfWork uow, List<CaracteristicasProduto> listaSalva, List<CaracteristicasProduto> listaSalvar)
+        private void Alterar(UnitOfWork uow, List<CaracteristicaProduto> listaSalva, List<CaracteristicaProduto> listaSalvar)
         {
             if (listaSalvar != null && listaSalvar.Count > 0)
             {
                 foreach (var itemSalvar in listaSalvar)
                 {
-                    CaracteristicasProduto itemSalvo = listaSalva.FirstOrDefault(f => f.ID == itemSalvar.ID);
+                    CaracteristicaProduto itemSalvo = listaSalva.FirstOrDefault(f => f.ID == itemSalvar.ID);
                     if (itemSalvo != null)
                     {
                         itemSalvo.Nome = itemSalvar.Nome;
-                        uow.CaracteristicasProdutoRepository.Alterar(itemSalvo);
+                        uow.CaracteristicaProdutoRepository.Alterar(itemSalvo);
                     }
                     else
-                        uow.CaracteristicasProdutoRepository.Inserir(itemSalvar);
+                        uow.CaracteristicaProdutoRepository.Inserir(itemSalvar);
                 }
             }
         }
 
-        private static void Excluir(UnitOfWork uow, List<CaracteristicasProduto> listaExcluir)
+        private static void Excluir(UnitOfWork uow, List<CaracteristicaProduto> listaExcluir)
         {
             if (listaExcluir != null && listaExcluir.Count > 0)
             {
                 foreach (var itemExcluir in listaExcluir)
-                    uow.CaracteristicasProdutoRepository.Excluir(itemExcluir);
+                    uow.CaracteristicaProdutoRepository.Excluir(itemExcluir);
             }
         }
     }

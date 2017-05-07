@@ -49,83 +49,83 @@ namespace WinstonChurchill.Backend.Repository
         }
 
 
-        private BaseRepository<Categorias> categoriaRepository;
-        public BaseRepository<Categorias> CategoriaRepository
+        private BaseRepository<Categoria> categoriaRepository;
+        public BaseRepository<Categoria> CategoriaRepository
         {
             get
             {
                 if (this.categoriaRepository == null)
                 {
-                    this.categoriaRepository = new BaseRepository<Categorias>(context);
+                    this.categoriaRepository = new BaseRepository<Categoria>(context);
                 }
                 return categoriaRepository;
             }
         }
 
 
-        private BaseRepository<CategoriasProdutos> categoriasProdutosRepository;
-        public BaseRepository<CategoriasProdutos> CategoriasProdutosRepository
+        private BaseRepository<CategoriaProduto> categoriaProdutoRepository;
+        public BaseRepository<CategoriaProduto> CategoriaProdutoRepository
         {
             get
             {
-                if (this.categoriasProdutosRepository == null)
+                if (this.categoriaProdutoRepository == null)
                 {
-                    this.categoriasProdutosRepository = new BaseRepository<CategoriasProdutos>(context);
+                    this.categoriaProdutoRepository = new BaseRepository<CategoriaProduto>(context);
                 }
-                return categoriasProdutosRepository;
+                return categoriaProdutoRepository;
             }
         }
 
-        private BaseRepository<CategoriaImagens> categoriaImagensRepository;
-        public BaseRepository<CategoriaImagens> CategoriaImagensRepository
+        private BaseRepository<CategoriaImagem> categoriaImagemRepository;
+        public BaseRepository<CategoriaImagem> CategoriaImagemRepository
         {
             get
             {
-                if (this.categoriaImagensRepository == null)
+                if (this.categoriaImagemRepository == null)
                 {
-                    this.categoriaImagensRepository = new BaseRepository<CategoriaImagens>(context);
+                    this.categoriaImagemRepository = new BaseRepository<CategoriaImagem>(context);
                 }
-                return categoriaImagensRepository;
+                return categoriaImagemRepository;
             }
         }
 
-        private BaseRepository<Produtos> produtosRepository;
-        public BaseRepository<Produtos> ProdutosRepository
+        private BaseRepository<Produto> produtosRepository;
+        public BaseRepository<Produto> ProdutosRepository
         {
             get
             {
                 if (this.produtosRepository == null)
                 {
-                    this.produtosRepository = new BaseRepository<Produtos>(context);
+                    this.produtosRepository = new BaseRepository<Produto>(context);
                 }
                 return produtosRepository;
             }
         }
 
 
-        private BaseRepository<ProdutosImagens> produtoImagensRepository;
-        public BaseRepository<ProdutosImagens> ProdutoImagensRepository
+        private BaseRepository<ProdutoImagem> produtoImagensRepository;
+        public BaseRepository<ProdutoImagem> ProdutoImagensRepository
         {
             get
             {
                 if (this.produtoImagensRepository == null)
                 {
-                    this.produtoImagensRepository = new BaseRepository<ProdutosImagens>(context);
+                    this.produtoImagensRepository = new BaseRepository<ProdutoImagem>(context);
                 }
                 return produtoImagensRepository;
             }
         }
 
-        private BaseRepository<CaracteristicasProduto> caracteristicasProdutoRepository;
-        public BaseRepository<CaracteristicasProduto> CaracteristicasProdutoRepository
+        private BaseRepository<CaracteristicaProduto> caracteristicaProdutoRepository;
+        public BaseRepository<CaracteristicaProduto> CaracteristicaProdutoRepository
         {
             get
             {
-                if (this.caracteristicasProdutoRepository == null)
+                if (this.caracteristicaProdutoRepository == null)
                 {
-                    this.caracteristicasProdutoRepository = new BaseRepository<CaracteristicasProduto>(context);
+                    this.caracteristicaProdutoRepository = new BaseRepository<CaracteristicaProduto>(context);
                 }
-                return caracteristicasProdutoRepository;
+                return caracteristicaProdutoRepository;
             }
         }
 

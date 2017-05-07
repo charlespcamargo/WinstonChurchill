@@ -13,20 +13,23 @@ using WinstonChurchill.Backend.Utils;
 namespace WinstonChurchill.API.Controllers
 {
     [RoutePrefix("usuario")]
+    //[TokenAutenticacao]
     public class UsuarioController : ApiController
     {
         [HttpPost , Route("listar")]
-        public HttpResponseMessage Listar([FromBody] Array parametros)
+        public HttpResponseMessage Listar([FromBody] Usuario filtro)
         {
             try
             {
-                int current = 0;/*Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "current").FirstOrDefault().Value);*/
-                int rowCount = 0;/*Convert.ToInt32(Request.GetQueryNameValuePairs().Where(c => c.Key == "rowCount").FirstOrDefault().Value);*/
-                string busca = "";/*Request.GetQueryNameValuePairs().Where(c => c.Key == "searchPhrase").FirstOrDefault().Value;*/
+                if (filtro == null)
+                    filtro = new Usuario();
 
-                DataTableResponseData<Usuario> dataSource = UsuarioBusiness.New.Listar(current, rowCount, busca);
+                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
+                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                filtro.ID = usuario.ID;
+                List<Usuario> data = UsuarioBusiness.New.Listar(filtro);
 
-                return Request.CreateResponse(HttpStatusCode.OK, dataSource);
+                return Request.CreateResponse(HttpStatusCode.OK, data); 
             }
             catch (ArgumentException aex)
             {
@@ -40,20 +43,20 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
-        [HttpGet, Route("obter/{id}")]
-        public HttpResponseMessage Obter(int id)
+        [HttpGet, Route("{id}")]
+        public HttpResponseMessage Carregar(int id)
         {
             try
             {
-                Usuario talento = new Usuario();
+                Usuario usuario = new Usuario();
 
                 using (UnitOfWork uow = new UnitOfWork())
                 {
-                    talento = uow.UsuarioRepository.Carregar(c => c.ID == id,
+                    usuario = uow.UsuarioRepository.Carregar(c => c.ID == id,
                                                              o => o.OrderBy(by => by.ID));
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, talento);
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
             }
             catch (ArgumentException aex)
             {
@@ -67,7 +70,7 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
-        [HttpPost, Route("excluir/{id}")]
+        [HttpDelete, Route("{id}")]
         public HttpResponseMessage Excluir(int id)
         {
             try
@@ -89,24 +92,13 @@ namespace WinstonChurchill.API.Controllers
         }
 
         [HttpPost, Route("salvar")]
-        public HttpResponseMessage Salvar([FromBody] Usuario talento)
+        public HttpResponseMessage Salvar([FromBody] Usuario usuario)
         {
             try
             {
-                using (UnitOfWork uow = new UnitOfWork())
-                {
-                    string senha = Encrypting.sha512encrypt("");
+                UsuarioBusiness.New.Salvar(usuario);
 
-
-                    if (talento.ID == 0)
-                        uow.UsuarioRepository.Inserir(talento);
-                    else
-                        uow.UsuarioRepository.Alterar(talento);
-
-                    uow.Save();
-                }
-
-                return Request.CreateResponse(HttpStatusCode.OK, talento);
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
             }
             catch (ArgumentException aex)
             {

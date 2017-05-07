@@ -17,13 +17,13 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                ProdutosImagens filtro = new ProdutosImagens();
+                ProdutoImagem filtro = new ProdutoImagem();
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.Imagem = new Imagem();
                 filtro.Imagem.UsuarioID = usuario.ID;
                 filtro.ProdutoID = idProduto;
-                List<ProdutosImagens> lista = ProdutosImagensBusiness.New.Carregar(filtro);
+                List<ProdutoImagem> lista = ProdutosImagensBusiness.New.Carregar(filtro);
 
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
@@ -51,7 +51,7 @@ namespace WinstonChurchill.API.Controllers
                 byte[] data = new Byte[arquivo.ContentLength];
                 arquivo.InputStream.Read(data, 0, arquivo.ContentLength);
 
-                ProdutosImagens produtoImagem = ProdutosImagensBusiness.New.Salvar(data, arquivo, usuario, idProduto);
+                ProdutoImagem produtoImagem = ProdutosImagensBusiness.New.Salvar(data, arquivo, usuario, idProduto);
 
                 return Request.CreateResponse(HttpStatusCode.OK, produtoImagem);
             }
@@ -72,7 +72,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                ProdutosImagens filtro = new ProdutosImagens();
+                ProdutoImagem filtro = new ProdutoImagem();
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.Imagem = new Imagem();

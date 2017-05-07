@@ -35,6 +35,5 @@ C:\Projetos\Charles\WinstonChurchill\UI\bin\WinstonChurchill.UI.dll
 C:\Projetos\Charles\WinstonChurchill\UI\bin\WinstonChurchill.UI.pdb
 C:\Projetos\Charles\WinstonChurchill\UI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Projetos\Charles\WinstonChurchill\UI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Projetos\Charles\WinstonChurchill\UI\obj\Debug\WinstonChurchill.UI.csprojResolveAssemblyReference.cache
 C:\Projetos\Charles\WinstonChurchill\UI\obj\Debug\WinstonChurchill.UI.dll
 C:\Projetos\Charles\WinstonChurchill\UI\obj\Debug\WinstonChurchill.UI.pdb

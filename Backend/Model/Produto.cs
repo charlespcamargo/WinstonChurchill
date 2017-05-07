@@ -11,8 +11,8 @@ using System.Runtime.Serialization;
 namespace WinstonChurchill.Backend.Model
 {
     [DataContract]
-    [Table("Produtos")]
-    public class Produtos
+    [Table("Produto")]
+    public class Produto
     {
         [DataMember]
         [Key]
@@ -66,16 +66,16 @@ namespace WinstonChurchill.Backend.Model
 
         [DataMember]
         [ForeignKey("ProdutoID")]
-        public List<ProdutosImagens> ProdutosImagens { get; set; }
+        public List<ProdutoImagem> ProdutosImagens { get; set; }
 
 
         [DataMember]
         [ForeignKey("ProdutoID")]
-        public List<CaracteristicasProduto> Caracteristicas { get; set; }
+        public List<CaracteristicaProduto> Caracteristicas { get; set; }
 
         [DataMember]
         [ForeignKey("ProdutoID")]
-        public List<CategoriasProdutos> CategoriasProdutos { get; set; }
+        public List<CategoriaProduto> CategoriasProdutos { get; set; }
 
         #endregion
     }

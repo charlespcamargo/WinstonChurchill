@@ -15,16 +15,16 @@ namespace WinstonChurchill.API.Controllers
     {
 
         [HttpPost HttpGet, Route("listar")]
-        public HttpResponseMessage Listar([FromBody] Produtos filtro)
+        public HttpResponseMessage Listar([FromBody] Produto filtro)
         {
             try
             {
                 if (filtro == null)
-                    filtro = new Produtos();
+                    filtro = new Produto();
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.UsuarioID = usuario.ID;
-                List<Produtos> lista = ProdutoBusiness.New.Listar(filtro);
+                List<Produto> lista = ProdutoBusiness.New.Listar(filtro);
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (ArgumentException aex)
@@ -44,12 +44,12 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                Produtos filtro =  new Produtos();
+                Produto filtro =  new Produto();
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
-                Produtos produto = ProdutoBusiness.New.Carregar(filtro);
+                Produto produto = ProdutoBusiness.New.Carregar(filtro);
 
                 return Request.CreateResponse(HttpStatusCode.OK, produto);
             }
@@ -70,7 +70,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                Produtos filtro = new Produtos();
+                Produto filtro = new Produto();
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.UsuarioID = usuario.ID;
@@ -92,7 +92,7 @@ namespace WinstonChurchill.API.Controllers
         }
 
         [HttpPost, Route("salvar")]
-        public HttpResponseMessage Salvar([FromBody] Produtos entidade)
+        public HttpResponseMessage Salvar([FromBody] Produto entidade)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                List<CaracteristicasProduto> lista = ProdutoBusiness.New.ListarCaracteristicas(idProduto);
+                List<CaracteristicaProduto> lista = ProdutoBusiness.New.ListarCaracteristicas(idProduto);
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (ArgumentException aex)

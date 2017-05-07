@@ -45,7 +45,7 @@
                     <div class="row-fluid">
                         <!-- Listagem -->
                         <div class="portlet-body no-more-tables">
-                            <table id="gridItens" class="table table-striped table-bordered table-hover table-full-width" cellspacing="0" width="100%" data-qtdRegistros="10">
+                            <table id="gridItens" class="table table-striped table-bordered table-hover table-full-width" cellspacing="0" width="100%" data-qtdregistros="10">
                                 <thead>
                                     <tr>
                                         <th style="width: 10%">Cód.</th>
@@ -60,7 +60,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    <!-- FIM - Listagem -->
+                        <!-- FIM - Listagem -->
                     </div>
 
                 </div>
@@ -70,6 +70,60 @@
     </div>
     <!-- END PAGE CONTAINER-->
 
+    <div id="modalNovo" class="modal hide fade container fixedwidth" tabindex="-1" data-backdrop="fixed">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>Novo Usuário</div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="row-fluid">
+                <div class="span12 no-margin-left">
+                    <div class="portlet-body form" id="Dados">
+                        <div class="row-fluid">
+                            <div class="controls span6">
+                                <h4>Nome</h4>
+                                <input type="text" class="span12 m-wrap" id="txtNome" data-json="Nome" maxlength="50" validate-json="Informe o nome" />
+                            </div>
+                            <div class="controls span6">
+                                <h4>E-mail</h4>
+                                <input type="text" class="span12 m-wrap" id="txtEmail" data-json="Email" maxlength="50" validate-json="Informe o E-mail" />
+                            </div>
+                        </div>                      
+                        <div class="row-fluid">
+                            <div class="controls span12">
+                                <h4>Ativo</h4>
+                                <input type="checkbox" class="span12 m-wrap" id="chkAtivo" data-json="Ativo"  />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="controls span12">
+                                <h4>Senha Atual</h4>
+                                <input type="password" class="span12 m-wrap" id="txtSenhaAtual" data-json="Senha" maxlength="50" />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="controls span12">
+                                <h4>Nova Senha</h4>
+                                <input type="password" class="span12 m-wrap" id="txtSenhaNova" data-json="SenhaNova"  />
+                            </div>
+                        </div> 
+                        
+                        <div class="row-fluid">
+                            <div class="controls span12">
+                                <h4>Confirmar Nova Senha</h4>
+                                <input type="password" class="span12 m-wrap" id="txtSenhaNovaConfirmar" data-json="SenhaNovaConfirmar"  />
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a id="btnSalvar" class="btn green btn-margin-5px" style="width: 110px; margin-top: 30px;">Salvar| <i class="icon-save"></i></a>
+            <a class="btn red btn-margin-5px" style="width: 110px; margin-top: 30px;" data-dismiss="modal">Fechar| <i class="icon-off"></i></a>
+        </div>
+    </div>
 
 </asp:Content>
 
