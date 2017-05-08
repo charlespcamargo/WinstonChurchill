@@ -222,6 +222,7 @@ var Caracteristicas = function () {
             }
 
             var fnSuccess = function (data) {
+                jsonCaracteristicas = data;
                 $('#gridCaracterísticas').bindDataTable({
                     columns: fnColunas(),
                     sorter: [[0, 'asc']],
