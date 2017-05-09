@@ -356,3 +356,16 @@ $.fn.cancelarUpload = function () {
 };
 
 //Fim - Configura o upload
+
+
+$.fn.toDecimal = function () {
+    var valor = $(this[0]).val();
+    while (valor.indexOf(".") > 0) {
+        valor = valor.replace(".", "");
+    }
+
+    while (valor.indexOf(",") > 0) {
+        valor = valor.replace(",", ".");
+    }
+    return valor;
+};

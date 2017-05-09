@@ -147,5 +147,21 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaProduto
   CONSTRAINT fk_CategoriaProduto_Produto FOREIGN KEY(ProdutoID) REFERENCES dbWinstonChurchill.Produto(ID)
 );
  
+ 
+ CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Parametro (
+  ID 							INT NOT NULL AUTO_INCREMENT	PRIMARY KEY,
+  LimiteCancelCompra 			INT NOT NULL,
+  PercLucroEmpresa 				DECIMAL(5,2) NOT NULL,
+  PercLucroRepComercial 		DECIMAL(5,2) NOT NULL,
+  RodasLeilao 					INT NOT NULL,
+  DiasCadaRodada 				INT NOT NULL,
+  MargemGarantiaPreco 			DECIMAL(5,2) NOT NULL,
+  SegundaMargemGarantiaPreco 	DECIMAL(5,2) NOT NULL,
+  UsuarioID 					INT NOT NULL,
+  
+  INDEX fk_Parametro_usuario_idx (UsuarioID ASC),
+  CONSTRAINT fk_Parametro_usuario    FOREIGN KEY (UsuarioID)    REFERENCES dbwinstonchurchill.usuario (ID)
+ );
+
 
  

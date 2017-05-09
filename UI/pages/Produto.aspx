@@ -106,7 +106,7 @@
                                 <div class="row-fluid">
                                     <div class="controls span12">
                                         <span>Categorias</span>
-                                        <input type="hidden" class="select2-offscreen" id="hfCategoria" style="width: 100%" value="" for="ddlProduto" data-json validate-json="Informe pelo menos uma categoria" />
+                                        <input type="hidden" class="select2-offscreen" id="hfCategoria" style="width: 100%" value="" for="ddlCategoria" data-json validate-json="Informe pelo menos uma categoria" />
                                         <input type="text" class="hidden" id="ddlCategoria" name="ddlCategoria" value="" />
                                     </div>
                                 </div>

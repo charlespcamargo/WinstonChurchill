@@ -72,6 +72,7 @@ namespace WinstonChurchill.Backend.Repository
             builder.Configurations.Add(new EntityTypeConfiguration<ProdutoImagem>());
             builder.Configurations.Add(new EntityTypeConfiguration<Imagem>());
             builder.Configurations.Add(new EntityTypeConfiguration<CaracteristicaProduto>());
+            builder.Configurations.Add(new EntityTypeConfiguration<Parametro>());
 
             return builder;
         }

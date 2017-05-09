@@ -2,12 +2,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphContent" runat="server">
+        <div class="container-fluid">
         <!-- BEGIN PAGE CONTAINER-->
-    <div class="container-fluid">
         <!-- BEGIN PAGE HEADER-->
         <div class="row-fluid">
             <div class="span12">
-                <h3 class="page-title">Categoria
+                <h3 class="page-title">Categorias<small> listagem dos cadastrados</small>
                 </h3>
                 <ul class="breadcrumb">
                     <li>
@@ -23,121 +23,34 @@
         </div>
         <!-- END PAGE HEADER-->
         <!-- BEGIN PAGE CONTENT-->
-
-        <div class="row-fluid">
-            <div class="span12 no-margin-left">
-
-                <div class="portlet box grey">
-                    <div class="portlet-title">
-                        <div class="caption"><i class="icon-filter"></i>Filtros</div>
-                        <div class="tools">
-                            <a class="collapse" href="javascript:;"></a>
-                        </div>
-                    </div>
-
-
-                    <div id="filtros" class="portlet-body form">
-                        <div class="clearfix noPrint">
-                            <div class="btn-group">
-                            </div>
-                            <div class="btn-group pull-right">
-                            </div>
-                        </div>
-
-                        <div class="row-fluid">
-
-                            <div class="controls span2">
-                                <span>Código do Reembolso</span>
-                                <input type="text" class="span12 m-wrap" id="txtCodigoFiltro" data-filter="Numero" maxlength="6" />
-                            </div>
-                            <div class="controls span1">
-                                <span>Ano</span>
-                                <input type="text" class="span12 m-wrap" id="txtAnoFiltro" data-filter="Ano" maxlength="4" />
-                            </div>
-                            <div class="controls span3">
-                                <span>Período de Inclusão</span>
-                                <input type="text" class="span12 m-wrap periododata" id="txtPeriodoInclusao" data-filter="DtInclIni,DtInclFim" />
-                            </div>
-                            <div class="controls span3">
-                                <span>Tipo</span>
-                                <select class="span12 m-wrap chosen" id="ddlTipoFiltro" data-with-deselect="1" data-placeholder="Selecione o Tipo" data-filter="Tipo">
-                                    <option value=""></option>
-                                    <%--<option value="R">Reembolso</option>--%>
-                                    <option value="C">Cartão</option>
-                                    <option value="R">Reembolso (Colaborador)</option>
-                                    <option value="T">Terceiro</option>
-                                    <option value="F">Fornecedor</option>
-                                    <option value="O">Outros</option>
-                                </select>
-                            </div>
-                            <div class="controls span3">
-                                <span>Centro de Custo</span>
-                                <input type="text" class="span12 m-wrap" id="txtCentroFiltro" data-filter="CentroCusto" maxlength="8" />
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div id="divFuncionarioFiltro" class="controls span4" style="display: none;">
-                                <span>Funcionário</span>
-                                <input type="text" class="span12 m-wrap" id="txtFuncionarioFiltro" data-filter="Chapa" />
-                            </div>
-
-                            <div id="divTerceirosFiltro" class="controls span4" style="display: none;">
-                                <span>Fornecedor</span>
-                                <input type="text" class="span12 m-wrap" id="txtFornecedorFiltro" data-filter="Terceiro" />
-                            </div>
-
-                            <div id="divOutrosFiltro" class="controls span4" style="display: none;">
-                                <span>Outros</span>
-                                <input type="text" class="span12 m-wrap" id="txtOutrosFiltros" data-filter="Outros" />
-                            </div>
-                            <div id="divRegiaoComercialFiltro" class="controls span6" style="display: none;">
-                                <span>Região Comercial</span>
-                                <%--<input type="text" class="span12 m-wrap" id="txtRegiaoComercialFiltro" datafieldihara="Descricao" />--%>
-                                <select class="span12 m-wrap" id="ddlRegiaoComercialFiltro" data-placeholder="Selecione" data-filter="RegiaoComercial">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="portlet-footer form">
-                            <br />
-                            <div class="clearfix noPrint">
-                                <div class="btn-group">
-                                </div>
-                                <div class="btn-group pull-right">
-                                    <a id="btnFiltrar" onclick="Reembolso.Buscar();" class="btn btn-margin-5px">Buscar
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <div class="row-fluid">
             <div class="portlet box grey">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="icon-reorder"></i>Usuários
+                        <i class="icon-reorder"></i>Categoria
                     </div>
                     <div class="tools hidden-phone">
                         <a href="javascript:;" class="collapse"></a>
                     </div>
                 </div>
                 <div class="portlet-body form">
-
+                    <div class="clearfix noPrint">
+                        <div class="btn-group pull-left" style="width: 200px">
+                            <a id="btnNovo" class="btn blue btn-margin-5px input-medium">Novo <i class="icon-plus"></i></a>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <a id="btnOpcoes" class="btn btn-margin-5px">Opções</a>
+                        </div>
+                    </div>
 
                     <div class="row-fluid">
                         <!-- Listagem -->
                         <div class="portlet-body no-more-tables">
-                            <table id="gridItens" class="table table-striped table-bordered table-hover table-full-width" cellspacing="0" width="100%" data-qtdRegistros="10">
+                            <table id="gridItens" class="table table-striped table-bordered table-hover table-full-width" cellspacing="0" width="100%" data-qtdregistros="10">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10%">Cód.</th>
+                                        <%--<th style="width: 10%">Cód.</th>--%>
                                         <th style="width: 30%">Nome</th>
-                                        <th style="width: 30%">Email</th>
                                         <th style="width: 10%">Status</th>
                                         <th style="width: 13%">Cadastrado</th>
                                         <th style="width: 7%">Ações</th>
@@ -147,15 +60,126 @@
                                 </tbody>
                             </table>
                         </div>
-                    <!-- FIM - Listagem -->
+                        <!-- FIM - Listagem -->
                     </div>
 
                 </div>
             </div>
         </div>
         <!-- END PAGE CONTENT-->
+        <!-- END PAGE CONTAINER-->
+
+        <div id="modalNovo" class="modal hide fade container" tabindex="-1" data-backdrop="fixed">
+            <div class="portlet box grey">
+                <div class="portlet-title">
+                    <div class="caption"><i class="icon-edit"></i>Nova Categoria</div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span12 no-margin-left">
+                        <div class="portlet box light-grey" style="margin-top:-20px;">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="icon-info"></i>Dados Básicos</div>
+                                <div class="tools">
+                                </div>
+                            </div>
+                            <div class="portlet-body form" id="Dados">
+                                <div class="clearfix noPrint">
+                                    <div class="btn-group">
+                                    </div>
+                                    <div class="btn-group pull-right">
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="controls span12">
+                                        <span>Nome</span>
+                                        <input type="text" class="span12 m-wrap" id="txtNome" data-json="Nome" maxlength="50" validate-json="Informe o nome" />
+                                    </div>
+                                    <div class="controls span12">
+                                        <span style="margin-left: -27px;">Descrição</span>
+                                        <textarea class="span12 m-wrap" id="txtDescricao" data-json="Descricao" validate-json="Informe uma descrição" maxlength="255" style="height: 100px; margin-left: -27px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="btnSalvar" class="btn green btn-margin-5px" style="width: 110px; margin-top: 30px;">Salvar| <i class="icon-save"></i></a>
+                <a class="btn red btn-margin-5px" style="width: 110px; margin-top: 30px;" data-dismiss="modal">Fechar| <i class="icon-off"></i></a>
+            </div>
+        </div>
+
+        <!-- BEGIN MODAL ANEXOS-->
+        <div id="modalImagens" class="modal hide fade container" tabindex="-1" data-backdrop="fixed">
+            <div class="portlet box light-grey">
+                <div class="portlet-title">
+                    <div class="caption"><i class="icon-cloud"></i>Imagens do produtos</div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span12 no-margin-left">
+                        <div class="portlet box light-grey">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="icon-table"></i>Subir imagem</div>
+                                <div class="tools">
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+                                <div class="row-fluid">
+                                    <div class="controls span4">
+                                        <h4>Selecione os arquivos</h4>
+                                        <input type="file" name="file_upload" id="file_upload" />
+                                    </div>
+                                    <div class="controls span6">
+                                        <a class="btn green btn-margin-5px" id="btnAnexar" style="margin-top: 30px;">Anexar <i class="icon-upload-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12 no-margin-left">
+                        <div class="portlet box light-grey">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="icon-table"></i>Lista de Imagens</div>
+                                <div class="tools">
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+                                <div class="row-fluid">
+                                    <!-- Listagem -->
+                                    <div class="portlet-body no-more-tables">
+                                        <table id="gridImagens" class="table table-striped table-bordered table-hover table-full-width" data-qtdregistros="5" no-filter cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Imagem</th>
+                                                    <%--<th>Data do Upload</th>--%>
+                                                    <th style="width: 20%;">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- FIM - Listagem -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn red btn-margin-5px" data-dismiss="modal">Fechar <i class="icon-off"></i></a>
+            </div>
+        </div>
+        <%--END MODAL ANEXOS--%>
     </div>
-    <!-- END PAGE CONTAINER-->
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="PageScript" runat="server">
 
@@ -163,7 +187,7 @@
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cphScripts" runat="server">
-     <script src="categoria.js?v=<%=new Random().Next(0,10000)%>"></script>
+   <script src="/pages/categoria.js?v=<%=new Random().Next(0,10000)%>"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

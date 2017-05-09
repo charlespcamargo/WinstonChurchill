@@ -141,5 +141,18 @@ namespace WinstonChurchill.Backend.Repository
                 return imagemRepository;
             }
         }
+
+        private BaseRepository<Parametro> parametroRepository;
+        public BaseRepository<Parametro> ParametroRepository
+        {
+            get
+            {
+                if (this.parametroRepository == null)
+                {
+                    this.parametroRepository = new BaseRepository<Parametro>(context);
+                }
+                return parametroRepository;
+            }
+        }
     }
 }

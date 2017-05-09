@@ -45,7 +45,7 @@ namespace WinstonChurchill.Backend.Business
                         objSalvo.Nome = entidade.Nome;
                         objSalvo.UsuarioID = usuario.ID;
                         objSalvo.Descricao = entidade.Descricao;
-                        uow.CategoriaRepository.Alterar(entidade);
+                        uow.CategoriaRepository.Alterar(objSalvo);
                     }
                 }
 
@@ -64,23 +64,52 @@ namespace WinstonChurchill.Backend.Business
 
         }
 
-        public Categoria Carregar(int id)
+        public Categoria Carregar(Categoria filtro)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                MontarFiltro(new Categoria { ID = id });
-                Categoria objeto = uow.CategoriaRepository.Carregar(predicate);
+                MontarFiltro(filtro);
+                Categoria objeto = uow.CategoriaRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID));
                 return objeto;
             }
         }
 
-        public void Excluir(int id)
+        public void Excluir(Categoria filtro)
         {
-            if (id == 0)
+            if (filtro == null)
                 throw new ArgumentException("Informe o Categoria para realizar a exclusão");
+
             using (UnitOfWork uow = new UnitOfWork())
             {
-                uow.CategoriaRepository.Excluir(id);
+                MontarFiltro(filtro);
+                Categoria CategoriaExcluir = uow.CategoriaRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "CategoriaImagem");
+                if (CategoriaExcluir == null)
+                    throw new ArgumentException("Nenhum Categoria encontrado");
+
+                List<Imagem> listaImagens = new List<Imagem>();
+                if (CategoriaExcluir.CategoriaImagem != null)
+                {
+                    foreach (var item in CategoriaExcluir.CategoriaImagem)
+                    {
+                        Imagem imagem = uow.ImagemRepository.Carregar(p => p.ID == item.ImagemID, ord => ord.OrderBy(p => p.ID));
+                        if (imagem != null)
+                        {
+                            listaImagens.Add(imagem);
+                        }
+                    }
+                }
+
+                uow.CategoriaRepository.Excluir(CategoriaExcluir);
+
+                if (listaImagens != null)
+                {
+                    foreach (var imagem in listaImagens)
+                    {
+                        uow.ImagemRepository.Excluir(imagem);
+                        AnexoBusiness.New.ExcluirArquivoFisico<Imagem>(imagem);
+                    }
+                }
+
                 uow.Save();
             }
         }

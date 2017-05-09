@@ -65,7 +65,9 @@
     <Compile Include="Business\AnexoBusiness.cs" />
     <Compile Include="Business\CaracteristicasProdutoBusiness.cs" />
     <Compile Include="Business\CategoriaBusiness.cs" />
+    <Compile Include="Business\CategoriaImagemBusiness.cs" />
     <Compile Include="Business\CategoriasProdutoBusiness.cs" />
+    <Compile Include="Business\ParametroBusiness.cs" />
     <Compile Include="Business\ProdutoBusiness.cs" />
     <Compile Include="Business\ProdutosImagensBusiness.cs" />
     <Compile Include="Business\UsuarioBusiness.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Model\GrupoUsuario.cs" />
     <Compile Include="Model\Imagem.cs" />
     <Compile Include="Model\Interfaces\IAnexo.cs" />
+    <Compile Include="Model\Parametro.cs" />
     <Compile Include="Model\ProdutoImagem.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\Usuario.cs" />

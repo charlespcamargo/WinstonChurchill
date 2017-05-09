@@ -23,19 +23,98 @@ namespace WinstonChurchill.API.Controllers
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.UsuarioID = usuario.ID;
 
-                string termo = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault().Value.ToUpper().Trim();
-                if (!string.IsNullOrEmpty(termo))
+                var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
+                if (!string.IsNullOrEmpty(key.Value))
                 {
-                    int codigo;
-                    if (int.TryParse(termo, out codigo))
-                        filtro.ID = int.Parse(termo);
+                    string termo = key.Value.ToUpper().Trim();
 
-                    if (filtro.ID == 0)
-                        filtro.Nome = termo;
+                    {
+                        int codigo;
+                        if (int.TryParse(termo, out codigo))
+                            filtro.ID = int.Parse(termo);
+
+                        if (filtro.ID == 0)
+                            filtro.Nome = termo;
+                    }
                 }
-               List<Categoria> lista = CategoriaBusiness.New.Listar(filtro);
+                    List<Categoria> lista = CategoriaBusiness.New.Listar(filtro);
 
-                return Request.CreateResponse(HttpStatusCode.OK, lista);
+                    return Request.CreateResponse(HttpStatusCode.OK, lista);
+                }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
+
+        [HttpGet, Route("{id}")]
+        public HttpResponseMessage Carregar(int id)
+        {
+            try
+            {
+                Categoria filtro = new Categoria();
+                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
+                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                filtro.UsuarioID = usuario.ID;
+                filtro.ID = id;
+                Categoria Categoria = CategoriaBusiness.New.Carregar(filtro);
+
+                return Request.CreateResponse(HttpStatusCode.OK, Categoria);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
+        [HttpDelete, Route("{id}")]
+        public HttpResponseMessage Excluir(int id)
+        {
+            try
+            {
+                Categoria filtro = new Categoria();
+                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
+                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                filtro.UsuarioID = usuario.ID;
+                filtro.ID = id;
+                CategoriaBusiness.New.Excluir(filtro);
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
+        [HttpPost, Route("salvar")]
+        public HttpResponseMessage Salvar([FromBody] Categoria entidade)
+        {
+            try
+            {
+                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
+                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                CategoriaBusiness.New.Salvar(entidade, usuario);
+                return Request.CreateResponse(HttpStatusCode.OK, entidade);
             }
             catch (ArgumentException aex)
             {

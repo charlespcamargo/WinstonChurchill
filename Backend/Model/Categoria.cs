@@ -40,7 +40,7 @@ namespace WinstonChurchill.Backend.Model
 
 
         [ForeignKey("CategoriaID")]
-        public List<CategoriaImagem> Imagens { get; set; }
+        public List<CategoriaImagem> CategoriaImagem { get; set; }
 
 
         [ForeignKey("CategoriaID")]
