@@ -21,7 +21,7 @@ namespace WinstonChurchill.API.Controllers
             {
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
-                Parametro Parametro = ParametroBusiness.New.Carregar(usuario.ID);
+                Parametro Parametro = ParametroBusiness.New.Carregar();
 
                 return Request.CreateResponse(HttpStatusCode.OK, Parametro);
             }
@@ -45,7 +45,7 @@ namespace WinstonChurchill.API.Controllers
             {
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
-                ParametroBusiness.New.Salvar(entidade, usuario);
+                ParametroBusiness.New.Salvar(entidade);
                 return Request.CreateResponse(HttpStatusCode.OK, entidade);
             }
             catch (ArgumentException aex)

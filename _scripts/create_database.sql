@@ -156,11 +156,8 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaProduto
   RodasLeilao 					INT NOT NULL,
   DiasCadaRodada 				INT NOT NULL,
   MargemGarantiaPreco 			DECIMAL(5,2) NOT NULL,
-  SegundaMargemGarantiaPreco 	DECIMAL(5,2) NOT NULL,
-  UsuarioID 					INT NOT NULL,
+  SegundaMargemGarantiaPreco 	DECIMAL(5,2) NOT NULL
   
-  INDEX fk_Parametro_usuario_idx (UsuarioID ASC),
-  CONSTRAINT fk_Parametro_usuario    FOREIGN KEY (UsuarioID)    REFERENCES dbwinstonchurchill.usuario (ID)
  );
 
 

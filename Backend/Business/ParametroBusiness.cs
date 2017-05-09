@@ -22,7 +22,7 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public Parametro Salvar(Parametro entidade, Usuario usuario)
+        public Parametro Salvar(Parametro entidade)
         {
             if (entidade == null)
                 throw new ArgumentException("Erro: nenhuma informação foi gerada");
@@ -31,7 +31,6 @@ namespace WinstonChurchill.Backend.Business
             {
                 if (entidade.ID == 0)
                 {
-                    entidade.UsuarioID = usuario.ID;
                     uow.ParametroRepository.Inserir(entidade);
                 }
                 else
@@ -46,7 +45,6 @@ namespace WinstonChurchill.Backend.Business
                         objSalvo.PercLucroRepComercial = entidade.PercLucroRepComercial;
                         objSalvo.RodasLeilao = entidade.RodasLeilao;
                         objSalvo.SegundaMargemGarantiaPreco = entidade.SegundaMargemGarantiaPreco;
-                        objSalvo.UsuarioID = usuario.ID;
                         uow.ParametroRepository.Alterar(objSalvo);
                     }
                 }
@@ -57,11 +55,11 @@ namespace WinstonChurchill.Backend.Business
         }
 
 
-        public Parametro Carregar(int usuarioID)
+        public Parametro Carregar()
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                Parametro objeto = uow.ParametroRepository.Carregar(p=>p.UsuarioID == usuarioID, ord => ord.OrderBy(p => p.ID));
+                Parametro objeto = uow.ParametroRepository.Carregar(null,  ord => ord.OrderBy(p => p.ID));
                 return objeto;
             }
         }

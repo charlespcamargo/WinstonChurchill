@@ -46,18 +46,5 @@ namespace WinstonChurchill.Backend.Model
         [JsonConverter(typeof(CustomMoneyReal))]
         [Required(ErrorMessage = "Segunda Margem de Garantia de Preço é obrigatório")]
         public decimal? SegundaMargemGarantiaPreco { get; set; }
-
-
-        #region Foreign Keys
-
-        [DataMember]
-        [Column("UsuarioID")]
-        public int UsuarioID { get; set; }
-
-        [DataMember]
-        [ForeignKey("UsuarioID")]
-        public Usuario Usuario { get; set; }
-
-        #endregion
     }
 }
