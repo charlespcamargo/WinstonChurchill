@@ -153,12 +153,119 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaProduto
   LimiteCancelCompra 			INT NOT NULL,
   PercLucroEmpresa 				DECIMAL(5,2) NOT NULL,
   PercLucroRepComercial 		DECIMAL(5,2) NOT NULL,
-  RodasLeilao 					INT NOT NULL,
-  DiasCadaRodada 				INT NOT NULL,
+  RodasLeilao 					INT 		 NOT NULL,
+  DiasCadaRodada 				INT 		 NOT NULL,
   MargemGarantiaPreco 			DECIMAL(5,2) NOT NULL,
   SegundaMargemGarantiaPreco 	DECIMAL(5,2) NOT NULL
   
  );
-
-
  
+ 
+ CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Endereco (
+  ID 							INT 			NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Logradouro 					VARCHAR(150)  	NOT NULL,
+  Bairro 						VARCHAR(50)   	NOT NULL,
+  Cidade 						VARCHAR(50)   	NOT NULL,
+  Estado 						VARCHAR(50)   	NOT NULL,
+  CEP 							VARCHAR(11)   	NOT NULL
+);
+ 
+
+CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Comprador (
+  ID 							INT 			NOT NULL AUTO_INCREMENT	PRIMARY KEY,
+  CNPJ 							VARCHAR(17) 	NOT NULL,
+  RazaoSocial 					VARCHAR(100) 	NOT NULL,
+  NomeFantasia 					VARCHAR(100) 	NOT NULL,
+  Telefone 						VARCHAR(11) 	NOT NULL,
+  Celular 						VARCHAR(11) 	NOT NULL,
+  Email 						VARCHAR(100) 	NOT NULL,
+  EnderecoID 					INT 			NOT NULL,
+  UsuarioID 					INT 			NOT NULL,
+  INDEX fk_Comprador_Usuario_idx (UsuarioID ASC),
+  INDEX fk_Comprador_Endereco_idx (EnderecoID ASC),
+  CONSTRAINT fk_Comprador_Usuario     FOREIGN KEY (UsuarioID)     REFERENCES dbwinstonchurchill.Usuario (ID), 
+  CONSTRAINT fk_Comprador_Endereco    FOREIGN KEY (EnderecoID)    REFERENCES dbwinstonchurchill.Endereco (ID)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS dbwinstonchurchill.GrupoCompra (
+  ID 							INT 	    	NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  Nome 							VARCHAR(100) 	NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS dbwinstonchurchill.CompradorGrupoCompra (
+  ID 							INT 			NOT NULL AUTO_INCREMENT	PRIMARY KEY,
+  CompradorID 					INT 			NOT NULL,
+  GrupoCompraID 				INT 			NOT NULL,
+  INDEX fk_CompradorGrupoCompra_Comprador_idx (CompradorID ASC),
+  INDEX fk_CompradorGrupoCompra_GrupoCompra_idx (GrupoCompraID ASC),
+  CONSTRAINT fk_CompradorGrupoCompra_Comprador    	 FOREIGN KEY (CompradorID)    	REFERENCES dbwinstonchurchill.Comprador (ID),
+  CONSTRAINT fk_CompradorGrupoCompra_GrupoCompra     FOREIGN KEY (GrupoCompraID)    REFERENCES dbwinstonchurchill.GrupoCompra (ID)
+  );
+
+CREATE TABLE IF NOT EXISTS dbwinstonchurchill.GrupoCompraCategoria (
+  ID 							INT 			NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  GrupoCompraID 				INT				NOT NULL,
+  CategoriaID 					INT				NOT NULL  ,
+   INDEX fk_GrupoCompraCategoria_Categoria_idx (CategoriaID ASC),
+   INDEX fk_GrupoCompraCategoria_GrupoCompra_idx (GrupoCompraID ASC),
+   CONSTRAINT fk_GrupoCompraCategoria_GrupoCompra   	 	FOREIGN KEY (GrupoCompraID)   	REFERENCES dbwinstonchurchill.GrupoCompra (ID),
+   CONSTRAINT fk_GrupoCompraCategoria_Categoria    	 		FOREIGN KEY (CategoriaID)	    REFERENCES dbwinstonchurchill.Categoria (ID)
+);
+
+
+CREATE TABLE IF NOT EXISTS dbwinstonchurchill.CompradorProduto (
+  ID 							INT 			NOT NULL AUTO_INCREMENT	PRIMARY KEY,
+  CompradorID 					INT 			NOT NULL,
+  ProdutoID 					INT 			NOT NULL,
+  ValorMedioCompra 				DECIMAL(12,2) 	NOT NULL,
+  Quantidade 					INT 			NOT NULL,
+  Frequencia 					INT 			NOT NULL,
+  INDEX fk_CompradorProduto_Comprador_idx (CompradorID ASC),
+  INDEX fk_CompradorProduto_Produto_idx (ProdutoID ASC),
+  CONSTRAINT fk_CompradorProduto_Comprador		    FOREIGN KEY (CompradorID)  		  REFERENCES dbwinstonchurchill.Comprador (ID),
+  CONSTRAINT fk_CompradorProduto_Produto		    FOREIGN KEY (ProdutoID)		      REFERENCES dbwinstonchurchill.Produto (ID)
+);
+
+
+CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Contato (
+  ID 							INT 			NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Nome 							VARCHAR(100) 	NOT NULL,
+  Email 						VARCHAR(150) 	NOT NULL,
+  Telefone 						VARCHAR(11) 	NOT NULL,
+  CompradorID 					INT 			NOT NULL,
+  INDEX fk_Contato_Comprador_idx (CompradorID ASC),
+  CONSTRAINT fk_Contato_Comprador    FOREIGN KEY (CompradorID)    REFERENCES dbwinstonchurchill.Comprador (ID)
+ );
+
+
+CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Fornecedor (
+  ID 							INT 			NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  CNPJ 							VARCHAR(17) 	NOT NULL,
+  RazaoSocial 					VARCHAR(100) 	NOT NULL,
+  NomeFantasia 					VARCHAR(100) 	NOT NULL,
+  Telefone 						VARCHAR(11) 	NOT NULL,
+  Celular 						VARCHAR(11) 	NOT NULL,
+  Email 						VARCHAR(100) 	NOT NULL,
+  EnderecoID 					INT 			NOT NULL,
+  UsuarioID 					INT 			NOT NULL,
+  INDEX fk_Fornecedor_Endereco_idx (EnderecoID ASC),
+  INDEX fk_Fornecedor_usuario_idx (UsuarioID ASC),
+  CONSTRAINT fk_Fornecedor_Endereco    FOREIGN KEY (EnderecoID)    REFERENCES dbwinstonchurchill.Endereco (ID),
+  CONSTRAINT fk_Fornecedor_usuario    FOREIGN KEY (UsuarioID)    	REFERENCES dbwinstonchurchill.Usuario (ID)
+);
+
+CREATE TABLE IF NOT EXISTS dbwinstonchurchill.FornecedorProduto (
+  ID 							INT NOT NULL AUTO_INCREMENT	PRIMARY KEY,
+  Valor 						DECIMAL(12,2) 	NOT NULL,
+  Volume 						INT NOT NULL,
+  CapacidadeMaxima 				INT NOT NULL,
+  FornecedorID 					INT NOT NULL,
+  ProdutoID 					INT NOT NULL,
+  INDEX fk_VendedorProduto_Produto_idx (ProdutoID ASC),
+  INDEX fk_FornecedorProduto_Fornecedor_idx (FornecedorID ASC),
+  CONSTRAINT fk_VendedorProduto_Produto    		FOREIGN KEY (ProdutoID)    			REFERENCES dbwinstonchurchill.Produto (ID),
+  CONSTRAINT fk_FornecedorProduto_Fornecedor    FOREIGN KEY (FornecedorID)    		REFERENCES dbwinstonchurchill.Fornecedor (ID)
+);
