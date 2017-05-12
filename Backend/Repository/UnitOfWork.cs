@@ -154,5 +154,122 @@ namespace WinstonChurchill.Backend.Repository
                 return parametroRepository;
             }
         }
+
+        private BaseRepository<Endereco> enderecoRepository;
+        public BaseRepository<Endereco> EnderecoRepository
+        {
+            get
+            {
+                if (this.enderecoRepository == null)
+                {
+                    this.enderecoRepository = new BaseRepository<Endereco>(context);
+                }
+                return enderecoRepository;
+            }
+        }
+
+        private BaseRepository<Comprador> compradorRepository;
+        public BaseRepository<Comprador> CompradorRepository
+        {
+            get
+            {
+                if (this.compradorRepository == null)
+                {
+                    this.compradorRepository = new BaseRepository<Comprador>(context);
+                }
+                return compradorRepository;
+            }
+        }
+
+        private BaseRepository<GrupoCompra> grupoCompraRepository;
+        public BaseRepository<GrupoCompra> GrupoCompraRepository
+        {
+            get
+            {
+                if (this.grupoCompraRepository == null)
+                {
+                    this.grupoCompraRepository = new BaseRepository<GrupoCompra>(context);
+                }
+                return GrupoCompraRepository;
+            }
+        }
+
+        private BaseRepository<CompradorGrupoCompra> compradorGrupoCompraRepository;
+        public BaseRepository<CompradorGrupoCompra> CompradorGrupoCompraRepository
+        {
+            get
+            {
+                if (this.compradorGrupoCompraRepository == null)
+                {
+                    this.compradorGrupoCompraRepository = new BaseRepository<CompradorGrupoCompra>(context);
+                }
+                return compradorGrupoCompraRepository;
+            }
+        }
+
+        private BaseRepository<GrupoCompraCategoria> grupoCompraCategoriaRepository;
+        public BaseRepository<GrupoCompraCategoria> GrupoCompraCategoriaRepository
+        {
+            get
+            {
+                if (this.grupoCompraCategoriaRepository == null)
+                {
+                    this.grupoCompraCategoriaRepository = new BaseRepository<GrupoCompraCategoria>(context);
+                }
+                return grupoCompraCategoriaRepository;
+            }
+        }
+
+        private BaseRepository<CompradorProduto> compradorProdutoRepository;
+        public BaseRepository<CompradorProduto> CompradorProdutoRepository
+        {
+            get
+            {
+                if (this.compradorProdutoRepository == null)
+                {
+                    this.compradorProdutoRepository = new BaseRepository<CompradorProduto>(context);
+                }
+                return compradorProdutoRepository;
+            }
+        }
+
+        private BaseRepository<Contato> contatoRepository;
+        public BaseRepository<Contato> ContatoRepository
+        {
+            get
+            {
+                if (this.contatoRepository == null)
+                {
+                    this.contatoRepository = new BaseRepository<Contato>(context);
+                }
+                return ContatoRepository;
+            }
+        }
+
+        private BaseRepository<Fornecedor> fornecedorRepository;
+        public BaseRepository<Fornecedor> FornecedorRepository
+        {
+            get
+            {
+                if (this.fornecedorRepository == null)
+                {
+                    this.fornecedorRepository = new BaseRepository<Fornecedor>(context);
+                }
+                return FornecedorRepository;
+            }
+        }
+
+        private BaseRepository<FornecedorProduto> fornecedorProdutoRepository;
+        public BaseRepository<FornecedorProduto> FornecedorProdutoRepository
+        {
+            get
+            {
+                if (this.fornecedorProdutoRepository == null)
+                {
+                    this.fornecedorProdutoRepository = new BaseRepository<FornecedorProduto>(context);
+                }
+                return fornecedorProdutoRepository;
+            }
+        }
     }
 }

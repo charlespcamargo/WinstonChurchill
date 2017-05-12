@@ -75,6 +75,15 @@
     <Compile Include="Model\CategoriaImagem.cs" />
     <Compile Include="Model\Categoria.cs" />
     <Compile Include="Model\CategoriaProduto.cs" />
+    <Compile Include="Model\Comprador.cs" />
+    <Compile Include="Model\CompradorGrupoCompra.cs" />
+    <Compile Include="Model\CompradorProduto.cs" />
+    <Compile Include="Model\Contato.cs" />
+    <Compile Include="Model\Endereco.cs" />
+    <Compile Include="Model\Fornecedor.cs" />
+    <Compile Include="Model\FornecedorProduto.cs" />
+    <Compile Include="Model\GrupoCompra.cs" />
+    <Compile Include="Model\GrupoCompraCategoria.cs" />
     <Compile Include="Model\GrupoUsuario.cs" />
     <Compile Include="Model\Imagem.cs" />
     <Compile Include="Model\Interfaces\IAnexo.cs" />
