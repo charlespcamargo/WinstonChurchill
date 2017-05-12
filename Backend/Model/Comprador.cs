@@ -33,7 +33,7 @@ namespace WinstonChurchill.Backend.Model
         [DataMember]
         [Column("Telefone"), StringLength(50)]
         [Required(ErrorMessage = "Telefone é obrigatório")]
-        public string Estado { get; set; }
+        public string Telefone { get; set; }
 
         [DataMember]
         [Column("Celular"), StringLength(11)]

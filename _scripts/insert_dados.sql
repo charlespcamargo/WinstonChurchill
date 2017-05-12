@@ -23,6 +23,9 @@ INSERT INTO Produto(Nome, Descricao, Ativo, DataCadastro, UsuarioID) VALUES('Far
 INSERT INTO Produto(Nome, Descricao, Ativo, DataCadastro, UsuarioID) VALUES('Farinha Escura', 'A Farinha Escura blá, blá, blá', 1, Now(), 1);
 INSERT INTO Produto(Nome, Descricao, Ativo, DataCadastro, UsuarioID) VALUES('Trigo', 'O Trigo blá, blá, blá', 1, Now(), 1);
 
+
+
+INSERT INTO GrupoUsuario
  
 
 		

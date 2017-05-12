@@ -142,7 +142,5 @@ namespace WinstonChurchill.Backend.Business
 
             predicate = predicate.And(p => p.UsuarioID == filtro.UsuarioID);
         }
-
-
     }
 }

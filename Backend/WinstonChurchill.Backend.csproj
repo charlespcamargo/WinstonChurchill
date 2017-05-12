@@ -67,6 +67,11 @@
     <Compile Include="Business\CategoriaBusiness.cs" />
     <Compile Include="Business\CategoriaImagemBusiness.cs" />
     <Compile Include="Business\CategoriasProdutoBusiness.cs" />
+    <Compile Include="Business\CompradorBusiness.cs" />
+    <Compile Include="Business\CompradorGrupoCompraBusiness.cs" />
+    <Compile Include="Business\CompradorProdutoBusiness.cs" />
+    <Compile Include="Business\ContatoBusiness.cs" />
+    <Compile Include="Business\EnderecoBusiness.cs" />
     <Compile Include="Business\ParametroBusiness.cs" />
     <Compile Include="Business\ProdutoBusiness.cs" />
     <Compile Include="Business\ProdutosImagensBusiness.cs" />
