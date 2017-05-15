@@ -76,13 +76,12 @@ namespace WinstonChurchill.Backend.Repository
 
 
             builder.Configurations.Add(new EntityTypeConfiguration<Endereco>());
-            builder.Configurations.Add(new EntityTypeConfiguration<Comprador>());
-            builder.Configurations.Add(new EntityTypeConfiguration<GrupoCompra>());
-            builder.Configurations.Add(new EntityTypeConfiguration<CompradorGrupoCompra>());
-            builder.Configurations.Add(new EntityTypeConfiguration<GrupoCompraCategoria>());
+            builder.Configurations.Add(new EntityTypeConfiguration<Grupo>());
+            builder.Configurations.Add(new EntityTypeConfiguration<ParceiroNegocioGrupo>());
+            builder.Configurations.Add(new EntityTypeConfiguration<GrupoCategoria>());
             builder.Configurations.Add(new EntityTypeConfiguration<CompradorProduto>());
             builder.Configurations.Add(new EntityTypeConfiguration<Contato>());
-            builder.Configurations.Add(new EntityTypeConfiguration<Fornecedor>());
+            builder.Configurations.Add(new EntityTypeConfiguration<ParceiroNegocio>());
             builder.Configurations.Add(new EntityTypeConfiguration<FornecedorProduto>());
 
             return builder;

@@ -7,8 +7,8 @@ using System.Collections.Generic;
 
 namespace WinstonChurchill.Backend.Model
 {
-    [Table("Fornecedor")]
-    public class Fornecedor
+    [Table("ParceiroNegocio")]
+    public class ParceiroNegocio
     {
         [DataMember]
         [Key]
@@ -47,6 +47,10 @@ namespace WinstonChurchill.Backend.Model
         public string Email { get; set; }
 
 
+        [Column("TipoParceiro")]
+        public int TipoParceiro { get; set; }
+
+
         #region Foreign Keys
 
         [DataMember]
@@ -63,7 +67,7 @@ namespace WinstonChurchill.Backend.Model
         [ForeignKey("UsuarioID")]
         public Usuario Usuario { get; set; }
 
-        [ForeignKey("FornecedorID")]
+        [ForeignKey("ParceiroID")]
         public List<FornecedorProduto> FornecedorProduto { get; set; } = new List<FornecedorProduto>();
 
         #endregion

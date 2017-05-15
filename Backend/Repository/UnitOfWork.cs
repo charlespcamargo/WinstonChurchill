@@ -168,53 +168,41 @@ namespace WinstonChurchill.Backend.Repository
             }
         }
 
-        private BaseRepository<Comprador> compradorRepository;
-        public BaseRepository<Comprador> CompradorRepository
-        {
-            get
-            {
-                if (this.compradorRepository == null)
-                {
-                    this.compradorRepository = new BaseRepository<Comprador>(context);
-                }
-                return compradorRepository;
-            }
-        }
 
-        private BaseRepository<GrupoCompra> grupoCompraRepository;
-        public BaseRepository<GrupoCompra> GrupoCompraRepository
+        private BaseRepository<Grupo> grupoCompraRepository;
+        public BaseRepository<Grupo> GrupoCompraRepository
         {
             get
             {
                 if (this.grupoCompraRepository == null)
                 {
-                    this.grupoCompraRepository = new BaseRepository<GrupoCompra>(context);
+                    this.grupoCompraRepository = new BaseRepository<Grupo>(context);
                 }
                 return GrupoCompraRepository;
             }
         }
 
-        private BaseRepository<CompradorGrupoCompra> compradorGrupoCompraRepository;
-        public BaseRepository<CompradorGrupoCompra> CompradorGrupoCompraRepository
+        private BaseRepository<ParceiroNegocioGrupo> compradorGrupoCompraRepository;
+        public BaseRepository<ParceiroNegocioGrupo> CompradorGrupoCompraRepository
         {
             get
             {
                 if (this.compradorGrupoCompraRepository == null)
                 {
-                    this.compradorGrupoCompraRepository = new BaseRepository<CompradorGrupoCompra>(context);
+                    this.compradorGrupoCompraRepository = new BaseRepository<ParceiroNegocioGrupo>(context);
                 }
                 return compradorGrupoCompraRepository;
             }
         }
 
-        private BaseRepository<GrupoCompraCategoria> grupoCompraCategoriaRepository;
-        public BaseRepository<GrupoCompraCategoria> GrupoCompraCategoriaRepository
+        private BaseRepository<GrupoCategoria> grupoCompraCategoriaRepository;
+        public BaseRepository<GrupoCategoria> GrupoCompraCategoriaRepository
         {
             get
             {
                 if (this.grupoCompraCategoriaRepository == null)
                 {
-                    this.grupoCompraCategoriaRepository = new BaseRepository<GrupoCompraCategoria>(context);
+                    this.grupoCompraCategoriaRepository = new BaseRepository<GrupoCategoria>(context);
                 }
                 return grupoCompraCategoriaRepository;
             }
@@ -246,14 +234,14 @@ namespace WinstonChurchill.Backend.Repository
             }
         }
 
-        private BaseRepository<Fornecedor> fornecedorRepository;
-        public BaseRepository<Fornecedor> FornecedorRepository
+        private BaseRepository<ParceiroNegocio> fornecedorRepository;
+        public BaseRepository<ParceiroNegocio> FornecedorRepository
         {
             get
             {
                 if (this.fornecedorRepository == null)
                 {
-                    this.fornecedorRepository = new BaseRepository<Fornecedor>(context);
+                    this.fornecedorRepository = new BaseRepository<ParceiroNegocio>(context);
                 }
                 return FornecedorRepository;
             }

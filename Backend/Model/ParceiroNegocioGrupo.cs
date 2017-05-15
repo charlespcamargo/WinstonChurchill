@@ -3,11 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using WinstonChurchill.API.Common.Atributos;
-
 namespace WinstonChurchill.Backend.Model
 {
-    [Table("GrupoCompraCategoria")]
-    public class GrupoCompraCategoria
+    [Table("ParceiroNegocioGrupo")]
+    public class ParceiroNegocioGrupo
     {
         [DataMember]
         [Key]
@@ -17,18 +16,18 @@ namespace WinstonChurchill.Backend.Model
         #region Foreign Keys
 
         [DataMember]
-        [Column("CategoriaID")]
-        public int CategoriaID { get; set; }
+        [Column("ParceiroID")]
+        public int ParceiroID { get; set; }
 
-        [ForeignKey("CategoriaID")]
-        public Categoria Categoria { get; set; }
+        [ForeignKey("ParceiroID")]
+        public ParceiroNegocio Parceiro { get; set; }
 
         [DataMember]
-        [Column("GrupoCompraID")]
-        public int GrupoCompraID { get; set; }
+        [Column("GrupoID")]
+        public int GrupoID { get; set; }
 
-        [ForeignKey("GrupoCompraID")]
-        public GrupoCompra GrupoCompra { get; set; }
+        [ForeignKey("GrupoID")]
+        public Grupo Grupo { get; set; }
 
         #endregion
     }

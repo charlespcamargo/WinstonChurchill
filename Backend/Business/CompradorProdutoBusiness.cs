@@ -13,12 +13,12 @@ namespace WinstonChurchill.Backend.Business
         {
             if (lista == null || lista.Count == 0)
             {
-                List<CompradorProduto> listaExcluir = uow.CompradorProdutoRepository.Listar(p => p.CompradorID == compradorId);
+                List<CompradorProduto> listaExcluir = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == compradorId);
                 Excluir(uow, listaExcluir);
             }
             else
             {
-                List<CompradorProduto> listaSalva = uow.CompradorProdutoRepository.Listar(p => p.CompradorID == compradorId);
+                List<CompradorProduto> listaSalva = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == compradorId);
                 List<CompradorProduto> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.ID == w.ID)).ToList();
                 Excluir(uow, listaExcluir);
                 Salvar(uow, listaSalva, lista);

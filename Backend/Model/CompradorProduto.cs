@@ -29,11 +29,11 @@ namespace WinstonChurchill.Backend.Model
         #region Foreign Keys
 
         [DataMember]
-        [Column("CompradorID")]
-        public int CompradorID { get; set; }
+        [Column("ParceiroID")]
+        public int ParceiroID { get; set; }
 
-        [ForeignKey("CompradorID")]
-        public Comprador Comprador { get; set; }
+        [ForeignKey("ParceiroID")]
+        public ParceiroNegocio Parceiro { get; set; }
 
         [DataMember]
         [Column("ProdutoID")]

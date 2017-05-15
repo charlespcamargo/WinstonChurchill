@@ -6,8 +6,8 @@ using System.Collections.Generic;
 
 namespace WinstonChurchill.Backend.Model
 {
-    [Table("GrupoCompra")]
-    public class GrupoCompra
+    [Table("Grupo")]
+    public class Grupo
     {
         [DataMember]
         [Key]
@@ -20,13 +20,17 @@ namespace WinstonChurchill.Backend.Model
         public string Nome { get; set; }
 
 
+        [Column("TipoParceiro")]
+        public int TipoGrupo { get; set; }
+
+
         #region Foreign keys
 
-        [ForeignKey("GrupoCompraID")]
-        public List<GrupoCompraCategoria> GrupoCompraCategoria { get; set; } = new List<GrupoCompraCategoria>();
+        [ForeignKey("GrupoID")]
+        public List<GrupoCategoria> GrupoCategoria { get; set; } = new List<GrupoCategoria>();
 
-        [ForeignKey("GrupoCompraID")]
-        public List<CompradorGrupoCompra> CompradorGrupoCompra { get; set; } = new List<CompradorGrupoCompra>();
+        [ForeignKey("GrupoID")]
+        public List<ParceiroNegocioGrupo> CompradorGrupoCompra { get; set; } = new List<ParceiroNegocioGrupo>();
 
         #endregion
     }
