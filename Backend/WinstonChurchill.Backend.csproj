@@ -70,7 +70,12 @@
     <Compile Include="Business\CompradorProdutoBusiness.cs" />
     <Compile Include="Business\ContatoBusiness.cs" />
     <Compile Include="Business\EnderecoBusiness.cs" />
+    <Compile Include="Business\FornecedorProdutoBusiness.cs" />
+    <Compile Include="Business\GrupoBusiness.cs" />
+    <Compile Include="Business\GrupoCategoriaBusiness.cs" />
     <Compile Include="Business\ParametroBusiness.cs" />
+    <Compile Include="Business\ParceiroNegocioBusiness.cs" />
+    <Compile Include="Business\ParceiroNegocioGrupoBusiness.cs" />
     <Compile Include="Business\ProdutoBusiness.cs" />
     <Compile Include="Business\ProdutosImagensBusiness.cs" />
     <Compile Include="Business\UsuarioBusiness.cs" />
@@ -78,6 +83,7 @@
     <Compile Include="Model\CategoriaImagem.cs" />
     <Compile Include="Model\Categoria.cs" />
     <Compile Include="Model\CategoriaProduto.cs" />
+    <Compile Include="Model\Enumeradores\Enumeradores.cs" />
     <Compile Include="Model\ParceiroNegocioGrupo.cs" />
     <Compile Include="Model\CompradorProduto.cs" />
     <Compile Include="Model\Contato.cs" />

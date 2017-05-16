@@ -182,6 +182,7 @@ CREATE TABLE IF NOT EXISTS dbwinstonchurchill.ParceiroNegocio (
   EnderecoID 					INT 			NOT NULL,
   UsuarioID 					INT 			NOT NULL,
   TipoParceiro					INT				NOT NULL,
+  DataCadastro					DATETIME		NOT NULL,
   INDEX fk_ParceiroNegocio_Usuario_idx (UsuarioID ASC),
   INDEX fk_ParceiroNegocio_Endereco_idx (EnderecoID ASC),
   CONSTRAINT fk_ParceiroNegocio_Usuario     FOREIGN KEY (UsuarioID)     REFERENCES dbwinstonchurchill.Usuario (ID), 
@@ -193,7 +194,10 @@ CREATE TABLE IF NOT EXISTS dbwinstonchurchill.ParceiroNegocio (
 CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Grupo (
   ID 							INT 	    	NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   Nome 							VARCHAR(100) 	NOT NULL,
-  TipoGrupo						INT				NOT NULL
+  TipoGrupo						INT				NOT NULL,
+  UsuarioID						INT				NOT NULL,
+  INDEX fk_Grupo_Usuario_idx (UsuarioID ASC),
+  CONSTRAINT fk_Grupo_Usuario     FOREIGN KEY (UsuarioID)     REFERENCES dbwinstonchurchill.Usuario (ID)
 );
 
 

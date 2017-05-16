@@ -1,13 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/pages/MasterDefault.Master" AutoEventWireup="true" CodeBehind="Grupo.aspx.cs" Inherits="UI.pages.Grupo" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/pages/MasterDefault.Master" AutoEventWireup="true" CodeBehind="ParceiroNegocio.aspx.cs" Inherits="WinstonChurchill.UI.pages.ParceiroNegocio" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cphHead" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphContent" runat="server">
-     <div class="container-fluid">
+         <div class="container-fluid">
         <!-- BEGIN PAGE CONTAINER-->
         <!-- BEGIN PAGE HEADER-->
         <div class="row-fluid">
             <div class="span12">
-                <h3 class="page-title">Grupo<small> listagem dos cadastrados</small>
+                <h3 class="page-title">Parceiro de Negócio<small> listagem dos cadastrados</small>
                 </h3>
                 <ul class="breadcrumb">
                     <li>
@@ -16,7 +16,7 @@
                         <span class="icon-angle-right"></span>
                     </li>
                     <li>
-                        <a href="#">Grupo</a>
+                        <a href="#">Parceiro de Negócio</a>
                     </li>
                 </ul>
             </div>
@@ -27,7 +27,7 @@
             <div class="portlet box grey">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="icon-reorder"></i>Grupo
+                        <i class="icon-reorder"></i>Parceiro de Negócio
                     </div>
                     <div class="tools hidden-phone">
                         <a href="javascript:;" class="collapse"></a>
@@ -50,10 +50,8 @@
                                 <thead>
                                     <tr>
                                         <%--<th style="width: 10%">Cód.</th>--%>
-                                        <th style="width: 20%">Nome</th>
-                                        <th style="width: 30%">Categorias</th>
-                                        <th style="width: 30%">Grupos</th>
-                                        <th>Cadastrado</th>
+                                        <th style="width: 30%">Nome</th>
+                                        <th style="width: 13%">Cadastrado</th>
                                         <th style="width: 7%">Ações</th>
                                     </tr>
                                 </thead>
@@ -73,7 +71,7 @@
         <div id="modalNovo" class="modal hide fade container" tabindex="-1" data-backdrop="fixed">
             <div class="portlet box grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-edit"></i>Novo grupo</div>
+                    <div class="caption"><i class="icon-edit"></i>Novo Parceiro de Negócio</div>
                 </div>
             </div>
             <div class="modal-body">
@@ -107,20 +105,6 @@
                                         <span>Categorias</span>
                                         <input type="hidden" class="select2-offscreen" id="hfCategoria" style="width: 100%" value="" for="ddlCategoria" data-json validate-json="Informe pelo menos uma categoria" />
                                         <input type="text" class="hidden" id="ddlCategoria" name="ddlCategoria" value="" />
-                                    </div>
-                                </div>
-                                 <div class="row-fluid">
-                                      <div class="controls span2">
-                                        <span style="margin-left: -27px;">Tipo</span>
-                                          <select id="ddlTipo" class="span12 m-wrap chosen">
-                                              <option value="1"> Compradores</option>
-                                              <option value="2"> Fornecedores</option>
-                                          </select>
-                                      </div>
-                                    <div class="controls span10">
-                                        <span label-grupo></span>
-                                        <input type="hidden" class="select2-offscreen" id="hfPaceiros" style="width: 100%" value="" for="ddlParceiros" data-json validate-json="Informe pelo menos uma categoria" />
-                                        <input type="text" class="hidden" id="ddlParceiros" name="ddlParceiros" value="" />
                                     </div>
                                 </div>
                             </div>
@@ -178,11 +162,11 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="PageScript" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="cphScripts" runat="server">
-     <script src="/pages/grupo.js?v=<%=new Random().Next(0,10000)%>"></script>
+     <script src="/pages/parceiroNegocio.js?v=<%=new Random().Next(0,10000)%>"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            Grupo.init();
+            PN.init();
         });
     </script>
 </asp:Content>

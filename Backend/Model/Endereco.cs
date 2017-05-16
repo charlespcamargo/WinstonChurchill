@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
+using System;
 
 namespace WinstonChurchill.Backend.Model
 {
@@ -37,6 +38,21 @@ namespace WinstonChurchill.Backend.Model
         [Column("CEP"), StringLength(11)]
         [Required(ErrorMessage = "CEP é obrigatório")]
         public string CEP { get; set; }
-       
+
+
+
+        #region Métodos Internos
+        internal void AlterarObjeto(Endereco endereco)
+        {
+            if (endereco != null) {
+                this.Bairro = endereco.Bairro;
+                this.CEP = endereco.CEP;
+                this.Cidade = endereco.Cidade;
+                this.Estado = endereco.Estado;
+                this.Logradouro = endereco.Logradouro;
+            }
+        }
+
+        #endregion
     }
 }

@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UI.pages
+namespace WinstonChurchill.UI.pages
 {
 
 
-    public partial class Fornecedor
+    public partial class ParceiroNegocio
     {
     }
 }

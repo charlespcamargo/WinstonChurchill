@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace UI.pages
+namespace WinstonChurchill.UI.pages
 {
-    public partial class Fornecedor : System.Web.UI.Page
+    public partial class ParceiroNegocio : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

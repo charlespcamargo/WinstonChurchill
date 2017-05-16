@@ -23,14 +23,19 @@ namespace WinstonChurchill.Backend.Model
         [Column("TipoParceiro")]
         public int TipoGrupo { get; set; }
 
-
         #region Foreign keys
+
+        [Column("UsuarioID")]
+        public int UsuarioID { get; set; }
+
+        [ForeignKey("UsuarioID")]
+        public Usuario Usuario { get; set; }
 
         [ForeignKey("GrupoID")]
         public List<GrupoCategoria> GrupoCategoria { get; set; } = new List<GrupoCategoria>();
 
         [ForeignKey("GrupoID")]
-        public List<ParceiroNegocioGrupo> CompradorGrupoCompra { get; set; } = new List<ParceiroNegocioGrupo>();
+        public List<ParceiroNegocioGrupo> ParceiroNegocioGrupo { get; set; } = new List<ParceiroNegocioGrupo>();
 
         #endregion
     }

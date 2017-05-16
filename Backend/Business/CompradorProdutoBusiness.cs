@@ -9,16 +9,16 @@ namespace WinstonChurchill.Backend.Business
     {
         public static CompradorProdutoBusiness New { get { return new CompradorProdutoBusiness(); } }
 
-        public void Salvar(List<CompradorProduto> lista, int compradorId, UnitOfWork uow)
+        public void Salvar(List<CompradorProduto> lista, int parceiroId, UnitOfWork uow)
         {
             if (lista == null || lista.Count == 0)
             {
-                List<CompradorProduto> listaExcluir = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == compradorId);
+                List<CompradorProduto> listaExcluir = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == parceiroId);
                 Excluir(uow, listaExcluir);
             }
             else
             {
-                List<CompradorProduto> listaSalva = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == compradorId);
+                List<CompradorProduto> listaSalva = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == parceiroId);
                 List<CompradorProduto> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.ID == w.ID)).ToList();
                 Excluir(uow, listaExcluir);
                 Salvar(uow, listaSalva, lista);

@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using WinstonChurchill.API.Common.Atributos;
 using System.Collections.Generic;
+using System;
+using WinstonChurchill.Backend.Model.Enumeradores;
 
 namespace WinstonChurchill.Backend.Model
 {
@@ -33,7 +35,7 @@ namespace WinstonChurchill.Backend.Model
         [DataMember]
         [Column("Telefone"), StringLength(50)]
         [Required(ErrorMessage = "Telefone é obrigatório")]
-        public string Estado { get; set; }
+        public string Telefone { get; set; }
 
         [DataMember]
         [Column("Celular"), StringLength(11)]
@@ -50,6 +52,8 @@ namespace WinstonChurchill.Backend.Model
         [Column("TipoParceiro")]
         public int TipoParceiro { get; set; }
 
+        [Column("DataCadastro")]
+        public DateTime DataCadastro { get; internal set; }
 
         #region Foreign Keys
 
@@ -69,6 +73,35 @@ namespace WinstonChurchill.Backend.Model
 
         [ForeignKey("ParceiroID")]
         public List<FornecedorProduto> FornecedorProduto { get; set; } = new List<FornecedorProduto>();
+
+        [ForeignKey("ParceiroID")]
+        public List<CompradorProduto> CompradorProduto { get; set; } = new List<CompradorProduto>();
+
+        [ForeignKey("ParceiroID")]
+        public List<Contato> Contatos { get; set; } = new List<Contato>();
+
+        #endregion
+
+
+        #region Métodos internos
+
+        internal void AlterarObjeto(ParceiroNegocio entidade)
+        {
+            if (entidade != null)
+            {
+                this.Celular = entidade.Celular;
+                this.CNPJ = entidade.CNPJ;
+                this.Email = entidade.Email;
+                this.NomeFantasia = entidade.NomeFantasia;
+                this.RazaoSocial = entidade.RazaoSocial;
+                this.Telefone = entidade.Telefone;
+                this.TipoParceiro = entidade.TipoParceiro;
+                this.UsuarioID = entidade.UsuarioID;
+            }
+
+            if (this.Endereco != null)
+                this.Endereco.AlterarObjeto(entidade.Endereco);
+        }
 
         #endregion
     }

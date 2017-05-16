@@ -275,12 +275,13 @@
     <Content Include="Login.aspx" />
     <Content Include="pages\Categoria.aspx" />
     <Content Include="pages\categoria.js" />
-    <Content Include="pages\Comprador.aspx" />
     <Content Include="pages\exemplo.js" />
-    <Content Include="pages\Fornecedor.aspx" />
     <Content Include="pages\Grupo.aspx" />
+    <Content Include="pages\grupo.js" />
     <Content Include="pages\leilao.js" />
     <Content Include="pages\parametrizacao.js" />
+    <Content Include="pages\ParceiroNegocio.aspx" />
+    <Content Include="pages\parceiroNegocio.js" />
     <Content Include="pages\Produto.aspx" />
     <Content Include="pages\produto.js" />
     <Content Include="pages\usuario.js" />
@@ -2322,20 +2323,6 @@
     <Compile Include="pages\Categoria.aspx.designer.cs">
       <DependentUpon>Categoria.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\Comprador.aspx.cs">
-      <DependentUpon>Comprador.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\Comprador.aspx.designer.cs">
-      <DependentUpon>Comprador.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\Fornecedor.aspx.cs">
-      <DependentUpon>Fornecedor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\Fornecedor.aspx.designer.cs">
-      <DependentUpon>Fornecedor.aspx</DependentUpon>
-    </Compile>
     <Compile Include="pages\Grupo.aspx.cs">
       <DependentUpon>Grupo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2370,6 +2357,13 @@
     </Compile>
     <Compile Include="pages\Parametrizacao.aspx.designer.cs">
       <DependentUpon>Parametrizacao.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\ParceiroNegocio.aspx.cs">
+      <DependentUpon>ParceiroNegocio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\ParceiroNegocio.aspx.designer.cs">
+      <DependentUpon>ParceiroNegocio.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\Produto.aspx.cs">
       <DependentUpon>Produto.aspx</DependentUpon>
