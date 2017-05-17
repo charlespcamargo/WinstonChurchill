@@ -20,7 +20,7 @@ namespace WinstonChurchill.Backend.Model
         public string Nome { get; set; }
 
 
-        [Column("TipoParceiro")]
+        [Column("TipoGrupo")]
         public int TipoGrupo { get; set; }
 
         #region Foreign keys
@@ -37,6 +37,28 @@ namespace WinstonChurchill.Backend.Model
         [ForeignKey("GrupoID")]
         public List<ParceiroNegocioGrupo> ParceiroNegocioGrupo { get; set; } = new List<ParceiroNegocioGrupo>();
 
+        #endregion
+
+
+        #region Métodos
+        public void AdicionarDependentes()
+        {
+            if (this.GrupoCategoria != null && this.ID > 0)
+            {
+                foreach (var item in this.GrupoCategoria)
+                {
+                    item.GrupoID = ID;
+                }
+            }
+
+            if (this.ParceiroNegocioGrupo != null && this.ID > 0)
+            {
+                foreach (var item in this.ParceiroNegocioGrupo)
+                {
+                    item.GrupoID = ID;
+                }
+            }
+        }
         #endregion
     }
 }

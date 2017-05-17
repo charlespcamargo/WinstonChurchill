@@ -25,7 +25,7 @@ namespace WinstonChurchill.Backend.Business
             else
             {
                 List<ParceiroNegocioGrupo> listaSalva = uow.ParceiroNegocioGrupoRepository.Listar(p => p.GrupoID == grupoId);
-                List<ParceiroNegocioGrupo> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.ID == w.ID)).ToList();
+                List<ParceiroNegocioGrupo> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.GrupoID == w.GrupoID && a.ParceiroID == w.ParceiroID)).ToList();
                 Excluir(uow, listaExcluir);
                 Inserir(uow, listaSalva, lista);
             }

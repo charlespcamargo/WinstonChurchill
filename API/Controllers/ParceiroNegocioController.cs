@@ -12,8 +12,21 @@ namespace WinstonChurchill.API.Controllers
     [RoutePrefix("parceiroNegocio")]
     public class ParceiroNegocioController : ApiController
     {
-        [HttpGet, Route("listar")]
-        public HttpResponseMessage Listar()
+        [HttpGet, Route("listarComprador")]
+        public HttpResponseMessage ListarComprador()
+        {
+            int tipo = 1;
+            return Listar(tipo);
+        }
+
+        [HttpGet, Route("listarFornecedor")]
+        public HttpResponseMessage ListarFornecedor()
+        {
+            int tipo = 2;
+            return Listar(tipo);
+        }
+
+        private HttpResponseMessage Listar(int tipo)
         {
             try
             {
@@ -36,8 +49,11 @@ namespace WinstonChurchill.API.Controllers
                             filtro.RazaoSocial = termo;
                     }
                 }
-                List<ParceiroNegocio> lista = ParceiroNegocioBusiness.New.Listar(filtro);
 
+                if (tipo > 0)
+                    filtro.TipoParceiro = Convert.ToInt32(tipo);
+
+                List<ParceiroNegocio> lista = ParceiroNegocioBusiness.New.Listar(filtro);
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (ArgumentException aex)
@@ -51,7 +67,6 @@ namespace WinstonChurchill.API.Controllers
                 throw new HttpResponseException(errorResponse);
             }
         }
-
 
         [HttpGet, Route("{id}")]
         public HttpResponseMessage Carregar(int id)

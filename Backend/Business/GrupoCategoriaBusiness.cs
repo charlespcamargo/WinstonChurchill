@@ -25,7 +25,7 @@ namespace WinstonChurchill.Backend.Business
             else
             {
                 List<GrupoCategoria> listaSalva = uow.GrupoCategoriaRepository.Listar(p => p.GrupoID == grupoId);
-                List<GrupoCategoria> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.ID == w.ID)).ToList();
+                List<GrupoCategoria> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.GrupoID == w.GrupoID && a.CategoriaID == w.CategoriaID)).ToList();
                 Excluir(uow, listaExcluir);
                 Inserir(uow, listaSalva, lista);
             }
@@ -37,7 +37,7 @@ namespace WinstonChurchill.Backend.Business
             {
                 foreach (var itemSalvar in listaSalvar)
                 {
-                    GrupoCategoria itemSalvo = listaSalva.FirstOrDefault(f => f.ID == itemSalvar.ID);
+                    GrupoCategoria itemSalvo = listaSalva.FirstOrDefault(f=> f.GrupoID == itemSalvar.GrupoID && f.CategoriaID == itemSalvar.CategoriaID);
                     if (itemSalvo == null)
                         uow.GrupoCategoriaRepository.Inserir(itemSalvar);
                 }

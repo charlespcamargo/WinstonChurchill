@@ -1,9 +1,7 @@
 ﻿var Grupo = function () {
     var id = 0;
-    var status = true;
     return {
         init: function () {
-            $('#hfPaceiros').parceiros({ multiplo: true, tipo: 1 });
             $('#hfCategoria').categorias({ multiplo: true });
             Grupo.eventos();
             Grupo.listar();
@@ -24,7 +22,9 @@
             $("#modalNovo").modal('show');
             $('#Dados').limpar();
             id = 0;
-            status = true;
+
+            $('#hfPaceiros').parceiros({ multiplo: true, tipo: 1 });
+            this.alterarTipo(1);
         },
 
         fecharModal: function () {
@@ -53,31 +53,15 @@
 
                 colunas.push({
                     mData: "ID", sClass: "text-left", sType: "string", mRender: function (source, type, full) {
-                        var grupos = '';
+                        var parceiros = '';
                         if (full.ParceiroNegocioGrupo && full.ParceiroNegocioGrupo.length > 0) {
                             $.each(full.ParceiroNegocioGrupo, function (i, obj) {
-                                if (obj.Grupo)
-                                    grupos += '|' + obj.Grupo.Nome;
+                                if (obj.Parceiro)
+                                    parceiros += '|' + obj.Parceiro.RazaoSocial;
                             });
-                            grupos = grupos.substring(1);
+                            parceiros = parceiros.substring(1);
                         }
-                        return grupos;
-                    }
-                });
-
-                colunas.push({ mData: "DataCadastro", sClass: "text-left", sType: "string" });
-
-                colunas.push({
-                    mData: "ID", sClass: "text-left", sType: "string", mRender: function (source, type, full) {
-                        var categorias = '';
-                        if (full.CategoriasGrupo && full.CategoriasGrupo.length > 0) {
-                            $.each(full.CategoriasGrupo, function (i, obj) {
-                                if (obj.Categoria)
-                                    categorias += '|' + obj.Categoria.Nome;
-                            });
-                            categorias = categorias.substring(1);
-                        }
-                        return categorias;
+                        return parceiros;
                     }
                 });
 
@@ -85,8 +69,7 @@
                     mData: "ID", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
                         var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="Grupo.excluir(' + full.ID + ')"><i class="icon-remove"></i></a>';
                         var editar = '&nbsp<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="Grupo.editar(' + full.ID + ')"><i class="icon-edit"></i></a>';
-                        var visualizarImagens = '&nbsp<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Visualizar Imagens" onclick="Grupo.visualizarImagens(' + full.ID + ')"><i class="icon-search"></i></a>';
-                        return visualizarImagens + editar + excluir;
+                        return editar + excluir;
                     }
                 });
 
@@ -102,8 +85,8 @@
             }
 
             HelperJS.callApi({
-                url: "grupo/listar/",
-                type: "POST",
+                url: "grupo/listar/0",
+                type: "GET",
                 data: null,
                 functionOnSucess: fnSuccess,
                 functionOnError: HelperJS.showError
@@ -114,15 +97,22 @@
         carregar: function (_id) {
             var fnSuccess = function (data) {
                 $('#Dados').popularCampos({ data: data });
-                if (data.CategoriasGrupo) {
+                if (data.GrupoCategoria) {
                     var categorias = new Array();
-                    $.each(data.CategoriasGrupo, function (i, obj) { categorias.push(obj.Categoria); });
+                    $.each(data.GrupoCategoria, function (i, obj) { categorias.push(obj.Categoria); });
                 }
                 ;
                 $('#hfCategoria').select2("data", categorias);
+
+
+                if (data.ParceiroNegocioGrupo) {
+                    var parceiros = new Array();
+                    $.each(data.ParceiroNegocioGrupo, function (i, obj) { parceiros.push(obj.Parceiro); });
+                }
+                ;
+                $('#hfPaceiros').select2("data", parceiros);
+
                 id = data.ID;
-                status = data.Ativo;
-                Caracteristicas.listar(true);
             }
 
             HelperJS.callApi({
@@ -141,15 +131,20 @@
 
             var jsonSend = $('#Dados').obterJson();
             jsonSend.ID = id;
-            jsonSend.Ativo = status;
-            jsonSend.CategoriasGrupo = new Array();
+            jsonSend.GrupoCategoria = new Array();
             var categorias = $('#hfCategoria').getSelect2Data();
 
             $.each(categorias, function (i, categoria) {
-                jsonSend.CategoriasGrupo.push({ CategoriaID: categoria.ID });
+                jsonSend.GrupoCategoria.push({ CategoriaID: categoria.ID });
             });
 
-            jsonSend.Caracteristicas = Caracteristicas.get();
+
+            jsonSend.ParceiroNegocioGrupo = new Array();
+            var parceiros = $('#hfPaceiros').getSelect2Data();
+
+            $.each(parceiros, function (i, parceiro) {
+                jsonSend.ParceiroNegocioGrupo.push({ ParceiroID: parceiro.ID });
+            });
 
             var fnSuccess = function (data) {
                 HelperJS.showSuccess("Dados salvos com sucesso!");
@@ -198,7 +193,7 @@
 
 
         alterarTipo: function (tipo) {
-            switch (tipo) {
+            switch (parseInt(tipo)) {
                 case 1: // Comprador
                     this.alterarVisualizacao({ label: 'Compradores', tipo: 1 });
                     return;

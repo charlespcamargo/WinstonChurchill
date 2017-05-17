@@ -13,7 +13,7 @@ namespace WinstonChurchill.API.Controllers
     public class GrupoController : ApiController
     {
         [HttpGet, Route("listar/{tipo}")]
-        public HttpResponseMessage Listar(int tipo)
+        public HttpResponseMessage Listar(int? tipo)
         {
             try
             {
@@ -34,8 +34,8 @@ namespace WinstonChurchill.API.Controllers
                         filtro.Nome = termo;
                 }
 
-                if (tipo > 0)
-                    filtro.TipoGrupo = tipo;
+                if (tipo.HasValue && tipo > 0)
+                    filtro.TipoGrupo = Convert.ToInt32(tipo);
 
                 List<Grupo> lista = GrupoBusiness.New.Listar(filtro);
 

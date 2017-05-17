@@ -46,6 +46,9 @@ namespace WinstonChurchill.Backend.Model
         [ForeignKey("CategoriaID")]
         public List<CategoriaProduto> CategoriasProdutos { get; set; }
 
+        [ForeignKey("CategoriaID")]
+        public List<GrupoCategoria> GrupoCategoria { get; set; }
+
         #endregion
     }
 }

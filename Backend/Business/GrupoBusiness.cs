@@ -35,9 +35,10 @@ namespace WinstonChurchill.Backend.Business
                 }
                 else
                 {
-                    Grupo objSalvo = uow.GrupoRepository.Carregar(p => p.ID == entidade.ID, ord => ord.OrderBy(p => p.ID), "Endereco");
+                    Grupo objSalvo = uow.GrupoRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID));
                     if (objSalvo != null)
                     {
+                        entidade.AdicionarDependentes();
                         objSalvo.Nome = entidade.Nome;
                         objSalvo.TipoGrupo = entidade.TipoGrupo;
                         uow.GrupoRepository.Alterar(objSalvo);
@@ -56,7 +57,7 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                return uow.GrupoRepository.Listar(predicate).ToList();
+                return uow.GrupoRepository.Listar(predicate, null, "GrupoCategoria.Categoria,ParceiroNegocioGrupo.Parceiro").ToList();
             }
 
         }
@@ -66,7 +67,7 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                Grupo objeto = uow.GrupoRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID));
+                Grupo objeto = uow.GrupoRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "GrupoCategoria.Categoria,ParceiroNegocioGrupo.Parceiro");
                 return objeto;
             }
         }
@@ -79,7 +80,7 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                Grupo GrupoExcluir = uow.GrupoRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Endereco");
+                Grupo GrupoExcluir = uow.GrupoRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "GrupoCategoria,ParceiroNegocioGrupo");
                 uow.GrupoRepository.Excluir(GrupoExcluir);
                 uow.Save();
             }

@@ -52,8 +52,7 @@
                                         <%--<th style="width: 10%">Cód.</th>--%>
                                         <th style="width: 20%">Nome</th>
                                         <th style="width: 30%">Categorias</th>
-                                        <th style="width: 30%">Grupos</th>
-                                        <th>Cadastrado</th>
+                                        <th style="width: 30%">Parceiros</th>
                                         <th style="width: 7%">Ações</th>
                                     </tr>
                                 </thead>
@@ -97,10 +96,6 @@
                                         <span>Nome</span>
                                         <input type="text" class="span12 m-wrap" id="txtNome" data-json="Nome" maxlength="50" validate-json="Informe o nome" />
                                     </div>
-                                    <div class="controls span12">
-                                        <span style="margin-left: -27px;">Descrição</span>
-                                        <textarea class="span12 m-wrap" id="txtDescricao" data-json="Descricao" validate-json="Informe uma descrição" maxlength="255" style="height: 100px; margin-left: -27px;"></textarea>
-                                    </div>
                                 </div>
                                 <div class="row-fluid">
                                     <div class="controls span12">
@@ -110,56 +105,18 @@
                                     </div>
                                 </div>
                                  <div class="row-fluid">
-                                      <div class="controls span2">
-                                        <span style="margin-left: -27px;">Tipo</span>
-                                          <select id="ddlTipo" class="span12 m-wrap chosen">
+                                      <div class="controls span3">
+                                        <span>Tipo</span>
+                                          <select id="ddlTipo" class="span12 m-wrap" data-json="TipoGrupo">
                                               <option value="1"> Compradores</option>
                                               <option value="2"> Fornecedores</option>
                                           </select>
                                       </div>
-                                    <div class="controls span10">
+                                    <div class="controls span9">
                                         <span label-grupo></span>
-                                        <input type="hidden" class="select2-offscreen" id="hfPaceiros" style="width: 100%" value="" for="ddlParceiros" data-json validate-json="Informe pelo menos uma categoria" />
+                                        <input type="hidden" class="select2-offscreen" id="hfPaceiros" style="width: 100%" value="" for="ddlParceiros" data-json validate-json="Informe pelo menos um parceiro"  />
                                         <input type="text" class="hidden" id="ddlParceiros" name="ddlParceiros" value="" />
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12 no-margin-left">
-                        <div class="portlet box light-grey">
-                            <div class="portlet-title">
-                                <div class="caption"><i class="icon-table"></i>Caraterísticas</div>
-                                <div class="tools">
-                                </div>
-                            </div>
-                            <div class="portlet-body form" id="Caracteristicas">
-                                <div class="row-fluid">
-                                    <div class="controls span8">
-                                        <span>Nome</span>
-                                        <input type="text" class="span12 m-wrap" id="txtNomeCaracteristica" data-json="Nome" maxlength="50" validate-json="Informe o nome para a característica" />
-                                    </div>
-                                     <div class="controls span4">
-                                       <a id="btnAddCaracteristica" class="btn blue btn-margin-5px" style="width: 110px; margin-top: 20px;">Adicionar| <i class="icon-plus"></i></a>
-                                    </div>
-                                </div>
-                                <div class="row-fluid">
-                                    <!-- Listagem -->
-                                    <div class="portlet-body no-more-tables">
-                                        <table id="gridCaracterísticas" class="table table-striped table-bordered table-hover table-full-width" data-qtdregistros="5" cellspacing="0" width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nome</th>
-                                                    <th style="width: 20%;">Ações</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- FIM - Listagem -->
                                 </div>
                             </div>
                         </div>
