@@ -11,14 +11,11 @@ namespace WinstonChurchill.Backend.Business
 
         public void Salvar(List<CompradorProduto> lista, int parceiroId, UnitOfWork uow)
         {
+            List<CompradorProduto> listaSalva = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == parceiroId);
             if (lista == null || lista.Count == 0)
-            {
-                List<CompradorProduto> listaExcluir = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == parceiroId);
-                Excluir(uow, listaExcluir);
-            }
+                Excluir(uow, listaSalva);
             else
             {
-                List<CompradorProduto> listaSalva = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == parceiroId);
                 List<CompradorProduto> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.ID == w.ID)).ToList();
                 Excluir(uow, listaExcluir);
                 Salvar(uow, listaSalva, lista);
@@ -32,7 +29,15 @@ namespace WinstonChurchill.Backend.Business
                 foreach (var itemSalvar in listaSalvar)
                 {
                     CompradorProduto itemSalvo = listaSalva.FirstOrDefault(f => f.ID == itemSalvar.ID);
-                    if (itemSalvo == null)
+                    if (itemSalvo != null)
+                    {
+                        itemSalvo.Frequencia = itemSalvar.Frequencia;
+                        itemSalvo.Quantidade = itemSalvar.Quantidade;
+                        itemSalvo.ValorMedioCompra = itemSalvar.ValorMedioCompra;
+                        itemSalvo.ProdutoID = itemSalvar.ProdutoID;
+                        uow.CompradorProdutoRepository.Alterar(itemSalvo);
+                    }
+                    else
                         uow.CompradorProdutoRepository.Inserir(itemSalvar);
                 }
             }

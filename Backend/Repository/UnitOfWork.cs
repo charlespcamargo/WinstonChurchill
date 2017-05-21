@@ -230,7 +230,7 @@ namespace WinstonChurchill.Backend.Repository
                 {
                     this.contatoRepository = new BaseRepository<Contato>(context);
                 }
-                return ContatoRepository;
+                return this.contatoRepository;
             }
         }
 

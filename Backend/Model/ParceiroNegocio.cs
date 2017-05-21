@@ -13,15 +13,15 @@ namespace WinstonChurchill.Backend.Model
         [Column("ID")]
         public int ID { get; set; }
 
-        [Column("CNPJ"), StringLength(150)]
+        [Column("CNPJ"), StringLength(17)]
         [Required(ErrorMessage = "CNPJ é obrigatório")]
         public string CNPJ { get; set; }
 
-        [Column("RazaoSocial"), StringLength(50)]
+        [Column("RazaoSocial"), StringLength(100)]
         [Required(ErrorMessage = "Razao Social é obrigatório")]
         public string RazaoSocial { get; set; }
 
-        [Column("NomeFantasia"), StringLength(50)]
+        [Column("NomeFantasia"), StringLength(100)]
         [Required(ErrorMessage = "Nome Fantasia é obrigatório")]
         public string NomeFantasia { get; set; }
 
@@ -29,7 +29,7 @@ namespace WinstonChurchill.Backend.Model
         [Required(ErrorMessage = "Telefone é obrigatório")]
         public string Telefone { get; set; }
 
-        [Column("Celular"), StringLength(11)]
+        [Column("Celular"), StringLength(15)]
         [Required(ErrorMessage = "Celular é obrigatório")]
         public string Celular { get; set; }
 
@@ -42,7 +42,7 @@ namespace WinstonChurchill.Backend.Model
         public int TipoParceiro { get; set; }
 
         [Column("DataCadastro")]
-        public DateTime DataCadastro { get; internal set; }
+        public DateTime DataCadastro { get;  set; }
 
         #region Foreign Keys
 
@@ -60,12 +60,15 @@ namespace WinstonChurchill.Backend.Model
 
         [ForeignKey("ParceiroID")]
         public List<FornecedorProduto> FornecedorProduto { get; set; } = new List<FornecedorProduto>();
-
+        
         [ForeignKey("ParceiroID")]
         public List<CompradorProduto> CompradorProduto { get; set; } = new List<CompradorProduto>();
 
         [ForeignKey("ParceiroID")]
         public List<Contato> Contatos { get; set; } = new List<Contato>();
+
+        [ForeignKey("ParceiroID")]
+        public List<ParceiroNegocioGrupo> Grupos { get; set; } = new List<ParceiroNegocioGrupo>();
 
         #endregion
 
@@ -88,6 +91,14 @@ namespace WinstonChurchill.Backend.Model
 
             if (this.Endereco != null)
                 this.Endereco.AlterarObjeto(entidade.Endereco);
+        }
+
+        internal void ValidaTipoParceiro()
+        {
+            if (this.TipoParceiro == 1)
+                this.FornecedorProduto = null;
+            else if (this.TipoParceiro == 2)
+                this.CompradorProduto = null;
         }
 
         #endregion

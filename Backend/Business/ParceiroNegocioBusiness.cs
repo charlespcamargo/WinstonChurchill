@@ -24,13 +24,27 @@ namespace WinstonChurchill.Backend.Business
         public ParceiroNegocio Salvar(ParceiroNegocio entidade, Usuario usuario)
         {
             if (entidade == null)
-                throw new ArgumentException("Erro: nenhuma informação foi gerado");
+                throw new ArgumentException("Erro ao tentar salvar os dados");
 
             using (UnitOfWork uow = new UnitOfWork())
             {
+                if (entidade.CompradorProduto != null && entidade.CompradorProduto.Count > 0)
+                    foreach (var item in entidade.CompradorProduto)
+                    {
+                        item.ProdutoID = item.Produto.ID;
+                        item.Produto = null;
+                    }
+
+                if (entidade.FornecedorProduto != null && entidade.FornecedorProduto.Count > 0)
+                    foreach (var item in entidade.FornecedorProduto)
+                    {
+                        item.ProdutoID = item.Produto.ID;
+                        item.Produto = null;
+                    }
+                entidade.UsuarioID = usuario.ID;
+
                 if (entidade.ID == 0)
                 {
-                    entidade.UsuarioID = usuario.ID;
                     entidade.DataCadastro = DateTime.Now;
                     uow.ParceiroNegocioRepository.Inserir(entidade);
                 }
@@ -43,9 +57,14 @@ namespace WinstonChurchill.Backend.Business
                         uow.ParceiroNegocioRepository.Alterar(objSalvo);
                         uow.EnderecoRepository.Alterar(objSalvo.Endereco);
                     }
+
+                    entidade.ValidaTipoParceiro();
+                   
+
                     FornecedorProdutoBusiness.New.Salvar(entidade.FornecedorProduto, objSalvo.ID, uow);
                     CompradorProdutoBusiness.New.Salvar(entidade.CompradorProduto, objSalvo.ID, uow);
                     ContatoBusiness.New.Salvar(entidade.Contatos, objSalvo.ID, uow);
+                    ParceiroNegocioGrupoBusiness.New.Salvar(entidade.Grupos, 0, objSalvo.ID, uow);
                 }
 
                 uow.Save();
@@ -68,7 +87,19 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                ParceiroNegocio objeto = uow.ParceiroNegocioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID));
+                ParceiroNegocio objeto = uow.ParceiroNegocioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Endereco, Contatos");
+                if(objeto != null)
+                {
+                    objeto.FornecedorProduto = uow.FornecedorProdutoRepository.Listar(p => p.ParceiroID == filtro.ID, 
+                                                                                        ord=>ord.OrderBy(p=>p.ID),
+                                                                                        "Produto");
+
+                    objeto.CompradorProduto = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == filtro.ID,
+                                                                                      ord => ord.OrderBy(p => p.ID),
+                                                                                      "Produto");
+
+                    objeto.Grupos = uow.ParceiroNegocioGrupoRepository.Listar(p => p.ParceiroID == filtro.ID, null, "Grupo");
+                }
                 return objeto;
             }
         }
@@ -76,13 +107,18 @@ namespace WinstonChurchill.Backend.Business
         public void Excluir(ParceiroNegocio filtro)
         {
             if (filtro == null)
-                throw new ArgumentException("Informe o ParceiroNegocio para realizar a exclusão");
+                throw new ArgumentException("Informe o Parceiro de Negocio para realizar a exclusão");
 
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                ParceiroNegocio ParceiroNegocioExcluir = uow.ParceiroNegocioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Endereco");
-                uow.ParceiroNegocioRepository.Excluir(ParceiroNegocioExcluir);
+                ParceiroNegocio objExcluir = uow.ParceiroNegocioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Contatos,FornecedorProduto, CompradorProduto, Grupos");
+                if(objExcluir == null)
+                    throw new ArgumentException("Parceiro de Negocio não encontrado");
+
+                Endereco endereco = uow.EnderecoRepository.Carregar(p => p.ID == objExcluir.EnderecoID, ord=>ord.OrderBy(p=>p.ID));
+                    uow.EnderecoRepository.Excluir(endereco);
+                uow.ParceiroNegocioRepository.Excluir(objExcluir);
                 uow.Save();
             }
         }

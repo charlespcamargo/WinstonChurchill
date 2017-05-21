@@ -173,11 +173,11 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaProduto
 
 CREATE TABLE IF NOT EXISTS dbwinstonchurchill.ParceiroNegocio (
   ID 							INT 			NOT NULL AUTO_INCREMENT	PRIMARY KEY,
-  CNPJ 							VARCHAR(17) 	NOT NULL,
+  CNPJ 							VARCHAR(18) 	NOT NULL,
   RazaoSocial 					VARCHAR(100) 	NOT NULL,
   NomeFantasia 					VARCHAR(100) 	NOT NULL,
-  Telefone 						VARCHAR(13) 	NOT NULL,
-  Celular 						VARCHAR(14) 	NOT NULL,
+  Telefone 						VARCHAR(14) 	NOT NULL,
+  Celular 						VARCHAR(15) 	NOT NULL,
   Email 						VARCHAR(150) 	NOT NULL,
   EnderecoID 					INT 			NOT NULL,
   UsuarioID 					INT 			NOT NULL,

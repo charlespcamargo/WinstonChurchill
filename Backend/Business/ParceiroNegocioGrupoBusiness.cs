@@ -15,23 +15,21 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public void Salvar(List<ParceiroNegocioGrupo> lista, int grupoId, UnitOfWork uow)
+        public void Salvar(List<ParceiroNegocioGrupo> lista, int grupoId, int parceiroId, UnitOfWork uow)
         {
+            List<ParceiroNegocioGrupo> listaSalva = uow.ParceiroNegocioGrupoRepository.Listar(p => (grupoId > 0 && p.GrupoID == grupoId)
+                                                                                                      || (parceiroId > 0 && p.ParceiroID == parceiroId));
             if (lista == null || lista.Count == 0)
-            {
-                List<ParceiroNegocioGrupo> listaExcluir = uow.ParceiroNegocioGrupoRepository.Listar(p => p.GrupoID == grupoId);
-                Excluir(uow, listaExcluir);
-            }
+                Excluir(uow, listaSalva);
             else
             {
-                List<ParceiroNegocioGrupo> listaSalva = uow.ParceiroNegocioGrupoRepository.Listar(p => p.GrupoID == grupoId);
                 List<ParceiroNegocioGrupo> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.GrupoID == w.GrupoID && a.ParceiroID == w.ParceiroID)).ToList();
                 Excluir(uow, listaExcluir);
-                Inserir(uow, listaSalva, lista);
+                Inserir(uow, listaSalva, lista, grupoId, parceiroId);
             }
         }
 
-        private void Inserir(UnitOfWork uow, List<ParceiroNegocioGrupo> listaSalva, List<ParceiroNegocioGrupo> listaSalvar)
+        private void Inserir(UnitOfWork uow, List<ParceiroNegocioGrupo> listaSalva, List<ParceiroNegocioGrupo> listaSalvar, int grupoId, int parceiroId)
         {
             if (listaSalvar != null && listaSalvar.Count > 0)
             {
@@ -39,7 +37,15 @@ namespace WinstonChurchill.Backend.Business
                 {
                     ParceiroNegocioGrupo itemSalvo = listaSalva.FirstOrDefault(f => f.ID == itemSalvar.ID);
                     if (itemSalvo == null)
+                    {
+                        if (grupoId > 0)
+                            itemSalvar.GrupoID = grupoId;
+
+                        if(parceiroId > 0)
+                        itemSalvar.ParceiroID = parceiroId;
+
                         uow.ParceiroNegocioGrupoRepository.Inserir(itemSalvar);
+                    }
                 }
             }
         }

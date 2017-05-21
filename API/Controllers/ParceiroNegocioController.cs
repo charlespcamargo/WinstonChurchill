@@ -16,21 +16,28 @@ namespace WinstonChurchill.API.Controllers
         public HttpResponseMessage ListarComprador()
         {
             int tipo = 1;
-            return Listar(tipo);
+            return Listar(tipo, null);
         }
 
         [HttpGet, Route("listarFornecedor")]
         public HttpResponseMessage ListarFornecedor()
         {
             int tipo = 2;
-            return Listar(tipo);
+            return Listar(tipo, null);
         }
 
-        private HttpResponseMessage Listar(int tipo)
+        [HttpPost, Route("listar")]
+        public HttpResponseMessage Listar([FromBody] ParceiroNegocio filtro)
+        {
+            return Listar(0, filtro);
+        }
+
+        private HttpResponseMessage Listar(int tipo, ParceiroNegocio filtro)
         {
             try
             {
-                ParceiroNegocio filtro = new ParceiroNegocio();
+                if (filtro == null)
+                    filtro = new ParceiroNegocio();
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.UsuarioID = usuario.ID;

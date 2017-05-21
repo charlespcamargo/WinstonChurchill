@@ -100,17 +100,14 @@
                 if (data.GrupoCategoria) {
                     var categorias = new Array();
                     $.each(data.GrupoCategoria, function (i, obj) { categorias.push(obj.Categoria); });
+                    $('#hfCategoria').select2("data", categorias);
                 }
-                ;
-                $('#hfCategoria').select2("data", categorias);
-
 
                 if (data.ParceiroNegocioGrupo) {
                     var parceiros = new Array();
                     $.each(data.ParceiroNegocioGrupo, function (i, obj) { parceiros.push(obj.Parceiro); });
+                    $('#hfPaceiros').select2("data", parceiros);
                 }
-                ;
-                $('#hfPaceiros').select2("data", parceiros);
 
                 id = data.ID;
             }
@@ -196,10 +193,10 @@
             switch (parseInt(tipo)) {
                 case 1: // Comprador
                     this.alterarVisualizacao({ label: 'Compradores', tipo: 1 });
-                    return;
+                    break;
                 case 2: // Fornecedor
                     this.alterarVisualizacao({ label: 'Fornecedores', tipo: 2 });
-                    return;
+                    break;
             }
         },
 

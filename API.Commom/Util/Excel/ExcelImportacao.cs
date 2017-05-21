@@ -53,7 +53,7 @@ namespace WinstonChurchill.BackEnd.Common.Util
                                             object valor = currentWorksheet.Cells[row, format.ColumnIndex].Value;
                                             objeto = Popular<T>(objeto, format.NomePropriedade, valor);
                                         }
-                                        catch (Exception ex)
+                                        catch
                                         {
                                             throw new ArgumentException("Coluna [" + format.ColumnIndex + "] está com formato inválido, por favor verifique.");
                                         }

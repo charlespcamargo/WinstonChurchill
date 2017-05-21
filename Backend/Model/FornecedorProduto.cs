@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace WinstonChurchill.Backend.Model
 {
-    [Table("Fornecedor")]
+    [Table("FornecedorProduto")]
     public class FornecedorProduto
     {
         [DataMember]

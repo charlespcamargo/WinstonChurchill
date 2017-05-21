@@ -106,7 +106,7 @@
                                 </div>
                                  <div class="row-fluid">
                                       <div class="controls span3">
-                                        <span>Tipo</span>
+                                        <span>Tipo de Grupo</span>
                                           <select id="ddlTipo" class="span12 m-wrap" data-json="TipoGrupo">
                                               <option value="1"> Compradores</option>
                                               <option value="2"> Fornecedores</option>

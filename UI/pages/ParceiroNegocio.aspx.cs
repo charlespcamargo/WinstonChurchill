@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace WinstonChurchill.UI.pages
+namespace UI.pages
 {
     public partial class ParceiroNegocio : System.Web.UI.Page
     {

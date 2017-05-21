@@ -44,3 +44,43 @@
 
 })(jQuery);
 
+
+// function combo de produtos
+(function ($) {
+    $.fn.produtos = function (_oSettings) {
+        var multiplo = false;
+        var hiddenId = $(this).prop('id');
+        var selectId = $(this).prop('for');
+        var url = 'produto/listar';
+
+        HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo,
+            formataResultados, formata, funcao, 3, null, true);
+
+    };
+
+    function formataResultados(item) { return item.ID + item.Nome; };
+    function formata(item) { return item.ID + item.Nome; };
+    function funcao(item) { return item.ID; };
+
+})(jQuery);
+
+
+
+// function combo de grupo de parceiros
+(function ($) {
+    $.fn.grupoParceiros = function (_oSettings) {
+        var multiplo = true;
+        var hiddenId = $(this).prop('id');
+        var selectId = $(this).prop('for');
+        var url = 'grupo/listar/0';
+
+        HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo,
+            formataResultados, formata, funcao, 3, null, true);
+
+    };
+
+    function formataResultados(item) { return item.ID + item.Nome; };
+    function formata(item) { return item.ID + item.Nome; };
+    function funcao(item) { return item.ID; };
+
+})(jQuery);

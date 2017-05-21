@@ -20,14 +20,11 @@ namespace WinstonChurchill.Backend.Business
 
         public void Salvar(List<FornecedorProduto> lista, int parceiroId, UnitOfWork uow)
         {
+            List<FornecedorProduto> listaSalva = uow.FornecedorProdutoRepository.Listar(p => p.ParceiroID == parceiroId);
             if (lista == null || lista.Count == 0)
-            {
-                List<FornecedorProduto> listaExcluir = uow.FornecedorProdutoRepository.Listar(p => p.ParceiroID == parceiroId);
-                Excluir(uow, listaExcluir);
-            }
+                Excluir(uow, listaSalva);
             else
             {
-                List<FornecedorProduto> listaSalva = uow.FornecedorProdutoRepository.Listar(p => p.ParceiroID == parceiroId);
                 List<FornecedorProduto> listaExcluir = listaSalva.Where(w => !lista.Any(a => a.ID == w.ID)).ToList();
                 Excluir(uow, listaExcluir);
                 Alterar(uow, listaSalva, lista);
@@ -46,6 +43,7 @@ namespace WinstonChurchill.Backend.Business
                         itemSalvo.CapacidadeMaxima = itemSalvar.CapacidadeMaxima;
                         itemSalvo.Valor = itemSalvar.Valor;
                         itemSalvo.Volume = itemSalvar.CapacidadeMaxima;
+                        itemSalvo.ProdutoID = itemSalvar.ProdutoID;
                         uow.FornecedorProdutoRepository.Alterar(itemSalvo);
                     }
                     else

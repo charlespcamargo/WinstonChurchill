@@ -90,9 +90,8 @@
                 if (data.CategoriasProdutos) {
                     var categorias = new Array();
                     $.each(data.CategoriasProdutos, function (i, obj) { categorias.push(obj.Categoria); });
+                    $('#hfCategoria').select2("data", categorias);
                 }
-                ;
-                $('#hfCategoria').select2("data", categorias);
                 id = data.ID;
                 status = data.Ativo;
                 Caracteristicas.listar(true);

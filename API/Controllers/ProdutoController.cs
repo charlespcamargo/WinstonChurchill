@@ -14,7 +14,7 @@ namespace WinstonChurchill.API.Controllers
     public class ProdutoController : ApiController
     {
 
-        [HttpPost HttpGet, Route("listar")]
+        [HttpPost, HttpGet, Route("listar")]
         public HttpResponseMessage Listar([FromBody] Produto filtro)
         {
             try
@@ -24,6 +24,22 @@ namespace WinstonChurchill.API.Controllers
                 ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
                 Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.UsuarioID = usuario.ID;
+
+                var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
+                if (!string.IsNullOrEmpty(key.Value))
+                {
+                    string termo = key.Value.ToUpper().Trim();
+
+                    {
+                        int codigo;
+                        if (int.TryParse(termo, out codigo))
+                            filtro.ID = int.Parse(termo);
+
+                        if (filtro.ID == 0)
+                            filtro.Nome = termo;
+                    }
+                }
+
                 List<Produto> lista = ProdutoBusiness.New.Listar(filtro);
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }

@@ -55,7 +55,7 @@ var HelperJS = function () {
 
         callApi: function (_oSettings) {
             if (App.isIE8() || App.isIE9()) {
-                HelperJS.callApiIE( _oSettings.url, _oSettings.type, _oSettings.data, _oSettings.functionOnSucess, _oSettings.functionOnError);
+                HelperJS.callApiIE(_oSettings.url, _oSettings.type, _oSettings.data, _oSettings.functionOnSucess, _oSettings.functionOnError);
             }
             else {
                 HelperJS.callApiGoodBrowser(_oSettings.url, _oSettings.type, _oSettings.data, _oSettings.functionOnSucess, _oSettings.functionOnError);
@@ -363,13 +363,13 @@ var HelperJS = function () {
 
                     if (id != undefined && id !== null && id.length > 0) {
                         $.ajax(HelperJS.getURLApi(URLApi) + "/" + id,
-                        {
-                            dataType: "json",
-                            params: {
+                            {
+                                dataType: "json",
+                                params: {
 
-                            }
+                                }
 
-                        }).done(function (data) { callback(data); });
+                            }).done(function (data) { callback(data); });
                     }
                 },
                 formatResult: funcaoRender,
@@ -505,12 +505,12 @@ var HelperJS = function () {
 
         formatMoney: function (valor, decPlaces, thouSeparator, decSeparator) {
             var n = valor,
-            decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
-            decSeparator = decSeparator == undefined ? "." : decSeparator,
-            thouSeparator = thouSeparator == undefined ? "," : thouSeparator,
-            sign = n < 0 ? "-" : "",
-            i = parseInt(n = Math.abs(+n || 0).toFixed(decPlaces)) + "",
-            j = (j = i.length) > 3 ? j % 3 : 0;
+                decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+                decSeparator = decSeparator == undefined ? "." : decSeparator,
+                thouSeparator = thouSeparator == undefined ? "," : thouSeparator,
+                sign = n < 0 ? "-" : "",
+                i = parseInt(n = Math.abs(+n || 0).toFixed(decPlaces)) + "",
+                j = (j = i.length) > 3 ? j % 3 : 0;
             return sign + (j ? i.substr(0, j) + thouSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator) + (decPlaces ? decSeparator + Math.abs(n - i).toFixed(decPlaces).slice(2) : "");
         },
 
@@ -597,15 +597,15 @@ var HelperJS = function () {
             if (telefone.length == 11) {
                 telefone = HelperJS.inserirNaPosicao(telefone, 7, "-");
             }
-                // [10] => 1533333333 => (15)3333-3333
+            // [10] => 1533333333 => (15)3333-3333
             else if (telefone.length == 10) {
                 telefone = HelperJS.inserirNaPosicao(telefone, 6, "-");
             }
-                // [9] => 999999999 => 99999-9999
+            // [9] => 999999999 => 99999-9999
             else if (telefone.length == 9) {
                 telefone = HelperJS.inserirNaPosicao(telefone, 5, "-");
             }
-                // [8] => 33333333 => 3333-3333
+            // [8] => 33333333 => 3333-3333
             else if (telefone.length == 8) {
                 telefone = HelperJS.inserirNaPosicao(telefone, 4, "-");
             }
@@ -681,7 +681,7 @@ var HelperJS = function () {
                     $(idControle + '_chzn input').css({ "width": chznInputWidth });
                 }
             },
-            HelperJS.showError);
+                HelperJS.showError);
         },
 
         ///pode passar uma lista de controles, quando for utilizar valores identificos, ex: (Sim/Não)
@@ -937,7 +937,7 @@ var HelperJS = function () {
             }
         },
 
-       
+
         getCol: function (matrix, col) {
             var column = [];
             for (var i = 1; i < matrix.length; i++) {
@@ -1088,17 +1088,26 @@ var HelperJS = function () {
             setTimeout(function () {
                 $(controle).modal('layout');
             },
-            tempo);
+                tempo);
         },
 
         newGuid: function () {
             function s4() {
                 return Math.floor((1 + Math.random()) * 0x10000)
-                  .toString(16)
-                  .substring(1);
+                    .toString(16)
+                    .substring(1);
             }
             return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-              s4() + '-' + s4() + s4() + s4();
+                s4() + '-' + s4() + s4() + s4();
+        },
+
+        getMax: function (arr, prop) {
+            var max;
+            for (var i = 0; i < arr.length; i++) {
+                if (!max || parseInt(arr[i][prop]) > parseInt(max[prop]))
+                    max = arr[i];
+            }
+            return max[prop];
         }
     };
 
@@ -1120,3 +1129,4 @@ $.fn.getType = function () {
 
     return tipo;
 };
+

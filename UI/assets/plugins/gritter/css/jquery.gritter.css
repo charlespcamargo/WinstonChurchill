@@ -1,10 +1,10 @@
 /* the norm */
 #gritter-notice-wrapper {
-	position:fixed;
-	top:20px;
-	right:20px;
-	width:301px;
-	z-index:9999;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 301px;
+    z-index: 99999999999;
 }
 #gritter-notice-wrapper.top-left {
     left: 20px;

@@ -3,10 +3,17 @@
     var status = true;
     return {
         init: function () {
-            $('#hfCategoria').categorias({ multiplo: true });
+            $('#ddlUF').UF();
+            $('#txtCEP').endereco({ elemento: '#Endereco', objeto: 'Endereco' });
+            $('#hfProdutoComprador').produtos();
+            $('#hfProdutoFornecedor').produtos();
+            $('#hfGrupoParceiro').grupoParceiros();
+
             PN.eventos();
             PN.listar();
-            Caracteristicas.init();
+            CompradorProduto.init();
+            FornecedorProduto.init();
+            Contatos.init();
         },
 
         eventos: function () {
@@ -15,15 +22,23 @@
             });
 
             $('#btnSalvar').click(function () { PN.salvar(); });
+
+            $('#ddlTipoPaceiro').change(function () { PN.configurarVisualizacao($(this).val()); });
         },
 
         abrirModal: function () {
             $("#modalNovo").modal('layout');
             $("#modalNovo").modal('show');
-            $('#Dados').limpar();
+            $('#formDados').limpar();
+            $('#formContatos').limpar();
+            $('#formFornecedor').limpar();
+            $('#formComprador').limpar();
             id = 0;
             status = true;
-            Caracteristicas.limparJson();
+            FornecedorProduto.limparJson();
+            CompradorProduto.limparJson();
+            Contatos.limparJson();
+            PN.configurarVisualizacao(1);
         },
 
         fecharModal: function () {
@@ -34,32 +49,26 @@
         listar: function () {
             var fnColunas = function () {
                 var colunas = new Array();
-                colunas.push({ mData: "Nome", sClass: "text-left", sType: "string" });
-
-                colunas.push({ mData: "Ativo", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return source ? 'Ativo' : 'Inativo' } });
-
-                colunas.push({ mData: "DataCadastro", sClass: "text-left", sType: "string" });
-
+                colunas.push({ mData: "CNPJ", sClass: "text-left", sType: "string" });
+                colunas.push({ mData: "RazaoSocial", sClass: "text-left", sType: "string" });
+                colunas.push({ mData: "NomeFantasia", sClass: "text-left", sType: "string" });
+                colunas.push({ mData: "Telefone", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return HelperJS.formatarTelefone(source); } });
+                colunas.push({ mData: "Celular", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return HelperJS.formatarTelefone(source); } });
+                colunas.push({ mData: "Email", sClass: "text-left", sType: "string" });
                 colunas.push({
-                    mData: "ID", sClass: "text-left", sType: "string", mRender: function (source, type, full) {
-                        var categorias = '';
-                        if (full.CategoriasPN && full.CategoriasPN.length > 0) {
-                            $.each(full.CategoriasPN, function (i, obj) {
-                                if (obj.Categoria)
-                                    categorias += '|' + obj.Categoria.Nome;
-                            });
-                            categorias = categorias.substring(1);
+                    mData: "TipoParceiro", sClass: "text-left", sType: "string", mRender: function (source, type, full) {
+                        switch (source) {
+                            case 1: return 'Comprador';
+                            case 2: return 'Fornecedor';
+                            case 3: return 'Comprador/Fornecedor';
                         }
-                        return categorias;
                     }
                 });
-
                 colunas.push({
                     mData: "ID", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
                         var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="PN.excluir(' + full.ID + ')"><i class="icon-remove"></i></a>';
                         var editar = '&nbsp<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="PN.editar(' + full.ID + ')"><i class="icon-edit"></i></a>';
-                        var visualizarImagens = '&nbsp<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Visualizar Imagens" onclick="PN.visualizarImagens(' + full.ID + ')"><i class="icon-search"></i></a>';
-                        return visualizarImagens + editar + excluir;
+                        return editar + excluir;
                     }
                 });
 
@@ -67,7 +76,7 @@
             }
 
             var fnSuccess = function (data) {
-                $('#gridItens').bindDataTable({
+                $('#gridParceiros').bindDataTable({
                     columns: fnColunas(),
                     sorter: [[0, 'asc']],
                     data: data,
@@ -86,16 +95,21 @@
 
         carregar: function (_id) {
             var fnSuccess = function (data) {
-                $('#Dados').popularCampos({ data: data });
-                if (data.CategoriasPN) {
-                    var categorias = new Array();
-                    $.each(data.CategoriasPN, function (i, obj) { categorias.push(obj.Categoria); });
+                $('#formDados').popularCampos({ data: data });
+
+                Contatos.listar(data.Contatos);
+                CompradorProduto.listar(data.CompradorProduto);
+                FornecedorProduto.listar(data.FornecedorProduto);
+
+                if (data.Grupos) {
+                    var grupos = new Array();
+                    $.each(data.Grupos, function (i, obj) { grupos.push(obj.Grupo); });
+                    $('#hfGrupoParceiro').select2("data", grupos);
                 }
-                ;
-                $('#hfCategoria').select2("data", categorias);
+
                 id = data.ID;
                 status = data.Ativo;
-                Caracteristicas.listar(true);
+                PN.configurarVisualizacao($('#ddlTipoPaceiro').val());
             }
 
             HelperJS.callApi({
@@ -109,20 +123,24 @@
 
 
         salvar: function () {
-            if ($('#Dados').ehValido() == false)
-                return;
+            if ($('#formDados').ehValido() == false) return;
 
-            var jsonSend = $('#Dados').obterJson();
+            //   if (HelperJS.validarDocumento('#' + $('[data-json="CNPJ"]').attr('id'), 'CNPJ inválido') == false) return;
+
+            var jsonSend = $('#formDados').obterJson();
             jsonSend.ID = id;
             jsonSend.Ativo = status;
-            jsonSend.CategoriasPN = new Array();
-            var categorias = $('#hfCategoria').getSelect2Data();
 
-            $.each(categorias, function (i, categoria) {
-                jsonSend.CategoriasPN.push({ CategoriaID: categoria.ID });
+            jsonSend.FornecedorProduto = FornecedorProduto.get();
+            jsonSend.CompradorProduto = CompradorProduto.get();
+            jsonSend.Contatos = Contatos.get();
+
+            jsonSend.Grupos = new Array();
+            var grupos = $('#hfGrupoParceiro').getSelect2Data();
+
+            $.each(grupos, function (i, grupo) {
+                jsonSend.Grupos.push({ GrupoID: grupo.ID });
             });
-
-            jsonSend.Caracteristicas = Caracteristicas.get();
 
             var fnSuccess = function (data) {
                 HelperJS.showSuccess("Dados salvos com sucesso!");
@@ -171,91 +189,286 @@
 
         GetID: function () {
             return id;
+        },
+
+        configurarVisualizacao: function (tipo) {
+            switch (parseInt(tipo)) {
+                case 1: this.alterarVisualizacao('tabComprador'); break;
+                case 2: this.alterarVisualizacao('tabFornecedor'); break;
+                case 3: this.alterarVisualizacao(null); break;
+            }
+        },
+
+        alterarVisualizacao: function (controle) {
+            if (controle == null) {
+                $('[data-toggle="tab"]').each(function () {
+                    $(this).show();
+                });
+
+                $('#tabComprador').addClass('active');
+                $('#tabFornecedor').removeClass('active');
+            }
+            else {
+                $('[data-toggle="tab"]').each(function () {
+                    $(this).hide();
+                });
+
+                $('.tab-pane').each(function () {
+                    if ($(this).attr('id') == controle) {
+                        $(this).addClass('active');
+                    } else {
+                        $(this).removeClass('active');
+                    }
+                });
+            }
         }
     };
 }();
 
-var Caracteristicas = function () {
-    var jsonCaracteristicas = new Array();
+var FornecedorProduto = function () {
+    var json = new Array();
+    var id = 0;
     return {
         init: function () {
-            Caracteristicas.eventos();
+            FornecedorProduto.eventos();
         },
 
         get: function () {
-            return jsonCaracteristicas;
+            return json;
         },
 
         set: function (obj) {
             if (!obj.ID)
-                obj.index = (jsonCaracteristicas.length + 1) * -1;
-            obj.PNID = PN.GetID();
-            jsonCaracteristicas.push(obj);
+                obj.ID = json.length > 0 ? HelperJS.getMax(json, 'ID') * -1 : -1;
+            obj.ParceiroID = PN.GetID();
+            json = $.grep(json, function (e) { return e.ID != obj.ID });
+            json.push(obj);
         },
 
         limparJson: function () {
-            jsonCaracteristicas = new Array();
-            Caracteristicas.listar(false);
+            json = new Array();
+            FornecedorProduto.listar();
         },
 
         eventos: function () {
-            $('#btnAddCaracteristica').click(function () { Caracteristicas.inserir(); });
+            $('#btnAddProdutoFornecedor').click(function () { FornecedorProduto.inserir(); });
         },
 
-        listar: function (requestOnServer) {
+        listar: function (data) {
             var fnColunas = function () {
                 var colunas = new Array();
-                colunas.push({ mData: "Nome", sClass: "text-left", sType: "string" });
+                colunas.push({ mData: "Produto.Nome", sClass: "text-left", sType: "string" });
+                colunas.push({ mData: "Valor", sClass: "text-left", sType: "decimal", mRender: function (source, type, full) { return 'R$' + HelperJS.formatMoney(source, 2, '.', ','); } });
+                colunas.push({ mData: "Volume", sClass: "text-left", sType: "decimal" });
+                colunas.push({ mData: "CapacidadeMaxima", sClass: "text-left", sType: "decimal" });
                 colunas.push({
-                    mData: "Nome", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
-                        var id;
-                        if (full.ID)
-                            id = full.ID;
-                        else
-                            id = full.index;
-                        var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="Caracteristicas.excluir(' + id + ')"><i class="icon-remove"></i></a>';
-                        return excluir;
+                    mData: "Produto.Nome", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
+                        var editar = '&nbsp<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="FornecedorProduto.editar(' + full.ID + ')"><i class="icon-edit"></i></a>';
+                        var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="FornecedorProduto.excluir(' + full.ID + ')"><i class="icon-remove"></i></a>';
+                        return editar + excluir;
                     }
                 });
 
                 return colunas;
             }
 
-            var fnSuccess = function (data) {
-                jsonCaracteristicas = data;
-                $('#gridCaracterísticas').bindDataTable({
-                    columns: fnColunas(),
-                    sorter: [[0, 'asc']],
-                    data: data,
-                });
-            }
-
-            if (requestOnServer)
-                HelperJS.callApi({
-                    url: "parceiroNegocio/listarCaracteristicas/" + PN.GetID(),
-                    type: "GET",
-                    data: null,
-                    functionOnSucess: fnSuccess,
-                    functionOnError: HelperJS.showError
-                });
-            else
-                fnSuccess(jsonCaracteristicas);
+            if (data)
+                json = data;
+            $('#gridProdutoFornecedor').bindDataTable({
+                columns: fnColunas(),
+                sorter: [[0, 'asc']],
+                data: json,
+            });
         },
 
         excluir: function (_id) {
-            jsonCaracteristicas = $.grep(jsonCaracteristicas, function (e) { return e.ID != _id && e.index != _id });
-            Caracteristicas.listar(false);
+            json = $.grep(json, function (e) { return e.ID != _id });
+            FornecedorProduto.listar();
+        },
+
+        editar: function (_id) {
+            var data = $.grep(json, function (e) { return e.ID == _id })[0];
+            id = data.ID;
+            $('#formFornecedor').popularCampos({ data: data });
+            $('#txtValor').val(HelperJS.formatMoney(data.Valor, 2, '.', ','));
+            $('#hfProdutoFornecedor').select2("data", data.Produto);
         },
 
         inserir: function () {
-            if ($('#Caracteristicas').ehValido() == false)
+            if ($('#formFornecedor').ehValido() == false)
                 return;
-            var obj = $('#Caracteristicas').obterJson();
-
-            Caracteristicas.set(obj);
-            $('#Caracteristicas').limpar();
-            Caracteristicas.listar(false);
+            var obj = $('#formFornecedor').obterJson();
+            obj.Produto = $('#hfProdutoFornecedor').getSelect2Data();
+            obj.ID = id;
+            FornecedorProduto.set(obj);
+            $('#formFornecedor').limpar();
+            FornecedorProduto.listar();
+            id = 0;
         },
     };
 }();
 
+var CompradorProduto = function () {
+    var json = new Array();
+    var id = 0;
+    return {
+        init: function () {
+            CompradorProduto.eventos();
+        },
+
+        get: function () {
+            return json;
+        },
+
+        set: function (obj) {
+            if (!obj.ID)
+                obj.ID = json.length > 0 ? HelperJS.getMax(json, 'ID') * -1 : -1;
+            obj.ParceiroID = PN.GetID();
+            json = $.grep(json, function (e) { return e.ID != obj.ID });
+            json.push(obj);
+        },
+
+        limparJson: function () {
+            json = new Array();
+            CompradorProduto.listar();
+        },
+
+        eventos: function () {
+            $('#btnAddProdutoComprador').click(function () { CompradorProduto.inserir(); });
+        },
+
+        listar: function (data) {
+            var fnColunas = function () {
+                var colunas = new Array();
+                colunas.push({ mData: "Produto.Nome", sClass: "text-left", sType: "string" });
+                colunas.push({ mData: "ValorMedioCompra", sClass: "text-left", sType: "decimal", mRender: function (source, type, full) { return 'R$' + HelperJS.formatMoney(source, 2, '.', ','); } });
+                colunas.push({ mData: "Quantidade", sClass: "text-left", sType: "decimal" });
+                colunas.push({ mData: "Frequencia", sClass: "text-left", sType: "decimal" });
+                colunas.push({
+                    mData: "Produto.Nome", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
+                        var editar = '&nbsp<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="CompradorProduto.editar(' + full.ID + ')"><i class="icon-edit"></i></a>';
+                        var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="CompradorProduto.excluir(' + full.ID + ')"><i class="icon-remove"></i></a>';
+                        return editar + excluir;
+                    }
+                });
+
+                return colunas;
+            }
+
+            if (data)
+                json = data;
+            $('#gridProdutoComprador').bindDataTable({
+                columns: fnColunas(),
+                sorter: [[0, 'asc']],
+                data: json,
+            });
+
+        },
+
+        excluir: function (_id) {
+            json = $.grep(json, function (e) { return e.ID != _id });
+            CompradorProduto.listar();
+        },
+
+        editar: function (_id) {
+            var data = $.grep(json, function (e) { return e.ID == _id })[0];
+            id = data.ID;
+
+            $('#formComprador').popularCampos({ data: data });
+            $('#txtValorMedioCompra').val(HelperJS.formatMoney(data.Valor, 2, '.', ','));
+            $('#hfProdutoComprador').select2("data", data.Produto);
+        },
+
+        inserir: function () {
+            if ($('#formComprador').ehValido() == false)
+                return;
+            var obj = $('#formComprador').obterJson();
+            obj.Produto = $('#hfProdutoComprador').getSelect2Data();
+            obj.ID = id;
+            CompradorProduto.set(obj);
+            $('#formComprador').limpar();
+            CompradorProduto.listar();
+            id = 0;
+        },
+    };
+}();
+
+var Contatos = function () {
+    var json = new Array();
+    var id = 0;
+    return {
+        init: function () {
+            Contatos.eventos();
+        },
+
+        get: function () {
+            return json;
+        },
+
+        set: function (obj) {
+            if (!obj.ID)
+                obj.ID = json.length > 0 ? HelperJS.getMax(json, 'ID') * -1 : -1;
+            obj.ParceiroID = PN.GetID();
+            json = $.grep(json, function (e) { return e.ID != obj.ID });
+            json.push(obj);
+        },
+
+        limparJson: function () {
+            json = new Array();
+            Contatos.listar();
+        },
+
+        eventos: function () {
+            $('#btnAddContato').click(function () { Contatos.inserir(); });
+        },
+
+        listar: function (data) {
+            var fnColunas = function () {
+                var colunas = new Array();
+                colunas.push({ mData: "Nome", sClass: "text-left", sType: "string" });
+                colunas.push({ mData: "Email", sClass: "text-left", sType: "string" });
+                colunas.push({ mData: "Telefone", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return HelperJS.formatarTelefone(source); } });
+                colunas.push({
+                    mData: "Nome", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
+                        var editar = '&nbsp<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="Contatos.editar(' + full.ID + ')"><i class="icon-edit"></i></a>';
+                        var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="Contatos.excluir(' + full.ID + ')"><i class="icon-remove"></i></a>';
+                        return editar + excluir;
+                    }
+                });
+
+                return colunas;
+            }
+
+            if (data)
+                json = data;
+            $('#gridContatos').bindDataTable({
+                columns: fnColunas(),
+                sorter: [[0, 'asc']],
+                data: json,
+            });
+
+        },
+
+        excluir: function (_id) {
+            json = $.grep(json, function (e) { return e.ID != _id });
+            Contatos.listar();
+        },
+
+        editar: function (_id) {
+            var data = $.grep(json, function (e) { return e.ID == _id })[0];
+            id = data.ID;
+            $('#formContatos').popularCampos({ data: data });
+        },
+
+        inserir: function () {
+            if ($('#formContatos').ehValido() == false)
+                return;
+            var obj = $('#formContatos').obterJson();
+            obj.ID = id;
+            Contatos.set(obj);
+            $('#formContatos').limpar();
+            Contatos.listar();
+            id = 0;
+        },
+    };
+}();
