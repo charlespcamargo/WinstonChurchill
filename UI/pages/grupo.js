@@ -36,7 +36,14 @@
             var fnColunas = function () {
                 var colunas = new Array();
                 colunas.push({ mData: "Nome", sClass: "text-left", sType: "string" });
-
+                colunas.push({
+                    mData: "TipoGrupo", sClass: "text-left", sType: "string", mRender: function (source, type, full) {
+                        switch (source) {
+                            case 1: return 'Comprador';
+                            case 2: return 'Fornecedor';
+                        }
+                    }
+                });
                 colunas.push({
                     mData: "ID", sClass: "text-left", sType: "string", mRender: function (source, type, full) {
                         var categorias = '';

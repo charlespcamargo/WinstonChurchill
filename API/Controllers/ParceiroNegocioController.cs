@@ -15,24 +15,24 @@ namespace WinstonChurchill.API.Controllers
         [HttpGet, Route("listarComprador")]
         public HttpResponseMessage ListarComprador()
         {
-            int tipo = 1;
+            int[] tipo = new int[] { 1, 3 };
             return Listar(tipo, null);
         }
 
         [HttpGet, Route("listarFornecedor")]
         public HttpResponseMessage ListarFornecedor()
         {
-            int tipo = 2;
+            int[] tipo = new int[] { 2, 3 };
             return Listar(tipo, null);
         }
 
         [HttpPost, Route("listar")]
         public HttpResponseMessage Listar([FromBody] ParceiroNegocio filtro)
         {
-            return Listar(0, filtro);
+            return Listar(null, filtro);
         }
 
-        private HttpResponseMessage Listar(int tipo, ParceiroNegocio filtro)
+        private HttpResponseMessage Listar(int[] tipo, ParceiroNegocio filtro)
         {
             try
             {
@@ -57,10 +57,7 @@ namespace WinstonChurchill.API.Controllers
                     }
                 }
 
-                if (tipo > 0)
-                    filtro.TipoParceiro = Convert.ToInt32(tipo);
-
-                List<ParceiroNegocio> lista = ParceiroNegocioBusiness.New.Listar(filtro);
+                List<ParceiroNegocio> lista = ParceiroNegocioBusiness.New.Listar(filtro, tipo);
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (ArgumentException aex)

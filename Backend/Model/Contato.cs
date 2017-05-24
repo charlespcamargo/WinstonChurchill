@@ -9,9 +9,20 @@ namespace WinstonChurchill.Backend.Model
     [Table("Contato")]
     public class Contato
     {
+        private int _id;
+
         [Key]
         [Column("ID")]
-        public int ID { get; set; }
+        public int ID
+        {
+            get
+            {
+                if (_id < 0) return 0;
+                return _id;
+            }
+            set
+            { _id = value; }
+        }
 
         [Column("Nome"), StringLength(100)]
         [Required(ErrorMessage = "Nome é obrigatório")]

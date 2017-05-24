@@ -124,7 +124,7 @@
                                     <div class="row-fluid">
                                         <div class="controls span12">
                                             <span>Grupos Associados</span>
-                                            <input type="hidden" class="select2-offscreen" id="hfGrupoParceiro" style="width: 100%" value="" for="ddlGrupoParceiro" data-json validate-json="Informe o grupo do parceiro" />
+                                            <input type="hidden" class="select2-offscreen" id="hfGrupoParceiro" style="width: 100%" value="" for="ddlGrupoParceiro" data-json />
                                             <input type="text" class="hidden" id="ddlGrupoParceiro" name="ddlGrupoParceiro" value="" />
                                         </div>
                                     </div>

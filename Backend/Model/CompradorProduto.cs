@@ -7,10 +7,21 @@ namespace WinstonChurchill.Backend.Model
     [Table("CompradorProduto")]
     public class CompradorProduto
     {
+        private int _id;
+
         [DataMember]
         [Key]
         [Column("ID")]
-        public int ID { get; set; }
+        public int ID
+        {
+            get
+            {
+                if (_id < 0) return 0;
+                return _id;
+            }
+            set
+            { _id = value; }
+        }
 
         [DataMember]
         [Column("ValorMedioCompra")]

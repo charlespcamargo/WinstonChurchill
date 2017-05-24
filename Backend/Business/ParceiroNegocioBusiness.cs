@@ -59,7 +59,7 @@ namespace WinstonChurchill.Backend.Business
                     }
 
                     entidade.ValidaTipoParceiro();
-                   
+
 
                     FornecedorProdutoBusiness.New.Salvar(entidade.FornecedorProduto, objSalvo.ID, uow);
                     CompradorProdutoBusiness.New.Salvar(entidade.CompradorProduto, objSalvo.ID, uow);
@@ -82,16 +82,36 @@ namespace WinstonChurchill.Backend.Business
 
         }
 
+        public List<ParceiroNegocio> Listar(ParceiroNegocio filtro, int[] tipos)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                MontarFiltro(filtro);
+                if (tipos != null && tipos.Length > 0)
+                {
+                    int tipo = tipos[0];
+                    predicate = predicate.And(p => p.TipoParceiro == tipo);
+                    for (int i = 1; i < tipos.Length; i++)
+                    {
+                        tipo = tipos[i];
+                        predicate = predicate.Or(p => p.TipoParceiro == tipo);
+                    }
+                }
+                return uow.ParceiroNegocioRepository.Listar(predicate).ToList();
+            }
+
+        }
+
         public ParceiroNegocio Carregar(ParceiroNegocio filtro)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
                 ParceiroNegocio objeto = uow.ParceiroNegocioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Endereco, Contatos");
-                if(objeto != null)
+                if (objeto != null)
                 {
-                    objeto.FornecedorProduto = uow.FornecedorProdutoRepository.Listar(p => p.ParceiroID == filtro.ID, 
-                                                                                        ord=>ord.OrderBy(p=>p.ID),
+                    objeto.FornecedorProduto = uow.FornecedorProdutoRepository.Listar(p => p.ParceiroID == filtro.ID,
+                                                                                        ord => ord.OrderBy(p => p.ID),
                                                                                         "Produto");
 
                     objeto.CompradorProduto = uow.CompradorProdutoRepository.Listar(p => p.ParceiroID == filtro.ID,
@@ -113,11 +133,11 @@ namespace WinstonChurchill.Backend.Business
             {
                 MontarFiltro(filtro);
                 ParceiroNegocio objExcluir = uow.ParceiroNegocioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Contatos,FornecedorProduto, CompradorProduto, Grupos");
-                if(objExcluir == null)
+                if (objExcluir == null)
                     throw new ArgumentException("Parceiro de Negocio não encontrado");
 
-                Endereco endereco = uow.EnderecoRepository.Carregar(p => p.ID == objExcluir.EnderecoID, ord=>ord.OrderBy(p=>p.ID));
-                    uow.EnderecoRepository.Excluir(endereco);
+                Endereco endereco = uow.EnderecoRepository.Carregar(p => p.ID == objExcluir.EnderecoID, ord => ord.OrderBy(p => p.ID));
+                uow.EnderecoRepository.Excluir(endereco);
                 uow.ParceiroNegocioRepository.Excluir(objExcluir);
                 uow.Save();
             }

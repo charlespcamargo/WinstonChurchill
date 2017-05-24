@@ -238,8 +238,10 @@ var FornecedorProduto = function () {
         },
 
         set: function (obj) {
-            if (!obj.ID)
-                obj.ID = json.length > 0 ? HelperJS.getMax(json, 'ID') * -1 : -1;
+            if (!obj.ID) {
+                let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
+                obj.ID = max - 1;
+            }
             obj.ParceiroID = PN.GetID();
             json = $.grep(json, function (e) { return e.ID != obj.ID });
             json.push(obj);
@@ -297,9 +299,24 @@ var FornecedorProduto = function () {
         inserir: function () {
             if ($('#formFornecedor').ehValido() == false)
                 return;
+
             var obj = $('#formFornecedor').obterJson();
             obj.Produto = $('#hfProdutoFornecedor').getSelect2Data();
-            obj.ID = id;
+            obj.ID = id
+
+            function fnAny(result) {
+                if (!result || result.ID !== 0 && result.ID === obj.ID) return false;
+
+                let listMsg = new Array();
+                listMsg.push({ Mensagem: 'O produto: ' + obj.Produto.Nome + ' já foi adicionado', IdControle: '' });
+                HelperJS.showListaAlert(listMsg);
+                return true;
+            }
+
+            if (HelperJS.any('Produto.ID', json, obj.Produto.ID, fnAny)) {
+                return;
+            }
+;
             FornecedorProduto.set(obj);
             $('#formFornecedor').limpar();
             FornecedorProduto.listar();
@@ -321,8 +338,10 @@ var CompradorProduto = function () {
         },
 
         set: function (obj) {
-            if (!obj.ID)
-                obj.ID = json.length > 0 ? HelperJS.getMax(json, 'ID') * -1 : -1;
+            if (!obj.ID) {
+                let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
+                obj.ID = max - 1;
+            }
             obj.ParceiroID = PN.GetID();
             json = $.grep(json, function (e) { return e.ID != obj.ID });
             json.push(obj);
@@ -339,7 +358,7 @@ var CompradorProduto = function () {
 
         listar: function (data) {
             var fnColunas = function () {
-                var colunas = new Array();
+                let colunas = new Array();
                 colunas.push({ mData: "Produto.Nome", sClass: "text-left", sType: "string" });
                 colunas.push({ mData: "ValorMedioCompra", sClass: "text-left", sType: "decimal", mRender: function (source, type, full) { return 'R$' + HelperJS.formatMoney(source, 2, '.', ','); } });
                 colunas.push({ mData: "Quantidade", sClass: "text-left", sType: "decimal" });
@@ -371,20 +390,35 @@ var CompradorProduto = function () {
         },
 
         editar: function (_id) {
-            var data = $.grep(json, function (e) { return e.ID == _id })[0];
+            let data = $.grep(json, function (e) { return e.ID == _id })[0];
             id = data.ID;
 
             $('#formComprador').popularCampos({ data: data });
-            $('#txtValorMedioCompra').val(HelperJS.formatMoney(data.Valor, 2, '.', ','));
+            $('#txtValorMedioCompra').val(HelperJS.formatMoney(data.ValorMedioCompra, 2, '.', ','));
             $('#hfProdutoComprador').select2("data", data.Produto);
         },
 
         inserir: function () {
-            if ($('#formComprador').ehValido() == false)
+            if ($('#formComprador').ehValido() === false)
                 return;
-            var obj = $('#formComprador').obterJson();
+
+            let obj = $('#formComprador').obterJson();
             obj.Produto = $('#hfProdutoComprador').getSelect2Data();
             obj.ID = id;
+
+            function fnAny(result) {
+                if (!result || result.ID !== 0 && result.ID === obj.ID) return false;
+
+                let listMsg = new Array();
+                listMsg.push({ Mensagem: 'O produto: ' + obj.Produto.Nome + ' já foi adicionado', IdControle: '' });
+                HelperJS.showListaAlert(listMsg);
+                return true;
+            }
+
+            if (HelperJS.any('Produto.ID', json, obj.Produto.ID, fnAny)) {
+                return;
+            }
+
             CompradorProduto.set(obj);
             $('#formComprador').limpar();
             CompradorProduto.listar();
@@ -406,8 +440,10 @@ var Contatos = function () {
         },
 
         set: function (obj) {
-            if (!obj.ID)
-                obj.ID = json.length > 0 ? HelperJS.getMax(json, 'ID') * -1 : -1;
+            if (!obj.ID) {
+                let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
+                obj.ID = max - 1;
+            }
             obj.ParceiroID = PN.GetID();
             json = $.grep(json, function (e) { return e.ID != obj.ID });
             json.push(obj);

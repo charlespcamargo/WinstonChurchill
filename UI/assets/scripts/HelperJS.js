@@ -1101,13 +1101,35 @@ var HelperJS = function () {
                 s4() + '-' + s4() + s4() + s4();
         },
 
-        getMax: function (arr, prop) {
+        getMax: function (arr, prop, inverte) {
             var max;
             for (var i = 0; i < arr.length; i++) {
-                if (!max || parseInt(arr[i][prop]) > parseInt(max[prop]))
-                    max = arr[i];
+                if (inverte) {
+                    if (!max || parseInt(arr[i][prop]) < parseInt(max[prop]))
+                        max = arr[i];
+                } else {
+                    if (!max || parseInt(arr[i][prop]) > parseInt(max[prop]))
+                        max = arr[i];
+                }
             }
             return max[prop];
+        },
+
+        any: function (propriedade, lista, valor, fnCallBack) {
+            let resultado = $.grep(lista, function (e) {
+                let split = propriedade.split('.');
+                if (split.length > 0) {
+                    let prop;
+                    for (var i = 0; i < split.length; i++) {
+                        prop = split[i];
+                        e = e[prop];
+                    }
+                    return e === valor;
+                }
+                else
+                    return e[propriedade] === valor;
+            });
+            return fnCallBack(resultado[0]);
         }
     };
 

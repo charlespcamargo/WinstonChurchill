@@ -51,6 +51,7 @@
                                     <tr>
                                         <%--<th style="width: 10%">Cód.</th>--%>
                                         <th style="width: 20%">Nome</th>
+                                        <th style="width: 30%">Tipo</th>
                                         <th style="width: 30%">Categorias</th>
                                         <th style="width: 30%">Parceiros</th>
                                         <th style="width: 7%">Ações</th>
@@ -114,7 +115,7 @@
                                       </div>
                                     <div class="controls span9">
                                         <span label-grupo></span>
-                                        <input type="hidden" class="select2-offscreen" id="hfPaceiros" style="width: 100%" value="" for="ddlParceiros" data-json validate-json="Informe pelo menos um parceiro"  />
+                                        <input type="hidden" class="select2-offscreen" id="hfPaceiros" style="width: 100%" value="" for="ddlParceiros" data-json />
                                         <input type="text" class="hidden" id="ddlParceiros" name="ddlParceiros" value="" />
                                     </div>
                                 </div>
