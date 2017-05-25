@@ -12,7 +12,6 @@
       <SubMenu text="Relatório 1" url="#1" icone="icon-bar-chart" />
       <SubMenu text="Relatório 2" url="#2" icone="icon-bar-chart" />
     </SubMenu>
-    <SubMenu text="Comprador" url="/Pages/Comprador.aspx"  icone="icon-dollar" />
-    <SubMenu text="Fornecedor" url="/Pages/Fornecedor.aspx"  icone="icon-truck" />
+    <SubMenu text="Parceiro de Negócio" url="/Pages/ParceiroNegocio.aspx"  icone="icon-dollar" />
     <SubMenu text="Leilões" url="/Pages/Leilao.aspx"  icone="icon-legal" /> 
 </Menu>
