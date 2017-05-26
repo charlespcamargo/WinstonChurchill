@@ -1,0 +1,1 @@
+C:\Projects\Charles\WinstonChurchill\API\obj\Release\WinstonChurchill.API.csprojResolveAssemblyReference.cache

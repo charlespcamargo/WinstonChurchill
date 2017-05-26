@@ -1,0 +1,1 @@
+C:\Projects\Charles\WinstonChurchill\Backend\obj\Release\WinstonChurchill.Backend.csprojResolveAssemblyReference.cache
