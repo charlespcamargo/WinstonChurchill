@@ -72,3 +72,5 @@ C:\Projects\Charles\WinstonChurchill\Backend\bin\Debug\itextsharp.xml
 C:\Projects\Charles\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.csprojResolveAssemblyReference.cache
 C:\Projects\Charles\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.dll
 C:\Projects\Charles\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.pdb
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\Enyim.Caching.pdb
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\Enyim.Caching.xml

@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\API - WebRebate.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -123,7 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\API.Commom\WinstonChurchill.API.Common.csproj">
-      <Project>{30A8DD59-9C44-4D2B-AD76-CF64EA08FB1A}</Project>
+      <Project>{30a8dd59-9c44-4d2b-ad76-cf64ea08fb1a}</Project>
       <Name>WinstonChurchill.API.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Backend\WinstonChurchill.Backend.csproj">

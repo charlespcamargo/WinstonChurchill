@@ -44,3 +44,6 @@ C:\Projects\Charles\WinstonChurchill\API.Commom\bin\Debug\itextsharp.xml
 C:\Projects\Charles\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.csprojResolveAssemblyReference.cache
 C:\Projects\Charles\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.dll
 C:\Projects\Charles\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.pdb
+G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\Enyim.Caching.dll
+G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\Enyim.Caching.pdb
+G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\Enyim.Caching.xml
