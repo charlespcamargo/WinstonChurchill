@@ -1,24 +1,24 @@
-CREATE DATABASE IF NOT EXISTS dbWinstonChurchill;
+-- CREATE DATABASE IF NOT EXISTS webrebate;
 
-USE dbWinstonChurchill;
+-- USE webrebate;
 
 
 /** CUIDADO - DROPA TUDO 
 	
-    DROP TABLE dbWinstonChurchill.CategoriaProduto;
-	DROP TABLE dbWinstonChurchill.ProdutoImagem;
-	DROP TABLE dbWinstonChurchill.CategoriaImagem;
-	DROP TABLE dbWinstonChurchill.Imagem;
-	DROP TABLE dbWinstonChurchill.CaracteristicaProduto;
-	DROP TABLE dbWinstonChurchill.Categoria;
-	DROP TABLE dbWinstonChurchill.Produto;
-	DROP TABLE dbWinstonChurchill.UsuarioXGrupoUsuario;
-	DROP TABLE dbWinstonChurchill.GrupoUsuario;
-	DROP TABLE dbWinstonChurchill.Usuario;
+    DROP TABLE webrebate.CategoriaProduto;
+	DROP TABLE webrebate.ProdutoImagem;
+	DROP TABLE webrebate.CategoriaImagem;
+	DROP TABLE webrebate.Imagem;
+	DROP TABLE webrebate.CaracteristicaProduto;
+	DROP TABLE webrebate.Categoria;
+	DROP TABLE webrebate.Produto;
+	DROP TABLE webrebate.UsuarioXGrupoUsuario;
+	DROP TABLE webrebate.GrupoUsuario;
+	DROP TABLE webrebate.Usuario;
     
 CUIDADO - DROPA TUDO ***/
 
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.Usuario
+CREATE TABLE  webrebate.Usuario
 (
 	ID						INT					NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Nome					VARCHAR(50)			NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.Usuario
 );
 
 
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.GrupoUsuario
+CREATE TABLE IF NOT EXISTS webrebate.GrupoUsuario
 (
 	ID						INT					NOT NULL PRIMARY KEY,
     Nome					VARCHAR(50)			NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.GrupoUsuario
     DataCadastro			DATETIME			NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.UsuarioXGrupoUsuario
+CREATE TABLE IF NOT EXISTS webrebate.UsuarioXGrupoUsuario
 (
 	ID						INT					NOT NULL AUTO_INCREMENT PRIMARY KEY,
     UsuarioID				INT					NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.UsuarioXGrupoUsuario
 );
 
  
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.Categoria 
+CREATE TABLE IF NOT EXISTS webrebate.Categoria 
 (
   ID 					INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   Nome 					VARCHAR(50) NOT NULL,
@@ -63,10 +63,10 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.Categoria
   UsuarioID 			INT NULL,
   
   INDEX 		fk_Categoria_Usuario_idx (UsuarioID ASC),
-  CONSTRAINT 	fk_Categoria_Usuario FOREIGN KEY (UsuarioID) REFERENCES dbWinstonChurchill.Usuario(ID)
+  CONSTRAINT 	fk_Categoria_Usuario FOREIGN KEY (UsuarioID) REFERENCES webrebate.Usuario(ID)
 );
 
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.Produto 
+CREATE TABLE IF NOT EXISTS webrebate.Produto 
 (
   ID 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   Nome 			VARCHAR(50) NOT NULL,
@@ -78,22 +78,22 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.Produto
   
   INDEX fk_Produto_Usuario_idx (UsuarioID ASC),
 	
-  CONSTRAINT fk_Produto_Usuario FOREIGN KEY (UsuarioID) REFERENCES dbWinstonChurchill.Usuario(ID)
+  CONSTRAINT fk_Produto_Usuario FOREIGN KEY (UsuarioID) REFERENCES webrebate.Usuario(ID)
 );
 
 
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CaracteristicaProduto 
+CREATE TABLE IF NOT EXISTS webrebate.CaracteristicaProduto 
 (
   ID 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   Nome 			VARCHAR(50) NOT NULL,
   ProdutoID 	INT NOT NULL,
   
   INDEX fk_CaracteristicaProduto_Produto_idx (ProdutoID ASC),
-  CONSTRAINT fk_CaracteristicaProduto_Produto FOREIGN KEY (ProdutoID) REFERENCES dbWinstonChurchill.Produto(ID)
+  CONSTRAINT fk_CaracteristicaProduto_Produto FOREIGN KEY (ProdutoID) REFERENCES webrebate.Produto(ID)
 );
 
 
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.Imagem 
+CREATE TABLE IF NOT EXISTS webrebate.Imagem 
 (
   ID 					INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   NomeArquivo 			VARCHAR(255) NOT NULL,
@@ -104,10 +104,10 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.Imagem
   Tipo 					VARCHAR(45) NOT NULL,
   
 	INDEX fk_Imagem_usuario_idx (UsuarioID ASC),
-	CONSTRAINT fk_Imagem_usuario FOREIGN KEY (UsuarioID) REFERENCES dbWinstonChurchill.Usuario(ID)
+	CONSTRAINT fk_Imagem_usuario FOREIGN KEY (UsuarioID) REFERENCES webrebate.Usuario(ID)
 );
 
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaImagem 
+CREATE TABLE IF NOT EXISTS webrebate.CategoriaImagem 
 (
   ID 					INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   CategoriaID 			INT NOT NULL,
@@ -117,11 +117,11 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaImagem
   INDEX fk_CategoriaImagem_Categoria_idx(CategoriaID ASC),
   INDEX fk_CategoriaImagem_Imagem_idx (ImagemID ASC),
   
-  CONSTRAINT fk_CategoriaImagem_Categoria FOREIGN KEY (CategoriaID) REFERENCES dbWinstonChurchill.Categoria(ID),
-  CONSTRAINT fk_CategoriaImagem_Imagem 	  FOREIGN KEY (ImagemID)    REFERENCES dbWinstonChurchill.Imagem(ID)
+  CONSTRAINT fk_CategoriaImagem_Categoria FOREIGN KEY (CategoriaID) REFERENCES webrebate.Categoria(ID),
+  CONSTRAINT fk_CategoriaImagem_Imagem 	  FOREIGN KEY (ImagemID)    REFERENCES webrebate.Imagem(ID)
 );
 
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.ProdutoImagem
+CREATE TABLE IF NOT EXISTS webrebate.ProdutoImagem
 (
   ID 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   ProdutoID 	INT NOT NULL,
@@ -130,11 +130,11 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.ProdutoImagem
   INDEX fk_ProdutoImagem_Produto_idx(ProdutoID ASC),
   INDEX fk_ProdutoImagem_Imagem_idx(ImagemID ASC),
   
-  CONSTRAINT fk_ProdutoImagem_Produto FOREIGN KEY(ProdutoID) REFERENCES dbWinstonChurchill.Produto(ID),
-  CONSTRAINT fk_ProdutoImagem_Imagem FOREIGN KEY(ImagemID)  REFERENCES dbWinstonChurchill.Imagem(ID)
+  CONSTRAINT fk_ProdutoImagem_Produto FOREIGN KEY(ProdutoID) REFERENCES webrebate.Produto(ID),
+  CONSTRAINT fk_ProdutoImagem_Imagem FOREIGN KEY(ImagemID)  REFERENCES webrebate.Imagem(ID)
 );
 
-CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaProduto
+CREATE TABLE IF NOT EXISTS webrebate.CategoriaProduto
 (
   ID 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   CategoriaID 	INT NOT NULL,
@@ -143,12 +143,12 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaProduto
   INDEX fk_CategoriaProduto_Categoria_idx (CategoriaID ASC),
   INDEX fk_CategoriaProduto_Produto_idx(ProdutoID ASC),
   
-  CONSTRAINT fk_CategoriaProduto_Categoria FOREIGN KEY (CategoriaID) REFERENCES dbWinstonChurchill.Categoria(ID),  
-  CONSTRAINT fk_CategoriaProduto_Produto FOREIGN KEY(ProdutoID) REFERENCES dbWinstonChurchill.Produto(ID)
+  CONSTRAINT fk_CategoriaProduto_Categoria FOREIGN KEY (CategoriaID) REFERENCES webrebate.Categoria(ID),  
+  CONSTRAINT fk_CategoriaProduto_Produto FOREIGN KEY(ProdutoID) REFERENCES webrebate.Produto(ID)
 );
  
  
- CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Parametro (
+ CREATE TABLE IF NOT EXISTS webrebate.Parametro (
   ID 							INT NOT NULL AUTO_INCREMENT	PRIMARY KEY,
   LimiteCancelCompra 			INT NOT NULL,
   PercLucroEmpresa 				DECIMAL(5,2) NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaProduto
  );
  
  
- CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Endereco (
+ CREATE TABLE IF NOT EXISTS webrebate.Endereco (
   ID 							INT 			NOT NULL AUTO_INCREMENT PRIMARY KEY,
   Logradouro 					VARCHAR(150)  	NOT NULL,
   Bairro 						VARCHAR(50)   	NOT NULL,
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS dbWinstonChurchill.CategoriaProduto
 );
  
 
-CREATE TABLE IF NOT EXISTS dbwinstonchurchill.ParceiroNegocio (
+CREATE TABLE IF NOT EXISTS webrebate.ParceiroNegocio (
   ID 							INT 			NOT NULL AUTO_INCREMENT	PRIMARY KEY,
   CNPJ 							VARCHAR(18) 	NOT NULL,
   RazaoSocial 					VARCHAR(100) 	NOT NULL,
@@ -185,44 +185,44 @@ CREATE TABLE IF NOT EXISTS dbwinstonchurchill.ParceiroNegocio (
   DataCadastro					DATETIME		NOT NULL,
   INDEX fk_ParceiroNegocio_Usuario_idx (UsuarioID ASC),
   INDEX fk_ParceiroNegocio_Endereco_idx (EnderecoID ASC),
-  CONSTRAINT fk_ParceiroNegocio_Usuario     FOREIGN KEY (UsuarioID)     REFERENCES dbwinstonchurchill.Usuario (ID), 
-  CONSTRAINT fk_ParceiroNegocio_Endereco    FOREIGN KEY (EnderecoID)    REFERENCES dbwinstonchurchill.Endereco (ID)
+  CONSTRAINT fk_ParceiroNegocio_Usuario     FOREIGN KEY (UsuarioID)     REFERENCES webrebate.Usuario (ID), 
+  CONSTRAINT fk_ParceiroNegocio_Endereco    FOREIGN KEY (EnderecoID)    REFERENCES webrebate.Endereco (ID)
 );
 
 
 
-CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Grupo (
+CREATE TABLE IF NOT EXISTS webrebate.Grupo (
   ID 							INT 	    	NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   Nome 							VARCHAR(100) 	NOT NULL,
   TipoGrupo						INT				NOT NULL,
   UsuarioID						INT				NOT NULL,
   INDEX fk_Grupo_Usuario_idx (UsuarioID ASC),
-  CONSTRAINT fk_Grupo_Usuario     FOREIGN KEY (UsuarioID)     REFERENCES dbwinstonchurchill.Usuario (ID)
+  CONSTRAINT fk_Grupo_Usuario     FOREIGN KEY (UsuarioID)     REFERENCES webrebate.Usuario (ID)
 );
 
 
-CREATE TABLE IF NOT EXISTS dbwinstonchurchill.ParceiroNegocioGrupo (
+CREATE TABLE IF NOT EXISTS webrebate.ParceiroNegocioGrupo (
   ID 							INT 			NOT NULL AUTO_INCREMENT	PRIMARY KEY,
   ParceiroID 					INT 			NOT NULL,
   GrupoID 				INT 			NOT NULL,
   INDEX fk_ParceiroNegocio_Parceiro_idx (ParceiroID ASC),
   INDEX fk_ParceiroNegocio_Grupo_idx (GrupoID ASC),
-  CONSTRAINT fk_ParceiroNegocio_Parceiro    	 FOREIGN KEY (ParceiroID)    	REFERENCES dbwinstonchurchill.ParceiroNegocio (ID),
-  CONSTRAINT fk_ParceiroNegocio_Grupo     FOREIGN KEY (GrupoID)    REFERENCES dbwinstonchurchill.Grupo (ID)
+  CONSTRAINT fk_ParceiroNegocio_Parceiro    	 FOREIGN KEY (ParceiroID)    	REFERENCES webrebate.ParceiroNegocio (ID),
+  CONSTRAINT fk_ParceiroNegocio_Grupo     FOREIGN KEY (GrupoID)    REFERENCES webrebate.Grupo (ID)
   );
 
-CREATE TABLE IF NOT EXISTS dbwinstonchurchill.GrupoCategoria (
+CREATE TABLE IF NOT EXISTS webrebate.GrupoCategoria (
   ID 							INT 			NOT NULL AUTO_INCREMENT PRIMARY KEY,
   GrupoID		 				INT				NOT NULL,
   CategoriaID 					INT				NOT NULL  ,
    INDEX fk_GrupoCategoria_Categoria_idx (CategoriaID ASC),
    INDEX fk_GrupoCategoria_Grupo_idx (GrupoID ASC),
-   CONSTRAINT fk_GrupoCategoria_Grupo  	 	FOREIGN KEY (GrupoID)   	REFERENCES dbwinstonchurchill.Grupo (ID),
-   CONSTRAINT fk_GrupoCategoria_Categoria    	 		FOREIGN KEY (CategoriaID)	    REFERENCES dbwinstonchurchill.Categoria (ID)
+   CONSTRAINT fk_GrupoCategoria_Grupo  	 	FOREIGN KEY (GrupoID)   	REFERENCES webrebate.Grupo (ID),
+   CONSTRAINT fk_GrupoCategoria_Categoria    	 		FOREIGN KEY (CategoriaID)	    REFERENCES webrebate.Categoria (ID)
 );
 
 
-CREATE TABLE IF NOT EXISTS dbwinstonchurchill.CompradorProduto (
+CREATE TABLE IF NOT EXISTS webrebate.CompradorProduto (
   ID 							INT 			NOT NULL AUTO_INCREMENT	PRIMARY KEY,
   ParceiroID 					INT 			NOT NULL,
   ProdutoID 					INT 			NOT NULL,
@@ -231,24 +231,24 @@ CREATE TABLE IF NOT EXISTS dbwinstonchurchill.CompradorProduto (
   Frequencia 					INT 			NOT NULL,
   INDEX fk_CompradorProduto_Parceiro_idx (ParceiroID ASC),
   INDEX fk_CompradorProduto_Produto_idx (ProdutoID ASC),
-  CONSTRAINT fk_CompradorProduto_Parceiro		    FOREIGN KEY (ParceiroID)  		  REFERENCES dbwinstonchurchill.ParceiroNegocio (ID),
-  CONSTRAINT fk_CompradorProduto_Produto		    FOREIGN KEY (ProdutoID)		      REFERENCES dbwinstonchurchill.Produto (ID)
+  CONSTRAINT fk_CompradorProduto_Parceiro		    FOREIGN KEY (ParceiroID)  		  REFERENCES webrebate.ParceiroNegocio (ID),
+  CONSTRAINT fk_CompradorProduto_Produto		    FOREIGN KEY (ProdutoID)		      REFERENCES webrebate.Produto (ID)
 );
 
 
-CREATE TABLE IF NOT EXISTS dbwinstonchurchill.Contato (
+CREATE TABLE IF NOT EXISTS webrebate.Contato (
   ID 							INT 			NOT NULL AUTO_INCREMENT PRIMARY KEY,
   Nome 							VARCHAR(100) 	NOT NULL,
   Email 						VARCHAR(150) 	NOT NULL,
   Telefone 						VARCHAR(14) 	NOT NULL,
   ParceiroID 					INT 			NOT NULL,
   INDEX fk_Contato_Parceiro_idx (ParceiroID ASC),
-  CONSTRAINT fk_Contato_Parceiro    FOREIGN KEY (ParceiroID)    REFERENCES dbwinstonchurchill.ParceiroNegocio (ID)
+  CONSTRAINT fk_Contato_Parceiro    FOREIGN KEY (ParceiroID)    REFERENCES webrebate.ParceiroNegocio (ID)
  );
 
 
 
-CREATE TABLE IF NOT EXISTS dbwinstonchurchill.FornecedorProduto (
+CREATE TABLE IF NOT EXISTS webrebate.FornecedorProduto (
   ID 							INT NOT NULL AUTO_INCREMENT	PRIMARY KEY,
   Valor 						DECIMAL(12,2) 	NOT NULL,
   Volume 						INT NOT NULL,
@@ -257,6 +257,6 @@ CREATE TABLE IF NOT EXISTS dbwinstonchurchill.FornecedorProduto (
   ProdutoID 					INT NOT NULL,
   INDEX fk_FornecedorProduto_Produto_idx (ProdutoID ASC),
   INDEX fk_FornecedorProduto_Parceiro_idx (ParceiroID ASC),
-  CONSTRAINT fk_FornecedorProduto_Produto    		FOREIGN KEY (ProdutoID)    			REFERENCES dbwinstonchurchill.Produto (ID),
-  CONSTRAINT fk_FornecedorProduto_Fornecedor    FOREIGN KEY (ParceiroID)    		REFERENCES dbwinstonchurchill.ParceiroNegocio (ID)
+  CONSTRAINT fk_FornecedorProduto_Produto    		FOREIGN KEY (ProdutoID)    			REFERENCES webrebate.Produto (ID),
+  CONSTRAINT fk_FornecedorProduto_Fornecedor    FOREIGN KEY (ParceiroID)    		REFERENCES webrebate.ParceiroNegocio (ID)
 );
