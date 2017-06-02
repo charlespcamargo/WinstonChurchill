@@ -1,4 +1,3 @@
-G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Release\WinstonChurchill.API.Common.csprojResolveAssemblyReference.cache
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\WinstonChurchill.API.Common.dll.config
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\WinstonChurchill.API.Common.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\WinstonChurchill.API.Common.pdb
@@ -20,5 +19,6 @@ G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\System.Net.Http.Format
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\System.Web.Http.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\System.Web.Http.WebHost.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\Microsoft.Web.Infrastructure.xml
+G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Release\WinstonChurchill.API.Common.csprojResolveAssemblyReference.cache
 G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Release\WinstonChurchill.API.Common.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Release\WinstonChurchill.API.Common.pdb

@@ -10,10 +10,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>05/26/2017 23:15:27</publishTime>
+      <publishTime>05/31/2017 22:08:46</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>05/26/2017 23:15:27</publishTime>
+      <publishTime>05/31/2017 22:08:46</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -97,22 +97,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2015 05:03:46</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.API.Common.dll">
-      <publishTime>05/24/2017 22:51:15</publishTime>
+      <publishTime>05/31/2017 22:07:47</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.API.dll">
-      <publishTime>05/24/2017 22:56:38</publishTime>
+      <publishTime>05/31/2017 22:08:10</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.Backend.dll">
-      <publishTime>05/24/2017 22:51:16</publishTime>
+      <publishTime>05/31/2017 22:07:52</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>05/24/2017 20:08:29</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>05/26/2017 23:15:21</publishTime>
+      <publishTime>05/31/2017 22:08:24</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/26/2017 21:54:23</publishTime>
+      <publishTime>05/31/2017 22:08:17</publishTime>
     </File>
   </ItemGroup>
 </Project>

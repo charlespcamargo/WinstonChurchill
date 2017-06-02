@@ -1,5 +1,0 @@
-G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\Backend.dll
-G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\Backend.pdb
-G:\Brown\Projetos\WinstonChurchill\Backend\obj\Debug\Backend.csprojResolveAssemblyReference.cache
-G:\Brown\Projetos\WinstonChurchill\Backend\obj\Debug\Backend.dll
-G:\Brown\Projetos\WinstonChurchill\Backend\obj\Debug\Backend.pdb
