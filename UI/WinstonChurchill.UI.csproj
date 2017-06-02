@@ -275,6 +275,8 @@
     <Content Include="Login.aspx" />
     <Content Include="pages\Categoria.aspx" />
     <Content Include="pages\categoria.js" />
+    <Content Include="pages\Comprador.aspx" />
+    <Content Include="pages\Fornecedor.aspx" />
     <Content Include="pages\exemplo.js" />
     <Content Include="pages\Grupo.aspx" />
     <Content Include="pages\grupo.js" />
@@ -2322,6 +2324,20 @@
     </Compile>
     <Compile Include="pages\Categoria.aspx.designer.cs">
       <DependentUpon>Categoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Comprador.aspx.cs">
+      <DependentUpon>Comprador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Comprador.aspx.designer.cs">
+      <DependentUpon>Comprador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Fornecedor.aspx.cs">
+      <DependentUpon>Fornecedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Fornecedor.aspx.designer.cs">
+      <DependentUpon>Fornecedor.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\Grupo.aspx.cs">
       <DependentUpon>Grupo.aspx</DependentUpon>
