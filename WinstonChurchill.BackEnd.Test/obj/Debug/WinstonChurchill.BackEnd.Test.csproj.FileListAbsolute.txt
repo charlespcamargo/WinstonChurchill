@@ -77,6 +77,8 @@ C:\Projects\Charles\WinstonChurchill\WinstonChurchill.BackEnd.Test\bin\Debug\Win
 C:\Projects\Charles\WinstonChurchill\WinstonChurchill.BackEnd.Test\bin\Debug\EPPlus.xml
 C:\Projects\Charles\WinstonChurchill\WinstonChurchill.BackEnd.Test\bin\Debug\Ionic.Zip.xml
 C:\Projects\Charles\WinstonChurchill\WinstonChurchill.BackEnd.Test\bin\Debug\itextsharp.xml
+C:\Projects\Charles\WinstonChurchill\WinstonChurchill.BackEnd.Test\bin\Debug\Enyim.Caching.pdb
+C:\Projects\Charles\WinstonChurchill\WinstonChurchill.BackEnd.Test\bin\Debug\Enyim.Caching.xml
 C:\Projects\Charles\WinstonChurchill\WinstonChurchill.BackEnd.Test\obj\Debug\WinstonChurchill.BackEnd.Test.csprojResolveAssemblyReference.cache
 C:\Projects\Charles\WinstonChurchill\WinstonChurchill.BackEnd.Test\obj\Debug\WinstonChurchill.BackEnd.Test.dll
 C:\Projects\Charles\WinstonChurchill\WinstonChurchill.BackEnd.Test\obj\Debug\WinstonChurchill.BackEnd.Test.pdb

@@ -6,7 +6,7 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <!-- BEGIN LOGO -->
-            <a class="brand" href="index.html">
+            <a class="brand" href="../index.html">
                 <%--<img src="/assets/img/logo.png" alt="logo" />--%>
                         &nbsp;&nbsp;LOGO
             </a>
