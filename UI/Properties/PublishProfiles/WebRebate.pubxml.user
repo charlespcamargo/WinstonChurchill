@@ -6376,7 +6376,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/18/2015 20:19:46</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.UI.dll">
-      <publishTime>05/31/2017 22:09:26</publishTime>
+      <publishTime>06/01/2017 23:27:56</publishTime>
     </File>
     <File Include="controls/menu.xml">
       <publishTime>05/24/2017 22:33:06</publishTime>
@@ -6388,7 +6388,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/13/2017 10:07:12</publishTime>
     </File>
     <File Include="controls/ucTopo.ascx">
-      <publishTime>05/26/2017 23:38:19</publishTime>
+      <publishTime>06/01/2017 23:25:58</publishTime>
     </File>
     <File Include="htmls/charts.html">
       <publishTime>03/24/2017 18:33:10</publishTime>
@@ -6645,6 +6645,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="pages/categoria.js">
       <publishTime>05/10/2017 22:11:24</publishTime>
     </File>
+    <File Include="pages/Comprador.aspx">
+      <publishTime>06/01/2017 23:20:13</publishTime>
+    </File>
     <File Include="pages/Dashboard.aspx">
       <publishTime>04/12/2017 18:17:55</publishTime>
     </File>
@@ -6656,6 +6659,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="pages/exemplo.js">
       <publishTime>04/12/2017 16:17:57</publishTime>
+    </File>
+    <File Include="pages/Fornecedor.aspx">
+      <publishTime>06/01/2017 23:20:39</publishTime>
     </File>
     <File Include="pages/Grupo.aspx">
       <publishTime>05/24/2017 19:06:48</publishTime>
@@ -6697,7 +6703,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/07/2017 16:43:15</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>05/31/2017 22:10:33</publishTime>
+      <publishTime>06/01/2017 23:28:28</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>05/31/2017 22:10:02</publishTime>

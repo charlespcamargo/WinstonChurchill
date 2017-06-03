@@ -311,15 +311,15 @@
                         <span class="username">Charles Camargo</span>
                         <i class="icon-angle-down"></i>
                     </a>
-                   <%-- <ul class="dropdown-menu">
-                        <li><a href="extra_profile.html"><i class="icon-user"></i>Meu Perfil</a></li>
-                        <li><a href="page_calendar.html"><i class="icon-calendar"></i>Meu Calendário</a></li>
+                   <ul class="dropdown-menu">
+                        <li><a href="/pages/Usuario.aspx"><i class="icon-user"></i>Meu Perfil</a></li>
+                        <%-- <li><a href="page_calendar.html"><i class="icon-calendar"></i>Meu Calendário</a></li>
                         <li><a href="inbox.html"><i class="icon-envelope"></i>Minha Inbox <span class="badge badge-important">3</span></a></li>
                         <li><a href="#"><i class="icon-tasks"></i>Minhas Tarefas<span class="badge badge-success">8</span></a></li>
-                        <li class="divider"></li>
-                        <li><a href="javascript:;" id="trigger_fullscreen"><i class="icon-move"></i>Full Screen</a></li>
-                        <li><a href="login.html"><i class="icon-key"></i>Sair</a></li>
-                    </ul>--%>
+                        <li class="divider"></li>--%>
+                        <li><a href="javascript:;" id="trigger_fullscreen"><i class="icon-move"></i>Tela Cheia</a></li>
+                        <li><a href="/Login.aspx"><i class="icon-key"></i>Sair</a></li>
+                    </ul>
                 </li>
                 <!-- END USER LOGIN DROPDOWN -->
                 <!-- END USER LOGIN DROPDOWN -->
