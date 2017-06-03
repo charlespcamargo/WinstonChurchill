@@ -2,6 +2,7 @@
 using System.IO;
 using WinstonChurchill.API.Common.Util.Tools;
 using WinstonChurchill.Backend.Model.Interfaces;
+using WinstonChurchill.Backend.Utils;
 
 namespace WinstonChurchill.Backend.Business
 {
@@ -52,23 +53,12 @@ namespace WinstonChurchill.Backend.Business
 
         private string ConfigurarDiretorio(string diretorio)
         {
-            string path = Path.Combine(PathAnexos, Formatar.RetirarCaracteresEspeciaisNada(diretorio));
+            string path = Path.Combine(Configuracoes.PathAnexos, Formatar.RetirarCaracteresEspeciaisNada(diretorio));
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
             return path;
         }
-
-
-        public string PathAnexos
-        {
-            get
-            {
-                return System.Configuration.ConfigurationManager.AppSettings["PATH.ANEXOS"];
-            }
-        }
     }
-
-
 }

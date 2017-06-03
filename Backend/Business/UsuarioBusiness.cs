@@ -33,6 +33,21 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
+        public Usuario Autenticar(Usuario usuario)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                MontarFiltro(usuario);
+                predicate = predicate.And(o => o.Ativo == true);
+                usuario = uow.UsuarioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Grupos.GrupoUsuario");
+
+                if (usuario == null || usuario.ID == 0)
+                    throw new UnauthorizedAccessException("Acesso não autorizado. Usuário ou senhas inválidos!");
+
+                return usuario;
+            }
+        }
+
         public List<Usuario> Listar(Usuario filtro)
         {
             MontarFiltro(filtro);
@@ -43,6 +58,8 @@ namespace WinstonChurchill.Backend.Business
             {
                 data = UoW.UsuarioRepository.Listar(predicate);
             }
+
+            if (data != null && data.Any()) { data.ForEach(f => f.Senha = null); };
 
             return data;
         }
@@ -55,6 +72,7 @@ namespace WinstonChurchill.Backend.Business
                 if (usuario == null)
                     throw new ArgumentException("Usuário não encontrado!");
 
+                usuario.Senha = null;
                 return usuario;
             }
         }
@@ -89,6 +107,12 @@ namespace WinstonChurchill.Backend.Business
 
             if (!string.IsNullOrEmpty(entidade.Nome))
                 predicate = predicate.And(o => o.Nome.Contains(entidade.Nome));
+
+            if (!string.IsNullOrEmpty(entidade.Senha))
+            {
+                string senha = Encrypting.sha512encrypt(entidade.Senha);
+                predicate = predicate.And(o => o.Senha == senha);
+            }
         }
 
         public void Salvar(Usuario usuario)

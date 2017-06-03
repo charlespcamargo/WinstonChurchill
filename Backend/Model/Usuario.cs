@@ -20,6 +20,9 @@ namespace WinstonChurchill.Backend.Model
         [Required(ErrorMessage = "Nome é obrigatório")]
         public string Nome { get; set; }
 
+        [Column("Senha")]
+        public string Senha { get; set; }
+
         [Column("Email"), StringLength(50)]
         [Required(ErrorMessage = "Email é obrigatório")]
         public string Email { get; set; }
@@ -31,8 +34,15 @@ namespace WinstonChurchill.Backend.Model
         [JsonConverter(typeof(CustomDate))]
         public DateTime DataCadastro { get; set; }
 
-        [NotMapped]
-        public string Senha { get; set; }
+        #region Foreign Keys
+
+        [ForeignKey("UsuarioID")]
+        public List<UsuarioXGrupoUsuario> Grupos { get; set; }
+
+        #endregion
+
+
+       
 
         [NotMapped]
         public string SenhaNova { get; set; }

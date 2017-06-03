@@ -133,7 +133,7 @@
     <Compile Include="Autenticacao\CustomJwtFormat.cs" />
     <Compile Include="Autenticacao\CustomOAuthProviderJwt.cs" />
     <Compile Include="Autenticacao\WebApplicationAccess.cs" />
-    <Compile Include="Controllers\AcessoController.cs" />
+    <Compile Include="Controllers\AutenticacaoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CategoriaImagemController.cs" />
     <Compile Include="Controllers\CepController.cs" />

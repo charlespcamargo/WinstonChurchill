@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Linq;
+using WinstonChurchill.Backend.Model;
+using WinstonChurchill.Backend.Business;
+using WinstonChurchill.API.Common.Util;
 
 namespace WinstonChurchill.API.Autenticacao
 {
@@ -55,18 +58,29 @@ namespace WinstonChurchill.API.Autenticacao
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            //FAKE FAZER A VALIDAÇÃO NO BANCO DE DADOS
-            if (context.UserName != context.Password)
+            string cacheKey = $"usuario.{context.UserName}";
+            //Busca o usuário na base para validar a autenticação
+            Usuario usuario = CacheManager<Usuario>.GetCache(cacheKey);
+            if (usuario == null) {
+                usuario = UsuarioBusiness.New.Autenticar(new Usuario { Email = context.UserName, Senha = context.Password });
+            }
+
+            if (usuario == null)
             {
                 context.SetError("invalid_grant", "Usuário ou senha invalidos");
                 return Task.FromResult<object>(null);
             }
 
+            if (!usuario.Grupos.Any() || usuario.Grupos.FirstOrDefault().GrupoUsuario == null) {
+                context.SetError("invalid_role", "Usuário sem configurações de acesso");
+                return Task.FromResult<object>(null);
+            }
+
             var identity = new ClaimsIdentity("JWT");
 
-            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            identity.AddClaim(new Claim("sub", context.UserName));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "Administrator")); //PEGAR AS ROLES CORRETAS
+            identity.AddClaim(new Claim(ClaimTypes.Name, usuario.Email));
+            identity.AddClaim(new Claim("sub", usuario.Email));
+            identity.AddClaim(new Claim(ClaimTypes.Role, usuario.Grupos.FirstOrDefault().GrupoUsuario.Nome)); //PEGAR AS ROLES CORRETAS
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
@@ -77,6 +91,9 @@ namespace WinstonChurchill.API.Autenticacao
 
             var ticket = new AuthenticationTicket(identity, props);
             context.Validated(ticket);
+
+            CacheManager<Usuario>.GravarCache(usuario, cacheKey);
+
             return Task.FromResult<object>(null);
         }
     }

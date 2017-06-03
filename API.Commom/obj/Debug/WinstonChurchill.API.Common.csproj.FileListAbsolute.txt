@@ -37,3 +37,4 @@ C:\Projects\Charles\WinstonChurchill\API.Commom\bin\Debug\Ionic.Zip.xml
 C:\Projects\Charles\WinstonChurchill\API.Commom\bin\Debug\itextsharp.xml
 C:\Projects\Charles\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.dll
 C:\Projects\Charles\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.pdb
+C:\Projects\Charles\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.csprojResolveAssemblyReference.cache

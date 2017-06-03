@@ -109,6 +109,7 @@
     <Compile Include="Repository\UnitOfWorkBase.cs" />
     <Compile Include="Repository\UtilEntity.cs" />
     <Compile Include="Utils\BootgridResponseData.cs" />
+    <Compile Include="Utils\Configuracoes.cs" />
     <Compile Include="Utils\DataTableResponseData.cs" />
     <Compile Include="Utils\SortData.cs" />
   </ItemGroup>
