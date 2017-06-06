@@ -9,9 +9,11 @@ using WinstonChurchill.Backend.Repository;
 using WinstonChurchill.API.Common.Util.Captcha;
 using WinstonChurchill.Backend.Model;
 using WinstonChurchill.Backend.Utils;
+using WinstonChurchill.API.Autenticacao;
 
 namespace WinstonChurchill.API.Controllers
 {
+    [OwinAuthorize]
     [RoutePrefix("usuario")]
     //[TokenAutenticacao]
     public class UsuarioController : ApiController
@@ -24,8 +26,7 @@ namespace WinstonChurchill.API.Controllers
                 if (filtro == null)
                     filtro = new Usuario();
 
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                Usuario usuario = UsuarioToken.Obter(this);
                 filtro.ID = usuario.ID;
                 List<Usuario> data = UsuarioBusiness.New.Listar(filtro);
 

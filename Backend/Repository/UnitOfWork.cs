@@ -35,6 +35,19 @@ namespace WinstonChurchill.Backend.Repository
             }
         }
 
+        private BaseRepository<GrupoUsuarioRecurso> grupoUsuarioRecursoRepository;
+        public BaseRepository<GrupoUsuarioRecurso> GrupoUsuarioRecursoRepository
+        {
+            get
+            {
+                if (this.grupoUsuarioRecursoRepository == null)
+                {
+                    this.grupoUsuarioRecursoRepository = new BaseRepository<GrupoUsuarioRecurso>(context);
+                }
+                return grupoUsuarioRecursoRepository;
+            }
+        }
+
         private BaseRepository<GrupoUsuario> grupoUsuarioRepository;
         public BaseRepository<GrupoUsuario> GrupoUsuarioRepository
         {

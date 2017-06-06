@@ -260,3 +260,13 @@ CREATE TABLE IF NOT EXISTS webrebate.FornecedorProduto (
   CONSTRAINT fk_FornecedorProduto_Produto    		FOREIGN KEY (ProdutoID)    			REFERENCES webrebate.Produto (ID),
   CONSTRAINT fk_FornecedorProduto_Fornecedor    FOREIGN KEY (ParceiroID)    		REFERENCES webrebate.ParceiroNegocio (ID)
 );
+
+
+
+CREATE TABLE IF NOT EXISTS webrebate.GrupoUsuarioRecurso (
+  ID                INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+  GrupoID           INT NOT NULL,
+  Recurso           VARCHAR(50) NOT NULL,
+  INDEX fk_GrupoUsuarioRecurso_GrupoUsuario1_idx (GrupoID ASC),
+  CONSTRAINT fk_GrupoUsuarioRecurso_GrupoUsuario1    FOREIGN KEY (GrupoID)    REFERENCES webrebate.GrupoUsuario (ID)
+    );

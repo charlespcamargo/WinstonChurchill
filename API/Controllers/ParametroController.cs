@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WinstonChurchill.API.Autenticacao;
 using WinstonChurchill.API.Common.Atributos;
 using WinstonChurchill.Backend.Business;
 using WinstonChurchill.Backend.Model;
 
 namespace WinstonChurchill.API.Controllers
 {
+    [OwinAuthorize]
     [RoutePrefix("parametro")]
     public class ParametroController : ApiController
     {

@@ -83,6 +83,7 @@ namespace WinstonChurchill.Backend.Repository
             builder.Configurations.Add(new EntityTypeConfiguration<Contato>());
             builder.Configurations.Add(new EntityTypeConfiguration<ParceiroNegocio>());
             builder.Configurations.Add(new EntityTypeConfiguration<FornecedorProduto>());
+            builder.Configurations.Add(new EntityTypeConfiguration<GrupoUsuarioRecurso>());
 
             return builder;
         }

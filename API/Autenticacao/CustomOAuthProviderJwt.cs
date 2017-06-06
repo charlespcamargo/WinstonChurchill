@@ -57,13 +57,8 @@ namespace WinstonChurchill.API.Autenticacao
         {
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
-            string cacheKey = $"usuario.{context.UserName}";
-            //Busca o usuário na base para validar a autenticação
-            Usuario usuario = CacheManager<Usuario>.GetCache(cacheKey);
-            if (usuario == null) {
-                usuario = UsuarioBusiness.New.Autenticar(new Usuario { Email = context.UserName, Senha = context.Password });
-            }
+            // string cacheKey = $"usuario.{context.UserName}";
+            Usuario usuario = ObterUsuario(context.UserName, context.Password);
 
             if (usuario == null)
             {
@@ -71,16 +66,31 @@ namespace WinstonChurchill.API.Autenticacao
                 return Task.FromResult<object>(null);
             }
 
-            if (!usuario.Grupos.Any() || usuario.Grupos.FirstOrDefault().GrupoUsuario == null) {
+            if (!usuario.Grupos.Any() || usuario.Grupos.FirstOrDefault().GrupoUsuario == null)
+            {
                 context.SetError("invalid_role", "Usuário sem configurações de acesso");
+                return Task.FromResult<object>(null);
+            }
+
+            List<GrupoUsuarioRecurso> recursos = GrupoUsuarioRecursoBusiness.New.Carregar();
+
+            if (recursos == null || !recursos.Any())
+            {
+                context.SetError("invalid_role", "Recursos não cadastrados");
+                return Task.FromResult<object>(null);
+            }
+
+            if (!recursos.Any(a => usuario.Grupos.Any(w => w.GrupoUsuarioID == a.GrupoID)))
+            {
+                context.SetError("invalid_role", "Faltam configurações de regra ou o usuário possui um perfil inválido");
                 return Task.FromResult<object>(null);
             }
 
             var identity = new ClaimsIdentity("JWT");
 
-            identity.AddClaim(new Claim(ClaimTypes.Name, usuario.Email));
+            identity.AddClaim(new Claim(ClaimTypes.Name, usuario.ID.ToString()));
             identity.AddClaim(new Claim("sub", usuario.Email));
-            identity.AddClaim(new Claim(ClaimTypes.Role, usuario.Grupos.FirstOrDefault().GrupoUsuario.Nome)); //PEGAR AS ROLES CORRETAS
+            identity.AddClaim(new Claim(ClaimTypes.Role, usuario.Grupos.FirstOrDefault().GrupoUsuarioID.ToString()));
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
@@ -92,9 +102,18 @@ namespace WinstonChurchill.API.Autenticacao
             var ticket = new AuthenticationTicket(identity, props);
             context.Validated(ticket);
 
-            CacheManager<Usuario>.GravarCache(usuario, cacheKey);
+            //  CacheManager<Usuario>.GravarCache(usuario, cacheKey);
 
             return Task.FromResult<object>(null);
+        }
+
+        private Usuario ObterUsuario(string nome, string senha)
+        {
+            //Busca o usuário na base para validar a autenticação
+            //Usuario usuario = CacheManager<Usuario>.GetCache(cacheKey);
+            //if (usuario == null)
+            Usuario usuario = UsuarioBusiness.New.Autenticar(new Usuario { Email = nome, Senha = senha });
+            return usuario;
         }
     }
 }
