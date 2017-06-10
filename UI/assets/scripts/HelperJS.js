@@ -103,6 +103,7 @@ var HelperJS = function () {
             }
 
             $.ajax({
+                headers: { Authorization: $.cookie('Authorization')},
                 global: true,
                 type: type,
                 url: HelperJS.getURLApi(url),
@@ -163,7 +164,6 @@ var HelperJS = function () {
 
         //Usado para informar em tela algum erro retornado da api
         showError: function (jqXHR) {
-
             //$.gritter.removeAll();
 
 
@@ -189,17 +189,11 @@ var HelperJS = function () {
                     var titulo = "Atenção";
                     $.gritter.add({ title: titulo, text: jqXHR.responseJSON.Message, sticky: true, class_name: "msg_attention", before_open: HelperJS.gritter_before_open });
                 }
-                else if (jqXHR.status == 401) {//erro de acesso não permitido
-
-                    var titulo = "Acesso Negado";
-                    $.gritter.add(
-                        {
-                            title: titulo,
-                            text: "Você não possui acesso ao conteúdo. <br/> Verifique se a opção selecionada está correta ou avalie a necessidade junto a seu gestor e solicite o acesso a esta funcionalidade clicando em [<a href='/pages/perfilAcesso/SolicitarAcessoPerfil.aspx'>Solicitar Acesso</a>].",
-                            sticky: true,
-                            class_name: "msg_attention",
-                            before_open: HelperJS.gritter_before_open
-                        });
+                else if (jqXHR.status == 401) {//erro de acesso - deslogado
+                    window.location.href = '/login.aspx';
+                }
+                else if (jqXHR.status == 406) {//erro de acesso não permitido
+                    window.location.href = '/';
                 }
                 else if (jqXHR.status == 404) {
                     var mensagem = "ERRO DESCONHECIDO [404], VERIFIQUE SUA CONEXÃO!";

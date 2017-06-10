@@ -38,9 +38,9 @@ namespace WinstonChurchill.API
 
 
             // Api controllers with an [Authorize] attribute will be validated with JWT
-           // UsarAutenticacaoBearer(app, audience, secretsSymmetricKey);
+            UsarAutenticacaoBearer(app, audience, secretsSymmetricKey);
 
-            //UsarAutenticacaoCookie(app);
+           // UsarAutenticacaoCookie(app);
 
             //Vamos usar esta opção para gravar o token no cookie.. se não funcionar voltamos no bearer authentication
 
@@ -57,14 +57,14 @@ namespace WinstonChurchill.API
                 });
         }
 
-        //public void UsarAutenticacaoCookie(IAppBuilder app)
-        //{
-        //    app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions
-        //    {
-        //        AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-        //        LoginPath = new PathString("/oauth2/token"),
-        //        CookieSecure = CookieSecureOption.Always
-        //    });
-        //}
+        public void UsarAutenticacaoCookie(IAppBuilder app)
+        {
+            app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/oauth2/token"),
+                CookieSecure = CookieSecureOption.Always
+            });
+        }
     }
 }

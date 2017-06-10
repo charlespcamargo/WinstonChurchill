@@ -33,24 +33,25 @@
             var jsonSend = $('#frmLogin').obterJson();
 
             function fnSuccess(data) {
-                alert('oi');
-                alert(data);
-                debugger;
+                if (data && data.token_type && data.access_token) {
+                    $.cookie('Authorization', data.token_type + ' ' + data.access_token);
+                    window.location.href = '/';
+                }
             }
 
             $.ajax({
                 global: false,
                 type: 'POST',
-                url: 'http://localhost:7976/oauth2/token',//HelperJS.getBaseURL('oauth2/token'),
+                url: HelperJS.getBaseURL() + 'oauth2/token',
                 cache: false,
                 //headers: {
                 //    'Content-type': 'application/x-www-form-urlencoded',
                 //    'accept': 'application/json'
 
                 //},
-               // contentType: 'application/json',
+                // contentType: 'application/json',
                 //accept: 'application/json',
-                data: 'username=' + jsonSend.UserName + '&password=' + jsonSend.Password +'&grant_type=password&client_id=e84a2d13704647d18277966ec839d39e:CgP7NyLXtaGmyOgjj3sUMwmAlrSKqa5JyZ4P1OlfQeM',
+                data: 'username=' + jsonSend.UserName + '&password=' + jsonSend.Password + '&grant_type=password&client_id=e84a2d13704647d18277966ec839d39e:CgP7NyLXtaGmyOgjj3sUMwmAlrSKqa5JyZ4P1OlfQeM',
                 success: function (data) {
                     fnSuccess(data);
                 },

@@ -63,6 +63,7 @@ C:\Projects\Charles\WinstonChurchill\API\bin\roslyn\VBCSCompiler.exe.config
 C:\Projects\Charles\WinstonChurchill\API\bin\WinstonChurchill.API.dll.config
 C:\Projects\Charles\WinstonChurchill\API\bin\WinstonChurchill.API.dll
 C:\Projects\Charles\WinstonChurchill\API\bin\WinstonChurchill.API.pdb
+C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.Owin.Cors.dll
 C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.Owin.dll
@@ -95,6 +96,7 @@ C:\Projects\Charles\WinstonChurchill\API\bin\WinstonChurchill.API.Common.pdb
 C:\Projects\Charles\WinstonChurchill\API\bin\WinstonChurchill.API.Common.dll.config
 C:\Projects\Charles\WinstonChurchill\API\bin\WinstonChurchill.Backend.pdb
 C:\Projects\Charles\WinstonChurchill\API\bin\WinstonChurchill.Backend.dll.config
+C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.Owin.xml
 C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.Owin.Cors.xml
@@ -122,5 +124,3 @@ C:\Projects\Charles\WinstonChurchill\API\bin\EntityFramework.SqlServer.xml
 C:\Projects\Charles\WinstonChurchill\API\obj\Debug\WinstonChurchill.API.csprojResolveAssemblyReference.cache
 C:\Projects\Charles\WinstonChurchill\API\obj\Debug\WinstonChurchill.API.dll
 C:\Projects\Charles\WinstonChurchill\API\obj\Debug\WinstonChurchill.API.pdb
-C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.AspNet.Identity.Core.dll
-C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.AspNet.Identity.Core.xml
