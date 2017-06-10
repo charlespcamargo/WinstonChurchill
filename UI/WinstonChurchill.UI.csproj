@@ -49,6 +49,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -494,6 +497,7 @@
     <Content Include="assets\plugins\multiselect-master\package.json" />
     <Content Include="assets\plugins\multiselect-master\README.md" />
     <Content Include="assets\plugins\jOrgChart\flare.json" />
+    <Content Include="Auth.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2295,6 +2299,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth.ashx.cs">
+      <DependentUpon>Auth.ashx</DependentUpon>
+    </Compile>
     <Compile Include="classes\Configuracao.cs" />
     <Compile Include="controls\ucMenu.ascx.cs">
       <DependentUpon>ucMenu.ascx</DependentUpon>

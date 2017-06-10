@@ -8,6 +8,9 @@ using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.Jwt;
 using WinstonChurchill.API.Autenticacao;
 using WinstonChurchill.Backend.Utils;
+using Microsoft.Owin.Security.Cookies;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
 
 namespace WinstonChurchill.API
 {
@@ -35,6 +38,16 @@ namespace WinstonChurchill.API
 
 
             // Api controllers with an [Authorize] attribute will be validated with JWT
+           // UsarAutenticacaoBearer(app, audience, secretsSymmetricKey);
+
+            //UsarAutenticacaoCookie(app);
+
+            //Vamos usar esta opção para gravar o token no cookie.. se não funcionar voltamos no bearer authentication
+
+        }
+
+        protected void UsarAutenticacaoBearer(IAppBuilder app, IEnumerable<string> audience, IEnumerable<IIssuerSecurityTokenProvider> secretsSymmetricKey)
+        {
             app.UseJwtBearerAuthentication(
                 new JwtBearerAuthenticationOptions
                 {
@@ -43,5 +56,15 @@ namespace WinstonChurchill.API
                     IssuerSecurityTokenProviders = secretsSymmetricKey
                 });
         }
+
+        //public void UsarAutenticacaoCookie(IAppBuilder app)
+        //{
+        //    app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions
+        //    {
+        //        AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+        //        LoginPath = new PathString("/oauth2/token"),
+        //        CookieSecure = CookieSecureOption.Always
+        //    });
+        //}
     }
 }

@@ -122,3 +122,5 @@ C:\Projects\Charles\WinstonChurchill\API\bin\EntityFramework.SqlServer.xml
 C:\Projects\Charles\WinstonChurchill\API\obj\Debug\WinstonChurchill.API.csprojResolveAssemblyReference.cache
 C:\Projects\Charles\WinstonChurchill\API\obj\Debug\WinstonChurchill.API.dll
 C:\Projects\Charles\WinstonChurchill\API\obj\Debug\WinstonChurchill.API.pdb
+C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Projects\Charles\WinstonChurchill\API\bin\Microsoft.AspNet.Identity.Core.xml

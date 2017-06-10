@@ -42,7 +42,7 @@ namespace WinstonChurchill.Backend.Business
                 usuario = uow.UsuarioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Grupos.GrupoUsuario");
 
                 if (usuario == null || usuario.ID == 0)
-                    throw new UnauthorizedAccessException("Acesso não autorizado. Usuário ou senhas inválidos!");
+                    throw new UnauthorizedAccessException("Acesso não autorizado. Usuário ou senha inválidos!");
 
                 return usuario;
             }

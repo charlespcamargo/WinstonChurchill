@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WinstonChurchill.API.Autenticacao;
 using WinstonChurchill.Backend.Business;
 using WinstonChurchill.Backend.Model;
 
@@ -12,7 +14,7 @@ namespace WinstonChurchill.API.Controllers
     public class AutenticacaoController : ApiController
     {
         [AllowAnonymous]
-        [HttpPost, Route("Autenticar")]
+        [HttpPost, Route("autenticar")]
         public HttpResponseMessage Autenticar([FromBody] Usuario usuario)
         {
             try
@@ -46,6 +48,12 @@ namespace WinstonChurchill.API.Controllers
                 var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
                 throw new HttpResponseException(errorResponse);
             }
+        }
+
+        public IHttpActionResult Post([FromBody] string applicationName)
+        {
+            var webApplication = WebApplicationAccess.GrantApplication(applicationName);
+            return Ok<WebApplicationAccess>(webApplication);
         }
     }
 }

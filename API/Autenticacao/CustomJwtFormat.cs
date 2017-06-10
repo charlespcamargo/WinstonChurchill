@@ -4,7 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
+using System.Web.Http.Results;
 using Thinktecture.IdentityModel.Tokens;
 
 namespace WinstonChurchill.API.Autenticacao
@@ -47,7 +50,6 @@ namespace WinstonChurchill.API.Autenticacao
             var handler = new JwtSecurityTokenHandler();
 
             var jwt = handler.WriteToken(token);
-
             return jwt;
         }
 
