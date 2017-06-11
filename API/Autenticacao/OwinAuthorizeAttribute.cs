@@ -34,8 +34,8 @@ namespace WinstonChurchill.API.Autenticacao
                     if (regra == null || !regra.Any())
                         throw new UnauthorizedAccessException("Regra não encontrada");
 
-                    if (regra.Any(a => int.Parse(a.Value) == 1000) || regra.Any(a => int.Parse(a.Value) == 1001)) //1000 - Super admin e 1001 - Admin - Acesso livre
-                        return;
+                    //if (regra.Any(a => int.Parse(a.Value) == 1000) || regra.Any(a => int.Parse(a.Value) == 1001)) //1000 - Super admin e 1001 - Admin - Acesso livre
+                    //    return;
 
                     if (recursos.Any(a => regra.Any(r => int.Parse(r.Value) == a.GrupoID)))
                     {

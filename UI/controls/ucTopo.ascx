@@ -1,5 +1,30 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucTopo.ascx.cs" Inherits="UI.controls.ucTopo" %>
+<script>
+    $(document).ready(function () {
+        $('#btnLogoff').click(function () {
+            function sucesso(data) {
+                $.removeCookie('Authorization', { path: '/' });
+                window.location.href = '/login.aspx';
+            }
 
+            HelperJS.callApi({
+                url: "logoff",
+                type: "GET",
+                data: null,
+                functionOnSucess: sucesso,
+                functionOnError: null
+            });
+        });
+
+        HelperJS.callApi({
+            url: "perfil/carregar",
+            type: "GET",
+            data: null,
+            functionOnSucess: function (data) { $('.username').html(data.Nome); },
+            functionOnError: HelperJS.showError
+        });
+    });
+</script>
 
 <div class="header navbar navbar-inverse navbar-fixed-top">
     <!-- BEGIN TOP NAVIGATION BAR -->
@@ -20,7 +45,7 @@
 
             <ul class="nav pull-right">
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
-               <%-- <li class="dropdown" id="header_notification_bar">
+                <%-- <li class="dropdown" id="header_notification_bar">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="icon-warning-sign"></i>
                         <span class="badge">6</span>
@@ -185,7 +210,7 @@
                 </li>--%>
                 <!-- END INBOX DROPDOWN -->
                 <!-- BEGIN TODO DROPDOWN -->
-              <%--  <li class="dropdown" id="header_task_bar">
+                <%--  <li class="dropdown" id="header_task_bar">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="icon-tasks"></i>
                         <span class="badge">5</span>
@@ -282,7 +307,7 @@
                 </li>--%>
                 <!-- END TODO DROPDOWN -->
                 <!-- BEGIN LANGUAGE DROPDOWN -->
-               <%-- <li class="dropdown language">
+                <%-- <li class="dropdown language">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <img alt="" src="/assets/img/flags/br.png" />
                         <span class="username">BR</span>
@@ -307,11 +332,11 @@
                 <!-- BEGIN USER LOGIN DROPDOWN -->
                 <li class="dropdown user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" src="/assets/img/charles_camargo_avatar.jpg" />
-                        <span class="username">Charles Camargo</span>
+                        <%--<img alt="" src="/assets/img/charles_camargo_avatar.jpg" />--%>
+                        <span class="username"></span>
                         <i class="icon-angle-down"></i>
                     </a>
-                   <ul class="dropdown-menu">
+                    <ul class="dropdown-menu">
                         <li><a href="/pages/Perfil.aspx"><i class="icon-user"></i>Meu Perfil</a></li>
                         <%-- <li><a href="page_calendar.html"><i class="icon-calendar"></i>Meu Calendário</a></li>
                         <li><a href="inbox.html"><i class="icon-envelope"></i>Minha Inbox <span class="badge badge-important">3</span></a></li>
