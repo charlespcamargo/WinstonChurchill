@@ -18,7 +18,7 @@ namespace WinstonChurchill.API.Controllers
     //[TokenAutenticacao]
     public class UsuarioController : ApiController
     {
-        [HttpPost , Route("listar")]
+        [HttpPost, Route("listar")]
         public HttpResponseMessage Listar([FromBody] Usuario filtro)
         {
             try
@@ -26,11 +26,10 @@ namespace WinstonChurchill.API.Controllers
                 if (filtro == null)
                     filtro = new Usuario();
 
-                Usuario usuario = UsuarioToken.Obter(this);
-                filtro.ID = usuario.ID;
+                filtro.ID = UsuarioToken.ObterId(this);
                 List<Usuario> data = UsuarioBusiness.New.Listar(filtro);
 
-                return Request.CreateResponse(HttpStatusCode.OK, data); 
+                return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (ArgumentException aex)
             {
@@ -54,7 +53,9 @@ namespace WinstonChurchill.API.Controllers
                 using (UnitOfWork uow = new UnitOfWork())
                 {
                     usuario = uow.UsuarioRepository.Carregar(c => c.ID == id,
-                                                             o => o.OrderBy(by => by.ID));
+                                                             o => o.OrderBy(by => by.ID), "Grupos");
+
+                    usuario.Grupos.RemoveAll(p => p.Ativo == false);
                 }
 
                 return Request.CreateResponse(HttpStatusCode.OK, usuario);
@@ -97,6 +98,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
+                usuario.ResponvelID = UsuarioToken.ObterId(this);
                 UsuarioBusiness.New.Salvar(usuario);
 
                 return Request.CreateResponse(HttpStatusCode.OK, usuario);

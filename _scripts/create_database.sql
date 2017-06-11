@@ -270,3 +270,5 @@ CREATE TABLE IF NOT EXISTS webrebate.GrupoUsuarioRecurso (
   INDEX fk_GrupoUsuarioRecurso_GrupoUsuario1_idx (GrupoID ASC),
   CONSTRAINT fk_GrupoUsuarioRecurso_GrupoUsuario1    FOREIGN KEY (GrupoID)    REFERENCES webrebate.GrupoUsuario (ID)
     );
+
+

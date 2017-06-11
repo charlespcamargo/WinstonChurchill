@@ -40,9 +40,7 @@ namespace WinstonChurchill.API.Controllers
             {
                 if (filtro == null)
                     filtro = new ParceiroNegocio();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
-                filtro.UsuarioID = usuario.ID;
+                filtro.UsuarioID = UsuarioToken.ObterId(this);
 
                 var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
                 if (!string.IsNullOrEmpty(key.Value))

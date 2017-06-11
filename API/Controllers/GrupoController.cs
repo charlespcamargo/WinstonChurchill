@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WinstonChurchill.API.Autenticacao;
 using WinstonChurchill.Backend.Business;
 using WinstonChurchill.Backend.Model;
 
 namespace WinstonChurchill.API.Controllers
 {
+    [OwinAuthorize]
     [RoutePrefix("grupo")]
     public class GrupoController : ApiController
     {
@@ -18,9 +20,7 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 Grupo filtro = new Grupo();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
-                filtro.UsuarioID = usuario.ID;
+                filtro.UsuarioID = UsuarioToken.ObterId(this);
 
                 var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
                 if (!string.IsNullOrEmpty(key.Value))

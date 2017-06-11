@@ -103,7 +103,7 @@ var HelperJS = function () {
             }
 
             $.ajax({
-                headers: { Authorization: $.cookie('Authorization')},
+                headers: { Authorization: $.cookie('Authorization') },
                 global: true,
                 type: type,
                 url: HelperJS.getURLApi(url),
@@ -187,7 +187,12 @@ var HelperJS = function () {
                 else if (jqXHR.status == 400) {//erro de método não encontrado
 
                     var titulo = "Atenção";
-                    $.gritter.add({ title: titulo, text: jqXHR.responseJSON.Message, sticky: true, class_name: "msg_attention", before_open: HelperJS.gritter_before_open });
+
+                    if (jqXHR.responseJSON.Message)
+                        $.gritter.add({ title: titulo, text: jqXHR.responseJSON.Message, sticky: true, class_name: "msg_attention", before_open: HelperJS.gritter_before_open });
+                    else if (jqXHR.responseJSON.error_description)
+                        $.gritter.add({ title: titulo, text: jqXHR.responseJSON.error_description, sticky: true, class_name: "msg_attention", before_open: HelperJS.gritter_before_open });
+
                 }
                 else if (jqXHR.status == 401) {//erro de acesso - deslogado
                     window.location.href = '/login.aspx';
@@ -644,7 +649,7 @@ var HelperJS = function () {
             }
         },
 
-        dataBindComboChosen: function (api, url, idControle, texto, valor, onChange, allowClear, chznInputWidth) {
+        dataBindComboChosen: function (url, idControle, texto, valor, onChange, allowClear, chznInputWidth) {
 
             $(idControle).empty().trigger("liszt:updated");
 
@@ -655,14 +660,13 @@ var HelperJS = function () {
                     onChange(e);
             });
 
-            HelperJS.callApi(api, url, "GET", null, function (dataSource) {
+            function change(dataSource) {
                 if (dataSource != null && dataSource.length > 0) {
                     $(idControle).append(new Option());
                     $.each(dataSource, function (i, obj) {
                         $(idControle).append(new Option($(obj).prop(texto), $(obj).prop(valor)));
                     });
                 }
-
                 $(idControle).trigger("liszt:updated");
                 if (allowClear != null && allowClear == true) {
                     $(idControle).chosen({ allow_single_deselect: true });
@@ -674,8 +678,10 @@ var HelperJS = function () {
                 if (chznInputWidth != undefined) {
                     $(idControle + '_chzn input').css({ "width": chznInputWidth });
                 }
-            },
-                HelperJS.showError);
+            }
+            HelperJS.callApi({
+                url: url, type: 'GET', data: null, functionOnSucess: change, functionOnError: HelperJS.showError
+            });
         },
 
         ///pode passar uma lista de controles, quando for utilizar valores identificos, ex: (Sim/Não)

@@ -73,17 +73,17 @@
                         Login <i class="m-icon-swapright m-icon-white"></i>
                     </button>
                 </div>
-                <div class="forget-password">
+               <%-- <div class="forget-password">
                     <h4>Esqueceu sua senha ?</h4>
                     <p>
                         Não se preocupe, clique <a href="javascript:;" id="forget-password">aqui</a>
                         para resetar a senha.
                     </p>
-                </div>
+                </div>--%>
             </div>
             <!-- END LOGIN FORM -->
             <!-- BEGIN FORGOT PASSWORD FORM -->
-            <h3>Forget Password ?</h3>
+         <%--   <h3>Forget Password ?</h3>
             <p>Enter your e-mail address below to reset your password.</p>
             <div class="control-group">
                 <div class="controls">
@@ -100,7 +100,7 @@
                 <button type="submit" class="btn green pull-right" id="btnLogin">
                     Logar <i class="m-icon-swapright m-icon-white"></i>
                 </button>
-            </div>
+            </div>--%>
             <!-- END FORGOT PASSWORD FORM -->
         </form>
     </div>

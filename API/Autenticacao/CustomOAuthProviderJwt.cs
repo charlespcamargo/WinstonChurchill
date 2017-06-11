@@ -58,7 +58,7 @@ namespace WinstonChurchill.API.Autenticacao
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             // string cacheKey = $"usuario.{context.UserName}";
-            Usuario usuario = ObterUsuario(context.UserName, context.Password);
+            Usuario usuario = UsuarioBusiness.New.Autenticar(new Usuario { Email = context.UserName, Senha = context.Password });
 
             if (usuario == null)
             {
@@ -80,7 +80,8 @@ namespace WinstonChurchill.API.Autenticacao
                 return Task.FromResult<object>(null);
             }
 
-            if (!recursos.Any(a => usuario.Grupos.Any(w => w.GrupoUsuarioID == a.GrupoID)))
+            if ((usuario.Grupos != null && usuario.Grupos.Any(a => a.GrupoUsuarioID != 1000 && a.GrupoUsuarioID != 1001)) 
+                && !recursos.Any(a => usuario.Grupos.Any(w => w.GrupoUsuarioID == a.GrupoID)))
             {
                 context.SetError("invalid_role", "Faltam configurações de regra ou o usuário possui um perfil inválido");
                 return Task.FromResult<object>(null);
@@ -90,7 +91,10 @@ namespace WinstonChurchill.API.Autenticacao
 
             identity.AddClaim(new Claim(ClaimTypes.Name, usuario.ID.ToString()));
             identity.AddClaim(new Claim("sub", usuario.Email));
-            identity.AddClaim(new Claim(ClaimTypes.Role, usuario.Grupos.FirstOrDefault().GrupoUsuarioID.ToString()));
+            foreach (var item in usuario.Grupos.Where(w=>w.Ativo ==true))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Role, item.GrupoUsuarioID.ToString()));
+            }
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
@@ -105,15 +109,6 @@ namespace WinstonChurchill.API.Autenticacao
             //  CacheManager<Usuario>.GravarCache(usuario, cacheKey);
 
             return Task.FromResult<object>(null);
-        }
-
-        private Usuario ObterUsuario(string nome, string senha)
-        {
-            //Busca o usuário na base para validar a autenticação
-            //Usuario usuario = CacheManager<Usuario>.GetCache(cacheKey);
-            //if (usuario == null)
-            Usuario usuario = UsuarioBusiness.New.Autenticar(new Usuario { Email = nome, Senha = senha });
-            return usuario;
         }
     }
 }

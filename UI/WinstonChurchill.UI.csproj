@@ -286,6 +286,8 @@
     <Content Include="pages\parametrizacao.js" />
     <Content Include="pages\ParceiroNegocio.aspx" />
     <Content Include="pages\parceiroNegocio.js" />
+    <Content Include="pages\Perfil.aspx" />
+    <Content Include="pages\perfil.js" />
     <Content Include="pages\Produto.aspx" />
     <Content Include="pages\produto.js" />
     <Content Include="pages\usuario.js" />
@@ -2372,6 +2374,13 @@
     </Compile>
     <Compile Include="pages\ParceiroNegocio.aspx.designer.cs">
       <DependentUpon>ParceiroNegocio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\Produto.aspx.cs">
       <DependentUpon>Produto.aspx</DependentUpon>

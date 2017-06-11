@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WinstonChurchill.API.Autenticacao;
 using WinstonChurchill.Backend.Business;
 using WinstonChurchill.Backend.Model;
 
 namespace WinstonChurchill.API.Controllers
 {
+    [OwinAuthorize]
     [RoutePrefix("categoriaImagem")]
     public class CategoriaImagemController : ApiController
     {
@@ -18,10 +20,8 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 CategoriaImagem filtro = new CategoriaImagem();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
                 filtro.Imagem = new Imagem();
-                filtro.Imagem.UsuarioID = usuario.ID;
+                filtro.Imagem.UsuarioID = UsuarioToken.ObterId(this);
                 filtro.CategoriaID = idCategoria;
                 List<CategoriaImagem> lista = CategoriaImagemBusiness.New.Carregar(filtro);
 

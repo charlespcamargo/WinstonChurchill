@@ -1,26 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WinstonChurchill.API.Autenticacao;
-using WinstonChurchill.API.Common.Atributos;
 using WinstonChurchill.Backend.Business;
 using WinstonChurchill.Backend.Model;
 
 namespace WinstonChurchill.API.Controllers
 {
     [OwinAuthorize]
-    [RoutePrefix("parametro")]
-    public class ParametroController : ApiController
+    [RoutePrefix("perfil")]
+    public class PerfilController : ApiController
     {
         [HttpGet, Route("carregar")]
         public HttpResponseMessage Carregar()
         {
             try
             {
-                Parametro Parametro = ParametroBusiness.New.Carregar();
-
-                return Request.CreateResponse(HttpStatusCode.OK, Parametro);
+                Usuario usuario = UsuarioToken.Obter(this);
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
             }
             catch (ArgumentException aex)
             {
@@ -34,16 +34,16 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
-        [ValidateModel]
         [HttpPost, Route("salvar")]
-        public HttpResponseMessage Salvar([FromBody] Parametro entidade)
+        public HttpResponseMessage Salvar([FromBody] Usuario usuario)
         {
             try
             {
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
-                ParametroBusiness.New.Salvar(entidade);
-                return Request.CreateResponse(HttpStatusCode.OK, entidade);
+                int usuarioId = UsuarioToken.ObterId(this);
+                usuario.ID = usuarioId;
+                UsuarioBusiness.New.Salvar(usuario);
+
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
             }
             catch (ArgumentException aex)
             {
@@ -56,6 +56,5 @@ namespace WinstonChurchill.API.Controllers
                 throw new HttpResponseException(errorResponse);
             }
         }
-
     }
 }

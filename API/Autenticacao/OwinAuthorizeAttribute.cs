@@ -29,12 +29,18 @@ namespace WinstonChurchill.API.Autenticacao
                 if (result != null && result.Claims != null && result.Claims.Any())
                 {
                     List<GrupoUsuarioRecurso> recursos = GrupoUsuarioRecursoBusiness.New.Carregar();
-                    var regra = result.Claims.Where(c => c.Type == "role").FirstOrDefault();
-                    if (regra == null)
+
+                    var regra = result.Claims.Where(c => c.Type == "role").ToList();
+                    if (regra == null || !regra.Any())
                         throw new UnauthorizedAccessException("Regra não encontrada");
 
-                    if (recursos.Any(a => a.GrupoID == int.Parse(regra.Value)))
+                    if (regra.Any(a => int.Parse(a.Value) == 1000) || regra.Any(a => int.Parse(a.Value) == 1001)) //1000 - Super admin e 1001 - Admin - Acesso livre
+                        return;
+
+                    if (recursos.Any(a => regra.Any(r => int.Parse(r.Value) == a.GrupoID)))
                     {
+                        recursos = recursos.Where(w => regra.Any(r => int.Parse(r.Value) == w.GrupoID)).ToList();
+
                         GrupoUsuarioRecurso recursoUsuario = recursos.Where(p => p.Recurso == actionContext.ControllerContext.ControllerDescriptor.ControllerName).FirstOrDefault();
                         if (recursoUsuario == null)
                             throw new PlatformNotSupportedException("Regra não encontrada");
@@ -43,7 +49,8 @@ namespace WinstonChurchill.API.Autenticacao
                         HandleUnauthorizedRequest(actionContext);
                 }
             }
-            catch (PlatformNotSupportedException ure) {
+            catch (PlatformNotSupportedException ure)
+            {
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.NotAcceptable, ure);
             }
             catch (UnauthorizedAccessException uae)

@@ -56,7 +56,8 @@
                     fnSuccess(data);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    HelperJS.showError
+                    alert(jqXHR.responseJSON.error_description);
+                    // HelperJS.showError(jqXHR);
                 }
             });
 

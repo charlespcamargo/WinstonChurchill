@@ -34,15 +34,17 @@ namespace WinstonChurchill.Backend.Model
         [JsonConverter(typeof(CustomDate))]
         public DateTime DataCadastro { get; set; }
 
+       
+
         #region Foreign Keys
 
         [ForeignKey("UsuarioID")]
         public List<UsuarioXGrupoUsuario> Grupos { get; set; }
-
+        
         #endregion
 
 
-       
+
 
         [NotMapped]
         public string SenhaNova { get; set; }
@@ -50,5 +52,7 @@ namespace WinstonChurchill.Backend.Model
         [NotMapped]
         public string SenhaNovaConfirmar { get; set; }
 
+        [NotMapped]
+        public int ResponvelID { get; set; }
     }
 }
