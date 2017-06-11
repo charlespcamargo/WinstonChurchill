@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 using WinstonChurchill.API.Controllers;
 using WinstonChurchill.Backend.Business;
 using WinstonChurchill.Backend.Model;
@@ -33,5 +34,6 @@ namespace WinstonChurchill.API.Autenticacao
             }
             throw new ArgumentException("Usuário não encontrado");
         }
+
     }
 }

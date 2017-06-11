@@ -231,7 +231,34 @@
                 App.initCompatibilidade();
                 Index.init();
                 FormComponents.init();                
-                HelperJS.init(); 
+                HelperJS.init();
+
+                function fnError() {
+                    window.location.href = '/login.aspx';
+                }
+
+                HelperJS.callApi({
+                    url: "token",
+                    type: "GET",
+                    data: null,
+                    functionOnSucess: null,
+                    functionOnError: fnError
+                });
+
+                $('#btnLogoff').click(function () {
+                    function sucesso(data) {
+                        $.removeCookie('Authorization', { path: '/' });
+                        window.location.href = '/login.aspx';
+                    }
+
+                    HelperJS.callApi({
+                        url: "logoff",
+                        type: "GET",
+                        data: null,
+                        functionOnSucess: sucesso,
+                        functionOnError: null
+                    });
+                });
             });
         </script>
         <!-- END JAVASCRIPTS -->

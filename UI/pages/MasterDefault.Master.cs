@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,7 @@ using UI.classes;
 
 namespace UI.pages
 {
-    public partial class MasterDefault : System.Web.UI.MasterPage
+    public partial class MasterDefault : MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

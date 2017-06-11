@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using WinstonChurchill.API.Autenticacao;
 using WinstonChurchill.Backend.Business;
@@ -54,6 +55,25 @@ namespace WinstonChurchill.API.Controllers
         {
             var webApplication = WebApplicationAccess.GrantApplication(applicationName);
             return Ok<WebApplicationAccess>(webApplication);
+        }
+
+        /// <summary>
+        /// Cai nesta action apenas para verificar se está validado.
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet, Route("token")]
+        public HttpResponseMessage Token()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [HttpGet, Route("logoff")]
+        public HttpResponseMessage Logoff()
+        {
+            HttpContext.Current.GetOwinContext().Authentication.SignOut();
+            HttpContext.Current.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

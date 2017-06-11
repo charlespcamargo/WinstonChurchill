@@ -318,7 +318,7 @@
                         <li><a href="#"><i class="icon-tasks"></i>Minhas Tarefas<span class="badge badge-success">8</span></a></li>
                         <li class="divider"></li>--%>
                         <li><a href="javascript:;" id="trigger_fullscreen"><i class="icon-move"></i>Tela Cheia</a></li>
-                        <li><a href="/Login.aspx"><i class="icon-key"></i>Sair</a></li>
+                        <li><a href="#" id="btnLogoff"><i class="icon-key"></i>Sair</a></li>
                     </ul>
                 </li>
                 <!-- END USER LOGIN DROPDOWN -->
