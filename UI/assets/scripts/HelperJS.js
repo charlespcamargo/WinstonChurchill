@@ -86,10 +86,12 @@ var HelperJS = function () {
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(dataSend),
                 success: function (data) {
-                    functionOnSucess(data);
+                    if (functionOnSucess)
+                        functionOnSucess(data);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    functionOnError(jqXHR, textStatus, errorThrown);
+                    if (functionOnError)
+                        functionOnError(jqXHR, textStatus, errorThrown);
                 }
             });
 
@@ -110,12 +112,13 @@ var HelperJS = function () {
                 cache: false,
                 data: dataSend,
                 success: function (data) {
-                    functionOnSucess(data);
+                    if (functionOnSucess)
+                        functionOnSucess(data);
                     //App.unblockUI(".content");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-
-                    functionOnError(jqXHR, textStatus, errorThrown);
+                    if (functionOnError)
+                        functionOnError(jqXHR, textStatus, errorThrown);
                     //App.unblockUI(".content");
                 }
             });
