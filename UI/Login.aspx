@@ -9,7 +9,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8" />
-    <title>Metronic | Login Page</title>
+    <title>WebRebate | Login</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
@@ -51,26 +51,26 @@
                 </div>
                 <div class="control-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-                    <label class="control-label visible-ie8 visible-ie9">Username</label>
+                    <label class="control-label visible-ie8 visible-ie9">Email</label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-user"></i>
-                            <input class="m-wrap placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" data-json="UserName" validate-json="Informe o usuário" />
+                            <input class="m-wrap placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" data-json="UserName" validate-json="Informe o usuário" />
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label visible-ie8 visible-ie9">Password</label>
+                    <label class="control-label visible-ie8 visible-ie9">Senha</label>
                     <div class="controls">
                         <div class="input-icon left">
                             <i class="icon-lock"></i>
-                            <input class="m-wrap placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" data-json="Password" validate-json="Informe a senha" />
+                            <input class="m-wrap placeholder-no-fix" type="password" autocomplete="off" placeholder="Senha" data-json="Password" validate-json="Informe a senha" />
                         </div>
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button id="btnLogin" class="btn green pull-right">
-                        Login <i class="m-icon-swapright m-icon-white"></i>
+                    <button id="btnLogin" type="button" class="btn green pull-right">
+                        Entrar <i class="m-icon-swapright m-icon-white"></i>
                     </button>
                 </div>
                <%-- <div class="forget-password">

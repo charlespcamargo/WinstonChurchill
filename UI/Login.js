@@ -12,11 +12,11 @@
                 Login.logar();
             });
 
-            $('.forget-form input').keypress(function (e) {
-                if (e.which == 13) {
-                    return false;
-                }
-            });
+            //$('.forget-form input').keypress(function (e) {
+            //    if (e.which == 13) {
+            //        return false;
+            //    }
+            //});
 
             jQuery('#forget-password').click(function () {
                 jQuery('.login-form').hide();
