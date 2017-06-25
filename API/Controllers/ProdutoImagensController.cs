@@ -40,19 +40,17 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost, Route("anexar/{idProduto}")]
         public HttpResponseMessage Anexar(int idProduto)
         {
             try
             {
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
-
                 System.Web.HttpPostedFile arquivo = System.Web.HttpContext.Current.Request.Files[0];
                 byte[] data = new Byte[arquivo.ContentLength];
                 arquivo.InputStream.Read(data, 0, arquivo.ContentLength);
 
-                ProdutoImagem produtoImagem = ProdutosImagensBusiness.New.Salvar(data, arquivo, usuario, idProduto);
+                ProdutoImagem produtoImagem = ProdutosImagensBusiness.New.Salvar(data, arquivo, idProduto);
 
                 return Request.CreateResponse(HttpStatusCode.OK, produtoImagem);
             }
@@ -74,8 +72,8 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 ProdutoImagem filtro = new ProdutoImagem();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+
+                Usuario usuario = UsuarioToken.Obter(this);
                 filtro.Imagem = new Imagem();
                 filtro.Imagem.UsuarioID = usuario.ID;
                 filtro.ID = id;

@@ -40,7 +40,7 @@ namespace WinstonChurchill.Backend.Model
         #region Foreign Keys
 
         [Column("UsuarioID")]
-        public int UsuarioID { get; set; }
+        public int? UsuarioID { get; set; }
 
         [ForeignKey("UsuarioID")]
         public Usuario Usuario { get; set; }

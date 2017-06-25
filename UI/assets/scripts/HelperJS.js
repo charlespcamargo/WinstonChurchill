@@ -350,7 +350,7 @@ var HelperJS = function () {
                         };
                     },
                     params: {
-
+                        headers: { Authorization: $.cookie('Authorization') }
                     },
                     results: function (data) {
                         return { results: data };

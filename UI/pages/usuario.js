@@ -46,7 +46,7 @@
                     "mData": "ID",
                     "mRender": function (source, type, full) {
                         var editar = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Editar' onclick='Usuarios.editar(" + source + ")' href='javascript:;'><i class='icon-edit'></i></a>";
-                        var excluir = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Remover' onclick='Usuarios.remover(" + source + ")' href='javascript:;'><i class='icon-remove'></i></a>";
+                        var excluir = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Remover' onclick='Usuarios.excluir(" + source + ")' href='javascript:;'><i class='icon-remove'></i></a>";
 
                         return "<center> " + editar + excluir + "</center>";
                     }
@@ -80,6 +80,9 @@
             $("#modalNovo").modal('layout');
             $('#lblSenha').html('Senha');
             $('[alt-senha]').hide();
+            $('#txtSenhaAtual').val('');
+            $('#txtSenhaNova').val('');
+            $('#txtSenhaNovaConfirmar').val('');
         },
 
         editar: function (_id) {
@@ -143,13 +146,13 @@
         },
 
         excluir: function (_id) {
+            function fnConfirmar() {
 
-            var fnSuccess = function (data) {
-                HelperJS.showSuccess("Dados excluídos com sucesso!");
-                Produtos.carregarGrid();
-            }
+                function fnSuccess(data) {
+                    HelperJS.showSuccess("Dados excluídos com sucesso!");
+                    Produtos.carregarGrid();
+                }
 
-            var fnConfirmar = function () {
                 HelperJS.callApi({
                     url: "usuario/" + _id,
                     type: "DELETE",
@@ -159,7 +162,7 @@
                 });
             }
 
-            HelperJS.confirmar('Deseja excluir o produto?', fnConfirmar, null);
+            HelperJS.confirmar('Deseja excluir o usuário?', fnConfirmar, null);
         },
 
         fecharModal: function () {

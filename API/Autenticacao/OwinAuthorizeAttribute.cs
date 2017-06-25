@@ -21,6 +21,9 @@ namespace WinstonChurchill.API.Autenticacao
             {
                 base.OnAuthorization(actionContext);
 
+                //Se for anonimo não valida as rules do usuário
+                if (actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any()) return;
+
                 if (actionContext.Request.Headers.Authorization == null || actionContext.Request.Headers.Authorization.Parameter == null)
                     throw new UnauthorizedAccessException("Usuário não autenticado");
 

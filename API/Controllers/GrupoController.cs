@@ -22,6 +22,34 @@ namespace WinstonChurchill.API.Controllers
                 Grupo filtro = new Grupo();
                 filtro.UsuarioID = UsuarioToken.ObterId(this);
 
+                if (tipo.HasValue && tipo > 0)
+                    filtro.TipoGrupo = Convert.ToInt32(tipo);
+
+                List<Grupo> lista = GrupoBusiness.New.Listar(filtro);
+
+                return Request.CreateResponse(HttpStatusCode.OK, lista);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet, Route("listarCombo/{tipo}")]
+        public HttpResponseMessage ListarCombo(int? tipo)
+        {
+            try
+            {
+                Grupo filtro = new Grupo();
+                filtro.UsuarioID = UsuarioToken.ObterId(this);
+
                 var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
                 if (!string.IsNullOrEmpty(key.Value))
                 {
@@ -60,8 +88,8 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 Grupo filtro = new Grupo();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+
+                Usuario usuario = UsuarioToken.Obter(this);
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
                 Grupo Grupo = GrupoBusiness.New.Carregar(filtro);
@@ -86,8 +114,8 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 Grupo filtro = new Grupo();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+
+                Usuario usuario = UsuarioToken.Obter(this);
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
                 GrupoBusiness.New.Excluir(filtro);
@@ -111,8 +139,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                Usuario usuario = UsuarioToken.Obter(this);
                 GrupoBusiness.New.Salvar(entidade, usuario);
                 return Request.CreateResponse(HttpStatusCode.OK, entidade);
             }

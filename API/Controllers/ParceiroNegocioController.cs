@@ -14,6 +14,7 @@ namespace WinstonChurchill.API.Controllers
     [RoutePrefix("parceiroNegocio")]
     public class ParceiroNegocioController : ApiController
     {
+        [AllowAnonymous]
         [HttpGet, Route("listarComprador")]
         public HttpResponseMessage ListarComprador()
         {
@@ -21,6 +22,7 @@ namespace WinstonChurchill.API.Controllers
             return Listar(tipo, null);
         }
 
+        [AllowAnonymous]
         [HttpGet, Route("listarFornecedor")]
         public HttpResponseMessage ListarFornecedor()
         {
@@ -78,8 +80,8 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 ParceiroNegocio filtro = new ParceiroNegocio();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+
+                Usuario usuario = UsuarioToken.Obter(this);
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
                 ParceiroNegocio ParceiroNegocio = ParceiroNegocioBusiness.New.Carregar(filtro);
@@ -104,8 +106,8 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 ParceiroNegocio filtro = new ParceiroNegocio();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+
+                Usuario usuario = UsuarioToken.Obter(this);
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
                 ParceiroNegocioBusiness.New.Excluir(filtro);
@@ -129,8 +131,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                Usuario usuario = UsuarioToken.Obter(this);
                 ParceiroNegocioBusiness.New.Salvar(entidade, usuario);
                 return Request.CreateResponse(HttpStatusCode.OK, entidade);
             }
