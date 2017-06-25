@@ -84,3 +84,27 @@
     function funcao(item) { return item.ID; };
 
 })(jQuery);
+
+
+//function Grupo de acesso
+(function ($) {
+    $.fn.grupoAcesso = function () {
+        var controle = $(this);
+        HelperJS.dataBindComboChosen("/grupoacesso/listar/", controle, 'Descricao', 'ID', null, true);
+        //function fnSuccess(data) {
+        //    if (data != null && data.length > 0) {
+        //        $.each(data, function (i, obj) {
+        //            controle.append(new Option(obj.Descricao, obj.ID));
+        //        });
+        //    }
+        //}
+
+        //HelperJS.callApi({
+        //    url: "/grupoacesso/listar/",
+        //    type: "GET",
+        //    data: null,
+        //    functionOnSucess: fnSuccess,
+        //    functionOnError: HelperJS.showError
+        //});
+    }
+})(jQuery);

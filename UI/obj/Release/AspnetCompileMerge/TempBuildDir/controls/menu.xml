@@ -6,7 +6,8 @@
     <SubMenu text="Configurações"  icone="icon-cogs" >
       <SubMenu text="Parâmetros" url="/Pages/Parametrizacao.aspx" icone="icon-cog" />
     </SubMenu>
-    <SubMenu text="Produtos" url="/Pages/Produto.aspx"  icone="icon-archive" />
+  <SubMenu text="Categorias" url="/Pages/Categoria.aspx"  icone="icon-archive" />
+  <SubMenu text="Produtos" url="/Pages/Produto.aspx"  icone="icon-archive" />
     <SubMenu text="Grupos" url="/Pages/Grupo.aspx"  icone="icon-group" />
     <SubMenu text="Relatórios" icone="icon-bar-chart" >
       <SubMenu text="Relatório 1" url="#1" icone="icon-bar-chart" />

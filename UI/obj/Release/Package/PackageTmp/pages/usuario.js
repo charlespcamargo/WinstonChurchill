@@ -1,15 +1,10 @@
 ﻿var Usuarios = function () {
 
     var id = 0;
-    var Email = "";
-    var Ativo = false;
-    var Senha = "";
-    var SenhaNova = "";
-    var SenhaNovaConfirmar = "";
-
     return {
 
         init: function () {
+            $('#ddlGrupoAcesso').grupoAcesso();
             Usuarios.carregarGrid();
             Usuarios.eventos();
         },
@@ -62,11 +57,11 @@
 
             var fnSuccess = function (data) {
                 $('#gridItens').bindDataTable(
-                {
-                    columns: fnColunas(),
-                    sorter: [[0, 'asc']],
-                    data: data,
-                });
+                    {
+                        columns: fnColunas(),
+                        sorter: [[0, 'asc']],
+                        data: data,
+                    });
             }
 
             HelperJS.callApi({
@@ -83,27 +78,28 @@
             $('#Dados').limpar();
             id = 0;
             $("#modalNovo").modal('layout');
+            $('#lblSenha').html('Senha');
+            $('[alt-senha]').hide();
         },
 
-        editar: function (_id)
-        {
+        editar: function (_id) {
             Usuarios.abrirModal();
             id = _id;
             Usuarios.carregar(_id);
+            $('#lblSenha').html('Senha Atual');
+            $('[alt-senha]').show();
         },
 
-        carregar:function(_id)
-        {
+        carregar: function (_id) {
             var fnSuccess = function (data) {
                 $('#Dados').popularCampos({ data: data });
-                if (data.CategoriasProdutos) {
-                    var categorias = new Array();
-                    $.each(data.CategoriasProdutos, function (i, obj) { categorias.push(obj.Categoria); });
+                if (data.Grupos) {
+                    var grupos = new Array();
+                    $.each(data.Grupos, function (i, obj) { grupos.push(obj.GrupoUsuarioID); });
                 }
-                ;
-                $('#hfCategoria').select2("data", categorias);
+                $('#ddlGrupoAcesso').val(grupos);
+                $('#ddlGrupoAcesso').trigger("liszt:updated");
                 id = data.ID;
-                status = data.Ativo;
             }
 
             HelperJS.callApi({
@@ -122,20 +118,23 @@
 
             var jsonSend = $('#Dados').obterJson();
             jsonSend.ID = id;
-            jsonSend.Email = Email;
-            jsonSend.Ativo = Ativo;
-            jsonSend.Senha = Senha;
-            jsonSend.SenhaNova = SenhaNova;
-            jsonSend.SenhaNovaConfirmar = SenhaNovaConfirmar;
+            jsonSend.Grupos = new Array();
+            jsonSend.Ativo = $('#chkAtivo').is(':checked');
+
+            var grupos = $('#ddlGrupoAcesso').val();
+            $.each(grupos, function (i, obj) {
+                if (obj)
+                    jsonSend.Grupos.push({ GrupoUsuarioID: obj });
+            });
 
             var fnSuccess = function (data) {
                 HelperJS.showSuccess("Dados salvos com sucesso!");
-                Produtos.fecharModal();
-                Produtos.listar();
+                Usuarios.fecharModal();
+                Usuarios.carregarGrid();
             }
 
             HelperJS.callApi({
-                url: "usuario/salvar/",
+                url: "usuario/salvar",
                 type: "POST",
                 data: jsonSend,
                 functionOnSucess: fnSuccess,
@@ -145,14 +144,12 @@
 
         excluir: function (_id) {
 
-            var fnSuccess = function (data) 
-            {
+            var fnSuccess = function (data) {
                 HelperJS.showSuccess("Dados excluídos com sucesso!");
-                Produtos.listar();
+                Produtos.carregarGrid();
             }
 
-            var fnConfirmar = function () 
-            {
+            var fnConfirmar = function () {
                 HelperJS.callApi({
                     url: "usuario/" + _id,
                     type: "DELETE",

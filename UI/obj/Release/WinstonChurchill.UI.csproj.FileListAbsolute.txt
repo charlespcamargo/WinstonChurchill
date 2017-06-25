@@ -17,3 +17,6 @@ G:\Brown\Projetos\WinstonChurchill\UI\bin\Microsoft.CodeDom.Providers.DotNetComp
 G:\Brown\Projetos\WinstonChurchill\UI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 G:\Brown\Projetos\WinstonChurchill\UI\obj\Release\WinstonChurchill.UI.dll
 G:\Brown\Projetos\WinstonChurchill\UI\obj\Release\WinstonChurchill.UI.pdb
+G:\Brown\Projetos\WinstonChurchill\UI\bin\RestSharp.dll
+G:\Brown\Projetos\WinstonChurchill\UI\bin\RestSharp.xml
+G:\Brown\Projetos\WinstonChurchill\UI\obj\Release\WinstonChurchill.UI.csprojResolveAssemblyReference.cache

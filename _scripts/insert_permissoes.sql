@@ -1,5 +1,3 @@
-use dbwinstonchurchill
-
 INSERT INTO grupousuario (ID, Nome, Descricao, Ativo, DataCadastro) VALUES (1000, 'SuperUsuario', 'Super Usuario', true, now());
 INSERT INTO grupousuario (ID, Nome, Descricao, Ativo, DataCadastro) VALUES (1001, 'Administrador', 'Administrador', true, now());
 INSERT INTO grupousuario (ID, Nome, Descricao, Ativo, DataCadastro) VALUES (1, 'Fornecedor', 'Fornecedor', true, now());
