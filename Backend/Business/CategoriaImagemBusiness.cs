@@ -21,32 +21,33 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public CategoriaImagem Salvar(byte[] data, HttpPostedFile arquivo, Usuario usuario, int IdCategoria)
+        public CategoriaImagem Salvar(byte[] data, HttpPostedFile arquivo, int idCategoria)
         {
-            CategoriaImagem CategoriaImagem = new CategoriaImagem();
-            CategoriaImagem.CategoriaID = IdCategoria;
-            CategoriaImagem.Imagem = new Imagem();
-            CategoriaImagem.Imagem.DataCadastro = DateTime.Now;
-            CategoriaImagem.Imagem.DiretorioFisico = "/Categoria";
-            CategoriaImagem.Imagem.NomeArquivo = arquivo.FileName;
-            CategoriaImagem.Imagem.TamanhoBytes = arquivo.ContentLength;
-            CategoriaImagem.Imagem.Tipo = arquivo.ContentType;
-            CategoriaImagem.Imagem.UsuarioID = usuario.ID;
+            CategoriaImagem categoriaImagem = new CategoriaImagem();
+            categoriaImagem.CategoriaID = idCategoria;
+            categoriaImagem.Imagem = new Imagem();
+            categoriaImagem.Imagem.DataCadastro = DateTime.Now;
+            categoriaImagem.Imagem.DiretorioFisico = "/Categoria";
+            categoriaImagem.Imagem.NomeArquivo = arquivo.FileName;
+            categoriaImagem.Imagem.TamanhoBytes = arquivo.ContentLength;
+            categoriaImagem.Imagem.Tipo = arquivo.ContentType;
 
-            AnexoBusiness.New.GravarArquivoFisico<Imagem>(CategoriaImagem.Imagem, data);
+            AnexoBusiness.New.GravarArquivoFisico<Imagem>(categoriaImagem.Imagem, data);
             try
             {
                 using (UnitOfWork uow = new UnitOfWork())
                 {
-                    uow.CategoriaImagemRepository.Inserir(CategoriaImagem);
+                    Categoria categoria = uow.CategoriaRepository.Carregar(p => p.ID == idCategoria, ord => ord.OrderBy(p => p.ID));
+                    categoriaImagem.Imagem.UsuarioID = categoria.UsuarioID;
+                    uow.CategoriaImagemRepository.Inserir(categoriaImagem);
                     uow.Save();
                 }
             }
             catch
             {
-                AnexoBusiness.New.ExcluirArquivoFisico<Imagem>(CategoriaImagem.Imagem);
+                AnexoBusiness.New.ExcluirArquivoFisico<Imagem>(categoriaImagem.Imagem);
             }
-            return CategoriaImagem;
+            return categoriaImagem;
         }
 
         public List<CategoriaImagem> Carregar(CategoriaImagem filtro)
@@ -87,7 +88,6 @@ namespace WinstonChurchill.Backend.Business
             if (filtro.CategoriaID > 0)
                 predicate = predicate.And(p => p.CategoriaID == filtro.CategoriaID);
 
-            predicate = predicate.And(p => p.Imagem.UsuarioID == filtro.Imagem.UsuarioID);
         }
     }
 }

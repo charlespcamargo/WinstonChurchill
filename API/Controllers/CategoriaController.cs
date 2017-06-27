@@ -52,6 +52,44 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet, Route("listarCombo")]
+        public HttpResponseMessage ListarCombo()
+        {
+            try
+            {
+                Categoria filtro = new Categoria();
+
+                var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
+                if (!string.IsNullOrEmpty(key.Value))
+                {
+                    string termo = key.Value.ToUpper().Trim();
+
+                    {
+                        int codigo;
+                        if (int.TryParse(termo, out codigo))
+                            filtro.ID = int.Parse(termo);
+
+                        if (filtro.ID == 0)
+                            filtro.Nome = termo;
+                    }
+                }
+                List<Categoria> lista = CategoriaBusiness.New.Listar(filtro);
+
+                return Request.CreateResponse(HttpStatusCode.OK, lista);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
 
         [HttpGet, Route("{id}")]
         public HttpResponseMessage Carregar(int id)
@@ -59,9 +97,7 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 Categoria filtro = new Categoria();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
-                filtro.UsuarioID = usuario.ID;
+                filtro.UsuarioID = UsuarioToken.ObterId(this);
                 filtro.ID = id;
                 Categoria Categoria = CategoriaBusiness.New.Carregar(filtro);
 
@@ -85,9 +121,7 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 Categoria filtro = new Categoria();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
-                filtro.UsuarioID = usuario.ID;
+                filtro.UsuarioID = UsuarioToken.ObterId(this);
                 filtro.ID = id;
                 CategoriaBusiness.New.Excluir(filtro);
 
@@ -110,8 +144,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                Usuario usuario = UsuarioToken.Obter(this);
                 CategoriaBusiness.New.Salvar(entidade, usuario);
                 return Request.CreateResponse(HttpStatusCode.OK, entidade);
             }

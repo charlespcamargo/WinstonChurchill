@@ -9,7 +9,7 @@
         var multiplo = true;
         var hiddenId = $(this).prop('id');
         var selectId = $(this).prop('for');
-        HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", "categoria/listar", multiplo,
+        HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", "categoria/listarCombo", multiplo,
             formataResultados, formata, funcao, 3, null, true);
 
     };
@@ -51,7 +51,7 @@
         var multiplo = false;
         var hiddenId = $(this).prop('id');
         var selectId = $(this).prop('for');
-        var url = 'produto/listar';
+        var url = 'produto/listarCombo';
 
         HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo,
             formataResultados, formata, funcao, 3, null, true);
@@ -72,7 +72,7 @@
         var multiplo = true;
         var hiddenId = $(this).prop('id');
         var selectId = $(this).prop('for');
-        var url = 'grupo/listar/0';
+        var url = 'grupo/listarCombo/0';
 
         HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo,
             formataResultados, formata, funcao, 3, null, true);
@@ -91,20 +91,5 @@
     $.fn.grupoAcesso = function () {
         var controle = $(this);
         HelperJS.dataBindComboChosen("/grupoacesso/listar/", controle, 'Descricao', 'ID', null, true);
-        //function fnSuccess(data) {
-        //    if (data != null && data.length > 0) {
-        //        $.each(data, function (i, obj) {
-        //            controle.append(new Option(obj.Descricao, obj.ID));
-        //        });
-        //    }
-        //}
-
-        //HelperJS.callApi({
-        //    url: "/grupoacesso/listar/",
-        //    type: "GET",
-        //    data: null,
-        //    functionOnSucess: fnSuccess,
-        //    functionOnError: HelperJS.showError
-        //});
     }
 })(jQuery);

@@ -40,8 +40,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                Usuario usuario = UsuarioToken.Obter(this);
                 ParametroBusiness.New.Salvar(entidade);
                 return Request.CreateResponse(HttpStatusCode.OK, entidade);
             }

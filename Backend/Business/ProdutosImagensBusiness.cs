@@ -21,7 +21,7 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public ProdutoImagem Salvar(byte[] data, HttpPostedFile arquivo, Usuario usuario, int idProduto)
+        public ProdutoImagem Salvar(byte[] data, HttpPostedFile arquivo, int idProduto)
         {
             ProdutoImagem produtoImagem = new ProdutoImagem();
             produtoImagem.ProdutoID = idProduto;
@@ -31,13 +31,14 @@ namespace WinstonChurchill.Backend.Business
             produtoImagem.Imagem.NomeArquivo = arquivo.FileName;
             produtoImagem.Imagem.TamanhoBytes = arquivo.ContentLength;
             produtoImagem.Imagem.Tipo = arquivo.ContentType;
-            produtoImagem.Imagem.UsuarioID = usuario.ID;
 
             AnexoBusiness.New.GravarArquivoFisico<Imagem>(produtoImagem.Imagem, data);
             try
             {
                 using (UnitOfWork uow = new UnitOfWork())
                 {
+                    Produto produto = uow.ProdutosRepository.Carregar(p => p.ID == idProduto, ord=>ord.OrderBy(p=>p.ID));
+                    produtoImagem.Imagem.UsuarioID = produto.UsuarioID;
                     uow.ProdutoImagensRepository.Inserir(produtoImagem);
                     uow.Save();
                 }
@@ -69,7 +70,7 @@ namespace WinstonChurchill.Backend.Business
                     throw new ArgumentException("Imagem não encontrada!");
 
                 uow.ProdutoImagensRepository.Excluir(objProdutoImagem);
-                Imagem objImagem = uow.ImagemRepository.Carregar(p => p.ID == objProdutoImagem.ImagemID, ord=>ord.OrderBy(p=>p.ID));
+                Imagem objImagem = uow.ImagemRepository.Carregar(p => p.ID == objProdutoImagem.ImagemID, ord => ord.OrderBy(p => p.ID));
                 uow.ImagemRepository.Excluir(objImagem);
                 uow.Save();
 

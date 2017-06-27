@@ -39,7 +39,8 @@ namespace WinstonChurchill.Backend.Repository
                 {
                     string mensagem = dUe.InnerException.InnerException.Message;
 
-                    if (mensagem.Contains("Dependent foreign key constraint violation in a referential integrity constraint."))
+                    if (mensagem.Contains("Dependent foreign key constraint violation in a referential integrity constraint.") 
+                        || mensagem.Contains("Cannot delete or update a parent row: a foreign key constraint fails")) 
                         throw new Exception("Não foi possível excluir o registro, pois ele está sendo utilizado em outro lugar!");
                     else if (mensagem.Contains("Attempt to insert duplicate key"))
                         throw new Exception("Registro duplicado - " + mensagem);

@@ -24,6 +24,31 @@ namespace WinstonChurchill.API.Controllers
                     filtro = new Produto();
                 filtro.UsuarioID = UsuarioToken.ObterId(this);
 
+                List<Produto> lista = ProdutoBusiness.New.Listar(filtro);
+                return Request.CreateResponse(HttpStatusCode.OK, lista);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost, HttpGet, Route("listarCombo")]
+        public HttpResponseMessage ListarCombo([FromBody] Produto filtro)
+        {
+            try
+            {
+                if (filtro == null)
+                    filtro = new Produto();
+                filtro.UsuarioID = UsuarioToken.ObterId(this);
+
                 var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
                 if (!string.IsNullOrEmpty(key.Value))
                 {
@@ -59,9 +84,9 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                Produto filtro =  new Produto();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                Produto filtro = new Produto();
+                
+                Usuario usuario= UsuarioToken.Obter(this);
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
                 Produto produto = ProdutoBusiness.New.Carregar(filtro);
@@ -86,8 +111,8 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 Produto filtro = new Produto();
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+                
+                Usuario usuario = UsuarioToken.Obter(this);
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
                 ProdutoBusiness.New.Excluir(filtro);
@@ -111,8 +136,8 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                ///***PEGA DO  TOKEN DE AUTENTICAÇÃO **///
-                Usuario usuario = UsuarioBusiness.New.Carregar(1);
+               
+                Usuario usuario = UsuarioToken.Obter(this);
                 ProdutoBusiness.New.Salvar(entidade, usuario);
                 return Request.CreateResponse(HttpStatusCode.OK, entidade);
             }
