@@ -150,7 +150,7 @@
 
                 function fnSuccess(data) {
                     HelperJS.showSuccess("Dados excluídos com sucesso!");
-                    Usuarios.carregarGrid();
+                    Produtos.carregarGrid();
                 }
 
                 HelperJS.callApi({

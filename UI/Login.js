@@ -35,7 +35,7 @@
             function fnSuccess(data) {
                 if (data && data.token_type && data.access_token) {
                     $.cookie('Authorization', data.token_type + ' ' + data.access_token);
-                    window.location.href = '/';
+                    window.location.href = '/pages/dashboard.aspx';
                 }
             }
 
