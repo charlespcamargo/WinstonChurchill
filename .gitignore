@@ -7,3 +7,13 @@
 */obj/*
 
 /UI/bin/*
+/UI/obj/*
+
+/API/bin/*
+/API/obj/*
+
+/Backend/bin/*
+/Backend/obj/*
+
+/API.Commom/bin/*
+/API.Commom/obj/*
