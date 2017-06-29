@@ -56,3 +56,5 @@ INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (3, 'ParceiroNegocio')
 select * from grupousuario
 select * from usuarioxgrupousuario
 select * from GrupoUsuarioRecurso
+
+select * from Usuario

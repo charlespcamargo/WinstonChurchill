@@ -41,7 +41,7 @@ namespace WinstonChurchill.Backend.Repository
 
                     if (mensagem.Contains("Dependent foreign key constraint violation in a referential integrity constraint.") 
                         || mensagem.Contains("Cannot delete or update a parent row: a foreign key constraint fails")) 
-                        throw new Exception("Não foi possível excluir o registro, pois ele está sendo utilizado em outro lugar!");
+                        throw new Exception("Não foi possível excluir! O registro possuí vinculos com outras informações!");
                     else if (mensagem.Contains("Attempt to insert duplicate key"))
                         throw new Exception("Registro duplicado - " + mensagem);
                     else if (mensagem.Contains("String or binary data would be truncated"))
