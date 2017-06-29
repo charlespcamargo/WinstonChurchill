@@ -35,7 +35,7 @@ namespace WinstonChurchill.Backend.Business
                 }
                 else
                 {
-                    Grupo objSalvo = uow.GrupoRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID));
+                    Grupo objSalvo = uow.GrupoRepository.Carregar(p => p.ID == entidade.ID, ord => ord.OrderBy(p => p.ID));
                     if (objSalvo != null)
                     {
                         entidade.AdicionarDependentes();

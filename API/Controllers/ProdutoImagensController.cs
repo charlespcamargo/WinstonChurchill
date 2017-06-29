@@ -66,7 +66,7 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
-        [HttpDelete, Route("{id}")]
+        [HttpPost, Route("excluir/{id}")]
         public HttpResponseMessage Delete(int id)
         {
             try
