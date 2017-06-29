@@ -9,7 +9,6 @@ G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\Newtonsoft.Json.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\System.Net.Http.Formatting.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\System.Web.Http.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\System.Web.Http.WebHost.dll
-G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\Microsoft.Web.Infrastructure.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\Enyim.Caching.pdb
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\Enyim.Caching.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\EPPlus.xml
@@ -18,7 +17,6 @@ G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\itextsharp.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\System.Net.Http.Formatting.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\System.Web.Http.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\System.Web.Http.WebHost.xml
-G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Release\Microsoft.Web.Infrastructure.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Release\WinstonChurchill.API.Common.csprojResolveAssemblyReference.cache
 G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Release\WinstonChurchill.API.Common.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Release\WinstonChurchill.API.Common.pdb
