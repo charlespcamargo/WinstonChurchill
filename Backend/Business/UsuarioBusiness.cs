@@ -87,6 +87,17 @@ namespace WinstonChurchill.Backend.Business
             {
                 talento = uow.UsuarioRepository.Carregar(c => c.ID == id, o => o.OrderBy(by => by.ID));
 
+                if (talento == null)
+                    throw new ArgumentException("Usuário não encontrado.");
+
+                talento.Grupos = uow.UsuarioXGrupoUsuarioRepository.Listar(p => p.UsuarioID == talento.ID);
+
+                if (talento.Grupos != null && talento.Grupos.Any())
+                    foreach (var item in talento.Grupos)
+                    {
+                        uow.UsuarioXGrupoUsuarioRepository.Excluir(item);
+                    }
+
                 uow.UsuarioRepository.Excluir(talento.ID);
 
                 uow.Save();
