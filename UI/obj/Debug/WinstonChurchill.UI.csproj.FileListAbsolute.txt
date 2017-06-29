@@ -19,3 +19,4 @@ C:\Projects\Charles\WinstonChurchill\UI\bin\Microsoft.CodeDom.Providers.DotNetCo
 C:\Projects\Charles\WinstonChurchill\UI\bin\RestSharp.xml
 C:\Projects\Charles\WinstonChurchill\UI\obj\Debug\WinstonChurchill.UI.dll
 C:\Projects\Charles\WinstonChurchill\UI\obj\Debug\WinstonChurchill.UI.pdb
+C:\Projects\Charles\WinstonChurchill\UI\obj\Debug\WinstonChurchill.UI.csprojResolveAssemblyReference.cache

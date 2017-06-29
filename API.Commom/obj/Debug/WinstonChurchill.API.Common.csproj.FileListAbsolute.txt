@@ -17,7 +17,6 @@ G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\itextsharp.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\System.Net.Http.Formatting.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\System.Web.Http.xml
 G:\Brown\Projetos\WinstonChurchill\API.Commom\bin\Debug\System.Web.Http.WebHost.xml
-G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.csprojResolveAssemblyReference.cache
 G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.dll
 G:\Brown\Projetos\WinstonChurchill\API.Commom\obj\Debug\WinstonChurchill.API.Common.pdb
 C:\Projects\Charles\WinstonChurchill\API.Commom\bin\Debug\WinstonChurchill.API.Common.dll.config
