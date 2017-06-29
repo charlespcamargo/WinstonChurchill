@@ -330,7 +330,7 @@ $.fn.configurarUpload = function (_oSettings) {
         HelperJS.iniciarUploadify("#" + $(this[0]).attr('id'), _oSettings.ehMultiplo, _oSettings.url, _oSettings.onUploadComplete, _oSettings.formato, _oSettings.limiteFila);
     }
     else { // Senão tiver suporte ao flash, usa o uploadifive - HTML 5
-        HelperJS.iniciarUploadifive("#" + $(this[0]).attr('id'), _oSettings.ehMultiplo, _oSettings.url, _oSettings.onUploadComplete, formato, _oSettings.limiteFila);
+        HelperJS.iniciarUploadifive("#" + $(this[0]).attr('id'), _oSettings.ehMultiplo, _oSettings.url, _oSettings.onUploadComplete, _oSettings.formato, _oSettings.limiteFila);
     }
 };
 

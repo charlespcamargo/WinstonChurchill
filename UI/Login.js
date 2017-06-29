@@ -56,7 +56,15 @@
                     fnSuccess(data);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseJSON.error_description);
+                    if (jqXHR.responseJSON && jqXHR.responseJSON.error_description) {
+                        HelperJS.showError(jqXHR);
+                    }
+                    else {
+                        jqXHR.responseJSON = new Object();
+                        jqXHR.status = 400;
+                        jqXHR.responseJSON.Message = 'Erro ao tentar fazer o login. Contate o administrador.';
+                        HelperJS.showError(jqXHR);
+                    }
                     // HelperJS.showError(jqXHR);
                 }
             });
