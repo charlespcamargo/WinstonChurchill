@@ -150,12 +150,12 @@
 
                 function fnSuccess(data) {
                     HelperJS.showSuccess("Dados excluídos com sucesso!");
-                    Produtos.carregarGrid();
+                    Usuarios.carregarGrid();
                 }
 
                 HelperJS.callApi({
-                    url: "usuario/" + _id,
-                    type: "DELETE",
+                    url: 'usuario/excluir/' + _id,//"usuario/" + _id,
+                    type: 'POST',//"DELETE",
                     data: null,
                     functionOnSucess: fnSuccess,
                     functionOnError: HelperJS.showError

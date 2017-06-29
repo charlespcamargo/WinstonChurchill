@@ -1,18 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<Menu text="Menu"> 
-    <SubMenu text="Dashboard" url="/Pages/Dashboard.aspx"  icone="icon-home" />
-    <SubMenu text="Usuários" url="/Pages/Usuario.aspx"  icone="icon-user" />
-    <SubMenu text="Configurações"  icone="icon-cogs" >
-      <SubMenu text="Parâmetros" url="/Pages/Parametrizacao.aspx" icone="icon-cog" />
-    </SubMenu>
+<Menu text="Menu">
+  <SubMenu text="Dashboard" url="/Pages/Dashboard.aspx"  icone="icon-home" />
+  <SubMenu text="Usuários" url="/Pages/Usuario.aspx"  icone="icon-user" />
+  <SubMenu text="Configurações"  icone="icon-cogs" >
+    <SubMenu text="Parâmetros" url="/Pages/Parametrizacao.aspx" icone="icon-cog" />
+  </SubMenu>
   <SubMenu text="Categorias" url="/Pages/Categoria.aspx"  icone="icon-archive" />
   <SubMenu text="Produtos" url="/Pages/Produto.aspx"  icone="icon-archive" />
-    <SubMenu text="Grupos" url="/Pages/Grupo.aspx"  icone="icon-group" />
-    <SubMenu text="Relatórios" icone="icon-bar-chart" >
-      <SubMenu text="Relatório 1" url="#1" icone="icon-bar-chart" />
-      <SubMenu text="Relatório 2" url="#2" icone="icon-bar-chart" />
-    </SubMenu>
-    <SubMenu text="Parceiro de Negócio" url="/Pages/ParceiroNegocio.aspx"  icone="icon-dollar" />
-    <SubMenu text="Leilões" url="/Pages/Leilao.aspx"  icone="icon-legal" /> 
+  <SubMenu text="Grupos" url="/Pages/Grupo.aspx"  icone="icon-group" />
+  <SubMenu text="Parceiro de Negócio" url="/Pages/ParceiroNegocio.aspx"  icone="icon-dollar" />
+  <SubMenu text="Leilões" url="/Pages/Leilao.aspx"  icone="icon-legal" />
 </Menu>

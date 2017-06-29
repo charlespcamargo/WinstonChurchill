@@ -103,7 +103,7 @@
                         <div class="row-fluid">
                             <div class="controls span12">
                                 <h4>Grupo de Acesso</h4>
-                                <select id="ddlGrupoAcesso" class="span12 m-wrap chosen" data-json="" multiple="multiple" style="width:500px;" validate-json="Informe pelo menos 1 grupo de acesso">
+                                <select id="ddlGrupoAcesso" class="span12 m-wrap chosen" data-json=""  data-placeholder="Selecione" multiple="multiple" style="width:500px;" validate-json="Informe pelo menos 1 grupo de acesso">
                                 </select>
                             </div>
                         </div>

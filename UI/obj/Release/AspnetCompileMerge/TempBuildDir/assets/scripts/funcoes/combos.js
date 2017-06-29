@@ -10,12 +10,12 @@
         var hiddenId = $(this).prop('id');
         var selectId = $(this).prop('for');
         HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", "categoria/listarCombo", multiplo,
-            formataResultados, formata, funcao, 3, null, true);
+            formataResultados, formata, funcao, 0, null, true);
 
     };
 
-    function formataResultados(item) { return item.ID + item.Nome; };
-    function formata(item) { return item.ID + item.Nome; };
+    function formataResultados(item) { return item.ID + ' - ' + item.Nome; };
+    function formata(item) { return item.ID + ' - ' + item.Nome; };
     function funcao(item) { return item.ID; };
 
 })(jQuery);
@@ -34,12 +34,12 @@
             url = 'parceiroNegocio/listarFornecedor';
 
         HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo,
-            formataResultados, formata, funcao, 3, null, true);
+            formataResultados, formata, funcao, 0, null, true);
 
     };
 
-    function formataResultados(item) { return item.ID + item.RazaoSocial; };
-    function formata(item) { return item.ID + item.RazaoSocial; };
+    function formataResultados(item) { return item.ID + ' - ' + item.RazaoSocial; };
+    function formata(item) { return item.ID + ' - ' + item.RazaoSocial; };
     function funcao(item) { return item.ID; };
 
 })(jQuery);
@@ -54,12 +54,12 @@
         var url = 'produto/listarCombo';
 
         HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo,
-            formataResultados, formata, funcao, 3, null, true);
+            formataResultados, formata, funcao, 0, null, true);
 
     };
 
-    function formataResultados(item) { return item.ID + item.Nome; };
-    function formata(item) { return item.ID + item.Nome; };
+    function formataResultados(item) { return item.ID + ' - ' + item.Nome; };
+    function formata(item) { return item.ID + ' - ' + item.Nome; };
     function funcao(item) { return item.ID; };
 
 })(jQuery);
@@ -75,12 +75,12 @@
         var url = 'grupo/listarCombo/0';
 
         HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo,
-            formataResultados, formata, funcao, 3, null, true);
+            formataResultados, formata, funcao, 0, null, true);
 
     };
 
-    function formataResultados(item) { return item.ID + item.Nome; };
-    function formata(item) { return item.ID + item.Nome; };
+    function formataResultados(item) { return item.ID + ' - ' + item.Nome; };
+    function formata(item) { return item.ID + ' - ' + item.Nome; };
     function funcao(item) { return item.ID; };
 
 })(jQuery);
