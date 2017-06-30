@@ -263,12 +263,12 @@ CREATE TABLE IF NOT EXISTS webrebate.FornecedorProduto (
 
 
 
-CREATE TABLE IF NOT EXISTS dbwinstonchurchill.GrupoUsuarioRecurso (
+CREATE TABLE IF NOT EXISTS webrebate.GrupoUsuarioRecurso (
   ID                INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
   GrupoID           INT NOT NULL,
   Recurso           VARCHAR(50) NOT NULL,
   INDEX fk_GrupoUsuarioRecurso_GrupoUsuario1_idx (GrupoID ASC),
-  CONSTRAINT fk_GrupoUsuarioRecurso_GrupoUsuario1    FOREIGN KEY (GrupoID)    REFERENCES dbwinstonchurchill.GrupoUsuario (ID)
-    );
+  CONSTRAINT fk_GrupoUsuarioRecurso_GrupoUsuario1    FOREIGN KEY (GrupoID)    REFERENCES webrebate.GrupoUsuario (ID)
+);
 
 

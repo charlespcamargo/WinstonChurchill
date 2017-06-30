@@ -50,11 +50,14 @@ INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (1, 'ParceiroNegocio')
 INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (2, 'ParceiroNegocio');
 INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (3, 'ParceiroNegocio');
 
+INSERT INTO UsuarioxGrupoUsuario (UsuarioID, GrupoUsuarioID, Ativo, DataCadastro, ResponsavelID) VALUES(1, 1000, 1, Now(), 1)
 
-
+/*
 
 select * from grupousuario
 select * from usuarioxgrupousuario
 select * from GrupoUsuarioRecurso
 
 select * from Usuario
+
+*/

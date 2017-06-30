@@ -170,8 +170,8 @@
 
             var fnConfirmar = function () {
                 HelperJS.callApi({
-                    url: "parceiroNegocio/" + _id,
-                    type: "DELETE",
+                    url: "parceiroNegocio/excluir/" + _id,
+                    type: "POST",
                     data: null,
                     functionOnSucess: fnSuccess,
                     functionOnError: HelperJS.showError

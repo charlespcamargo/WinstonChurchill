@@ -6250,7 +6250,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 23:05:05</publishTime>
     </File>
     <File Include="assets/scripts/funcoes/extensoes.js">
-      <publishTime>06/28/2017 23:38:58</publishTime>
+      <publishTime>06/29/2017 21:49:14</publishTime>
     </File>
     <File Include="assets/scripts/gallery.js">
       <publishTime>06/28/2017 20:45:30</publishTime>
@@ -6655,7 +6655,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:46:08</publishTime>
     </File>
     <File Include="pages/categoria.js">
-      <publishTime>06/28/2017 20:46:09</publishTime>
+      <publishTime>06/29/2017 21:49:14</publishTime>
     </File>
     <File Include="pages/Comprador.aspx">
       <publishTime>06/01/2017 23:20:13</publishTime>
@@ -6679,7 +6679,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:46:08</publishTime>
     </File>
     <File Include="pages/grupo.js">
-      <publishTime>06/28/2017 20:46:09</publishTime>
+      <publishTime>06/29/2017 21:49:14</publishTime>
     </File>
     <File Include="pages/Leilao.aspx">
       <publishTime>06/28/2017 20:46:08</publishTime>
@@ -6700,7 +6700,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:46:08</publishTime>
     </File>
     <File Include="pages/parceiroNegocio.js">
-      <publishTime>06/28/2017 20:46:09</publishTime>
+      <publishTime>06/29/2017 21:49:14</publishTime>
     </File>
     <File Include="pages/Perfil.aspx">
       <publishTime>06/28/2017 20:46:08</publishTime>
@@ -6712,7 +6712,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:46:08</publishTime>
     </File>
     <File Include="pages/produto.js">
-      <publishTime>06/28/2017 20:46:09</publishTime>
+      <publishTime>06/29/2017 21:49:14</publishTime>
     </File>
     <File Include="pages/Usuario.aspx">
       <publishTime>06/28/2017 22:20:02</publishTime>
@@ -6721,7 +6721,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 23:38:58</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>06/28/2017 23:46:11</publishTime>
+      <publishTime>06/29/2017 21:51:46</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>06/28/2017 23:46:08</publishTime>

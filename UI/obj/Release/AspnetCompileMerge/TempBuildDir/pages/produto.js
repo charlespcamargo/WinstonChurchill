@@ -152,8 +152,8 @@
 
             var fnConfirmar = function () {
                 HelperJS.callApi({
-                    url: "produto/" + _id,
-                    type: "DELETE",
+                    url: "produto/excluir/" + _id,
+                    type: "POST",
                     data: null,
                     functionOnSucess: fnSuccess,
                     functionOnError: HelperJS.showError
@@ -331,8 +331,8 @@ var Anexos = function () {
             }
 
             HelperJS.callApi({
-                url: "produtoImagens/" + _id,
-                type: "DELETE",
+                url: "produtoImagens/excluir/" + _id,
+                type: "POST",
                 data: null,
                 functionOnSucess: fnSuccess,
                 functionOnError: HelperJS.showError

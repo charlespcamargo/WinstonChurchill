@@ -106,7 +106,7 @@ $.fn.ehValido = function () {
     var listMsg = new Array();
     var id = $(this).attr('id');
     $('#' + id + ' *[validate-json]').each(function (i, obj) {
-        if ($(obj).val() == "" || $(obj).val() == null) {
+        if ($(obj).val() === "" || $(obj).val() === null) {
             var label = $(obj).attr('validate-json');
 
             if (label)

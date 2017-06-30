@@ -120,8 +120,8 @@
 
             var fnConfirmar = function () {
                 HelperJS.callApi({
-                    url: "categoria/" + _id,
-                    type: "DELETE",
+                    url: "categoria/excluir/" + _id,
+                    type: "POST",
                     data: null,
                     functionOnSucess: fnSuccess,
                     functionOnError: HelperJS.showError
@@ -215,8 +215,8 @@ var Anexos = function () {
             }
 
             HelperJS.callApi({
-                url: "categoriaImagem/" + _id,
-                type: "DELETE",
+                url: "categoriaImagem/excluir/" + _id,
+                type: "POST",
                 data: null,
                 functionOnSucess: fnSuccess,
                 functionOnError: HelperJS.showError
