@@ -13,10 +13,8 @@
         <li>
             <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
             <div class="sidebar-search">
-                <div class="input-box">
-                    <a href="javascript:;" class="remove"></a>
-                    <input type="text" placeholder="Buscar..." />
-                    <input type="button" class="submit" value=" " />
+                <div class="">
+                    <h4>&nbsp;</h4>
                 </div>
             </div>
             <!-- END RESPONSIVE QUICK SEARCH FORM -->
