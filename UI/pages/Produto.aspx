@@ -39,9 +39,6 @@
                         <div class="btn-group pull-left" style="width: 200px">
                             <a id="btnNovo" class="btn blue btn-margin-5px input-medium">Novo <i class="icon-plus"></i></a>
                         </div>
-                        <div class="btn-group pull-right">
-                            <a id="btnOpcoes" class="btn btn-margin-5px">Opções</a>
-                        </div>
                     </div>
 
                     <div class="row-fluid">

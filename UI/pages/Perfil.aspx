@@ -41,7 +41,7 @@
                         </div>
                         <div class="controls span6">
                             <h4>E-mail</h4>
-                            <input type="text" class="span12 m-wrap" id="txtEmail" data-json="Email" maxlength="50" validate-json="Informe o E-mail" />
+                            <input type="text" class="span12 m-wrap" id="txtEmail" data-json="Email" maxlength="50" validate-json="Informe o E-mail" validate-email="Email inválido" />
                         </div>
                     </div>
                     <div class="row-fluid">

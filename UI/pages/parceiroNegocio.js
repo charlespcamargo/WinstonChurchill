@@ -49,11 +49,11 @@
         listar: function () {
             var fnColunas = function () {
                 var colunas = new Array();
-                colunas.push({ mData: "CNPJ", sClass: "text-left", sType: "string" });
+                colunas.push({ mData: "CNPJ", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return HelperJS.formatarCpfOuCnpj(source); } });
                 colunas.push({ mData: "RazaoSocial", sClass: "text-left", sType: "string" });
                 colunas.push({ mData: "NomeFantasia", sClass: "text-left", sType: "string" });
-                colunas.push({ mData: "Telefone", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return HelperJS.formatarTelefone(source); } });
-                colunas.push({ mData: "Celular", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return HelperJS.formatarTelefone(source); } });
+                //colunas.push({ mData: "Telefone", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return HelperJS.formatarTelefone(source); } });
+                //colunas.push({ mData: "Celular", sClass: "text-left", sType: "string", mRender: function (source, type, full) { return HelperJS.formatarTelefone(source); } });
                 colunas.push({ mData: "Email", sClass: "text-left", sType: "string" });
                 colunas.push({
                     mData: "TipoParceiro", sClass: "text-left", sType: "string", mRender: function (source, type, full) {
@@ -125,7 +125,7 @@
         salvar: function () {
             if ($('#formDados').ehValido() == false) return;
 
-            //   if (HelperJS.validarDocumento('#' + $('[data-json="CNPJ"]').attr('id'), 'CNPJ inválido') == false) return;
+            if (HelperJS.validarDocumento('#' + $('[data-json="CNPJ"]').attr('id'), 'CNPJ inválido') == false) return;
 
             var jsonSend = $('#formDados').obterJson();
             jsonSend.ID = id;
@@ -178,7 +178,7 @@
                 });
             }
 
-            HelperJS.confirmar('Deseja excluir o PN?', fnConfirmar, null);
+            HelperJS.confirmar('Deseja excluir o Parceiro de Negócio?', fnConfirmar, null);
         },
 
         visualizarImagens: function (_id) {
@@ -316,7 +316,7 @@ var FornecedorProduto = function () {
             if (HelperJS.any('Produto.ID', json, obj.Produto.ID, fnAny)) {
                 return;
             }
-;
+            ;
             FornecedorProduto.set(obj);
             $('#formFornecedor').limpar();
             FornecedorProduto.listar();

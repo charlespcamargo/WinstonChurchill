@@ -39,9 +39,9 @@
                         <div class="btn-group pull-left" style="width: 200px">
                             <a id="btnNovo" class="btn blue btn-margin-5px input-medium">Novo <i class="icon-plus"></i></a>
                         </div>
-                        <div class="btn-group pull-right">
+                        <%--<div class="btn-group pull-right">
                             <a id="btnOpcoes" class="btn btn-margin-5px">Opções</a>
-                        </div>
+                        </div>--%>
                     </div>
 
                     <div class="row-fluid">
@@ -51,11 +51,11 @@
                                 <thead>
                                     <tr>
                                         <%--<th style="width: 10%">Cód.</th>--%>
-                                        <th style="width: 10%">CNPJ</th>
+                                        <th style="width: 15%">CNPJ</th>
                                         <th>Razão Social</th>
                                         <th>Nome Fantasia</th>
-                                        <th>Telefone</th>
-                                        <th>Celular</th>
+                                       <%-- <th>Telefone</th>
+                                        <th>Celular</th>--%>
                                         <th>Email</th>
                                         <th style="width: 13%">Tipo de Parceiro</th>
                                         <th style="width: 7%">Ações</th>
@@ -109,8 +109,8 @@
                                     </div>
                                     <div class="row-fluid">
                                         <div class="controls span6">
-                                            <span>CPNJ</span>
-                                            <input type="text" class="span12 m-wrap" id="txtCNPJ" data-json="CNPJ" maxlength="17" mascara="99.999.999/9999-99" validate-json="Informe o CNPJ" />
+                                            <span>CNPJ</span>
+                                            <input type="text" class="span12 m-wrap" id="txtCNPJ" data-json="CNPJ" maxlength="18" mascara="99.999.999/9999-99" validate-json="Informe o CNPJ" />
                                         </div>
                                         <div class="controls span6">
                                             <span>Tipo de Parceiro</span>
@@ -150,15 +150,15 @@
                                     <div class="row-fluid">
                                         <div class="controls span6">
                                             <span>Email</span>
-                                            <input type="text" class="span12 m-wrap" id="txtEmail" data-json="Email" maxlength="150" validate-json="Informe o Email" />
+                                            <input type="text" class="span12 m-wrap" id="txtEmail" data-json="Email" maxlength="150" validate-json="Informe o Email" validate-email="Email inválido" />
                                         </div>
                                         <div class="controls span3">
                                             <span>Telefone</span>
-                                            <input type="text" class="span12 m-wrap" id="txtTelefone" data-json="Telefone" mascara="(999)9999-9999" validate-json="Informe o Telefone" />
+                                            <input type="text" class="span12 m-wrap" id="txtTelefone" data-json="Telefone" mascara="(99)9999-9999" validate-json="Informe o Telefone" />
                                         </div>
                                         <div class="controls span3">
                                             <span>Celular</span>
-                                            <input type="text" class="span12 m-wrap" id="txtCelular" data-json="Celular" mascara="(999)99999-9999" validate-json="Informe o Celular" />
+                                            <input type="text" class="span12 m-wrap" id="txtCelular" data-json="Celular" mascara="(99)99999-9999" validate-json="Informe o Celular" />
                                         </div>
                                     </div>
                                 </div>
@@ -377,13 +377,13 @@
                                     </div>
                                     <div class="controls span6">
                                         <span>Email</span>
-                                        <input type="text" class="span12 m-wrap" id="txtEmailContato" data-json="Email" maxlength="50" validate-json="Informe o email para o contato" />
+                                        <input type="text" class="span12 m-wrap" id="txtEmailContato" data-json="Email" maxlength="50" validate-json="Informe o email para o contato" validate-email="Email inválido" />
                                     </div>
                                 </div>
                                 <div class="row-fluid">
                                     <div class="controls span6">
                                         <span>Telefone</span>
-                                        <input type="text" class="span12 m-wrap" id="txtTelefoneContato" data-json="Telefone" mascara="(999)9999-9999" validate-json="Informe o telefone para o contato" />
+                                        <input type="text" class="span12 m-wrap" id="txtTelefoneContato" data-json="Telefone" mascara="(99)9999-9999" validate-json="Informe o telefone para o contato" />
                                     </div>
                                     <div class="controls span4">
                                         <a id="btnAddContato" class="btn blue btn-margin-5px" style="width: 110px; margin-top: 20px;">Adicionar| <i class="icon-plus"></i></a>

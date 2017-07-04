@@ -11,22 +11,6 @@
                     return;
                 Login.logar();
             });
-
-            //$('.forget-form input').keypress(function (e) {
-            //    if (e.which == 13) {
-            //        return false;
-            //    }
-            //});
-
-            jQuery('#forget-password').click(function () {
-                jQuery('.login-form').hide();
-                jQuery('.forget-form').show();
-            });
-
-            jQuery('#back-btn').click(function () {
-                jQuery('.login-form').show();
-                jQuery('.forget-form').hide();
-            });
         },
 
         logar: function () {
@@ -39,43 +23,32 @@
                 }
             }
 
+            App.blockUI($("#frmLogin"));
+
             $.ajax({
                 global: false,
                 type: 'POST',
                 url: HelperJS.getBaseURL() + 'oauth2/token',
                 cache: false,
-                //headers: {
-                //    'Content-type': 'application/x-www-form-urlencoded',
-                //    'accept': 'application/json'
-
-                //},
-                // contentType: 'application/json',
-                //accept: 'application/json',
                 data: 'username=' + jsonSend.UserName + '&password=' + jsonSend.Password + '&grant_type=password&client_id=e84a2d13704647d18277966ec839d39e:CgP7NyLXtaGmyOgjj3sUMwmAlrSKqa5JyZ4P1OlfQeM',
                 success: function (data) {
                     fnSuccess(data);
+                    App.unblockUI($("#frmLogin"));
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     if (jqXHR.responseJSON && jqXHR.responseJSON.error_description) {
                         HelperJS.showError(jqXHR);
+                        App.unblockUI($("#frmLogin"));
                     }
                     else {
                         jqXHR.responseJSON = new Object();
                         jqXHR.status = 400;
                         jqXHR.responseJSON.Message = 'Erro ao tentar fazer o login. Contate o administrador.';
                         HelperJS.showError(jqXHR);
+                        App.unblockUI($("#frmLogin"));
                     }
-                    // HelperJS.showError(jqXHR);
                 }
             });
-
-            //HelperJS.callApi({
-            //    url: "/autenticar",
-            //    type: "POST",
-            //    data: jsonSend,
-            //    functionOnSucess: fnSuccess,
-            //    functionOnError: HelperJS.showError
-            //});
         }
     };
 }();
