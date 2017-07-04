@@ -6250,7 +6250,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 23:05:05</publishTime>
     </File>
     <File Include="assets/scripts/funcoes/extensoes.js">
-      <publishTime>06/29/2017 21:49:14</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="assets/scripts/gallery.js">
       <publishTime>06/28/2017 20:45:30</publishTime>
@@ -6646,13 +6646,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:45:17</publishTime>
     </File>
     <File Include="Login.js">
-      <publishTime>06/28/2017 22:37:41</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>06/28/2017 20:46:08</publishTime>
     </File>
     <File Include="pages/Categoria.aspx">
-      <publishTime>06/28/2017 20:46:08</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="pages/categoria.js">
       <publishTime>06/29/2017 21:49:14</publishTime>
@@ -6676,7 +6676,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2017 23:20:39</publishTime>
     </File>
     <File Include="pages/Grupo.aspx">
-      <publishTime>06/28/2017 20:46:08</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="pages/grupo.js">
       <publishTime>06/29/2017 21:49:14</publishTime>
@@ -6697,31 +6697,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:46:09</publishTime>
     </File>
     <File Include="pages/ParceiroNegocio.aspx">
-      <publishTime>06/28/2017 20:46:08</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="pages/parceiroNegocio.js">
-      <publishTime>06/29/2017 21:49:14</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="pages/Perfil.aspx">
-      <publishTime>06/28/2017 20:46:08</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="pages/perfil.js">
       <publishTime>06/28/2017 20:46:09</publishTime>
     </File>
     <File Include="pages/Produto.aspx">
-      <publishTime>06/28/2017 20:46:08</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="pages/produto.js">
-      <publishTime>06/29/2017 21:49:14</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="pages/Usuario.aspx">
-      <publishTime>06/28/2017 22:20:02</publishTime>
+      <publishTime>07/03/2017 22:47:30</publishTime>
     </File>
     <File Include="pages/usuario.js">
       <publishTime>06/28/2017 23:38:58</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>07/02/2017 21:40:16</publishTime>
+      <publishTime>07/03/2017 23:03:34</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>07/02/2017 21:39:48</publishTime>
