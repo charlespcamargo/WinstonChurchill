@@ -7,13 +7,21 @@
         eventos: function () {
 
             $('#btnLogin').click(function () {
-                if ($('#frmLogin').ehValido() == false)
-                    return;
                 Login.logar();
+            });
+
+            $(document).keypress(function (e) {
+                var keycode = (e.keyCode ? e.keyCode : e.which);
+                if (keycode == '13') {
+                    Login.logar();
+                }
             });
         },
 
         logar: function () {
+            if ($('#frmLogin').ehValido() == false)
+                return;
+
             var jsonSend = $('#frmLogin').obterJson();
 
             function fnSuccess(data) {

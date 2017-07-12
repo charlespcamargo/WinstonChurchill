@@ -13,7 +13,7 @@
                 <ul class="breadcrumb">
                     <li>
                         <i class="icon-home"></i>
-                        <a href="/pages/Default.aspx">Home</a>
+                        <a href="/pages/Dashboard.aspx">Home</a>
                         <span class="icon-angle-right"></span>
                     </li>
                     <li>

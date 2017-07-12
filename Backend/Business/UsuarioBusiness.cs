@@ -58,7 +58,7 @@ namespace WinstonChurchill.Backend.Business
                     predicate = predicate.And(p => p.Grupos.Any(w => w.ResponsavelID == filtro.ID));
                 else if (filtro.Grupos != null && !filtro.Grupos.Any(a => a.GrupoUsuario.ID == 1000))   //Se for usuário comum lista apenas informações dele
                     predicate = predicate.And(p => p.ID == filtro.ID);
-                data = UoW.UsuarioRepository.Listar(predicate);
+                data = UoW.UsuarioRepository.Listar(predicate, null, "Grupos.GrupoUsuario");
             }
 
             if (data != null && data.Any()) { data.ForEach(f => f.Senha = null); };
@@ -130,17 +130,14 @@ namespace WinstonChurchill.Backend.Business
 
         public void Salvar(Usuario usuario)
         {
-            if (String.IsNullOrEmpty(usuario.Senha))
-                throw new ArgumentException("Informe a Senha!");
-
-
             if (usuario.Grupos == null || usuario.Grupos.Count == 0)
                 throw new ArgumentException("Informe pelo menos 1 grupo de acesso!");
 
-            usuario.Senha = Encrypting.sha512encrypt(usuario.Senha);
 
             foreach (var item in usuario.Grupos)
             {
+               
+
                 item.DataCadastro = DateTime.Now;
                 item.ResponsavelID = usuario.ResponvelID;
                 item.Ativo = true;
@@ -150,28 +147,36 @@ namespace WinstonChurchill.Backend.Business
             {
                 if (usuario.ID == 0)
                 {
+                    if (String.IsNullOrEmpty(usuario.Senha))
+                        throw new ArgumentException("Informe a Senha!");
+
+                    usuario.Senha = Encrypting.sha512encrypt(usuario.Senha);
                     usuario.DataCadastro = DateTime.Now;
                     uow.UsuarioRepository.Inserir(usuario);
                 }
                 else
                 {
-                    if (String.IsNullOrEmpty(usuario.SenhaNova) != String.IsNullOrEmpty(usuario.SenhaNovaConfirmar))
-                        throw new ArgumentException("Informe a Nova Senha e Confirme-a!");
-                    else
-                        if (usuario.SenhaNova != usuario.SenhaNovaConfirmar)
-                        throw new ArgumentException("A confirmação da nova senha não esta correta!");
-
-                    usuario.SenhaNova = Encrypting.sha512encrypt(usuario.SenhaNova);
-
-                    Usuario usuarioSalvo = uow.UsuarioRepository.Carregar(c => c.ID == usuario.ID && c.Senha == usuario.Senha,
+                    Usuario usuarioSalvo = uow.UsuarioRepository.Carregar(c => c.ID == usuario.ID,
                                                                   o => o.OrderBy(by => by.ID));
 
                     if (usuarioSalvo == null)
                         throw new ArgumentException("Senha inválida!");
 
-                    usuarioSalvo.Ativo = true;
-                    usuarioSalvo.Senha = usuario.SenhaNova;
+                    if (!String.IsNullOrEmpty(usuario.Senha))
+                    {
+                        if (String.IsNullOrEmpty(usuario.SenhaNova) || String.IsNullOrEmpty(usuario.SenhaNovaConfirmar))
+                            throw new ArgumentException("Informe a Nova Senha e Confirme-a!");
+                        else
+                       if (usuario.SenhaNova != usuario.SenhaNovaConfirmar)
+                            throw new ArgumentException("A confirmação da nova senha não esta correta!");
 
+                        usuario.SenhaNova = Encrypting.sha512encrypt(usuario.SenhaNova);
+                        usuarioSalvo.Senha = usuario.SenhaNova;
+                    }
+
+                    usuarioSalvo.Nome = usuario.Nome;
+                    usuarioSalvo.Email = usuario.Email;
+                    usuarioSalvo.Ativo = true;
                     AtivarDesativarGrupoAcesso(usuario, uow);
                     uow.UsuarioRepository.Alterar(usuarioSalvo);
                 }

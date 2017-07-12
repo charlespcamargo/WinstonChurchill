@@ -16,7 +16,7 @@
                 <ul class="breadcrumb">
                     <li>
                         <i class="icon-home"></i>
-                        <a href="/pages/Default.aspx">Home</a>
+                        <a href="/pages/Dashboard.aspx">Home</a>
                         <span class="icon-angle-right"></span>
                     </li>
                     <li>
@@ -56,7 +56,7 @@
                                         <th style="width: 30%">Nome</th>
                                         <th style="width: 30%">Email</th>
                                         <th style="width: 10%">Status</th>
-                                        <th style="width: 13%">Cadastrado</th>
+                                        <th style="width: 13%">Perfil</th>
                                         <th style="width: 7%">Ações</th>
                                     </tr>
                                 </thead>

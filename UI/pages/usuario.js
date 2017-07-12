@@ -40,7 +40,20 @@
                     }
                 });
 
-                colunas.push({ "mData": "DataCadastro" });
+                colunas.push({
+                    "mData": "ID", mRender: function (source, type, full) {
+                        var perfis = '';
+                        if (full.Grupos && full.Grupos.length > 0) {
+                            $.each(full.Grupos, function (i, obj) {
+                                if (obj.GrupoUsuario)
+                                    perfis += '|' + obj.GrupoUsuario.Nome;
+                            });
+                            perfis = perfis.substring(1);
+                        }
+
+                        return perfis;
+                    }
+                });
 
                 colunas.push({
                     "mData": "ID",

@@ -15,6 +15,8 @@
             });
 
             $('#btnSalvar').click(function () { Produtos.salvar(); });
+
+            $('#btnSalvar').enterKey(Produtos.salvar);
         },
 
         abrirModal: function () {
