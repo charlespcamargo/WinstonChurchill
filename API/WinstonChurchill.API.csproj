@@ -149,6 +149,7 @@
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\ProdutoImagensController.cs" />
+    <Compile Include="Controllers\LeilaoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Custom\CorsCustom.cs" />
     <Compile Include="Global.asax.cs">

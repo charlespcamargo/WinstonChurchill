@@ -139,7 +139,7 @@ namespace WinstonChurchill.Backend.Business
                
 
                 item.DataCadastro = DateTime.Now;
-                item.ResponsavelID = usuario.ResponvelID;
+                item.ResponsavelID = usuario.ResponsavelID;
                 item.Ativo = true;
             }
 

@@ -85,6 +85,12 @@ namespace WinstonChurchill.Backend.Repository
             builder.Configurations.Add(new EntityTypeConfiguration<FornecedorProduto>());
             builder.Configurations.Add(new EntityTypeConfiguration<GrupoUsuarioRecurso>());
 
+            builder.Configurations.Add(new EntityTypeConfiguration<Leilao>());
+            builder.Configurations.Add(new EntityTypeConfiguration<LeilaoComprador>());
+            builder.Configurations.Add(new EntityTypeConfiguration<LeilaoFornecedor>());
+            builder.Configurations.Add(new EntityTypeConfiguration<LeilaoFornecedorRodada>());
+            builder.Configurations.Add(new EntityTypeConfiguration<LeilaoRodada>());
+
             return builder;
         }
 

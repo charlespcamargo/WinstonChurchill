@@ -99,7 +99,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                usuario.ResponvelID = UsuarioToken.ObterId(this);
+                usuario.ResponsavelID = UsuarioToken.ObterId(this);
                 UsuarioBusiness.New.Salvar(usuario);
 
                 return Request.CreateResponse(HttpStatusCode.OK, usuario);

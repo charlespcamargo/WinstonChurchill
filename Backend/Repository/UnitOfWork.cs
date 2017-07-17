@@ -272,5 +272,74 @@ namespace WinstonChurchill.Backend.Repository
                 return fornecedorProdutoRepository;
             }
         }
+
+
+
+        private BaseRepository<Leilao> leilaoRepository;
+        public BaseRepository<Leilao> LeilaoRepository
+        {
+            get
+            {
+                if (this.leilaoRepository == null)
+                {
+                    this.leilaoRepository = new BaseRepository<Leilao>(context);
+                }
+                return leilaoRepository;
+            }
+        }
+
+        private BaseRepository<LeilaoComprador> leilaoCompradorRepository;
+        public BaseRepository<LeilaoComprador> LeilaoCompradorRepository
+        {
+            get
+            {
+                if (this.leilaoCompradorRepository == null)
+                {
+                    this.leilaoCompradorRepository = new BaseRepository<LeilaoComprador>(context);
+                }
+                return leilaoCompradorRepository;
+            }
+        }
+
+        private BaseRepository<LeilaoFornecedor> leilaoFornecedorRepository;
+        public BaseRepository<LeilaoFornecedor> LeilaoFornecedorRepository
+        {
+            get
+            {
+                if (this.leilaoFornecedorRepository == null)
+                {
+                    this.leilaoFornecedorRepository = new BaseRepository<LeilaoFornecedor>(context);
+                }
+                return leilaoFornecedorRepository;
+            }
+        }
+
+        private BaseRepository<LeilaoFornecedorRodada> leilaoFornecedorRodadaRepository;
+        public BaseRepository<LeilaoFornecedorRodada> LeilaoFornecedorRodadaRepository
+        {
+            get
+            {
+                if (this.leilaoFornecedorRodadaRepository == null)
+                {
+                    this.leilaoFornecedorRodadaRepository = new BaseRepository<LeilaoFornecedorRodada>(context);
+                }
+                return leilaoFornecedorRodadaRepository;
+            }
+        }
+
+        private BaseRepository<LeilaoRodada> leilaoRodadaRepository;
+        public BaseRepository<LeilaoRodada> LeilaoRodadaRepository
+        {
+            get
+            {
+                if (this.leilaoRodadaRepository == null)
+                {
+                    this.leilaoRodadaRepository = new BaseRepository<LeilaoRodada>(context);
+                }
+                return leilaoRodadaRepository;
+            }
+        }
+
+         
     }
 }

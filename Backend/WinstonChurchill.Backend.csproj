@@ -80,6 +80,7 @@
     <Compile Include="Business\ParceiroNegocioGrupoBusiness.cs" />
     <Compile Include="Business\ProdutoBusiness.cs" />
     <Compile Include="Business\ProdutosImagensBusiness.cs" />
+    <Compile Include="Business\LeilaoBusiness.cs" />
     <Compile Include="Business\UsuarioBusiness.cs" />
     <Compile Include="Model\CaracteristicaProduto.cs" />
     <Compile Include="Model\CategoriaImagem.cs" />
@@ -87,6 +88,11 @@
     <Compile Include="Model\CategoriaProduto.cs" />
     <Compile Include="Model\Enumeradores\Enumeradores.cs" />
     <Compile Include="Model\GrupoUsuarioRecurso.cs" />
+    <Compile Include="Model\Leilao.cs" />
+    <Compile Include="Model\LeilaoComprador.cs" />
+    <Compile Include="Model\LeilaoFornecedor.cs" />
+    <Compile Include="Model\LeilaoFornecedorRodada.cs" />
+    <Compile Include="Model\LeilaoRodada.cs" />
     <Compile Include="Model\ParceiroNegocioGrupo.cs" />
     <Compile Include="Model\CompradorProduto.cs" />
     <Compile Include="Model\Contato.cs" />

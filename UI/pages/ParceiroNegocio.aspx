@@ -258,7 +258,7 @@
                                                     <input type="text" class="span12 m-wrap" id="txtQuantidade" data-json="Quantidade" mascara="9999999" validate-json="Informe a Quantidade" />
                                                 </div>
                                                 <div class="controls span2">
-                                                    <span>Frequencia</span>
+                                                    <span>Frequência(dias)</span>
                                                     <input type="text" class="span12 m-wrap" id="txtFrequencia" data-json="Frequencia" mascara="9999999" validate-json="Informe a Frequência" />
                                                 </div>
                                                 <div class="controls span4">

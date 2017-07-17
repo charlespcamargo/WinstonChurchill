@@ -283,6 +283,8 @@
     <Content Include="pages\Grupo.aspx" />
     <Content Include="pages\grupo.js" />
     <Content Include="pages\leilao.js" />
+    <Content Include="pages\Leiloes.aspx" />
+    <Content Include="pages\Leiloes.js" />
     <Content Include="pages\parametrizacao.js" />
     <Content Include="pages\ParceiroNegocio.aspx" />
     <Content Include="pages\parceiroNegocio.js" />
@@ -2269,6 +2271,13 @@
     </Compile>
     <Compile Include="pages\Exemplo.aspx.designer.cs">
       <DependentUpon>Exemplo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Leiloes.aspx.cs">
+      <DependentUpon>Leiloes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Leiloes.aspx.designer.cs">
+      <DependentUpon>Leiloes.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\MasterDefault.Master.cs">
       <DependentUpon>MasterDefault.Master</DependentUpon>

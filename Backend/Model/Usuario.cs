@@ -53,6 +53,6 @@ namespace WinstonChurchill.Backend.Model
         public string SenhaNovaConfirmar { get; set; }
 
         [NotMapped]
-        public int ResponvelID { get; set; }
+        public int ResponsavelID { get; set; }
     }
 }

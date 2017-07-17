@@ -13,7 +13,7 @@
             $("#tile_produto").on("click", function () { Dashboard.redirecionar('/Pages/Produto.aspx') });
             $("#tile_grupo").on("click", function () { Dashboard.redirecionar('/Pages/Grupo.aspx') });
             $("#tile_parceiro").on("click", function () { Dashboard.redirecionar('/Pages/ParceiroNegocio.aspx') });
-            $("#tile_leilao").on("click", function () { Dashboard.redirecionar('/Pages/Leilao.aspx') });
+            $("#tile_leilao").on("click", function () { Dashboard.redirecionar('/Pages/Leiloes.aspx') });
 
         },
 

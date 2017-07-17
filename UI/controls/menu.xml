@@ -10,5 +10,5 @@
   <SubMenu text="Produtos" url="/Pages/Produto.aspx"  icone="icon-archive" />
   <SubMenu text="Grupos" url="/Pages/Grupo.aspx"  icone="icon-group" />
   <SubMenu text="Parceiros de Negócios" url="/Pages/ParceiroNegocio.aspx"  icone="icon-briefcase" />
-  <SubMenu text="Leilões" url="/Pages/Leilao.aspx"  icone="icon-legal" />
+  <SubMenu text="Leilões" url="/Pages/Leiloes.aspx"  icone="icon-legal" />
 </Menu>

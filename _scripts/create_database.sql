@@ -272,3 +272,67 @@ CREATE TABLE IF NOT EXISTS webrebate.GrupoUsuarioRecurso (
 );
 
 
+CREATE TABLE IF NOT EXISTS webrebate.Leilao 
+(
+  ID                INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+  Nome	            VARCHAR(50) 	NOT NULL,
+  ProdutoID         INT 			NOT NULL,
+  DataFinalFormacao	DATETIME		NOT NULL,
+  QtdDesejada		NUMERIC(10,3)	NOT NULL,				
+  DataAbertura		DATETIME		NOT NULL,
+  CriadorID			INT				NOT NULL,
+  RepresentanteID	INT				NOT NULL,
+  
+  CONSTRAINT fk_Leilao_Produto 		 FOREIGN KEY (ProdutoID)    		REFERENCES webrebate.Produto(ID),
+  CONSTRAINT fk_Leilao_Criacao 		 FOREIGN KEY (CriadorID)	   		REFERENCES webrebate.Usuario(ID),
+  CONSTRAINT fk_Leilao_Representante FOREIGN KEY (RepresentanteID)    	REFERENCES webrebate.Usuario(ID)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS webrebate.LeilaoRodada 
+(
+  ID                INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+  LeilaoID			INT				NOT NULL,
+  Numero            INT			 	NOT NULL,
+  DataEncerramento	DATETIME		NOT NULL,
+  
+  CONSTRAINT fk_LeilaoRodada_Leilao FOREIGN KEY (LeilaoID)    REFERENCES webrebate.Leilao(ID)
+);
+
+CREATE TABLE IF NOT EXISTS webrebate.LeilaoComprador
+(
+  ID                INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+  LeilaoID			INT				NOT NULL,
+  ParceiroNegocioID	INT				NOT NULL,
+  Participando		BIT				NOT NULL,			
+  QtdDesejada		NUMERIC(10,3)	NOT NULL,
+  
+  CONSTRAINT fk_LeilaoComprador_Leilao FOREIGN KEY (LeilaoID)    		REFERENCES webrebate.Leilao(ID),
+  CONSTRAINT fk_LeilaoComprador_PN	   FOREIGN KEY (ParceiroNegocioID)  REFERENCES webrebate.ParceiroNegocio(ID)
+);
+
+CREATE TABLE IF NOT EXISTS webrebate.LeilaoFornecedor
+(
+  ID                INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+  LeilaoID			INT				NOT NULL,
+  ParceiroNegocioID	INT				NOT NULL,
+  Participando		BIT				NOT NULL,
+  QtdMinima			NUMERIC(10,3)	NOT NULL,
+  QtdMaxima			NUMERIC(10,3)	NOT NULL,
+  
+  CONSTRAINT fk_LeilaoFornecedor_Leilao FOREIGN KEY (LeilaoID)    		REFERENCES webrebate.Leilao(ID),
+  CONSTRAINT fk_LeilaoFornecedor_PN	    FOREIGN KEY (ParceiroNegocioID)  REFERENCES webrebate.ParceiroNegocio(ID)
+);
+
+
+CREATE TABLE IF NOT EXISTS webrebate.LeilaoFornecedorRodada
+(
+  ID                	INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+  LeilaoFornecedorID	INT				NOT NULL,
+  ValorPrimeiraMargem	DECIMAL(12,2) 	NOT NULL,
+  ValorSegundaMargem 	DECIMAL(12,2) 	NOT NULL,
+  
+  CONSTRAINT fk_LeilaoFornecedorRodada_Leilao  	FOREIGN KEY (LeilaoFornecedorID) REFERENCES webrebate.LeilaoFornecedor(ID)
+);
+

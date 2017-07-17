@@ -50,6 +50,14 @@ INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (1, 'ParceiroNegocio')
 INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (2, 'ParceiroNegocio');
 INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (3, 'ParceiroNegocio');
 
+/*Parceiro de Negócio*/
+INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (1000, 'Leilao');
+INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (1001, 'Leilao');
+INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (1, 'Leilao');
+INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (2, 'Leilao');
+INSERT INTO GrupoUsuarioRecurso (GrupoID, Recurso) VALUES (3, 'Leilao');
+
+
 INSERT INTO UsuarioxGrupoUsuario (UsuarioID, GrupoUsuarioID, Ativo, DataCadastro, ResponsavelID) VALUES(1, 1000, 1, Now(), 1)
 
 /*
