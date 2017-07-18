@@ -24,29 +24,33 @@
 
                 colunas.push({ "mData": "Nome" });
 
-                colunas.push({ "mData": "ProdutoID" });
-
                 colunas.push({
-                    "mData": "Ativo",
+                    "mData": "ProdutoID",
                     "mRender": function (source, type, full) {
-                        if (source)
-                            return "Ativo";
-                        else
-                            return "Inativo";
+                        return full.Produto.ID + ' - ' + full.Produto.Nome;
                     }
                 });
 
+                colunas.push({ "mData": "DataFinalFormacao" });
+
+                colunas.push({ "mData": "QtdDesejada" });
+
+                colunas.push({ "mData": "DataAbertura" });
+
                 colunas.push({
-                    "mData": "ID"
-                });
+                    "mData": "RepresentanteID",
+                    "mRender": function (source, type, full) {
+                        return full.Representante.ID + ' - ' + full.Representante.Nome;
+                    }
+                });                               
 
                 colunas.push({
                     "mData": "ID",
                     "mRender": function (source, type, full) {
-                        var editar = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Editar' onclick='Leiloes.editar(" + source + ")' href='javascript:;'><i class='icon-edit'></i></a>";
-                        var excluir = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Remover' onclick='Leiloes.excluir(" + source + ")' href='javascript:;'><i class='icon-remove'></i></a>";
 
-                        return "<center> " + editar + excluir + "</center>";
+                        var editar = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Editar' onclick='Leiloes.editar(" + source + ")' href='javascript:;'><i class='icon-edit'></i></a>";
+                        
+                        return "<center> " + editar + "</center>";
                     }
                 });
 

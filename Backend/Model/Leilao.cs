@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using WinstonChurchill.API.Common.Conversores;
 
 namespace WinstonChurchill.Backend.Model
 {
@@ -24,12 +25,14 @@ namespace WinstonChurchill.Backend.Model
         public int ProdutoID { get; set; }
 
         [Column("DataFinalFormacao")]
+        [JsonConverter(typeof(CustomDate))]
         public DateTime DataFinalFormacao { get; set; }
 
         [Column("QtdDesejada")]
         public decimal QtdDesejada { get; set; }
 
         [Column("DataAbertura")]
+        [JsonConverter(typeof(CustomDate))]
         public DateTime DataAbertura { get; set; }
 
         [Column("CriadorID")]

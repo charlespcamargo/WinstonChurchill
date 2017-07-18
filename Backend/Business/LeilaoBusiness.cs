@@ -49,7 +49,7 @@ namespace WinstonChurchill.Backend.Business
                 //else if (filtro.Grupos != null && !filtro.Grupos.Any(a => a.GrupoUsuario.ID == 1000))   //Se for usuário comum lista apenas informações dele
                 //    predicate = predicate.And(p => p.ID == filtro.ID);
 
-                data = UoW.LeilaoRepository.Listar(predicate, null);
+                data = UoW.LeilaoRepository.Listar(predicate, null, "Produto,Representante");
             }
 
             return data;
