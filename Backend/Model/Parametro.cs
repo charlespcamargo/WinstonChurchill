@@ -29,9 +29,9 @@ namespace WinstonChurchill.Backend.Model
         [Required(ErrorMessage = "O percentual de Lucratividade do Representante comercial é obrigatório")]
         public decimal? PercLucroRepComercial { get; set; }
 
-        [Column("RodasLeilao")]
+        [Column("RodadasLeilao")]
         [Required(ErrorMessage = "Rodas do Leilão é obrigatório")]
-        public int? RodasLeilao { get; set; }
+        public int? RodadasLeilao { get; set; }
 
         [Column("DiasCadaRodada")]
         [Required(ErrorMessage = "Dias entre cada rodada é obrigatório")]

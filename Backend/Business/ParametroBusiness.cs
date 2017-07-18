@@ -43,7 +43,7 @@ namespace WinstonChurchill.Backend.Business
                         objSalvo.MargemGarantiaPreco = entidade.MargemGarantiaPreco;
                         objSalvo.PercLucroEmpresa = entidade.PercLucroEmpresa;
                         objSalvo.PercLucroRepComercial = entidade.PercLucroRepComercial;
-                        objSalvo.RodasLeilao = entidade.RodasLeilao;
+                        objSalvo.RodadasLeilao = entidade.RodadasLeilao;
                         objSalvo.SegundaMargemGarantiaPreco = entidade.SegundaMargemGarantiaPreco;
                         uow.ParametroRepository.Alterar(objSalvo);
                     }

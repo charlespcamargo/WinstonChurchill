@@ -6,10 +6,19 @@ using System.Threading.Tasks;
 
 namespace WinstonChurchill.Backend.Model.Enumeradores
 {
-    public enum TipoParceiros
+    public enum eTipoParceiro
     {
         Comprador = 1,
         Fornecedor = 2,
         Comprador_Fornecedor = 3
+    }
+
+    public enum eTipoGrupoUsuario
+    {
+        SuperUsuario = 1000,
+        Administrador = 1001,
+        Fornecedor = 1,
+        Comprador = 2,
+        RepresentanteComercial = 3
     }
 }

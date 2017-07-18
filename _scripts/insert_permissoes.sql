@@ -1,3 +1,10 @@
+
+INSERT INTO parametro (ID, LimiteCancelCompra, PercLucroEmpresa, PercLucroRepComercial, RodadasLeilao, DiasCadaRodada, MargemGarantiaPreco, SegundaMargemGarantiaPreco)
+			   VALUES (1, 					1, 				3.0, 				   3.0, 			2, 				2, 					10, 						20);
+
+INSERT INTO Usuario(Nome, Email, Ativo, DataCadastro, Senha) VALUES('Charles Pires de Camargo', 'ch4rles6@gmail.com', 1, Now(), '3C9909AFEC25354D551DAE21590BB26E38D53F2173B8D3DC3EEE4C047E7AB1C1EB8B85103E3BE7BA613B31BB5C9C36214DC9F14A42FD7A2FDB84856BCA5C44C2');
+
+
 INSERT INTO grupousuario (ID, Nome, Descricao, Ativo, DataCadastro) VALUES (1000, 'SuperUsuario', 'Super Usuario', true, now());
 INSERT INTO grupousuario (ID, Nome, Descricao, Ativo, DataCadastro) VALUES (1001, 'Administrador', 'Administrador', true, now());
 INSERT INTO grupousuario (ID, Nome, Descricao, Ativo, DataCadastro) VALUES (1, 'Fornecedor', 'Fornecedor', true, now());
