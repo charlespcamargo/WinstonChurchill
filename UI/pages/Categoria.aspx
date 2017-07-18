@@ -113,7 +113,7 @@
         <div id="modalImagens" class="modal hide fade container" tabindex="-1" data-backdrop="fixed">
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-cloud"></i>Imagens do produtos</div>
+                    <div class="caption"><i class="icon-cloud"></i>Imagens da categoria</div>
                 </div>
             </div>
             <div class="modal-body">

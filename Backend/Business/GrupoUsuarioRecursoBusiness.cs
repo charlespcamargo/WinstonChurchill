@@ -14,20 +14,21 @@ namespace WinstonChurchill.Backend.Business
         public static GrupoUsuarioRecursoBusiness New { get { return new GrupoUsuarioRecursoBusiness(); } }
 
         public List<GrupoUsuarioRecurso> Carregar() {
-            string cacheKey = "Recurso.Cache";
-            List<GrupoUsuarioRecurso> recursos = CacheManager<List<GrupoUsuarioRecurso>>.GetCache(cacheKey);
+            //string cacheKey = "Recurso.Cache";
+            //List<GrupoUsuarioRecurso> recursos = CacheManager<List<GrupoUsuarioRecurso>>.GetCache(cacheKey);
 
-            if (recursos != null && recursos.Any())
-                return recursos;
+            //if (recursos != null && recursos.Any())
+            //    return recursos;
 
             using (UnitOfWork uow = new UnitOfWork())
             {
-                recursos = uow.GrupoUsuarioRecursoRepository.Listar();
-                if (recursos != null && recursos.Any())
-                    CacheManager<List<GrupoUsuarioRecurso>>.GravarCache(recursos, cacheKey);
+                List<GrupoUsuarioRecurso> recursos = uow.GrupoUsuarioRecursoRepository.Listar();
+                //if (recursos != null && recursos.Any())
+                //    CacheManager<List<GrupoUsuarioRecurso>>.GravarCache(recursos, cacheKey);
+                return recursos;
             }
 
-            return recursos;
+            //return recursos;
         }
     }
 }

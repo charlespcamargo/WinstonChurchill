@@ -10,7 +10,7 @@ using WinstonChurchill.Backend.Model;
 
 namespace WinstonChurchill.API.Controllers
 {
-    [OwinAuthorize]
+    //[OwinAuthorize]
     [RoutePrefix("categoriaImagem")]
     public class CategoriaImagemController : ApiController
     {
