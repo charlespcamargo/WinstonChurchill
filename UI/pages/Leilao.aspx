@@ -20,7 +20,7 @@
                         <span class="icon-angle-right"></span>
                     </li>
                     <li>
-                        <a href="#">Leilão</a>
+                        <a href="/pages/Leiloes.aspx">Leilões</a>
                         <span class="icon-angle-right"></span>
                     </li>
                     <li><a href="#">cadastro passo a passo</a></li>

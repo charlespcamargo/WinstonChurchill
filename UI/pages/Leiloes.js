@@ -9,8 +9,10 @@
         },
 
         eventos: function () {
-            $('#btnNovo').click(function () {
-                Leiloes.abrirModal();
+
+            $('#btnNovo').click(function ()
+            {
+                window.location.href = '/pages/Leilao.aspx?t=n';
             });
         },
 
@@ -76,29 +78,12 @@
         },
 
         editar: function (_id) {
-            Leiloes.abrirModal();
-            id = _id;
-            Leiloes.carregar(_id);
-            $('#lblSenha').html('Senha Atual');
-            $('[alt-senha]').show();
+
+            window.location.href = '/pages/Leilao.aspx?id=' + _id;
+            
         },
 
-        carregar: function (_id) {
-            var fnSuccess = function (data) {
-                $('#Dados').popularCampos({ data: data });
-                
-                id = data.ID;
-            }
-
-            HelperJS.callApi({
-                url: "usuario/" + _id,
-                type: "GET",
-                data: null,
-                functionOnSucess: fnSuccess,
-                functionOnError: HelperJS.showError
-            });
-
-        },
+       
 
     }
 
