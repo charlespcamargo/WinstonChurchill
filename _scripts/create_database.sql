@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS CategoriaImagem
   CONSTRAINT fk_CategoriaImagem_Imagem 	  FOREIGN KEY (ImagemID)    REFERENCES Imagem(ID)
 );
 
-CREATE TABLE IF NOT EXISTS webrebate.ProdutoImagem
+CREATE TABLE IF NOT EXISTS ProdutoImagem
 (
   ID 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   ProdutoID 	INT NOT NULL,

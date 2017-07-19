@@ -89,13 +89,15 @@ namespace WinstonChurchill.Backend.Business
                 MontarFiltro(filtro);
                 if (tipos != null && tipos.Length > 0)
                 {
-                    int tipo = tipos[0];
-                    predicate = predicate.And(p => p.TipoParceiro == tipo);
-                    for (int i = 1; i < tipos.Length; i++)
-                    {
-                        tipo = tipos[i];
-                        predicate = predicate.Or(p => p.TipoParceiro == tipo);
-                    }
+                    predicate = predicate.And(p => tipos.Any(a => a == p.TipoParceiro));
+
+                    //int tipo = tipos[0];
+                    //predicate = predicate.And(p => p.TipoParceiro == tipo);
+                    //for (int i = 1; i < tipos.Length; i++)
+                    //{
+                    //    tipo = tipos[i];
+                    //    predicate = predicate.Or(p => p.TipoParceiro == tipo);
+                    //}
                 }
                 return uow.ParceiroNegocioRepository.Listar(predicate).ToList();
             }
@@ -162,7 +164,8 @@ namespace WinstonChurchill.Backend.Business
             if (filtro.ID > 0)
                 predicate = predicate.And(p => p.ID == filtro.ID);
 
-            predicate = predicate.And(p => p.UsuarioID == filtro.UsuarioID);
+            if (!filtro.Usuario.ehAdministrador)
+                predicate = predicate.And(p => p.UsuarioID == filtro.UsuarioID);
         }
     }
 }

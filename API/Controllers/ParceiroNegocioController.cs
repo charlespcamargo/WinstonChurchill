@@ -42,7 +42,10 @@ namespace WinstonChurchill.API.Controllers
             {
                 if (filtro == null)
                     filtro = new ParceiroNegocio();
-                filtro.UsuarioID = UsuarioToken.ObterId(this);
+
+                filtro.Usuario = UsuarioToken.Obter(this);
+                filtro.UsuarioID = filtro.Usuario.ID;
+
 
                 var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
                 if (!string.IsNullOrEmpty(key.Value))

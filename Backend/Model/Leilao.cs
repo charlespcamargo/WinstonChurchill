@@ -44,6 +44,9 @@ namespace WinstonChurchill.Backend.Model
         [Column("Ativo")]
         public bool Ativo { get; set; }
 
+        [NotMapped]
+        public int DuracaoRodadasDias { get; set; }
+
 
         #region ForeignKeys
 

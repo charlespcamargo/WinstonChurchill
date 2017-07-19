@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace WinstonChurchill.Backend.Model
 {
@@ -42,7 +43,7 @@ namespace WinstonChurchill.Backend.Model
         public int TipoParceiro { get; set; }
 
         [Column("DataCadastro")]
-        public DateTime DataCadastro { get;  set; }
+        public DateTime DataCadastro { get; set; }
 
         #region Foreign Keys
 
@@ -60,7 +61,7 @@ namespace WinstonChurchill.Backend.Model
 
         [ForeignKey("ParceiroID")]
         public List<FornecedorProduto> FornecedorProduto { get; set; } = new List<FornecedorProduto>();
-        
+
         [ForeignKey("ParceiroID")]
         public List<CompradorProduto> CompradorProduto { get; set; } = new List<CompradorProduto>();
 
@@ -97,6 +98,7 @@ namespace WinstonChurchill.Backend.Model
         {
             if (this.TipoParceiro == 1)
                 this.FornecedorProduto = null;
+
             else if (this.TipoParceiro == 2)
                 this.CompradorProduto = null;
         }

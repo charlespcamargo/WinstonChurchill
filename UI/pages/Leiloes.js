@@ -12,7 +12,7 @@
 
             $('#btnNovo').click(function ()
             {
-                window.location.href = '/pages/Leilao.aspx?t=n';
+                window.location.href = '/pages/Leilao.aspx';
             });
         },
 

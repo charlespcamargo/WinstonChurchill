@@ -46,17 +46,16 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                Usuario usuario = new Usuario();
+                Leilao leilao = new Leilao();
 
-                using (UnitOfWork uow = new UnitOfWork())
+                using (UnitOfWork UoW = new UnitOfWork())
                 {
-                    usuario = uow.UsuarioRepository.Carregar(c => c.ID == id,
-                                                             o => o.OrderBy(by => by.ID), "Grupos");
+                    leilao = UoW.LeilaoRepository.Carregar(c => c.ID == id, o => o.OrderBy(by => by.ID), "Produto");
+                    leilao.DuracaoRodadasDias = UoW.ParametroRepository.Listar(null).FirstOrDefault().DiasCadaRodada;
 
-                    usuario.Grupos.RemoveAll(p => p.Ativo == false);
                 }
 
-                return Request.CreateResponse(HttpStatusCode.OK, usuario);
+                return Request.CreateResponse(HttpStatusCode.OK, leilao);
             }
             catch (ArgumentException aex)
             {

@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using WinstonChurchill.API.Common.Conversores;
+using WinstonChurchill.Backend.Model.Enumeradores;
 
 namespace WinstonChurchill.Backend.Model
 {
@@ -34,7 +35,20 @@ namespace WinstonChurchill.Backend.Model
         [JsonConverter(typeof(CustomDate))]
         public DateTime DataCadastro { get; set; }
 
-       
+        [NotMapped]
+        public bool ehAdministrador
+        {
+            get
+            {
+                if (this.Grupos != null && this.Grupos.Count > 0)
+                {
+                    return this.Grupos.Count(c => c.GrupoUsuarioID == (int)eTipoGrupoUsuario.Administrador || 
+                                                  c.GrupoUsuarioID == (int)eTipoGrupoUsuario.SuperUsuario) > 0;
+                }
+
+                return false;
+            }
+        }
 
         #region Foreign Keys
 

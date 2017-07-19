@@ -78,7 +78,7 @@ INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertur
 
 INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) VALUES (1, 1, 1, 113);
 INSERT INTO LeilaoFornecedor (LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima)
-					  VALUES (1, 2, 1, 100, 3000);
+					  VALUES (1, 2, 1, 100, 3000);parceironegocio
                       
                        
                       
