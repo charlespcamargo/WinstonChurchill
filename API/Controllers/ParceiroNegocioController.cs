@@ -84,8 +84,8 @@ namespace WinstonChurchill.API.Controllers
             {
                 ParceiroNegocio filtro = new ParceiroNegocio();
 
-                Usuario usuario = UsuarioToken.Obter(this);
-                filtro.UsuarioID = usuario.ID;
+                filtro.Usuario = UsuarioToken.Obter(this);
+                filtro.UsuarioID = filtro.Usuario.ID;
                 filtro.ID = id;
                 ParceiroNegocio ParceiroNegocio = ParceiroNegocioBusiness.New.Carregar(filtro);
 

@@ -77,10 +77,10 @@
                             <div class="controls span6">
                                 <div class="row-fluid">
                                     <div class="controls span8">
-                                        <span>Rodas do Leilão.</span>
+                                        <span>Rodadas do Leilão.</span>
                                     </div>
                                     <div class="controls span4">
-                                        <input type="text" class="span12 m-wrap" data-json="RodasLeilao" maxlength="50" mascara="999999999" />
+                                        <input type="text" class="span12 m-wrap" data-json="RodadasLeilao" maxlength="50" mascara="999999999" />
                                     </div>
                                 </div>
                             </div>

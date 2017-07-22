@@ -38,8 +38,8 @@
 
     };
 
-    function formataResultados(item) { return item.ID + ' - ' + item.RazaoSocial; };
-    function formata(item) { return item.ID + ' - ' + item.RazaoSocial; };
+    function formataResultados(item) { return item.ID + ' - ' + item.NomeFantasia; };
+    function formata(item) { return item.ID + ' - ' + item.NomeFantasia; };
     function funcao(item) { return item.ID; };
 
 })(jQuery);

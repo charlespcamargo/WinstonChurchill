@@ -164,7 +164,7 @@ namespace WinstonChurchill.Backend.Business
             if (filtro.ID > 0)
                 predicate = predicate.And(p => p.ID == filtro.ID);
 
-            if (!filtro.Usuario.ehAdministrador)
+            if (filtro.Usuario == null || !filtro.Usuario.ehAdministrador)
                 predicate = predicate.And(p => p.UsuarioID == filtro.UsuarioID);
         }
     }

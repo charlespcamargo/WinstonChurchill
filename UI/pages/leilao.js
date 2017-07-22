@@ -1,38 +1,81 @@
 ﻿var Leilao = function () {
 
     var id = 0;
+    var passo = 1;
 
     return {
+
         init: function () {
             Leilao.carregar();
             Leilao.eventos();
+            Comprador.init();
+            Fornecedor.init();
+            Leilao.mudarPasso(0);
         },
 
         eventos: function () {
+            $('#btnAnterior').click(function () { passo--; Leilao.mudarPasso(); });
+            $('#btnContinuar').click(function () { passo++; Leilao.mudarPasso(); });
+            $('#btnSalvar').click(function () { Leilao.salvar(); });
+
+            $(".steps .navbar-inner ul li a").click(function ()
+            {
+                passo = parseInt($(this).find(".number").text());
+                Leilao.mudarPasso();
+            });
+
+        },
+
+        mudarPasso: function () {           
+
+            $(".form-horizontal .form-wizard .navbar-inner ul li").removeClass("active");
+            $(".tab-content .tab-pane").removeClass("active");
+
+            $($(".form-horizontal .form-wizard .navbar-inner ul li")[passo - 1]).addClass("active");// zero-based
+            $($(".tab-content .tab-pane").removeClass("active")[passo - 1]).addClass("active"); // zero-based
+
+            $("#bar .bar").attr("style", "width: " + Math.round(passo / 3 * 100) + "%")
+            $(".step-title").text("Passo " + passo + " de 3")
+
+            if (passo == 1)
+            {
+                $('#btnAnterior').hide();
+                $('#btnContinuar').show();
+            }
+            else if (passo == 2) {
+                $('#btnAnterior').show();
+                $('#btnContinuar').show();
+            }
+            else {
+                $('#btnAnterior').show();
+                $('#btnContinuar').hide();
+            }
 
         },
 
         carregar: function () {
             $('#hfProduto').produtos();
-            Comprador.init();
-            Fornecedor.init();
 
-            this.id = HelperJS.getQueryString("id");
+            id = HelperJS.getQueryString("id");
 
-            if (this.id)
+            if (id)
                 Leilao.editar();
         },
 
         editar: function () {
+
             var fnSuccess = function (data) {
                 $('#formDados').popularCampos({ data: data });
                 $('#hfProduto').select2("data", data.Produto);
                 id = data.ID;
+
+                Comprador.limparJson();
+                Fornecedor.limparJson();
             }
 
             HelperJS.callApi(
             {
-                url: "leilao/" + this.id,
+                url: "leilao/" + id,
                 type: "GET",
                 data: null,
                 functionOnSucess: fnSuccess,
@@ -43,6 +86,12 @@
         GetID: function () {
             return id;
         },
+
+        salvar: function ()
+        {
+            HelperJS.showAlert("Em breve...")
+        },
+
 
     }
 
@@ -59,7 +108,7 @@ var Comprador = function () {
             Comprador.inicializarGrid();
             Comprador.eventos();
         },
-        
+
         get: function () {
             return json;
         },
@@ -67,17 +116,17 @@ var Comprador = function () {
         set: function (obj) {
             if (!obj.ID) {
                 let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
-                obj.ID = max - 1;
+                obj.ID = max + 1;
             }
+
             obj.LeilaoID = Leilao.GetID();
             json = $.grep(json, function (e) { return e.ID != obj.ID });
             json.push(obj);
         },
 
-        eventos:function()
-        {
+        eventos: function () {
             $('#btnAddComprador').click(function () { Comprador.inserir(); });
-        },            
+        },
 
         inserir: function () {
 
@@ -85,7 +134,8 @@ var Comprador = function () {
                 return;
 
             let obj = $('#formComprador').obterJson();
-            obj.ParceiroNegocioID = $('#hfComprador').getSelect2Data();
+            obj.ParceiroNegocio = $('#hfComprador').getSelect2Data()[0];
+            obj.ParceiroNegocioID = obj.ParceiroNegocio.ID;
             obj.Participando = false;
             obj.ID = id;
 
@@ -93,10 +143,15 @@ var Comprador = function () {
                 if (!result || result.ID !== 0 && result.ID === obj.ID) return false;
 
                 let listMsg = new Array();
-                listMsg.push({ Mensagem: 'O comprador: ' + obj.Comprador.Nome + ' já foi adicionado', IdControle: '' });
+                listMsg.push({ Mensagem: 'O comprador[' + obj.ParceiroNegocio.NomeFantasia + '] já foi adicionado!', IdControle: '' });
                 HelperJS.showListaAlert(listMsg);
                 return true;
             }
+
+            if (HelperJS.any('ParceiroNegocio.ID', json, obj.ParceiroNegocio.ID, fnAny)) {
+                return;
+            }
+
 
             Comprador.set(obj);
             $('#formComprador').limpar();
@@ -108,6 +163,11 @@ var Comprador = function () {
             $('#hfComprador').parceiros({ multiplo: false, tipo: 1 });
         },
 
+        limparJson: function () {
+            json = new Array();
+            Comprador.listar();
+        },
+
         inicializarGrid: function () {
             Comprador.listar();
         },
@@ -116,7 +176,7 @@ var Comprador = function () {
 
             var fnColunas = function () {
                 var colunas = new Array();
-                colunas.push({ mData: "ID", mRender: function (source, type, full) { return full.ID + ' - ' + full.Nome } });
+                colunas.push({ mData: "ID", mRender: function (source, type, full) { return full.ParceiroNegocio.ID + ' - ' + full.ParceiroNegocio.NomeFantasia } });
                 colunas.push({ mData: "Participando", mRender: function (source, type, full) { return source ? "Sim" : "Não" } });
                 colunas.push({ mData: "QtdDesejada", sClass: "text-left", sType: "decimal" });
                 colunas.push({
@@ -137,7 +197,12 @@ var Comprador = function () {
                 sorter: [[0, 'asc']],
                 data: json,
             });
-        }
+        },
+
+        excluir: function (_id) {
+            json = $.grep(json, function (e) { return e.ID != _id });
+            Comprador.listar();
+        },
 
     }
 
@@ -161,15 +226,17 @@ var Fornecedor = function () {
         },
 
         set: function (obj) {
+
             if (!obj.ID) {
                 let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
-                obj.ID = max - 1;
+                obj.ID = max + 1;
             }
+
             obj.LeilaoID = Leilao.GetID();
             json = $.grep(json, function (e) { return e.ID != obj.ID });
             json.push(obj);
         },
-        
+
         eventos: function () {
             $('#btnAddFornecedor').click(function () { Fornecedor.inserir(); });
         },
@@ -180,7 +247,8 @@ var Fornecedor = function () {
                 return;
 
             let obj = $('#formFornecedor').obterJson();
-            obj.ParceiroNegocioID = $('#hfFornecedor').getSelect2Data();
+            obj.ParceiroNegocio = $('#hfFornecedor').getSelect2Data()[0];
+            obj.ParceiroNegocioID = obj.ParceiroNegocio.ID;
             obj.Participando = false;
             obj.ID = id;
 
@@ -188,11 +256,15 @@ var Fornecedor = function () {
                 if (!result || result.ID !== 0 && result.ID === obj.ID) return false;
 
                 let listMsg = new Array();
-                listMsg.push({ Mensagem: 'O fornecedor: ' + obj.Fornecedor.Nome + ' já foi adicionado', IdControle: '' });
+                listMsg.push({ Mensagem: 'O fornecedor[' + obj.ParceiroNegocio.NomeFantasia + '] já foi adicionado!', IdControle: '' });
                 HelperJS.showListaAlert(listMsg);
                 return true;
             }
-            
+
+            if (HelperJS.any('ParceiroNegocio.ID', json, obj.ParceiroNegocio.ID, fnAny)) {
+                return;
+            }
+
             Fornecedor.set(obj);
             $('#formFornecedor').limpar();
             Fornecedor.listar();
@@ -208,10 +280,10 @@ var Fornecedor = function () {
         },
 
         listar: function (data) {
-            
+
             var fnColunas = function () {
                 var colunas = new Array();
-                colunas.push({ mData: "ID", mRender: function (source, type, full) { return full.ID + ' - ' + full.Nome } });
+                colunas.push({ mData: "ID", mRender: function (source, type, full) { return full.ParceiroNegocio.ID + ' - ' + full.ParceiroNegocio.NomeFantasia } });
                 colunas.push({ mData: "Participando", mRender: function (source, type, full) { return source ? "Sim" : "Não" } });
                 colunas.push({ mData: "QtdMinima", sClass: "text-left", sType: "decimal" });
                 colunas.push({ mData: "QtdMaxima", sClass: "text-left", sType: "decimal" });
@@ -233,7 +305,17 @@ var Fornecedor = function () {
                 sorter: [[0, 'asc']],
                 data: json,
             });
-        }
+        },
+
+        limparJson: function () {
+            json = new Array();
+            Fornecedor.listar();
+        },
+
+        excluir: function (_id) {
+            json = $.grep(json, function (e) { return e.ID != _id });
+            Fornecedor.listar();
+        },
 
     }
 

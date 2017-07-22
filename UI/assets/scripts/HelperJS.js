@@ -624,7 +624,12 @@ var HelperJS = function () {
         },
 
         formatarCpfOuCnpj: function (documento) {
-            documento = documento.replace("-", "").replace("/", "").replace(".", "").replace(/\s/g, '');
+            
+            documento = documento.replace("-", "")
+                                 .replace("/", "")
+                                 .replace(".", "")
+                                 .replace(".", "")
+                                 .replace(/\s/g, '');
 
             // [11] => 99999999999 => 999.999.999-99
             if (documento.length == 11) {
