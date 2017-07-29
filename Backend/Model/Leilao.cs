@@ -20,7 +20,7 @@ namespace WinstonChurchill.Backend.Model
         [Column("Nome"), StringLength(50)]
         [Required(ErrorMessage = "Nome é obrigatório")]
         public string Nome { get; set; }
-        
+
         [Column("ProdutoID")]
         public int ProdutoID { get; set; }
 
@@ -59,6 +59,24 @@ namespace WinstonChurchill.Backend.Model
         [ForeignKey("RepresentanteID")]
         public Usuario Representante { get; set; }
 
+        [NotMapped]
+        public List<LeilaoComprador> Compradores { get; set; }
+
+        [NotMapped]
+        public List<LeilaoFornecedor> Fornecedores { get; set; }
+
+        public bool temParticipantes
+        {
+            get
+            {
+                if (Compradores != null && Fornecedores != null)
+                    return (Compradores.Count(c => c.Participando) > 0 || Fornecedores.Count(c => c.Participando) > 0);
+
+                return false;
+            }
+        }
+
+        
         #endregion
 
     }

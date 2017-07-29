@@ -78,7 +78,7 @@ namespace WinstonChurchill.Backend.Business
                 if (leilao == null)
                     throw new ArgumentException("Usuário não encontrado.");
 
-                
+
                 uow.UsuarioRepository.Excluir(leilao.ID);
 
                 uow.Save();
@@ -101,8 +101,106 @@ namespace WinstonChurchill.Backend.Business
 
             if (!string.IsNullOrEmpty(entidade.Nome))
                 predicate = predicate.And(o => o.Nome == entidade.Nome);
-            
+
         }
-         
+
+        public void Salvar(Usuario usuario, Leilao leilao)
+        {
+            Leilao salvo = null;
+
+            if (leilao.ID > 0)
+            {
+                using (UnitOfWork uow = new UnitOfWork())
+                {
+                    salvo = uow.LeilaoRepository.Carregar(c => c.ID == leilao.ID, o => o.OrderBy(by => by.ID));
+                    salvo.Fornecedores = uow.LeilaoFornecedorRepository.Listar(l => l.LeilaoID == salvo.ID, o => o.OrderBy(by => by.ID));
+                    salvo.Compradores = uow.LeilaoCompradorRepository.Listar(l => l.LeilaoID == salvo.ID, o => o.OrderBy(by => by.ID));
+                }
+
+                salvo.Ativo = leilao.Ativo;
+                salvo.Compradores = leilao.Compradores;
+                salvo.DataAbertura = leilao.DataAbertura;
+                salvo.DataFinalFormacao = leilao.DataFinalFormacao;
+                salvo.DuracaoRodadasDias = leilao.DuracaoRodadasDias;
+                salvo.Fornecedores = leilao.Fornecedores;
+                salvo.Nome = leilao.Nome;
+                salvo.ProdutoID = leilao.ProdutoID;
+                salvo.RepresentanteID = leilao.RepresentanteID;
+            }
+            else
+            {
+                leilao.DataAbertura = DateTime.Now;
+                leilao.CriadorID = usuario.ID;
+                leilao.RepresentanteID = usuario.ID;
+                leilao.Ativo = true;
+            }
+
+            ValidarSalvar(usuario, leilao, salvo);
+
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                if (leilao.ID > 0)
+                    uow.LeilaoRepository.Alterar(salvo);
+                else
+                    uow.LeilaoRepository.Inserir(leilao);
+
+                uow.Save();
+            }
+
+        }
+
+        public void ValidarSalvar(Usuario usuario, Leilao leilao, Leilao salvo)
+        {
+            // INSERÇÃO
+            if (salvo == null)
+            {
+                if (!usuario.ehAdministrador)
+                {
+                    if (leilao.RepresentanteID != usuario.ID)
+                        throw new ArgumentException("Somente Administradores podem escolher um [Representante Comercial] para o Leilão.");
+                }
+
+            }
+            // ATUALIZAÇÃO
+            else
+            {
+                bool ehResponsavel = usuario.ehAdministrador || salvo.RepresentanteID == usuario.ID || salvo.CriadorID == usuario.ID;
+
+                if (!ehResponsavel)
+                    throw new ArgumentException("Somente Administradores e o Representante Comercial Responsável tem permissão para alterar o Leilão.");
+
+                if (!usuario.ehAdministrador)
+                {
+                    if (salvo.DuracaoRodadasDias != leilao.DuracaoRodadasDias)
+                        throw new ArgumentException("Somente Administradores podem alterar a [Duração das Rodadas] para o Leilão.");
+                }
+
+                if (salvo.temParticipantes)
+                {
+                    if (!usuario.ehAdministrador && salvo.Ativo && !leilao.Ativo)
+                        throw new ArgumentException("Somente Administradores podem [Inativar] um Leilão após a adesão de algum Fornecedor/Comprador.");
+
+                    if (!usuario.ehAdministrador && salvo.DataAbertura != leilao.DataAbertura)
+                        throw new ArgumentException("Somente Administradores podem alterar a [Data de Abertura] após a adesão de algum Fornecedor/Comprador.");
+
+                    if (salvo.ProdutoID != leilao.ProdutoID)
+                        throw new ArgumentException("Não é permitido alterar o [Produto] após a adesão de algum Fornecedor/Comprador.");
+
+                    if (salvo.Fornecedores.Exists(e => !leilao.Fornecedores.Any(a => e.Participando && a.ParceiroNegocioID == e.ParceiroNegocioID)))
+                        throw new ArgumentException("Removeu um Fornecedor que iria participar!!!");
+
+                    if (salvo.Compradores.Exists(e => !leilao.Compradores.Any(a => e.Participando && a.ParceiroNegocioID == e.ParceiroNegocioID)))
+                        throw new ArgumentException("Removeu um Comprador que iria participar!!!");
+                }
+            }
+
+
+        }
+
+
+
     }
+
+
 }
+

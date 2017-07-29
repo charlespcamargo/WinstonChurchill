@@ -89,7 +89,7 @@
 
         salvar: function ()
         {
-            HelperJS.showAlert("Em breve...")
+            
         },
 
 
@@ -103,6 +103,7 @@ var Comprador = function () {
     var json = new Array();
 
     return {
+
         init: function () {
             Comprador.carregar();
             Comprador.inicializarGrid();

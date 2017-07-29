@@ -148,3 +148,5 @@ G:\Brown\Projetos\WinstonChurchill\API\bin\EntityFramework.SqlServer.xml
 G:\Brown\Projetos\WinstonChurchill\API\obj\Debug\WinstonChurchill.API.csprojResolveAssemblyReference.cache
 G:\Brown\Projetos\WinstonChurchill\API\obj\Debug\WinstonChurchill.API.dll
 G:\Brown\Projetos\WinstonChurchill\API\obj\Debug\WinstonChurchill.API.pdb
+G:\Brown\Projetos\WinstonChurchill\API\bin\WinstonChurchill.API.Common.dll.config
+G:\Brown\Projetos\WinstonChurchill\API\bin\WinstonChurchill.Backend.dll.config

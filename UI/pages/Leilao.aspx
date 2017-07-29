@@ -36,7 +36,7 @@
                         <i class="icon-reorder"></i>Leilão - <span class="step-title">Passo 1 de 3</span>
                     </div>
                     <div class="tools hidden-phone">
-                        <a href="javascript:;" class="collapse"></a>
+                        <a href="javascript:;" class=""></a>
                     </div>
                 </div>
                 <div class="portlet-body form">
@@ -119,8 +119,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="row-fluid">
-                                                    <div class="span6 controls">
-                                                        &nbsp;
+                                                     <div class="span3 controls">
+                                                        <h4>Status</h4>
+                                                        <input class="span12 m-wrap" type="checkbox" id="chkAtivo"  data-json="Ativo" />Ativo
                                                     </div>
                                                 </div>
                                             </div>
@@ -228,17 +229,19 @@
                         </div>
                         <div class="form-actions clearfix">
                             <div class="row-fluid">
-                                <div class="span4 controls">
-                                    <a href="javascript:;" class="btn button-previous hide" id="btnAnterior">
+                                <div class="span2 controls">
+                                    <a href="javascript:;" class="btn button-previous" style="display:none; width: 100px !important" id="btnAnterior">
                                         <i class="m-icon-swapleft"></i>Voltar 
                                     </a>
                                 </div>
-                                <div class="span4 controls">
-                                    <a href="javascript:;" class="btn blue button-next" id="btnContinuar">Continuar <i class="m-icon-swapright m-icon-white"></i>
+                                <div class="span2 controls">
+                                    <a href="javascript:;" class="btn blue button-next" style="width: 100px" id="btnContinuar">Continuar <i class="m-icon-swapright m-icon-white"></i>
                                     </a>
                                 </div>
-                                <div class="span4 controls">
-                                    <a href="javascript:;" class="btn green button-submit" id="btnSalvar">Salvar <i class="m-icon-swapright m-icon-white"></i>
+                                <div class="span5 controls">
+                                </div>
+                                <div class="span3 controls">
+                                    <a href="javascript:;" class="btn green button-submit" style="width: 100px" id="btnSalvar">Salvar <i class="m-icon-swapright m-icon-white"></i>
                                     </a>
                                 </div>
                             </div>

@@ -96,7 +96,8 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                //LeilaoBusiness.New.Salvar(leilao);
+                Usuario usuario = UsuarioToken.Obter(this);
+                LeilaoBusiness.New.Salvar(usuario, leilao);
 
                 return Request.CreateResponse(HttpStatusCode.OK, leilao);
             }

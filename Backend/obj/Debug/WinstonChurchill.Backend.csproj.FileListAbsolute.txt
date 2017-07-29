@@ -55,3 +55,4 @@ G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\System.Net.Http.Formatting.
 G:\Brown\Projetos\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.csprojResolveAssemblyReference.cache
 G:\Brown\Projetos\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.dll
 G:\Brown\Projetos\WinstonChurchill\Backend\obj\Debug\WinstonChurchill.Backend.pdb
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Debug\WinstonChurchill.API.Common.dll.config
