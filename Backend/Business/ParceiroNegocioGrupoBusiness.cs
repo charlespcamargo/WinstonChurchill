@@ -35,14 +35,14 @@ namespace WinstonChurchill.Backend.Business
             {
                 foreach (var itemSalvar in listaSalvar)
                 {
-                    ParceiroNegocioGrupo itemSalvo = listaSalva.FirstOrDefault(f => f.ID == itemSalvar.ID);
+                    ParceiroNegocioGrupo itemSalvo = listaSalva.FirstOrDefault(f => f.ParceiroID == itemSalvar.ParceiroID);
                     if (itemSalvo == null)
                     {
                         if (grupoId > 0)
                             itemSalvar.GrupoID = grupoId;
 
-                        if(parceiroId > 0)
-                        itemSalvar.ParceiroID = parceiroId;
+                        if (parceiroId > 0)
+                            itemSalvar.ParceiroID = parceiroId;
 
                         uow.ParceiroNegocioGrupoRepository.Inserir(itemSalvar);
                     }

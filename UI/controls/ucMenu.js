@@ -138,7 +138,8 @@
 				</li>
             */
 
-            for (var i = 0; i < menuBase.length; i++) {
+            for (var i = 0; i < menuBase.length; i++)
+            {
                 var acessoItem = parseInt(menuBase[i][indiceAcesso]);
 
                 if (acesso.indexOf(acessoItem) == -1)
@@ -166,11 +167,18 @@
 
                 itens += "  </a>";
 
-                if (menuBase[i][indiceColunaTemFilhos] == true && menuBase[i][indiceColunaFilhos] != null && menuBase[i][indiceColunaFilhos].length > 0) {
+                if (menuBase[i][indiceColunaTemFilhos] == true && menuBase[i][indiceColunaFilhos] != null && menuBase[i][indiceColunaFilhos].length > 0)
+                {
                     itens += "<ul  class='sub-menu'>";
 
-                    for (var j = 0; j < menuBase[i][indiceColunaFilhos].length; j++) {
+                    for (var j = 0; j < menuBase[i][indiceColunaFilhos].length; j++)
+                    {
                         var segundoNivel = menuBase[i][indiceColunaFilhos][j];
+
+                        var acessoItem = parseInt(segundoNivel[indiceAcesso]);
+
+                        if (acesso.indexOf(acessoItem) == -1)
+                            continue;
 
                         itens += "  <li>"
 

@@ -86,6 +86,23 @@
 
 })(jQuery);
 
+(function ($) {
+    $.fn.responsavel = function (_oSettings) {
+        var multiplo = false;
+        var hiddenId = $(this).prop('id');
+        var selectId = $(this).prop('for');
+        var url = 'usuario/listarResponsavel/' + _oSettings.tipo;
+
+        HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo, formataResultados, formata, funcao, 0, null, true);
+
+    };
+
+    function formataResultados(item) { return item.ID + ' - ' + item.Nome; };
+    function formata(item) { return item.ID + ' - ' + item.Nome; };
+    function funcao(item) { return item.ID; };
+
+})(jQuery);
+
 
 
 // function combo de grupo de parceiros

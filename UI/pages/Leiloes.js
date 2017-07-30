@@ -1,17 +1,30 @@
 ﻿var Leiloes = function () {
 
     var id = 0;
+    var edit = false;
 
     return {
+
         init: function () {
-            Leiloes.carregarGrid();
             Leiloes.eventos();
+            Leiloes.obterGrupo();
+        },
+
+        obterGrupo: function () {
+            HelperJS.callApi({ url: "usuario/listarGrupos", type: "GET", data: null, functionOnSucess: Leiloes.gruposObtidos, functionOnError: HelperJS.showError });
+        },
+
+        gruposObtidos: function (lst) {
+
+            if ($.grep(lst, function (e) { return e == "S" || e == "A" || e == "R" }).length >= 1)
+                edit = true;
+
+            Leiloes.carregarGrid();
         },
 
         eventos: function () {
 
-            $('#btnNovo').click(function ()
-            {
+            $('#btnNovo').click(function () {
                 window.location.href = '/pages/Leilao.aspx';
             });
         },
@@ -44,15 +57,27 @@
                     "mRender": function (source, type, full) {
                         return full.Representante.ID + ' - ' + full.Representante.Nome;
                     }
-                });                               
+                });
+
+                colunas.push({
+                    "mData": "Ativo",
+                    "mRender": function (source, type, full) {
+                        return source ? "Sim" : "Não";
+                    }
+                });
 
                 colunas.push({
                     "mData": "ID",
                     "mRender": function (source, type, full) {
 
-                        var editar = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Editar' onclick='Leiloes.editar(" + source + ")' href='javascript:;'><i class='icon-edit'></i></a>";
-                        
-                        return "<center> " + editar + "</center>";
+                        var editar = "";
+
+                        if (edit)
+                            editar = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Editar' onclick='Leiloes.editar(" + source + ")' href='javascript:;'><i class='icon-edit'></i></a>";
+
+                        var rodadas = "<a class='icons-dataTable tooltips' data-toggle='tooltip' data-original-title='Lances' onclick='Leiloes.lances(" + source + ")' href='javascript:;'><i class='icon-legal'></i></a>";
+
+                        return "<center> " + editar + rodadas + "</center>";
                     }
                 });
 
@@ -80,10 +105,12 @@
         editar: function (_id) {
 
             window.location.href = '/pages/Leilao.aspx?id=' + _id;
-            
+
         },
 
-       
+        lances: function (_id) {
+            window.location.href = 'LeilaoLances.aspx?id=' + _id;
+        }
 
     }
 

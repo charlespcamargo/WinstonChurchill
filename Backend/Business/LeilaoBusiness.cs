@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using WinstonChurchill.API.Common.Util.Captcha;
+using WinstonChurchill.Backend.Model.Enumeradores;
 
 namespace WinstonChurchill.Backend.Business
 {
@@ -35,16 +36,29 @@ namespace WinstonChurchill.Backend.Business
 
         public List<Leilao> Listar(Usuario usuario, Leilao filtro)
         {
-            MontarFiltro(usuario, filtro);
-
-            List<Leilao> data = new List<Leilao>();
+            List<Leilao> lst = new List<Leilao>();
 
             using (UnitOfWork UoW = new UnitOfWork())
             {
-                data = UoW.LeilaoRepository.Listar(predicate, null, "Produto,Representante");
+                if (usuario.ehAdministrador)
+                    lst = UoW.LeilaoRepository.Listar(null, o => o.OrderBy(by => by.ID), "Produto,Representante");
+                else
+                {
+                    // LEILÃO QUE: Possua um comprador do qual o usuário criou ou é responsável
+                    // LEILÃO QUE: Possua um fornecedor do qual o usuário criou ou é responsável
+                    lst = UoW.LeilaoRepository.Listar(l => l.Compradores.Any(c => c.ParceiroNegocio.Usuarios.Any(u => u.UsuarioID == usuario.ID)) ||
+                                                           l.Compradores.Any(c => c.ParceiroNegocio.UsuarioID == usuario.ID) ||
+                                                           l.Fornecedores.Any(c => c.ParceiroNegocio.UsuarioID == usuario.ID) ||
+                                                           l.Fornecedores.Any(c => c.ParceiroNegocio.Usuarios.Any(u => u.UsuarioID == usuario.ID)) ||
+                                                           l.RepresentanteID == usuario.ID || l.CriadorID == usuario.ID,
+
+                                                      o => o.OrderBy(by => by.ID),
+                                                      "Produto,Representante");
+                }
             }
 
-            return data;
+
+            return lst;
         }
 
         public Leilao Carregar(int id)
@@ -96,9 +110,6 @@ namespace WinstonChurchill.Backend.Business
 
             if (!string.IsNullOrEmpty(entidade.Nome))
                 predicate = predicate.And(o => o.Nome == entidade.Nome);
-
-            if (!usuario.ehAdministrador)
-                predicate = predicate.And(o => o.RepresentanteID == usuario.ID);
 
         }
 

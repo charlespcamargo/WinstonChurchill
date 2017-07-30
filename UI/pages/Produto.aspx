@@ -81,6 +81,7 @@
                             <div class="portlet-title">
                                 <div class="caption"><i class="icon-info"></i>Dados Básicos</div>
                                 <div class="tools">
+                                        <a href="javascript:;" class="collapse"></a>
                                 </div>
                             </div>
                             <div class="portlet-body form" id="Dados">
@@ -117,6 +118,7 @@
                             <div class="portlet-title">
                                 <div class="caption"><i class="icon-table"></i>Caraterísticas</div>
                                 <div class="tools">
+                                        <a href="javascript:;" class="collapse"></a>
                                 </div>
                             </div>
                             <div class="portlet-body form" id="Caracteristicas">
@@ -151,8 +153,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a id="btnSalvar" class="btn green btn-margin-5px" style="width: 110px; margin-top: 30px;">Salvar| <i class="icon-save"></i></a>
                 <a class="btn red btn-margin-5px" style="width: 110px; margin-top: 30px;" data-dismiss="modal">Fechar| <i class="icon-off"></i></a>
+                <a id="btnSalvar" class="btn green btn-margin-5px" style="width: 110px; margin-top: 30px;">Salvar| <i class="icon-save"></i></a>
             </div>
         </div>
 
@@ -170,6 +172,7 @@
                             <div class="portlet-title">
                                 <div class="caption"><i class="icon-table"></i>Subir imagem</div>
                                 <div class="tools">
+
                                 </div>
                             </div>
                             <div class="portlet-body form">

@@ -199,10 +199,23 @@ CREATE TABLE IF NOT EXISTS ParceiroNegocio (
   UsuarioID 					INT 			NOT NULL,
   TipoParceiro					INT				NOT NULL,
   DataCadastro					DATETIME		NOT NULL,
+  
   INDEX fk_ParceiroNegocio_Usuario_idx (UsuarioID ASC),
   INDEX fk_ParceiroNegocio_Endereco_idx (EnderecoID ASC),
   CONSTRAINT fk_ParceiroNegocio_Usuario     FOREIGN KEY (UsuarioID)     REFERENCES Usuario (ID), 
   CONSTRAINT fk_ParceiroNegocio_Endereco    FOREIGN KEY (EnderecoID)    REFERENCES Endereco (ID)
+);
+
+CREATE TABLE IF NOT EXISTS ParceiroNegocioUsuario (
+  ID 							INT 			NOT NULL AUTO_INCREMENT	PRIMARY KEY,
+  ParceiroNegocioID				INT 			NOT NULL,
+  UsuarioID 					INT 			NOT NULL,
+  CriadorID						INT 			NOT NULL,
+  DataCadastro					DATETIME		NOT NULL,
+  
+  CONSTRAINT fk_ParceiroNegocio_PN     		FOREIGN KEY (ParceiroNegocioID)     REFERENCES ParceiroNegocio(ID), 
+  CONSTRAINT fk_ParceiroNegocio_UsuarioID   FOREIGN KEY (UsuarioID)     		REFERENCES Usuario(ID), 
+  CONSTRAINT fk_ParceiroNegocio_Criador     FOREIGN KEY (CriadorID)     		REFERENCES Usuario(ID)
 );
 
 
@@ -355,3 +368,6 @@ CREATE TABLE IF NOT EXISTS LeilaoFornecedorRodada
   
   CONSTRAINT fk_LeilaoFornecedorRodada_Leilao  	FOREIGN KEY (LeilaoFornecedorID) REFERENCES LeilaoFornecedor(ID)
 );
+
+
+

@@ -61,10 +61,10 @@
                                     </div>
                                 </div>
                             </div>
-                         
+
                         </div>
                         <div class="row-fluid">
-                               <div class="controls span6">
+                            <div class="controls span6">
                                 <div class="row-fluid">
                                     <div class="controls span8">
                                         <span>Percentual de Lucratividade do Representante Comercial.</span>
@@ -102,39 +102,42 @@
                                         <span>Margem de Garantia de Preço.</span>
                                     </div>
                                     <div class="controls span4">
-                                        <input type="text" class="span12 m-wrap maskdecimal" data-json="MargemGarantiaPreco" maxlength="50" maxlength="6"/>
+                                        <input type="text" class="span12 m-wrap maskdecimal" data-json="MargemGarantiaPreco" maxlength="50" maxlength="6" />
                                     </div>
                                 </div>
-                            </div>
-                            </div>
-                         <div class="row-fluid">
-                            <div class="controls span6">
-                                <div class="row-fluid">
-                                    <div class="controls span8">
-                                        <span>Segunda Margem de Garantia de Preço.</span>
-                                    </div>
-                                    <div class="controls span4">
-                                        <input type="text" class="span12 m-wrap maskdecimal" data-json="SegundaMargemGarantiaPreco" maxlength="50" maxlength="6"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="controls">
-                                <a id="btnSalvar" class="btn green btn-margin-5px" style="width: 110px; margin-top: 30px;">Salvar| <i class="icon-save"></i></a>
                             </div>
                         </div>
-                    </div>
+                        <div class="row-fluid">
+                            <div class="controls span6">
+                                <div class="controls span8">
+                                    <span>Segunda Margem de Garantia de Preço.</span>
+                                </div>
+                                <div class="controls span4">
+                                    <input type="text" class="span12 m-wrap maskdecimal" data-json="SegundaMargemGarantiaPreco" maxlength="50" maxlength="6" />
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="controls span10">
+                                    
+                                </div>
+                                <div class="controls span2">
+                                    <a id="btnSalvar" class="btn green btn-margin-5px" style="width: 110px;">Salvar| <i class="icon-save"></i></a>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- END PAGE CONTENT-->
-        <!-- END PAGE CONTAINER-->
+    <!-- END PAGE CONTENT-->
+    <!-- END PAGE CONTAINER-->
     </div>
 </asp:Content>
 
 
 <asp:Content ID="Content3" ContentPlaceHolderID="cphScripts" runat="server">
-  <script src="/pages/parametrizacao.js?v=<%=new Random().Next(0,10000)%>"></script>
+    <script src="/pages/parametrizacao.js?v=<%=new Random().Next(0,10000)%>"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

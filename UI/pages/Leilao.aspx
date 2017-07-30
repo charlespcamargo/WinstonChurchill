@@ -102,7 +102,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row-fluid">                                                    
+                                                <div class="row-fluid">
                                                     <div class="span6 controls">
                                                         <h4>Produto</h4>
                                                         <input type="hidden" class="select2-offscreen" id="hfProduto" style="width: 100%" value="" for="ddlProduto" data-json="ProdutoID" validate-json="Informe o Produto" />
@@ -111,7 +111,7 @@
                                                     <div class="span3 controls">
                                                         <h4>Quantidade Total</h4>
                                                         <input type="text" class="span12 m-wrap" name="quantidade" value="0" readonly data-json="QtdDesejada" />
-                                                    </div>                                                    
+                                                    </div>
                                                     <div class="span3 controls">
                                                         <h4>Duração da rodada(dias)</h4>
                                                         <input class="span12 m-wrap" type="text" value="0" data-json="DuracaoRodadasDias" mascara="99" />

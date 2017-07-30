@@ -1,7 +1,9 @@
 ﻿var PN = function () {
     var id = 0;
     var status = true;
+
     return {
+
         init: function () {
             $('#ddlUF').UF();
             $('#txtCEP').endereco({ elemento: '#Endereco', objeto: 'Endereco' });
@@ -14,6 +16,7 @@
             CompradorProduto.init();
             FornecedorProduto.init();
             Contatos.init();
+            Responsavel.init();
         },
 
         eventos: function () {
@@ -23,7 +26,10 @@
 
             $('#btnSalvar').click(function () { PN.salvar(); });
 
-            $('#ddlTipoPaceiro').change(function () { PN.configurarVisualizacao($(this).val()); });
+            $('#ddlTipoPaceiro').change(function () {
+                PN.configurarVisualizacao($(this).val());
+                Responsavel.combos(parseInt($(this).val()));
+            });
         },
 
         abrirModal: function () {
@@ -33,6 +39,7 @@
             $('#formContatos').limpar();
             $('#formFornecedor').limpar();
             $('#formComprador').limpar();
+            $('#formResponsavel').limpar();
             id = 0;
             status = true;
             FornecedorProduto.limparJson();
@@ -100,6 +107,8 @@
                 Contatos.listar(data.Contatos);
                 CompradorProduto.listar(data.CompradorProduto);
                 FornecedorProduto.listar(data.FornecedorProduto);
+                Responsavel.listar(data.Usuarios);
+                Responsavel.combos(data.TipoParceiro);
 
                 if (data.Grupos) {
                     var grupos = new Array();
@@ -134,6 +143,7 @@
             jsonSend.FornecedorProduto = FornecedorProduto.get();
             jsonSend.CompradorProduto = CompradorProduto.get();
             jsonSend.Contatos = Contatos.get();
+            jsonSend.Usuarios = Responsavel.get();
 
             jsonSend.Grupos = new Array();
             var grupos = $('#hfGrupoParceiro').getSelect2Data();
@@ -315,8 +325,8 @@ var FornecedorProduto = function () {
 
             if (HelperJS.any('Produto.ID', json, obj.Produto.ID, fnAny)) {
                 return;
-            }
-            ;
+            };
+
             FornecedorProduto.set(obj);
             $('#formFornecedor').limpar();
             FornecedorProduto.listar();
@@ -507,4 +517,107 @@ var Contatos = function () {
             id = 0;
         },
     };
+}();
+
+var Responsavel = function () {
+
+    var json = new Array();
+    var id = 0;
+
+    return {
+
+        init: function () {
+            Responsavel.eventos();
+        },
+
+        combos: function (_tipo) {
+            $('#hfUsuarioResponsavel').responsavel({ tipo: _tipo });
+        },
+
+        get: function () {
+            return json;
+        },
+
+        set: function (obj) {
+
+            obj.ParceiroNegocioID = PN.GetID();
+            json = $.grep(json, function (e) { return e.UsuarioID != obj.UsuarioID });
+            json.push(obj);
+        },
+
+        limparJson: function () {
+            json = new Array();
+            Responsavel.listar();
+        },
+
+        eventos: function () {
+            $('#btnAddResponsavel').click(function () { Responsavel.inserir(); });
+        },
+
+        listar: function (data) {
+
+            var fnColunas = function () {
+                var colunas = new Array();
+                colunas.push({ mData: "Usuario.Nome", sClass: "text-left", sType: "string" });
+                colunas.push({
+                    mData: "ID", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
+
+                        var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="Responsavel.excluir(' + source + ')"><i class="icon-remove"></i></a>';
+
+                        return excluir;
+                    }
+                });
+
+                return colunas;
+            }
+
+            if (data)
+                json = data;
+
+            $('#gridResponsavel').bindDataTable({
+                columns: fnColunas(),
+                sorter: [[0, 'asc']],
+                data: json,
+            });
+
+        },
+
+        excluir: function (_id) {
+            json = $.grep(json, function (e) { return e.ID != _id });
+            Responsavel.listar();
+        },
+
+        inserir: function () {
+                        
+            if ($('#formResponsavel').ehValido() == false)
+                return;
+
+            var obj = $('#formResponsavel').obterJson();
+            obj.ID = id;
+            obj.Usuario = $("#hfUsuarioResponsavel").getSelect2Data();
+
+
+            function fnAny(result) {
+                if (!result || result.ID !== 0 && result.ID === obj.ID) return false;
+
+                let listMsg = new Array();
+                listMsg.push({ Mensagem: 'O responsável: [' + obj.Usuario.Nome + '] já foi adicionado', IdControle: '' });
+                HelperJS.showListaAlert(listMsg);
+                return true;
+            }
+
+            if (HelperJS.any('Usuario.ID', json, obj.Usuario.ID, fnAny)) {
+                return;
+            };
+
+            Responsavel.set(obj);
+
+            $('#formResponsavel').limpar();
+            Responsavel.listar();
+
+            id = 0;
+        },
+
+    }
+
 }();

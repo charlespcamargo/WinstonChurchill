@@ -14,14 +14,12 @@
 
         gruposObtidos: function (lst) {
 
-            var acesso = 0;
-
             $(".tile").hide();
 
             if ($.grep(lst, function (e) { return e == "S" }).length >= 1)
                 $(".tile[tipo=1], .tile[tipo=2], .tile[tipo=3], .tile[tipo=4]").show();
 
-            if ($.grep(lst, function (e) { return e == "A" }).length >= 1)
+            else if ($.grep(lst, function (e) { return e == "A" }).length >= 1)
                 $(".tile[tipo=1], .tile[tipo=2], .tile[tipo=3]").show();
 
             else if ($.grep(lst, function (e) { return e == "R" }).length >= 1)

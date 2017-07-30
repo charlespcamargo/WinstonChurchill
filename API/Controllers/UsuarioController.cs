@@ -158,6 +158,43 @@ namespace WinstonChurchill.API.Controllers
             }
         }
 
+        [AllowAnonymous, HttpGet, Route("listarResponsavel/{tipo}")]
+        public HttpResponseMessage listarResponsavel(int tipo)
+        {
+            try
+            {
+                Usuario filtro = new Usuario();
+                Usuario usuario = UsuarioToken.Obter(this);
+
+                var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
+                if (!string.IsNullOrEmpty(key.Value))
+                {
+                    string termo = key.Value.ToUpper().Trim();
+                    int codigo;
+
+                    if (int.TryParse(termo, out codigo))
+                        filtro.ID = int.Parse(termo);
+
+                    if (filtro.ID == 0)
+                        filtro.Nome = termo;
+                }
+
+                List<Usuario> lista = UsuarioBusiness.New.ListarResponsavel(usuario, filtro, tipo);
+
+                return Request.CreateResponse(HttpStatusCode.OK, lista);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
         [AllowAnonymous, HttpGet, Route("listarGrupos")]
         public HttpResponseMessage ListarGrupos()
         {
@@ -167,30 +204,30 @@ namespace WinstonChurchill.API.Controllers
 
                 List<string> lst = new List<string>();
 
-                  usuario.Grupos.ForEach(f =>
-                    {
-                        if (f.Ativo)
-                        {
-                            switch ((eTipoGrupoUsuario)f.GrupoUsuarioID)
-                            {
-                                case eTipoGrupoUsuario.SuperUsuario:
-                                    lst.Add("S");
-                                    break;
-                                case eTipoGrupoUsuario.Administrador:
-                                    lst.Add("A");
-                                    break;
-                                case eTipoGrupoUsuario.Fornecedor:
-                                    lst.Add("F");
-                                    break;
-                                case eTipoGrupoUsuario.Comprador:
-                                    lst.Add("C");
-                                    break;
-                                case eTipoGrupoUsuario.RepresentanteComercial:
-                                    lst.Add("R");
-                                    break;
-                            }
-                        }
-                    });
+                usuario.Grupos.ForEach(f =>
+                  {
+                      if (f.Ativo)
+                      {
+                          switch ((eTipoGrupoUsuario)f.GrupoUsuarioID)
+                          {
+                              case eTipoGrupoUsuario.SuperUsuario:
+                                  lst.Add("S");
+                                  break;
+                              case eTipoGrupoUsuario.Administrador:
+                                  lst.Add("A");
+                                  break;
+                              case eTipoGrupoUsuario.Fornecedor:
+                                  lst.Add("F");
+                                  break;
+                              case eTipoGrupoUsuario.Comprador:
+                                  lst.Add("C");
+                                  break;
+                              case eTipoGrupoUsuario.RepresentanteComercial:
+                                  lst.Add("R");
+                                  break;
+                          }
+                      }
+                  });
 
 
 

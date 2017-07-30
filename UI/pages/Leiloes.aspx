@@ -53,12 +53,13 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10%">Cód.</th>
-                                        <th style="width: 23%">Nome</th>
+                                        <th style="width: 17%">Nome</th>
                                         <th style="width: 10%">Produto</th>
                                         <th style="width: 10%">Formação</th>
                                         <th style="width: 10%">Qtd Desejada</th>
                                         <th style="width: 10%">Abertura</th>
-                                        <th style="width: 20%">Representante</th>
+                                        <th style="width: 15%">Representante</th>
+                                        <th style="width: 10%">Ativo</th>
                                         <th style="width: 7%">Ações</th>
                                     </tr>
                                 </thead>

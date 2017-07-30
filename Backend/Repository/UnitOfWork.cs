@@ -208,6 +208,19 @@ namespace WinstonChurchill.Backend.Repository
             }
         }
 
+        private BaseRepository<ParceiroNegocioUsuario> parceiroNegocioUsuarioRepository;
+        public BaseRepository<ParceiroNegocioUsuario> ParceiroNegocioUsuarioRepository
+        {
+            get
+            {
+                if (this.parceiroNegocioUsuarioRepository == null)
+                {
+                    this.parceiroNegocioUsuarioRepository = new BaseRepository<ParceiroNegocioUsuario>(context);
+                }
+                return parceiroNegocioUsuarioRepository;
+            }
+        }
+
         private BaseRepository<GrupoCategoria> grupoCategoriaRepository;
         public BaseRepository<GrupoCategoria> GrupoCategoriaRepository
         {
@@ -339,6 +352,8 @@ namespace WinstonChurchill.Backend.Repository
                 return leilaoRodadaRepository;
             }
         }
+
+
 
          
     }

@@ -78,6 +78,7 @@
     <Compile Include="Business\ParametroBusiness.cs" />
     <Compile Include="Business\ParceiroNegocioBusiness.cs" />
     <Compile Include="Business\ParceiroNegocioGrupoBusiness.cs" />
+    <Compile Include="Business\ParceiroNegocioUsuarioBusiness.cs" />
     <Compile Include="Business\ProdutoBusiness.cs" />
     <Compile Include="Business\ProdutosImagensBusiness.cs" />
     <Compile Include="Business\LeilaoBusiness.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Model\Imagem.cs" />
     <Compile Include="Model\Interfaces\IAnexo.cs" />
     <Compile Include="Model\Parametro.cs" />
+    <Compile Include="Model\ParceiroNegocioUsuario.cs" />
     <Compile Include="Model\ProdutoImagem.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\Usuario.cs" />

@@ -43,6 +43,7 @@ namespace WinstonChurchill.Backend.Business
                         objSalvo.TipoGrupo = entidade.TipoGrupo;
                         uow.GrupoRepository.Alterar(objSalvo);
                     }
+
                     ParceiroNegocioGrupoBusiness.New.Salvar(entidade.ParceiroNegocioGrupo, objSalvo.ID, 0, uow);
                     GrupoCategoriaBusiness.New.Salvar(entidade.GrupoCategoria, objSalvo.ID, uow);
                 }

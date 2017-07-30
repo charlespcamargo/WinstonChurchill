@@ -174,8 +174,6 @@ namespace WinstonChurchill.Backend.Business
 
             foreach (var item in usuario.Grupos)
             {
-
-
                 item.DataCadastro = DateTime.Now;
                 item.ResponsavelID = usuario.ResponsavelID;
                 item.Ativo = true;
@@ -222,6 +220,53 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
+        public List<Usuario> ListarResponsavel(Usuario usuario, Usuario filtro, int tipo)
+        {
+            List<Usuario> lst = new List<Usuario>();
+
+            using (UnitOfWork UoW = new UnitOfWork())
+            {
+                predicate = UtilEntity.True<Usuario>();
+
+                if (filtro.ID > 0)
+                    predicate = predicate.And(o => o.ID == filtro.ID);
+
+                if (!String.IsNullOrEmpty(filtro.Nome))
+                    predicate = predicate.And(o => o.Nome.ToUpper().Contains(filtro.Nome));
+
+                predicate = predicate.And(o => o.Ativo == true);
+
+                // exceto eu
+                predicate = predicate.And(o => o.ID != usuario.ID);
+
+                // não exibo super usuario e admin
+                predicate = predicate.And(p => !p.Grupos.Any(a => a.GrupoUsuarioID == (int)eTipoGrupoUsuario.SuperUsuario || a.GrupoUsuarioID == (int)eTipoGrupoUsuario.Administrador));
+
+                // somente representante comercial e comprador
+                if (tipo == 1)
+                    predicate = predicate.And(p => p.Grupos.Any(a => a.GrupoUsuarioID == (int)eTipoGrupoUsuario.RepresentanteComercial || a.GrupoUsuarioID == (int)eTipoGrupoUsuario.Comprador));
+                // somente representante comercial e fornecedor
+                else if (tipo == 2)
+                    predicate = predicate.And(p => p.Grupos.Any(a => a.GrupoUsuarioID == (int)eTipoGrupoUsuario.RepresentanteComercial || a.GrupoUsuarioID == (int)eTipoGrupoUsuario.Fornecedor));
+                // representante comercial, comprador e comprador
+                else if (tipo == 3)
+                    predicate = predicate.And(p => p.Grupos.Any(a => a.GrupoUsuarioID == (int)eTipoGrupoUsuario.RepresentanteComercial || a.GrupoUsuarioID == (int)eTipoGrupoUsuario.Comprador || a.GrupoUsuarioID == (int)eTipoGrupoUsuario.Fornecedor));
+
+
+                lst = UoW.UsuarioRepository.Listar(predicate, null, "Grupos");
+            }
+
+            if (lst != null && lst.Any())
+            {
+                lst.ForEach(f =>
+                {
+                    f.Senha = null;
+                });
+            };
+
+            return lst;
+        }
+
         private void AtivarDesativarGrupoAcesso(Usuario usuario, UnitOfWork uow)
         {
             List<UsuarioXGrupoUsuario> listaSalva = uow.UsuarioXGrupoUsuarioRepository.Listar(p => p.UsuarioID == usuario.ID);
@@ -231,13 +276,18 @@ namespace WinstonChurchill.Backend.Business
 
                 foreach (var item in listaExcluir)
                 {
-                    if (item.GrupoUsuarioID != (int)Model.Enumeradores.eTipoGrupoUsuario.SuperUsuario)
+                    if (item.GrupoUsuarioID != (int)eTipoGrupoUsuario.SuperUsuario)
                     {
                         item.Ativo = false;
                         uow.UsuarioXGrupoUsuarioRepository.Alterar(item, "ID");
                     }
                 }
             }
+
+
+            if (usuario.Grupos.Exists(e => e.GrupoUsuarioID == (int)eTipoGrupoUsuario.RepresentanteComercial && (e.GrupoUsuarioID == (int)eTipoGrupoUsuario.Comprador || e.GrupoUsuarioID == (int)eTipoGrupoUsuario.Fornecedor)))
+                throw new ArgumentException("O usuário não pode ser [Representante Comercial] e [Comprador/Fornecedor] ao mesmo tempo!");
+
             foreach (var item in usuario.Grupos)
             {
                 UsuarioXGrupoUsuario grupoSalvo = uow.UsuarioXGrupoUsuarioRepository.Carregar(p => p.UsuarioID == usuario.ID && p.GrupoUsuarioID == item.GrupoUsuarioID, ord => ord.OrderBy(p => p.ID));

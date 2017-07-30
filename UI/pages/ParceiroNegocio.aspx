@@ -31,7 +31,6 @@
                         <i class="icon-reorder"></i>Parceiro de Negócio
                     </div>
                     <div class="tools hidden-phone">
-                        <a href="javascript:;" class="collapse"></a>
                     </div>
                 </div>
                 <div class="portlet-body form">
@@ -54,7 +53,7 @@
                                         <th style="width: 15%">CNPJ</th>
                                         <th>Razão Social</th>
                                         <th>Nome Fantasia</th>
-                                       <%-- <th>Telefone</th>
+                                        <%-- <th>Telefone</th>
                                         <th>Celular</th>--%>
                                         <th>Email</th>
                                         <th style="width: 13%">Tipo de Parceiro</th>
@@ -84,10 +83,11 @@
                 <div id="formDados">
                     <div class="row-fluid">
                         <div class="span12 no-margin-left">
-                            <div class="portlet box light-grey" style="margin-top: -20px;">
+                            <div class="portlet box light-grey">
                                 <div class="portlet-title">
                                     <div class="caption"><i class="icon-info"></i>Dados do Parceiro</div>
-                                    <div class="tools">
+                                    <div class="tools ">
+                                        <a href="javascript:;" class="collapse"></a>
                                     </div>
                                 </div>
                                 <div class="portlet-body form">
@@ -134,13 +134,14 @@
                     </div>
                     <div class="row-fluid">
                         <div class="span12 no-margin-left">
-                            <div class="portlet box light-grey" style="margin-top: -20px;">
+                            <div class="portlet box light-grey">
                                 <div class="portlet-title">
-                                    <div class="caption"><i class="icon-envelope"></i>Contato</div>
+                                    <div class="caption"><i class="icon-envelope"></i>Dados de Contato</div>
                                     <div class="tools">
+                                        <a href="javascript:;" class="expand"></a>
                                     </div>
                                 </div>
-                                <div class="portlet-body form">
+                                <div class="portlet-body form" style="display: none;">
                                     <div class="clearfix noPrint">
                                         <div class="btn-group">
                                         </div>
@@ -167,13 +168,14 @@
                     </div>
                     <div class="row-fluid">
                         <div class="span12 no-margin-left">
-                            <div class="portlet box light-grey" style="margin-top: -20px;">
+                            <div class="portlet box light-grey">
                                 <div class="portlet-title">
                                     <div class="caption"><i class="icon-truck"></i>Endereço</div>
-                                    <div class="tools">
+                                    <div class="tools ">
+                                        <a href="javascript:;" class="expand"></a>
                                     </div>
                                 </div>
-                                <div class="portlet-body form" id="Endereco">
+                                <div class="portlet-body form" id="Endereco" style="display: none;">
                                     <div class="clearfix noPrint">
                                         <div class="btn-group">
                                         </div>
@@ -230,10 +232,11 @@
                             </div>
                             <div class="row-fluid">
                                 <div class="span12 no-margin-left">
-                                    <div class="portlet box light-grey" style="margin-top: -20px;">
+                                    <div class="portlet box light-grey">
                                         <div class="portlet-title">
                                             <div class="caption"><i class="icon-usd"></i>Dados do Comprador</div>
-                                            <div class="tools">
+                                            <div class="tools ">
+                                                <a href="javascript:;" class="collapse"></a>
                                             </div>
                                         </div>
                                         <div class="portlet-body form" id="formComprador">
@@ -299,13 +302,14 @@
                             </div>
                             <div class="row-fluid">
                                 <div class="span12 no-margin-left">
-                                    <div class="portlet box light-grey" style="margin-top: -20px;">
+                                    <div class="portlet box light-grey">
                                         <div class="portlet-title">
                                             <div class="caption"><i class="icon-usd"></i>Dados do Fornecedor</div>
-                                            <div class="tools">
+                                            <div class="tools ">
+                                                <a href="javascript:;" class="expand"></a>
                                             </div>
                                         </div>
-                                        <div class="portlet-body form" id="formFornecedor">
+                                        <div class="portlet-body form" id="formFornecedor" style="display: none;">
                                             <div class="clearfix noPrint">
                                                 <div class="btn-group">
                                                 </div>
@@ -365,11 +369,12 @@
                     <div class="span12 no-margin-left">
                         <div class="portlet box light-grey">
                             <div class="portlet-title">
-                                <div class="caption"><i class="icon-user"></i>Contatos</div>
-                                <div class="tools">
+                                <div class="caption"><i class="icon-user"></i>Pessoas para Contato</div>
+                                <div class="tools ">
+                                    <a href="javascript:;" class="expand"></a>
                                 </div>
                             </div>
-                            <div class="portlet-body form" id="formContatos">
+                            <div class="portlet-body form" id="formContatos" style="display: none;">
                                 <div class="row-fluid">
                                     <div class="controls span6">
                                         <span>Nome</span>
@@ -411,10 +416,54 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row-fluid">
+                    <div class="span12 no-margin-left">
+                        <div class="portlet box light-grey">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="icon-user"></i>Usuários Responsáveis</div>
+                                <div class="tools ">
+                                    <a href="javascript:;" class="expand"></a>
+                                </div>
+                            </div>
+                            <div class="portlet-body form" id="formResponsavel" style="display: none;">
+                                <div class="row-fluid">
+                                    <div class="controls span6">
+                                        <span>Usuário Responsável</span>
+                                        <input type="hidden" class="select2-offscreen" id="hfUsuarioResponsavel" style="width: 100%" value="" for="ddlUsuarioResponsavel" validate-json="Informe o Responsável" data-json="UsuarioID" />
+                                        <input type="text" class="hidden" id="ddlUsuarioResponsavel" name="ddlUsuarioResponsavel" value="" />
+                                    </div>
+                                    <div class="controls span4">
+                                        <a id="btnAddResponsavel" class="btn blue btn-margin-5px" style="width: 110px; margin-top: 20px;">Adicionar| <i class="icon-plus"></i></a>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <!-- Listagem -->
+                                    <div class="portlet-body no-more-tables">
+                                        <table id="gridResponsavel" class="table table-striped table-bordered table-hover table-full-width" data-qtdregistros="5" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th style="width: 10%;">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- FIM - Listagem -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             <div class="modal-footer">
-                <a id="btnSalvar" class="btn green btn-margin-5px" style="width: 110px; margin-top: 30px;">Salvar| <i class="icon-save"></i></a>
                 <a class="btn red btn-margin-5px" style="width: 110px; margin-top: 30px;" data-dismiss="modal">Fechar| <i class="icon-off"></i></a>
+                <a id="btnSalvar" class="btn green btn-margin-5px" style="width: 110px; margin-top: 30px;">Salvar| <i class="icon-save"></i></a>                
             </div>
         </div>
     </div>

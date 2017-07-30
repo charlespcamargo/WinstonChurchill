@@ -71,6 +71,9 @@ namespace WinstonChurchill.Backend.Model
         [ForeignKey("ParceiroID")]
         public List<ParceiroNegocioGrupo> Grupos { get; set; } = new List<ParceiroNegocioGrupo>();
 
+        [ForeignKey("ParceiroNegocioID")]
+        public List<ParceiroNegocioUsuario> Usuarios { get; set; } = new List<ParceiroNegocioUsuario>();
+
         #endregion
 
 

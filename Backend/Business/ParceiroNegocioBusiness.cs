@@ -29,18 +29,36 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 if (entidade.CompradorProduto != null && entidade.CompradorProduto.Count > 0)
+                {
                     foreach (var item in entidade.CompradorProduto)
                     {
                         item.ProdutoID = item.Produto.ID;
                         item.Produto = null;
                     }
+                }
 
                 if (entidade.FornecedorProduto != null && entidade.FornecedorProduto.Count > 0)
+                {
                     foreach (var item in entidade.FornecedorProduto)
                     {
                         item.ProdutoID = item.Produto.ID;
                         item.Produto = null;
                     }
+                }
+
+                if (entidade.Usuarios != null && entidade.Usuarios.Count > 0)
+                {
+                    foreach (var item in entidade.Usuarios)
+                    {
+                        if (item.CriadorID == 0)
+                            item.CriadorID = usuario.ID;
+
+                        item.Criador = null;
+                        item.Usuario = null;
+                        item.DataCadastro = DateTime.Now;
+                    }
+                }
+
                 entidade.UsuarioID = usuario.ID;
 
                 if (entidade.ID == 0)
@@ -65,6 +83,7 @@ namespace WinstonChurchill.Backend.Business
                     CompradorProdutoBusiness.New.Salvar(entidade.CompradorProduto, objSalvo.ID, uow);
                     ContatoBusiness.New.Salvar(entidade.Contatos, objSalvo.ID, uow);
                     ParceiroNegocioGrupoBusiness.New.Salvar(entidade.Grupos, 0, objSalvo.ID, uow);
+                    ParceiroNegocioUsuarioBusiness.New.Salvar(entidade, usuario, uow);
                 }
 
                 uow.Save();
@@ -90,15 +109,8 @@ namespace WinstonChurchill.Backend.Business
                 if (tipos != null && tipos.Length > 0)
                 {
                     predicate = predicate.And(p => tipos.Any(a => a == p.TipoParceiro));
-
-                    //int tipo = tipos[0];
-                    //predicate = predicate.And(p => p.TipoParceiro == tipo);
-                    //for (int i = 1; i < tipos.Length; i++)
-                    //{
-                    //    tipo = tipos[i];
-                    //    predicate = predicate.Or(p => p.TipoParceiro == tipo);
-                    //}
                 }
+
                 return uow.ParceiroNegocioRepository.Listar(predicate).ToList();
             }
 
@@ -109,7 +121,7 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                ParceiroNegocio objeto = uow.ParceiroNegocioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Endereco, Contatos");
+                ParceiroNegocio objeto = uow.ParceiroNegocioRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "Endereco, Contatos, Usuarios");
                 if (objeto != null)
                 {
                     objeto.FornecedorProduto = uow.FornecedorProdutoRepository.Listar(p => p.ParceiroID == filtro.ID,
@@ -121,6 +133,12 @@ namespace WinstonChurchill.Backend.Business
                                                                                       "Produto");
 
                     objeto.Grupos = uow.ParceiroNegocioGrupoRepository.Listar(p => p.ParceiroID == filtro.ID, null, "Grupo");
+
+                    objeto.Usuarios.ForEach(f =>
+                    {
+                        f.Usuario = uow.UsuarioRepository.Carregar(c => c.ID == f.UsuarioID, o => o.OrderBy(by => by.ID));
+                        f.Usuario.Senha = null;
+                    });
                 }
                 return objeto;
             }
@@ -165,7 +183,10 @@ namespace WinstonChurchill.Backend.Business
                 predicate = predicate.And(p => p.ID == filtro.ID);
 
             if (filtro.Usuario == null || !filtro.Usuario.ehAdministrador)
-                predicate = predicate.And(p => p.UsuarioID == filtro.UsuarioID);
+                predicate = predicate.And(p => p.UsuarioID == filtro.UsuarioID || p.Usuarios.Any(a => a.UsuarioID == filtro.UsuarioID));
+
+
+
         }
     }
 }

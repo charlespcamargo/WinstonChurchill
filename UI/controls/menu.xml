@@ -11,5 +11,11 @@
   <SubMenu text="Produtos" url="/Pages/Produto.aspx"  icone="icon-archive"  tipoAcesso="3" />
   <SubMenu text="Grupos" url="/Pages/Grupo.aspx"  icone="icon-group"  tipoAcesso="2" />
   <SubMenu text="Parceiros de Negócios" url="/Pages/ParceiroNegocio.aspx"  icone="icon-briefcase"  tipoAcesso="1" />
-  <SubMenu text="Leilões" url="/Pages/Leiloes.aspx"  icone="icon-legal"  tipoAcesso="1" />
+
+  <SubMenu text="Leilões" tipoAcesso="1" icone="icon-legal">
+    <SubMenu text="Listagem de Leilões" url="/Pages/Leiloes.aspx"  icone="icon-list-ol" tipoAcesso="1" />
+    <SubMenu text="Cadastro" url="/Pages/Leilao.aspx"  icone="icon-pencil" tipoAcesso="2" />
+    <SubMenu text="Lances" url="/Pages/LeilaoLances.aspx"  icone="icon-legal" tipoAcesso="1" />
+  </SubMenu>
+
 </Menu>

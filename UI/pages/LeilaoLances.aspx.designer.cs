@@ -7,9 +7,9 @@
 // </gerado automaticamente>
 //------------------------------------------------------------------------------
 
-namespace WinstonChurchill.UI.pages {
+namespace UI.pages {
     
     
-    public partial class Leiloes {
+    public partial class LeilaoLances {
     }
 }
