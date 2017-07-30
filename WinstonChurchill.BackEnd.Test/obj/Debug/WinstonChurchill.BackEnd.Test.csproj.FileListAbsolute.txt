@@ -86,3 +86,5 @@ G:\Brown\Projetos\WinstonChurchill\WinstonChurchill.BackEnd.Test\bin\Debug\Syste
 G:\Brown\Projetos\WinstonChurchill\WinstonChurchill.BackEnd.Test\obj\Debug\WinstonChurchill.BackEnd.Test.csprojResolveAssemblyReference.cache
 G:\Brown\Projetos\WinstonChurchill\WinstonChurchill.BackEnd.Test\obj\Debug\WinstonChurchill.BackEnd.Test.dll
 G:\Brown\Projetos\WinstonChurchill\WinstonChurchill.BackEnd.Test\obj\Debug\WinstonChurchill.BackEnd.Test.pdb
+G:\Brown\Projetos\WinstonChurchill\WinstonChurchill.BackEnd.Test\bin\Debug\WinstonChurchill.Backend.dll.config
+G:\Brown\Projetos\WinstonChurchill\WinstonChurchill.BackEnd.Test\bin\Debug\WinstonChurchill.API.Common.dll.config

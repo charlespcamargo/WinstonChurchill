@@ -58,11 +58,22 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public List<Produto> Listar(Produto filtro)
+        public List<Produto> ListarCombo(Produto filtro)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                MontarFiltro(filtro);
+                var predicate = UtilEntity.True<Produto>();
+
+                if (!string.IsNullOrEmpty(filtro.Nome))
+                    predicate = predicate.And(p => p.Nome.Contains(filtro.Nome));
+
+
+                predicate = predicate.And(p => p.Ativo == true);
+
+                if (filtro.ID > 0)
+                    predicate = predicate.And(p => p.ID == filtro.ID);
+
+
                 return uow.ProdutosRepository.Listar(predicate, null, "CategoriasProdutos.Categoria").ToList();
             }
 
@@ -73,7 +84,7 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 MontarFiltro(filtro);
-                Produto objeto = uow.ProdutosRepository.Carregar(predicate, ord=>ord.OrderBy(p=>p.ID), "CategoriasProdutos.Categoria");
+                Produto objeto = uow.ProdutosRepository.Carregar(predicate, ord => ord.OrderBy(p => p.ID), "CategoriasProdutos.Categoria");
                 return objeto;
             }
         }
@@ -91,13 +102,13 @@ namespace WinstonChurchill.Backend.Business
                     throw new ArgumentException("Nenhum produto encontrado");
 
                 List<Imagem> listaImagens = new List<Imagem>();
-                if(produtoExcluir.ProdutosImagens != null)
+                if (produtoExcluir.ProdutosImagens != null)
                 {
-                    foreach (var item 
+                    foreach (var item
                         in produtoExcluir.ProdutosImagens)
                     {
                         Imagem imagem = uow.ImagemRepository.Carregar(p => p.ID == item.ImagemID, ord => ord.OrderBy(p => p.ID));
-                        if(imagem != null)
+                        if (imagem != null)
                         {
                             listaImagens.Add(imagem);
                         }

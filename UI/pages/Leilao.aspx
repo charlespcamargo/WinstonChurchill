@@ -16,7 +16,7 @@
                 <ul class="breadcrumb">
                     <li>
                         <i class="icon-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="/pages/Dashboard.aspx">Home</a>
                         <span class="icon-angle-right"></span>
                     </li>
                     <li>
@@ -71,7 +71,6 @@
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="formDados">
-
                                     <div class="row-fluid">
                                         <div class="portlet box grey" id="">
                                             <div class="portlet-title">
@@ -86,42 +85,47 @@
                                                 <div class="row-fluid">
                                                     <div class="span6 controls">
                                                         <h4>Nome do Leilão</h4>
-                                                        <input type="text" class="span12 m-wrap" name="nome" value="" data-json="Nome" />
-                                                    </div>
-                                                    <div class="span6 controls">
-                                                        <h4>Produto</h4>
-                                                        <input type="hidden" class="select2-offscreen" id="hfProduto" style="width: 100%" value="" for="ddlProduto" data-json validate-json="Informe o produto" />
-                                                        <input type="text" class="hidden" id="ddlProduto" name="ddlProduto" value="" />
-                                                    </div>
-                                                </div>
-                                                <div class="row-fluid">
-                                                    <div class="span3 controls">
-                                                        <h4>Quantidade Total</h4>
-                                                        <input type="text" class="span12 m-wrap" name="quantidade" value="0" readonly data-json="QtdDesejada" />
+                                                        <input type="text" class="span12 m-wrap" name="nome" value="" data-json="Nome" validate-json="Informe o Nome do Leilão" />
                                                     </div>
                                                     <div class="span3 controls">
                                                         <h4>Data de Formação</h4>
                                                         <div class="input-append date date-picker" data-date-format="dd-mm-yyyy">
-                                                            <input class="span12 m-wrap date-picker" type="text" value="" data-json="DataFinalFormacao" />
+                                                            <input class="span12 m-wrap date-picker" type="text" value="" data-json="DataFinalFormacao" validate-json="Informe a Data de Formação" />
                                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                                         </div>
                                                     </div>
                                                     <div class="span3 controls">
                                                         <h4>Data de Abertura</h4>
                                                         <div class="input-append date date-picker" data-date-format="dd-mm-yyyy">
-                                                            <input class="span12 m-wrap date-picker" type="text" value="" data-json="DataAbertura" />
+                                                            <input class="span12 m-wrap date-picker" type="text" value="" data-json="DataAbertura" validate-json="Informe a Data de Abertura" />
                                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row-fluid">                                                    
+                                                    <div class="span6 controls">
+                                                        <h4>Produto</h4>
+                                                        <input type="hidden" class="select2-offscreen" id="hfProduto" style="width: 100%" value="" for="ddlProduto" data-json="ProdutoID" validate-json="Informe o Produto" />
+                                                        <input type="text" class="hidden" id="ddlProduto" name="ddlProduto" value="" />
+                                                    </div>
+                                                    <div class="span3 controls">
+                                                        <h4>Quantidade Total</h4>
+                                                        <input type="text" class="span12 m-wrap" name="quantidade" value="0" readonly data-json="QtdDesejada" />
+                                                    </div>                                                    
                                                     <div class="span3 controls">
                                                         <h4>Duração da rodada(dias)</h4>
-                                                        <input class="span12 m-wrap" type="text" value="0" data-json="DuracaoRodadasDias" />
+                                                        <input class="span12 m-wrap" type="text" value="0" data-json="DuracaoRodadasDias" mascara="99" />
                                                     </div>
                                                 </div>
                                                 <div class="row-fluid">
-                                                     <div class="span3 controls">
-                                                        <h4>Status</h4>
-                                                        <input class="span12 m-wrap" type="checkbox" id="chkAtivo"  data-json="Ativo" />Ativo
+                                                    <div class="span3 controls">
+                                                        <h4>Ativo</h4>
+                                                        <input class="span12 m-wrap" type="checkbox" id="chkAtivo" data-json="Ativo" />
+                                                    </div>
+                                                    <div class="span3 controls">
+                                                        <h4>Representante Comercial</h4>
+                                                        <input type="hidden" class="select2-offscreen" id="hfRepresentanteComercial" style="width: 100%" value="" for="ddlRepresentanteComercial" data-json="RepresentanteID" validate-json="Informe o Representante Comercial" />
+                                                        <input type="text" class="hidden" id="ddlRepresentanteComercial" name="ddlRepresentanteComercial" value="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -230,7 +234,7 @@
                         <div class="form-actions clearfix">
                             <div class="row-fluid">
                                 <div class="span2 controls">
-                                    <a href="javascript:;" class="btn button-previous" style="display:none; width: 100px !important" id="btnAnterior">
+                                    <a href="javascript:;" class="btn button-previous" style="display: none; width: 100px !important" id="btnAnterior">
                                         <i class="m-icon-swapleft"></i>Voltar 
                                     </a>
                                 </div>

@@ -24,7 +24,7 @@ namespace WinstonChurchill.API.Controllers
                     filtro = new Produto();
                 filtro.UsuarioID = UsuarioToken.ObterId(this);
 
-                List<Produto> lista = ProdutoBusiness.New.Listar(filtro);
+                List<Produto> lista = ProdutoBusiness.New.ListarCombo(filtro);
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (ArgumentException aex)
@@ -54,17 +54,15 @@ namespace WinstonChurchill.API.Controllers
                 {
                     string termo = key.Value.ToUpper().Trim();
 
-                    {
-                        int codigo;
-                        if (int.TryParse(termo, out codigo))
-                            filtro.ID = int.Parse(termo);
+                    int codigo;
+                    if (int.TryParse(termo, out codigo))
+                        filtro.ID = int.Parse(termo);
 
-                        if (filtro.ID == 0)
-                            filtro.Nome = termo;
-                    }
+                    if (filtro.ID == 0)
+                        filtro.Nome = termo;
                 }
 
-                List<Produto> lista = ProdutoBusiness.New.Listar(filtro);
+                List<Produto> lista = ProdutoBusiness.New.ListarCombo(filtro);
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (ArgumentException aex)
@@ -85,8 +83,8 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 Produto filtro = new Produto();
-                
-                Usuario usuario= UsuarioToken.Obter(this);
+
+                Usuario usuario = UsuarioToken.Obter(this);
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
                 Produto produto = ProdutoBusiness.New.Carregar(filtro);
@@ -111,7 +109,7 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 Produto filtro = new Produto();
-                
+
                 Usuario usuario = UsuarioToken.Obter(this);
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
@@ -136,7 +134,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-               
+
                 Usuario usuario = UsuarioToken.Obter(this);
                 ProdutoBusiness.New.Salvar(entidade, usuario);
                 return Request.CreateResponse(HttpStatusCode.OK, entidade);

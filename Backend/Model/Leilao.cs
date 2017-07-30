@@ -59,10 +59,10 @@ namespace WinstonChurchill.Backend.Model
         [ForeignKey("RepresentanteID")]
         public Usuario Representante { get; set; }
 
-        [NotMapped]
+        [ForeignKey("LeilaoID")]
         public List<LeilaoComprador> Compradores { get; set; }
 
-        [NotMapped]
+        [ForeignKey("LeilaoID")]
         public List<LeilaoFornecedor> Fornecedores { get; set; }
 
         public bool temParticipantes

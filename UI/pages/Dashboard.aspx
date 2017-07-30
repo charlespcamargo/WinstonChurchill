@@ -28,9 +28,20 @@
         <!-- BEGIN PAGE CONTENT-->
         <div class="row-fluid">
             <div class="controls span12">
-                <div class="tiles">
+                <div class="tiles hide">
 
-                    <div class="tile bg-grey" id="tile_usuario" >
+                    <div class="tile bg-grey" id="tile_perfil" tipo="1">
+                        <div class="tile-body">
+                            <i class="icon-male"></i>
+                        </div>
+                        <div class="tile-object">
+                            <div class="name">
+                                Meu Perfil
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tile bg-grey" id="tile_usuario" tipo="3">
                         <div class="tile-body">
                             <i class="icon-user"></i>
                         </div>
@@ -41,7 +52,18 @@
                         </div>
                     </div>
 
-                    <div class="tile bg-grey"  id="tile_categoria" >
+                    <div class="tile bg-grey" id="tile_configuracoes" tipo="4">
+                        <div class="tile-body">
+                            <i class="icon-cogs"></i>
+                        </div>
+                        <div class="tile-object">
+                            <div class="name">
+                                Configurações
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tile bg-grey" id="tile_categoria" tipo="3">
                         <div class="tile-body">
                             <i class="icon-tags"></i>
                         </div>
@@ -52,7 +74,7 @@
                         </div>
                     </div>
 
-                    <div class="tile bg-grey"  id="tile_produto" >
+                    <div class="tile bg-grey" id="tile_produto" tipo="3">
                         <div class="tile-body">
                             <i class="icon-archive"></i>
                         </div>
@@ -62,14 +84,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="row-fluid">
-            <div class="controls span12">
-                <div class="tiles">
-                    <div class="tile bg-grey"  id="tile_grupo" >
+                    <div class="tile bg-grey" id="tile_grupo" tipo="2">
                         <div class="tile-body">
                             <i class="icon-group"></i>
                         </div>
@@ -80,7 +96,7 @@
                         </div>
                     </div>
 
-                    <div class="tile bg-grey"  id="tile_parceiro" >
+                    <div class="tile bg-grey" id="tile_parceiro" tipo="1">
                         <div class="tile-body">
                             <i class="icon-briefcase"></i>
                         </div>
@@ -91,7 +107,7 @@
                         </div>
                     </div>
 
-                    <div class="tile bg-grey"  id="tile_leilao" >
+                    <div class="tile bg-grey" id="tile_leilao" tipo="1">
                         <div class="tile-body">
                             <i class="icon-legal"></i>
                         </div>
@@ -101,9 +117,9 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-        </div>
         <!-- END PAGE CONTENT-->
     </div>
     <!-- END PAGE CONTAINER-->

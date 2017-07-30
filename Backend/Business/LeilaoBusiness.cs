@@ -23,9 +23,9 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public int Contar(Leilao entidade)
+        public int Contar(Usuario usuario, Leilao entidade)
         {
-            MontarFiltro(entidade);
+            MontarFiltro(usuario, entidade);
 
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
@@ -33,22 +33,14 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public List<Leilao> Listar(Leilao filtro)
+        public List<Leilao> Listar(Usuario usuario, Leilao filtro)
         {
-            MontarFiltro(filtro);
+            MontarFiltro(usuario, filtro);
 
             List<Leilao> data = new List<Leilao>();
 
             using (UnitOfWork UoW = new UnitOfWork())
             {
-                //filtro.Grupos = UoW.LeilaoRepository.Listar(p => p.UsuarioID == filtro.ID, null, "GrupoUsuario");
-
-                //if (filtro.Grupos != null && filtro.Grupos.Any(a => a.GrupoUsuario.ID == 1001)) //Lista apenas os usuários de responsabilidade de cada admin
-                //    predicate = predicate.And(p => p.Grupos.Any(w => w.ResponsavelID == filtro.ID));
-
-                //else if (filtro.Grupos != null && !filtro.Grupos.Any(a => a.GrupoUsuario.ID == 1000))   //Se for usuário comum lista apenas informações dele
-                //    predicate = predicate.And(p => p.ID == filtro.ID);
-
                 data = UoW.LeilaoRepository.Listar(predicate, null, "Produto,Representante");
             }
 
@@ -59,9 +51,12 @@ namespace WinstonChurchill.Backend.Business
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                Leilao leilao = uow.LeilaoRepository.Carregar(p => p.ID == id, ord => ord.OrderBy(p => p.ID));
-                if (leilao == null)
-                    throw new ArgumentException("Usuário não encontrado!");
+                Leilao leilao = uow.LeilaoRepository.Carregar(p => p.ID == id,
+                                                              o => o.OrderBy(p => p.ID),
+                                                              "Produto,Representante");
+
+                leilao.Compradores = uow.LeilaoCompradorRepository.Listar(l => l.LeilaoID == leilao.ID, o => o.OrderBy(by => by.ID), "ParceiroNegocio");
+                leilao.Fornecedores = uow.LeilaoFornecedorRepository.Listar(l => l.LeilaoID == leilao.ID, o => o.OrderBy(by => by.ID), "ParceiroNegocio");
 
                 return leilao;
             }
@@ -95,12 +90,15 @@ namespace WinstonChurchill.Backend.Business
                 predicate = predicate.And(a => a.ID >= 0);
         }
 
-        private void MontarFiltro(Leilao entidade)
+        private void MontarFiltro(Usuario usuario, Leilao entidade)
         {
             predicate = UtilEntity.True<Leilao>();
 
             if (!string.IsNullOrEmpty(entidade.Nome))
                 predicate = predicate.And(o => o.Nome == entidade.Nome);
+
+            if (!usuario.ehAdministrador)
+                predicate = predicate.And(o => o.RepresentanteID == usuario.ID);
 
         }
 
@@ -117,30 +115,30 @@ namespace WinstonChurchill.Backend.Business
                     salvo.Compradores = uow.LeilaoCompradorRepository.Listar(l => l.LeilaoID == salvo.ID, o => o.OrderBy(by => by.ID));
                 }
 
-                salvo.Ativo = leilao.Ativo;
-                salvo.Compradores = leilao.Compradores;
+                ValidarSalvar(usuario, leilao, salvo);
+
                 salvo.DataAbertura = leilao.DataAbertura;
                 salvo.DataFinalFormacao = leilao.DataFinalFormacao;
                 salvo.DuracaoRodadasDias = leilao.DuracaoRodadasDias;
-                salvo.Fornecedores = leilao.Fornecedores;
                 salvo.Nome = leilao.Nome;
                 salvo.ProdutoID = leilao.ProdutoID;
                 salvo.RepresentanteID = leilao.RepresentanteID;
+                salvo.Ativo = leilao.Ativo;
             }
             else
             {
+                ValidarSalvar(usuario, leilao, salvo);
+
                 leilao.DataAbertura = DateTime.Now;
                 leilao.CriadorID = usuario.ID;
-                leilao.RepresentanteID = usuario.ID;
-                leilao.Ativo = true;
             }
-
-            ValidarSalvar(usuario, leilao, salvo);
 
             using (UnitOfWork uow = new UnitOfWork())
             {
+                SalvarCompradoresFornecedores(uow, leilao, salvo);
+
                 if (leilao.ID > 0)
-                    uow.LeilaoRepository.Alterar(salvo);
+                    uow.LeilaoRepository.Alterar(salvo, "ID");
                 else
                     uow.LeilaoRepository.Inserir(leilao);
 
@@ -197,10 +195,57 @@ namespace WinstonChurchill.Backend.Business
 
         }
 
+        public void SalvarCompradoresFornecedores(UnitOfWork uow, Leilao leilao, Leilao salvo)
+        {
+            if (leilao.Compradores == null)
+                leilao.Compradores = new List<LeilaoComprador>();
+
+            if (leilao.Fornecedores == null)
+                leilao.Fornecedores = new List<LeilaoFornecedor>();
+
+            if (salvo != null)
+            {
+                List<LeilaoComprador> lstExcluir = salvo.Compradores.Where(w => !leilao.Compradores.Any(a => a.ParceiroNegocioID == w.ParceiroNegocioID)).ToList();
+
+                foreach (var item in lstExcluir)
+                    uow.LeilaoCompradorRepository.Excluir(item.ID);
+            }
+
+            if (salvo != null)
+            {
+                List<LeilaoFornecedor> lstExcluir = salvo.Fornecedores.Where(w => !leilao.Fornecedores.Any(a => a.ParceiroNegocioID == w.ParceiroNegocioID)).ToList();
+
+                foreach (var item in lstExcluir)
+                    uow.LeilaoFornecedorRepository.Excluir(item.ID);
+            }
+
+
+
+            leilao.Compradores.ForEach(f =>
+            {
+                f.ParceiroNegocio = null;
+                f.Leilao = null;
+
+                if (f.ID > 0)
+                    uow.LeilaoCompradorRepository.Alterar(f, "ID");
+                else
+                    uow.LeilaoCompradorRepository.Inserir(f);
+            });
+
+
+
+            leilao.Fornecedores.ForEach(f =>
+            {
+                f.ParceiroNegocio = null;
+                f.Leilao = null;
+
+                if (f.ID > 0)
+                    uow.LeilaoFornecedorRepository.Alterar(f, "ID");
+                else
+                    uow.LeilaoFornecedorRepository.Inserir(f);
+            });
+        }
 
 
     }
-
-
 }
-

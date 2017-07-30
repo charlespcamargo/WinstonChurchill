@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <Menu text="Menu">
-  <SubMenu text="Dashboard" url="/Pages/Dashboard.aspx"  icone="icon-home" />
-  <SubMenu text="Usuários" url="/Pages/Usuario.aspx"  icone="icon-user" />
-  <SubMenu text="Configurações"  icone="icon-cogs" >
-    <SubMenu text="Parâmetros" url="/Pages/Parametrizacao.aspx" icone="icon-cog" />
+  <SubMenu text="Dashboard" url="/Pages/Dashboard.aspx"  icone="icon-home" tipoAcesso="1" />
+  <SubMenu text="Meu Perfil" url="/Pages/Perfil.aspx"  icone="icon-male" tipoAcesso="1" />
+  <SubMenu text="Usuários" url="/Pages/Usuario.aspx"  icone="icon-user" tipoAcesso="3" />
+  <SubMenu text="Configurações"  icone="icon-cogs"  tipoAcesso="4" >
+    <SubMenu text="Parâmetros" url="/Pages/Parametrizacao.aspx" icone="icon-cog" tipoAcesso="4" />
   </SubMenu>
-  <SubMenu text="Categorias" url="/Pages/Categoria.aspx"  icone="icon-tags" />
-  <SubMenu text="Produtos" url="/Pages/Produto.aspx"  icone="icon-archive" />
-  <SubMenu text="Grupos" url="/Pages/Grupo.aspx"  icone="icon-group" />
-  <SubMenu text="Parceiros de Negócios" url="/Pages/ParceiroNegocio.aspx"  icone="icon-briefcase" />
-  <SubMenu text="Leilões" url="/Pages/Leiloes.aspx"  icone="icon-legal" />
+  <SubMenu text="Categorias" url="/Pages/Categoria.aspx"  icone="icon-tags" tipoAcesso="3" />
+  <SubMenu text="Produtos" url="/Pages/Produto.aspx"  icone="icon-archive"  tipoAcesso="3" />
+  <SubMenu text="Grupos" url="/Pages/Grupo.aspx"  icone="icon-group"  tipoAcesso="2" />
+  <SubMenu text="Parceiros de Negócios" url="/Pages/ParceiroNegocio.aspx"  icone="icon-briefcase"  tipoAcesso="1" />
+  <SubMenu text="Leilões" url="/Pages/Leiloes.aspx"  icone="icon-legal"  tipoAcesso="1" />
 </Menu>

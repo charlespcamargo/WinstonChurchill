@@ -5,14 +5,38 @@
     var indiceColunaLink = 2;
     var indiceColunaIcone = 3;
     var indiceColunaFilhos = 4;
+    var indiceAcesso = 5;
     var digitado = '';
-    var menuFiltrado = []; 
+    var menuFiltrado = [];
 
-
+    var acesso = new Array();
 
     return {
 
         init: function () {
+            Menu.acesso();
+        },
+
+        acesso: function () {
+            HelperJS.callApi({ url: "usuario/listarGrupos", type: "GET", data: null, functionOnSucess: Menu.gruposObtidos, functionOnError: HelperJS.showError });
+        },
+
+        gruposObtidos: function (lst) {
+
+
+            if ($.grep(lst, function (e) { return e == "S" }).length >= 1)
+                acesso = [1, 2, 3, 4];
+
+            else if ($.grep(lst, function (e) { return e == "A" }).length >= 1)
+                acesso = [1, 2, 3];
+
+            else if ($.grep(lst, function (e) { return e == "R" }).length >= 1)
+                acesso = [1, 2];
+
+            else if ($.grep(lst, function (e) { return e == "F" || e == "C" }).length >= 1)
+                acesso = [1];
+
+
             Menu.ConfigurarVisualizacao();
             Menu.RecarregarMenu();
         },
@@ -71,25 +95,24 @@
             var opcoes = [];
 
 
-            if ($(item).children().length > 0)
-            {
+            if ($(item).children().length > 0) {
                 var opcaoEncontrada;
 
-                for (var i = 0; i < $(item).children().length; i++)
-                {
+                for (var i = 0; i < $(item).children().length; i++) {
                     opcaoEncontrada = Menu.LerSubItens($(item).children()[i]);
                     opcoes.push(opcaoEncontrada);
                 }
             }
 
             opcao =
-            [
-                true,
-                $(item).attr("text"),
-                $(item).attr("url"),
-                $(item).attr("icone"),
-                opcoes
-            ]
+                [
+                    true,
+                    $(item).attr("text"),
+                    $(item).attr("url"),
+                    $(item).attr("icone"),
+                    opcoes,
+                    $(item).attr("tipoAcesso")
+                ]
 
 
 
@@ -116,6 +139,11 @@
             */
 
             for (var i = 0; i < menuBase.length; i++) {
+                var acessoItem = parseInt(menuBase[i][indiceAcesso]);
+
+                if (acesso.indexOf(acessoItem) == -1)
+                    continue;
+
                 itens += "<li>";
 
                 if (menuBase[i][indiceColunaLink] == null || menuBase[i][indiceColunaLink] == undefined || menuBase[i][indiceColunaLink] == '')
@@ -138,8 +166,7 @@
 
                 itens += "  </a>";
 
-                if (menuBase[i][indiceColunaTemFilhos] == true && menuBase[i][indiceColunaFilhos] != null && menuBase[i][indiceColunaFilhos].length > 0)
-                {
+                if (menuBase[i][indiceColunaTemFilhos] == true && menuBase[i][indiceColunaFilhos] != null && menuBase[i][indiceColunaFilhos].length > 0) {
                     itens += "<ul  class='sub-menu'>";
 
                     for (var j = 0; j < menuBase[i][indiceColunaFilhos].length; j++) {
@@ -257,16 +284,16 @@
 
                 return encontrados;
             }
-                // PARA TODAS AS OUTRAS CHAMADAS
+            // PARA TODAS AS OUTRAS CHAMADAS
             else {
                 // PROCURO NO ITEM
                 if (elemento[indiceColunaTexto].toUpperCase().indexOf(digitado.toUpperCase()) >= 0) {
                     encontrados.push([
-                                            elemento[indiceColunaTemFilhos],
-                                            elemento[indiceColunaTexto],
-                                            elemento[indiceColunaLink],
-                                            elemento[indiceColunaIcone],
-                                            elemento[indiceColunaFilhos]
+                        elemento[indiceColunaTemFilhos],
+                        elemento[indiceColunaTexto],
+                        elemento[indiceColunaLink],
+                        elemento[indiceColunaIcone],
+                        elemento[indiceColunaFilhos]
                     ]);
                 }
 

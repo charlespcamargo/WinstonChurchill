@@ -7,6 +7,7 @@ using System.Linq;
 using WinstonChurchill.Backend.Model;
 using WinstonChurchill.Backend.Business;
 using WinstonChurchill.API.Common.Util;
+using WinstonChurchill.Backend.Model.Enumeradores;
 
 namespace WinstonChurchill.API.Autenticacao
 {
@@ -80,7 +81,7 @@ namespace WinstonChurchill.API.Autenticacao
                 return Task.FromResult<object>(null);
             }
 
-            if ((usuario.Grupos != null && usuario.Grupos.Any(a => a.GrupoUsuarioID != 1000 && a.GrupoUsuarioID != 1001)) 
+            if ((usuario.Grupos != null && usuario.Grupos.Any(a => a.GrupoUsuarioID != (int)eTipoGrupoUsuario.SuperUsuario && a.GrupoUsuarioID != (int)eTipoGrupoUsuario.Administrador)) 
                 && !recursos.Any(a => usuario.Grupos.Any(w => w.GrupoUsuarioID == a.GrupoID)))
             {
                 context.SetError("invalid_role", "Faltam configurações de regra ou o usuário possui um perfil inválido");

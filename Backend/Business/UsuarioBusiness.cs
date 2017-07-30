@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using WinstonChurchill.API.Common.Util.Captcha;
+using WinstonChurchill.Backend.Model.Enumeradores;
 
 namespace WinstonChurchill.Backend.Business
 {
@@ -44,7 +45,7 @@ namespace WinstonChurchill.Backend.Business
             }
         }
 
-        public List<Usuario> Listar(Usuario filtro)
+        public List<Usuario> Listar(Usuario usuario, Usuario filtro)
         {
             MontarFiltro(filtro);
 
@@ -52,16 +53,53 @@ namespace WinstonChurchill.Backend.Business
 
             using (UnitOfWork UoW = new UnitOfWork())
             {
-                filtro.Grupos = UoW.UsuarioXGrupoUsuarioRepository.Listar(p => p.UsuarioID == filtro.ID, null, "GrupoUsuario");
+                usuario.Grupos = UoW.UsuarioXGrupoUsuarioRepository.Listar(p => p.UsuarioID == usuario.ID, null, "GrupoUsuario");
 
-                if (filtro.Grupos != null && filtro.Grupos.Any(a => a.GrupoUsuario.ID == 1001)) //Lista apenas os usuários de responsabilidade de cada admin
-                    predicate = predicate.And(p => p.Grupos.Any(w => w.ResponsavelID == filtro.ID));
-                else if (filtro.Grupos != null && !filtro.Grupos.Any(a => a.GrupoUsuario.ID == 1000))   //Se for usuário comum lista apenas informações dele
-                    predicate = predicate.And(p => p.ID == filtro.ID);
+                if (usuario.Grupos != null && usuario.Grupos.Any(a => a.GrupoUsuario.ID == (int)eTipoGrupoUsuario.Administrador)) //Lista apenas os usuários de responsabilidade de cada admin
+                {
+                    predicate = predicate.And(p => p.Grupos.Any(w => w.ResponsavelID == usuario.ID) ||  p.ID == usuario.ID);
+                }
+
+                else if (usuario.Grupos != null && !usuario.Grupos.Any(a => a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.SuperUsuario && a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.Administrador))   //Se for usuário comum lista apenas informações dele
+                    predicate = predicate.And(p => p.ID == usuario.ID);
+
                 data = UoW.UsuarioRepository.Listar(predicate, null, "Grupos.GrupoUsuario");
             }
 
             if (data != null && data.Any()) { data.ForEach(f => f.Senha = null); };
+
+            return data;
+        }
+
+        public List<Usuario> ListarRepresentantes(Usuario usuario, Usuario filtro)
+        {
+            List<Usuario> data = new List<Usuario>();
+
+            using (UnitOfWork UoW = new UnitOfWork())
+            {
+                MontarFiltro(filtro);
+                predicate = predicate.And(o => o.Ativo == true);
+
+                data = UoW.UsuarioRepository.Listar(predicate, null, "Grupos");
+            }
+
+            if (data != null && data.Any())
+            {
+                data.ForEach(f =>
+                {
+                    f.Senha = null;
+                });
+
+
+                // removo os super usuários da lista
+                data = data.Where(w => !w.Grupos.Exists(a => a.GrupoUsuarioID == (int)Backend.Model.Enumeradores.eTipoGrupoUsuario.SuperUsuario)).ToList();
+
+                if (!usuario.ehAdministrador)
+                    data = data.Where(w => w.Grupos.Any(a => a.GrupoUsuarioID == (int)Backend.Model.Enumeradores.eTipoGrupoUsuario.RepresentanteComercial)).ToList();
+                else
+                    data = data.Where(w => w.Grupos.Any(a => a.GrupoUsuarioID == (int)Backend.Model.Enumeradores.eTipoGrupoUsuario.RepresentanteComercial ||
+                                                             a.GrupoUsuarioID == (int)Backend.Model.Enumeradores.eTipoGrupoUsuario.Administrador)).ToList();
+            };
 
             return data;
         }
@@ -136,7 +174,7 @@ namespace WinstonChurchill.Backend.Business
 
             foreach (var item in usuario.Grupos)
             {
-               
+
 
                 item.DataCadastro = DateTime.Now;
                 item.ResponsavelID = usuario.ResponsavelID;
@@ -194,8 +232,11 @@ namespace WinstonChurchill.Backend.Business
 
                 foreach (var item in listaExcluir)
                 {
-                    item.Ativo = false;
-                    uow.UsuarioXGrupoUsuarioRepository.Alterar(item, "ID");
+                    if (item.GrupoUsuarioID != (int)Model.Enumeradores.eTipoGrupoUsuario.SuperUsuario)
+                    {
+                        item.Ativo = false;
+                        uow.UsuarioXGrupoUsuarioRepository.Alterar(item, "ID");
+                    }
                 }
             }
             foreach (var item in usuario.Grupos)

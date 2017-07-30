@@ -10,6 +10,7 @@ using WinstonChurchill.API.Common.Util.Captcha;
 using WinstonChurchill.Backend.Model;
 using WinstonChurchill.Backend.Utils;
 using WinstonChurchill.API.Autenticacao;
+using WinstonChurchill.Backend.Model.Enumeradores;
 
 namespace WinstonChurchill.API.Controllers
 {
@@ -26,8 +27,8 @@ namespace WinstonChurchill.API.Controllers
                 if (filtro == null)
                     filtro = new Usuario();
 
-                filtro.ID = UsuarioToken.ObterId(this);
-                List<Usuario> data = UsuarioBusiness.New.Listar(filtro);
+                Usuario usuario = UsuarioToken.Obter(this);
+                List<Usuario> data = UsuarioBusiness.New.Listar(usuario, filtro);
 
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
@@ -55,6 +56,7 @@ namespace WinstonChurchill.API.Controllers
                     usuario = uow.UsuarioRepository.Carregar(c => c.ID == id,
                                                              o => o.OrderBy(by => by.ID), "Grupos");
 
+                    usuario.Senha = string.Empty;
                     usuario.Grupos.RemoveAll(p => p.Ativo == false);
                 }
 
@@ -103,6 +105,96 @@ namespace WinstonChurchill.API.Controllers
                 UsuarioBusiness.New.Salvar(usuario);
 
                 return Request.CreateResponse(HttpStatusCode.OK, usuario);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
+        [AllowAnonymous, HttpGet, Route("listarRepresentantes")]
+        public HttpResponseMessage ListarRepresentantes([FromBody] Usuario filtro)
+        {
+            try
+            {
+                if (filtro == null)
+                    filtro = new Usuario();
+
+                Usuario usuario = UsuarioToken.Obter(this);
+
+                var key = this.Request.GetQueryNameValuePairs().Where(c => c.Key == "id").FirstOrDefault();
+                if (!string.IsNullOrEmpty(key.Value))
+                {
+                    string termo = key.Value.ToUpper().Trim();
+                    int codigo;
+
+                    if (int.TryParse(termo, out codigo))
+                        filtro.ID = int.Parse(termo);
+
+                    if (filtro.ID == 0)
+                        filtro.Nome = termo;
+
+                    filtro.Ativo = true;
+                }
+
+                List<Usuario> lista = UsuarioBusiness.New.ListarRepresentantes(usuario, filtro);
+                return Request.CreateResponse(HttpStatusCode.OK, lista);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
+        [AllowAnonymous, HttpGet, Route("listarGrupos")]
+        public HttpResponseMessage ListarGrupos()
+        {
+            try
+            {
+                Usuario usuario = UsuarioToken.Obter(this);
+
+                List<string> lst = new List<string>();
+
+                  usuario.Grupos.ForEach(f =>
+                    {
+                        if (f.Ativo)
+                        {
+                            switch ((eTipoGrupoUsuario)f.GrupoUsuarioID)
+                            {
+                                case eTipoGrupoUsuario.SuperUsuario:
+                                    lst.Add("S");
+                                    break;
+                                case eTipoGrupoUsuario.Administrador:
+                                    lst.Add("A");
+                                    break;
+                                case eTipoGrupoUsuario.Fornecedor:
+                                    lst.Add("F");
+                                    break;
+                                case eTipoGrupoUsuario.Comprador:
+                                    lst.Add("C");
+                                    break;
+                                case eTipoGrupoUsuario.RepresentanteComercial:
+                                    lst.Add("R");
+                                    break;
+                            }
+                        }
+                    });
+
+
+
+                return Request.CreateResponse(HttpStatusCode.OK, lst);
             }
             catch (ArgumentException aex)
             {

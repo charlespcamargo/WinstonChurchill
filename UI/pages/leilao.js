@@ -1,7 +1,8 @@
 ﻿var Leilao = function () {
 
-    var id = 0;
+    var _id = 0;
     var passo = 1;
+    var item = {};
 
     return {
 
@@ -18,15 +19,14 @@
             $('#btnContinuar').click(function () { passo++; Leilao.mudarPasso(); });
             $('#btnSalvar').click(function () { Leilao.salvar(); });
 
-            $(".steps .navbar-inner ul li a").click(function ()
-            {
+            $(".steps .navbar-inner ul li a").click(function () {
                 passo = parseInt($(this).find(".number").text());
                 Leilao.mudarPasso();
             });
 
         },
 
-        mudarPasso: function () {           
+        mudarPasso: function () {
 
             $(".form-horizontal .form-wizard .navbar-inner ul li").removeClass("active");
             $(".tab-content .tab-pane").removeClass("active");
@@ -37,8 +37,7 @@
             $("#bar .bar").attr("style", "width: " + Math.round(passo / 3 * 100) + "%")
             $(".step-title").text("Passo " + passo + " de 3")
 
-            if (passo == 1)
-            {
+            if (passo == 1) {
                 $('#btnAnterior').hide();
                 $('#btnContinuar').show();
             }
@@ -55,6 +54,7 @@
 
         carregar: function () {
             $('#hfProduto').produtos();
+            $('#hfRepresentanteComercial').representanteComercial();
 
             id = HelperJS.getQueryString("id");
 
@@ -67,31 +67,48 @@
             var fnSuccess = function (data) {
                 $('#formDados').popularCampos({ data: data });
                 $('#hfProduto').select2("data", data.Produto);
+                $('#hfRepresentanteComercial').select2("data", data.Representante);
+
                 id = data.ID;
 
-                Comprador.limparJson();
-                Fornecedor.limparJson();
+                
+                Comprador.listar(data.Compradores);
+                Fornecedor.listar(data.Fornecedores);
             }
 
             HelperJS.callApi(
-            {
-                url: "leilao/" + id,
-                type: "GET",
-                data: null,
-                functionOnSucess: fnSuccess,
-                functionOnError: HelperJS.showError
-            });
+                {
+                    url: "leilao/" + id,
+                    type: "GET",
+                    data: null,
+                    functionOnSucess: fnSuccess,
+                    functionOnError: HelperJS.showError
+                });
         },
 
         GetID: function () {
             return id;
         },
 
-        salvar: function ()
-        {
-            
+        salvar: function () {
+
+            if ($('#formDados').ehValido())
+            {
+                item = $('#formDados').obterJson();
+                item.ID = Leilao.GetID();
+                item.Ativo = $("#chkAtivo").prop("checked");
+                item.Compradores = Comprador.get();
+                item.Fornecedores = Fornecedor.get();
+
+                
+                HelperJS.callApi({ url: "leilao/salvar", type: "POST", data: item, functionOnSucess: Leilao.salvo, functionOnError: HelperJS.showError });
+            }
         },
 
+        salvo: function () {
+            HelperJS.showSuccess("Dados salvos com sucesso!");
+            setTimeout(function () { window.location.href = 'Leiloes.aspx'; }, 1000);
+        },
 
     }
 
@@ -114,14 +131,16 @@ var Comprador = function () {
             return json;
         },
 
-        set: function (obj) {
-            if (!obj.ID) {
-                let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
-                obj.ID = max + 1;
-            }
+        set: function (obj)
+        {
+            //if (!obj.ID)
+            //{
+            //    let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
+            //    obj.ID = max + 1;
+            //}
 
             obj.LeilaoID = Leilao.GetID();
-            json = $.grep(json, function (e) { return e.ID != obj.ID });
+            json = $.grep(json, function (e) { return e.ParceiroNegocioID != obj.ParceiroNegocioID });
             json.push(obj);
         },
 
@@ -135,12 +154,13 @@ var Comprador = function () {
                 return;
 
             let obj = $('#formComprador').obterJson();
-            obj.ParceiroNegocio = $('#hfComprador').getSelect2Data()[0];
+            obj.ID = id;
+            obj.ParceiroNegocio = $('#hfComprador').getSelect2Data();
             obj.ParceiroNegocioID = obj.ParceiroNegocio.ID;
             obj.Participando = false;
-            obj.ID = id;
-
-            function fnAny(result) {
+            
+            function fnAny(result)
+            {
                 if (!result || result.ID !== 0 && result.ID === obj.ID) return false;
 
                 let listMsg = new Array();
@@ -228,13 +248,13 @@ var Fornecedor = function () {
 
         set: function (obj) {
 
-            if (!obj.ID) {
-                let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
-                obj.ID = max + 1;
-            }
-
+            //if (!obj.ID) {
+            //    let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
+            //    obj.ID = max + 1;
+            //}
+             
             obj.LeilaoID = Leilao.GetID();
-            json = $.grep(json, function (e) { return e.ID != obj.ID });
+            json = $.grep(json, function (e) { return e.ParceiroNegocioID != obj.ParceiroNegocioID });
             json.push(obj);
         },
 
@@ -248,7 +268,7 @@ var Fornecedor = function () {
                 return;
 
             let obj = $('#formFornecedor').obterJson();
-            obj.ParceiroNegocio = $('#hfFornecedor').getSelect2Data()[0];
+            obj.ParceiroNegocio = $('#hfFornecedor').getSelect2Data();
             obj.ParceiroNegocioID = obj.ParceiroNegocio.ID;
             obj.Participando = false;
             obj.ID = id;
@@ -262,7 +282,7 @@ var Fornecedor = function () {
                 return true;
             }
 
-            if (HelperJS.any('ParceiroNegocio.ID', json, obj.ParceiroNegocio.ID, fnAny)) {
+            if (HelperJS.any('ParceiroNegocioID', json, obj.ParceiroNegocioID, fnAny)) {
                 return;
             }
 

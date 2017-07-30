@@ -22,10 +22,12 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
+                Usuario usuario = UsuarioToken.Obter(this);
+
                 if (filtro == null)
                     filtro = new Leilao();
 
-                List<Leilao> data = LeilaoBusiness.New.Listar(filtro);
+                List<Leilao> data = LeilaoBusiness.New.Listar(usuario, filtro);
 
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
@@ -46,14 +48,7 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                Leilao leilao = new Leilao();
-
-                using (UnitOfWork UoW = new UnitOfWork())
-                {
-                    leilao = UoW.LeilaoRepository.Carregar(c => c.ID == id, o => o.OrderBy(by => by.ID), "Produto");
-                    leilao.DuracaoRodadasDias = UoW.ParametroRepository.Listar(null).FirstOrDefault().DiasCadaRodada;
-
-                }
+                Leilao leilao = LeilaoBusiness.New.Carregar(id);
 
                 return Request.CreateResponse(HttpStatusCode.OK, leilao);
             }

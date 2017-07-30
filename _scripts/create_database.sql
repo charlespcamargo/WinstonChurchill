@@ -327,7 +327,8 @@ CREATE TABLE IF NOT EXISTS LeilaoComprador
   QtdDesejada		NUMERIC(10,3)	NOT NULL,
   
   CONSTRAINT fk_LeilaoComprador_Leilao FOREIGN KEY (LeilaoID)    		REFERENCES Leilao(ID),
-  CONSTRAINT fk_LeilaoComprador_PN	   FOREIGN KEY (ParceiroNegocioID)  REFERENCES ParceiroNegocio(ID)
+  CONSTRAINT fk_LeilaoComprador_PN	   FOREIGN KEY (ParceiroNegocioID)  REFERENCES ParceiroNegocio(ID),
+  CONSTRAINT UC_Leilao_Comprador UNIQUE (LeilaoID, ParceiroNegocioID)
 );
 
 CREATE TABLE IF NOT EXISTS LeilaoFornecedor
@@ -340,7 +341,8 @@ CREATE TABLE IF NOT EXISTS LeilaoFornecedor
   QtdMaxima			NUMERIC(10,3)	NOT NULL,
   
   CONSTRAINT fk_LeilaoFornecedor_Leilao FOREIGN KEY (LeilaoID)    		REFERENCES Leilao(ID),
-  CONSTRAINT fk_LeilaoFornecedor_PN	    FOREIGN KEY (ParceiroNegocioID)  REFERENCES ParceiroNegocio(ID)
+  CONSTRAINT fk_LeilaoFornecedor_PN	    FOREIGN KEY (ParceiroNegocioID)  REFERENCES ParceiroNegocio(ID),
+  CONSTRAINT UC_Leilao_Fornecedor UNIQUE (LeilaoID, ParceiroNegocioID)
 );
 
 

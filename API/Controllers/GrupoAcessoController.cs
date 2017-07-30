@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using WinstonChurchill.API.Autenticacao;
 using WinstonChurchill.Backend.Model;
+using WinstonChurchill.Backend.Model.Enumeradores;
 using WinstonChurchill.Backend.Repository;
 
 namespace WinstonChurchill.API.Controllers
@@ -21,19 +22,18 @@ namespace WinstonChurchill.API.Controllers
             {
                 List<GrupoUsuario> lista = null;
                 int usuarioId = UsuarioToken.ObterId(this);
+
                 using (UnitOfWork uow = new UnitOfWork())
                 {
-                    UsuarioXGrupoUsuario grupoUsuario = uow.UsuarioXGrupoUsuarioRepository.Carregar(p => p.UsuarioID == usuarioId, ord => ord.OrderBy(p => p.ID), "GrupoUsuario");
-                    if (grupoUsuario == null)
+                    List<UsuarioXGrupoUsuario> lstGrupoUsuario = uow.UsuarioXGrupoUsuarioRepository.Listar(p => p.UsuarioID == usuarioId,
+                                                                                                           o => o.OrderByDescending(p => p.ID), "GrupoUsuario");
+                    if (lstGrupoUsuario == null || lstGrupoUsuario.Count == 0)
                         throw new ArgumentException("Usuário sem grupo cadastrado");
 
-                    if (grupoUsuario.GrupoUsuario.ID == 1000)    //Se for super usuário retorna o grupo de admin na consulta, senão apenas os grupos que estão abaixo do admin
-                    {
-                        lista = uow.GrupoUsuarioRepository.Listar(p => p.ID != 1000); //Apenas não retorna o super usuário porque ele é único
-                    }
-                    else {
-                        lista = uow.GrupoUsuarioRepository.Listar(p => p.ID != 1000 && p.ID != 1001);
-                    } 
+                    if (lstGrupoUsuario.Exists(e => e.GrupoUsuario.ID == (int)eTipoGrupoUsuario.SuperUsuario || e.GrupoUsuario.ID == (int)eTipoGrupoUsuario.Administrador))    //Se for super usuário retorna o grupo de admin na consulta, senão apenas os grupos que estão abaixo do admin
+                        lista = uow.GrupoUsuarioRepository.Listar(p => p.ID != (int)eTipoGrupoUsuario.SuperUsuario); //Apenas não retorna o super usuário porque ele é único
+                    else
+                        lista = uow.GrupoUsuarioRepository.Listar(p => p.ID == lstGrupoUsuario.First().GrupoUsuarioID);
 
                     return Request.CreateResponse(HttpStatusCode.OK, lista);
                 }

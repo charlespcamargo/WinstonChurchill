@@ -24,10 +24,12 @@
 // function combo de parceiros
 (function ($) {
     $.fn.parceiros = function (_oSettings) {
-        var multiplo = true;
+
+        var multiplo = _oSettings.multiplo;
         var hiddenId = $(this).prop('id');
         var selectId = $(this).prop('for');
         var url = '';
+
         if (_oSettings.tipo === 1)
             url = 'parceiroNegocio/listarComprador';
         else
@@ -55,6 +57,26 @@
 
         HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo,
             formataResultados, formata, funcao, 0, null, true);
+
+    };
+
+    function formataResultados(item) { return item.ID + ' - ' + item.Nome; };
+    function formata(item) { return item.ID + ' - ' + item.Nome; };
+    function funcao(item) { return item.ID; };
+
+})(jQuery);
+
+
+
+// function combo de Representantes Comerciais Ativos
+(function ($) {
+    $.fn.representanteComercial = function (_oSettings) {
+        var multiplo = false;
+        var hiddenId = $(this).prop('id');
+        var selectId = $(this).prop('for');
+        var url = 'usuario/listarRepresentantes';
+
+        HelperJS.ComboAutoComplete(hiddenId, selectId, "Digite um código ou nome", url, multiplo, formataResultados, formata, funcao, 0, null, true);
 
     };
 
