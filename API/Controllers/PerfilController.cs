@@ -39,9 +39,13 @@ namespace WinstonChurchill.API.Controllers
         {
             try
             {
-                int usuarioId = UsuarioToken.ObterId(this);
-                usuario.ID = usuarioId;
-                UsuarioBusiness.New.Salvar(usuario);
+                Usuario salvo = UsuarioToken.Obter(this);
+                salvo.Nome = usuario.Nome;
+                salvo.Senha = usuario.Senha;
+                salvo.SenhaNova = usuario.SenhaNova;
+                salvo.SenhaNovaConfirmar = usuario.SenhaNovaConfirmar;
+
+                UsuarioBusiness.New.Salvar(salvo);
 
                 return Request.CreateResponse(HttpStatusCode.OK, usuario);
             }

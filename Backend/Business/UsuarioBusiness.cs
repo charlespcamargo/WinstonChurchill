@@ -57,7 +57,7 @@ namespace WinstonChurchill.Backend.Business
 
                 if (usuario.Grupos != null && usuario.Grupos.Any(a => a.GrupoUsuario.ID == (int)eTipoGrupoUsuario.Administrador)) //Lista apenas os usuários de responsabilidade de cada admin
                 {
-                    predicate = predicate.And(p => p.Grupos.Any(w => w.ResponsavelID == usuario.ID) ||  p.ID == usuario.ID);
+                    predicate = predicate.And(p => p.Grupos.Any(w => w.ResponsavelID == usuario.ID) || p.ID == usuario.ID);
                 }
 
                 else if (usuario.Grupos != null && !usuario.Grupos.Any(a => a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.SuperUsuario && a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.Administrador))   //Se for usuário comum lista apenas informações dele
@@ -195,7 +195,7 @@ namespace WinstonChurchill.Backend.Business
                 else
                 {
                     Usuario usuarioSalvo = uow.UsuarioRepository.Carregar(c => c.ID == usuario.ID,
-                                                                  o => o.OrderBy(by => by.ID));
+                                                                          o => o.OrderBy(by => by.ID));
 
                     if (usuarioSalvo == null)
                         throw new ArgumentException("Senha inválida!");
@@ -203,9 +203,8 @@ namespace WinstonChurchill.Backend.Business
                     if (!String.IsNullOrEmpty(usuario.Senha))
                     {
                         if (String.IsNullOrEmpty(usuario.SenhaNova) || String.IsNullOrEmpty(usuario.SenhaNovaConfirmar))
-                            throw new ArgumentException("Informe a Nova Senha e Confirme-a!");
-                        else
-                       if (usuario.SenhaNova != usuario.SenhaNovaConfirmar)
+                            throw new ArgumentException("Para alterar a sua Senha, informe a senha atual, além da Nova Senha e sua confirmação!");
+                        else if (usuario.SenhaNova != usuario.SenhaNovaConfirmar)
                             throw new ArgumentException("A confirmação da nova senha não esta correta!");
 
                         usuario.SenhaNova = Encrypting.sha512encrypt(usuario.SenhaNova);

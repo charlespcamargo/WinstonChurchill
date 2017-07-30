@@ -105,9 +105,10 @@
             }
         },
 
-        salvo: function () {
+        salvo: function ()
+        {
             HelperJS.showSuccess("Dados salvos com sucesso!");
-            setTimeout(function () { window.location.href = 'Leiloes.aspx'; }, 1000);
+            setTimeout(function () { window.location.href = 'Leiloes.aspx'; }, 2000);
         },
 
     }
