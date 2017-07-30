@@ -7,73 +7,23 @@
     return {
 
         init: function () {
-            Leilao.carregar();
-            Leilao.eventos();
-            Comprador.init();
-            Fornecedor.init();
-            Leilao.mudarPasso(0);
+            LeilaoLances.carregar();
+            LeilaoLances.eventos();
         },
 
         eventos: function () {
-            $('#btnAnterior').click(function () { passo--; Leilao.mudarPasso(); });
-            $('#btnContinuar').click(function () { passo++; Leilao.mudarPasso(); });
-            $('#btnSalvar').click(function () { Leilao.salvar(); });
-
-            $(".steps .navbar-inner ul li a").click(function () {
-                passo = parseInt($(this).find(".number").text());
-                Leilao.mudarPasso();
-            });
-
+       
         },
-
-        mudarPasso: function () {
-
-            $(".form-horizontal .form-wizard .navbar-inner ul li").removeClass("active");
-            $(".tab-content .tab-pane").removeClass("active");
-
-            $($(".form-horizontal .form-wizard .navbar-inner ul li")[passo - 1]).addClass("active");// zero-based
-            $($(".tab-content .tab-pane").removeClass("active")[passo - 1]).addClass("active"); // zero-based
-
-            $("#bar .bar").attr("style", "width: " + Math.round(passo / 3 * 100) + "%")
-            $(".step-title").text("Passo " + passo + " de 3")
-
-            if (passo == 1) {
-                $('#btnAnterior').hide();
-                $('#btnContinuar').show();
-            }
-            else if (passo == 2) {
-                $('#btnAnterior').show();
-                $('#btnContinuar').show();
-            }
-            else {
-                $('#btnAnterior').show();
-                $('#btnContinuar').hide();
-            }
-
-        },
-
-        carregar: function () {
-            $('#hfProduto').produtos();
-            $('#hfRepresentanteComercial').representanteComercial();
-
+        
+        carregar: function ()
+        {
             id = HelperJS.getQueryString("id");
 
-            if (id)
-                Leilao.editar();
-        },
-
-        editar: function () {
-
-            var fnSuccess = function (data) {
+            
+            var fnSuccess = function (data)
+            {
                 $('#formDados').popularCampos({ data: data });
-                $('#hfProduto').select2("data", data.Produto);
-                $('#hfRepresentanteComercial').select2("data", data.Representante);
-
                 id = data.ID;
-
-                
-                Comprador.listar(data.Compradores);
-                Fornecedor.listar(data.Fornecedores);
             }
 
             HelperJS.callApi(
@@ -101,7 +51,7 @@
                 item.Fornecedores = Fornecedor.get();
 
                 
-                HelperJS.callApi({ url: "leilao/salvar", type: "POST", data: item, functionOnSucess: Leilao.salvo, functionOnError: HelperJS.showError });
+                //HelperJS.callApi({ url: "leilao/salvar", type: "POST", data: item, functionOnSucess: Leilao.salvo, functionOnError: HelperJS.showError });
             }
         },
 
