@@ -6247,7 +6247,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:45:30</publishTime>
     </File>
     <File Include="assets/scripts/funcoes/combos.js">
-      <publishTime>07/19/2017 21:33:48</publishTime>
+      <publishTime>07/30/2017 13:57:07</publishTime>
     </File>
     <File Include="assets/scripts/funcoes/extensoes.js">
       <publishTime>07/16/2017 17:09:23</publishTime>
@@ -6256,7 +6256,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:45:30</publishTime>
     </File>
     <File Include="assets/scripts/HelperJS.js">
-      <publishTime>06/28/2017 23:07:15</publishTime>
+      <publishTime>07/19/2017 23:46:59</publishTime>
     </File>
     <File Include="assets/scripts/inbox.js">
       <publishTime>06/28/2017 20:45:30</publishTime>
@@ -6382,22 +6382,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:46:11</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.UI.dll">
-      <publishTime>07/18/2017 23:32:19</publishTime>
+      <publishTime>07/30/2017 23:02:04</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.UI.pdb">
-      <publishTime>06/28/2017 21:26:37</publishTime>
+      <publishTime>07/30/2017 23:02:04</publishTime>
     </File>
     <File Include="controls/menu.xml">
-      <publishTime>07/16/2017 21:17:38</publishTime>
+      <publishTime>07/30/2017 22:44:33</publishTime>
     </File>
     <File Include="controls/ucMenu.ascx">
       <publishTime>07/02/2017 21:09:21</publishTime>
     </File>
     <File Include="controls/ucMenu.js">
-      <publishTime>06/28/2017 20:45:30</publishTime>
+      <publishTime>07/30/2017 10:52:31</publishTime>
     </File>
     <File Include="controls/ucTopo.ascx">
-      <publishTime>06/28/2017 21:56:39</publishTime>
+      <publishTime>07/30/2017 00:42:47</publishTime>
     </File>
     <File Include="htmls/charts.html">
       <publishTime>06/28/2017 20:45:30</publishTime>
@@ -6652,7 +6652,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:46:08</publishTime>
     </File>
     <File Include="pages/Categoria.aspx">
-      <publishTime>07/17/2017 22:12:50</publishTime>
+      <publishTime>07/30/2017 16:07:25</publishTime>
     </File>
     <File Include="pages/categoria.js">
       <publishTime>06/29/2017 21:49:14</publishTime>
@@ -6661,10 +6661,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2017 23:20:13</publishTime>
     </File>
     <File Include="pages/Dashboard.aspx">
-      <publishTime>07/02/2017 21:22:03</publishTime>
+      <publishTime>07/30/2017 00:33:07</publishTime>
     </File>
     <File Include="pages/dashboard.js">
-      <publishTime>07/16/2017 22:00:43</publishTime>
+      <publishTime>07/30/2017 16:52:04</publishTime>
     </File>
     <File Include="pages/Exemplo.aspx">
       <publishTime>07/16/2017 17:09:23</publishTime>
@@ -6676,37 +6676,43 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2017 23:20:39</publishTime>
     </File>
     <File Include="pages/Grupo.aspx">
-      <publishTime>07/16/2017 17:09:23</publishTime>
+      <publishTime>07/30/2017 16:10:28</publishTime>
     </File>
     <File Include="pages/grupo.js">
       <publishTime>06/29/2017 21:49:14</publishTime>
     </File>
     <File Include="pages/Leilao.aspx">
-      <publishTime>07/19/2017 22:54:38</publishTime>
+      <publishTime>07/30/2017 17:08:59</publishTime>
     </File>
     <File Include="pages/leilao.js">
-      <publishTime>07/19/2017 22:56:45</publishTime>
+      <publishTime>07/30/2017 00:38:05</publishTime>
+    </File>
+    <File Include="pages/LeilaoLances.aspx">
+      <publishTime>07/30/2017 22:53:28</publishTime>
+    </File>
+    <File Include="pages/LeilaoLances.js">
+      <publishTime>07/30/2017 23:00:37</publishTime>
     </File>
     <File Include="pages/Leiloes.aspx">
-      <publishTime>07/17/2017 22:12:51</publishTime>
+      <publishTime>07/30/2017 10:36:03</publishTime>
     </File>
     <File Include="pages/Leiloes.js">
-      <publishTime>07/18/2017 21:27:39</publishTime>
+      <publishTime>07/30/2017 16:53:17</publishTime>
     </File>
     <File Include="pages/MasterDefault.Master">
-      <publishTime>06/28/2017 20:46:08</publishTime>
+      <publishTime>07/30/2017 00:40:54</publishTime>
     </File>
     <File Include="pages/Parametrizacao.aspx">
-      <publishTime>07/16/2017 17:09:23</publishTime>
+      <publishTime>07/30/2017 16:06:54</publishTime>
     </File>
     <File Include="pages/parametrizacao.js">
       <publishTime>06/28/2017 20:46:09</publishTime>
     </File>
     <File Include="pages/ParceiroNegocio.aspx">
-      <publishTime>07/16/2017 18:42:17</publishTime>
+      <publishTime>07/30/2017 16:08:27</publishTime>
     </File>
     <File Include="pages/parceiroNegocio.js">
-      <publishTime>07/19/2017 21:53:04</publishTime>
+      <publishTime>07/30/2017 15:52:51</publishTime>
     </File>
     <File Include="pages/Perfil.aspx">
       <publishTime>07/16/2017 17:09:23</publishTime>
@@ -6715,19 +6721,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:46:09</publishTime>
     </File>
     <File Include="pages/Produto.aspx">
-      <publishTime>07/17/2017 22:12:50</publishTime>
+      <publishTime>07/30/2017 16:08:43</publishTime>
     </File>
     <File Include="pages/produto.js">
       <publishTime>07/16/2017 17:09:23</publishTime>
     </File>
     <File Include="pages/Usuario.aspx">
-      <publishTime>07/16/2017 17:09:23</publishTime>
+      <publishTime>07/30/2017 16:04:26</publishTime>
     </File>
     <File Include="pages/usuario.js">
       <publishTime>07/16/2017 17:09:23</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>07/19/2017 22:58:36</publishTime>
+      <publishTime>07/30/2017 23:02:23</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>07/02/2017 21:39:48</publishTime>

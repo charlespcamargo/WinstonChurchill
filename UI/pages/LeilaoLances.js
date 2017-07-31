@@ -1,24 +1,29 @@
 ﻿var LeilaoLances = function () {
 
     var _id = 0;
-    var passo = 1;
     var item = {};
 
     return {
 
         init: function () {
-            LeilaoLances.carregar();
+            LeilaoLances.configurarControles();
             LeilaoLances.eventos();
+            LeilaoLances.carregar();
+        },
+         
+        eventos: function () {
+            $('#btnCancelar').click(function () { window.location.href='leiloes.aspx' });
+            $('#btnSalvar').click(function () { Leilao.salvar(); });
         },
 
-        eventos: function () {
-       
+        configurarControles: function ()
+        {
+            $('#hfFornecedor').parceiros({ multiplo: false, tipo: 2 });
         },
-        
+
         carregar: function ()
         {
-            id = HelperJS.getQueryString("id");
-
+            id = HelperJS.getQueryString("id"); 
             
             var fnSuccess = function (data)
             {

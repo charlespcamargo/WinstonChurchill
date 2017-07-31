@@ -55,10 +55,9 @@ namespace WinstonChurchill.Backend.Business
             {
                 usuario.Grupos = UoW.UsuarioXGrupoUsuarioRepository.Listar(p => p.UsuarioID == usuario.ID, null, "GrupoUsuario");
 
-                if (usuario.Grupos != null && usuario.Grupos.Any(a => a.GrupoUsuario.ID == (int)eTipoGrupoUsuario.Administrador)) //Lista apenas os usuários de responsabilidade de cada admin
-                {
+                //Lista apenas os usuários de responsabilidade de cada admin
+                if (usuario.Grupos != null && usuario.Grupos.Any(a => a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.SuperUsuario && a.GrupoUsuario.ID == (int)eTipoGrupoUsuario.Administrador))
                     predicate = predicate.And(p => p.Grupos.Any(w => w.ResponsavelID == usuario.ID) || p.ID == usuario.ID);
-                }
 
                 else if (usuario.Grupos != null && !usuario.Grupos.Any(a => a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.SuperUsuario && a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.Administrador))   //Se for usuário comum lista apenas informações dele
                     predicate = predicate.And(p => p.ID == usuario.ID);

@@ -78,7 +78,7 @@
             }
 
             HelperJS.callApi({
-                url: "/usuario/listar/",
+                url: "usuario/listar/",
                 type: "POST",
                 data: null,
                 functionOnSucess: fnSuccess,

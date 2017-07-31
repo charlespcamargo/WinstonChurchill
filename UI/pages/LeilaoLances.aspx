@@ -52,9 +52,9 @@
                         <div class="span3 controls">
                             <h4>Data de Formação</h4>
                             <input type="text" class="span12 m-wrap" readonly="readonly" data-json="DataFinalFormacao" />
-                        </div> 
+                        </div>
                     </div>
-                    <div class="row-fluid">                                                 
+                    <div class="row-fluid">
                         <div class="span4 controls">
                             <h4>Representante Comercial</h4>
                             <input type="text" class="span12 m-wrap" readonly="readonly" data-json="Representante.Nome" />
@@ -90,23 +90,32 @@
                     <div class="row-fluid">
                         <div class="span3 controls">
                             <h4>Fornecedor</h4>
-                            <input type="text" class="span12 m-wrap" readonly="readonly" data-json="" />
+                            <input type="hidden" class="select2-offscreen" id="hfFornecedor" style="width: 100%" value="" for="ddlFornecedor" data-json="" validate-json="Informe o Fornecedor" />
+                            <input type="text" class="hidden" id="ddlFornecedor" name="ddlFornecedor" value="" />
                         </div>
                         <div class="span3 controls">
                             <h4>Quantidade Minima</h4>
                             <input type="text" class="span12 m-wrap" id="txtQtdMinima" data-json="QtdMinima" mascara="9999999" validate-json="Informe a Quantidade Maxima" />
-                        </div> 
+                        </div>
                         <div class="span3 controls">
                             <h4>Quantidade Maxima</h4>
                             <input type="text" class="span12 m-wrap" id="txtQtdMaxima" data-json="QtdMinima" mascara="9999999" validate-json="Informe a Quantidade Maxima" />
-                        </div> 
+                        </div>
                         <div class="span3 controls">
                             <h4>Participando</h4>
                             <input class="span12 m-wrap" type="checkbox" id="chkParticipando" data-json="Participando" />
-                        </div> 
+                        </div>
                     </div>
                     <div class="row-fluid">
-                         
+                        <div class="span2 controls">
+                            <a id="btnCancelar" class="btn red btn-margin-5px" style="width: 110px;" > <i class="icon-circle-arrow-left"></i> Cancelar</a>
+                        </div>
+                        <div class="span8 controls">
+                        </div>
+                        <div class="span2 controls">
+                            <a href="javascript:;" class="btn green button-submit" style="width: 100px" id="btnSalvar">Salvar <i class="m-icon-swapright m-icon-white"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

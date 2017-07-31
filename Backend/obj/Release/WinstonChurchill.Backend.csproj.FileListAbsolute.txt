@@ -55,3 +55,4 @@ C:\Projects\Charles\WinstonChurchill\Backend\bin\Release\System.Net.Http.Formatt
 C:\Projects\Charles\WinstonChurchill\Backend\obj\Release\WinstonChurchill.Backend.csprojResolveAssemblyReference.cache
 C:\Projects\Charles\WinstonChurchill\Backend\obj\Release\WinstonChurchill.Backend.dll
 C:\Projects\Charles\WinstonChurchill\Backend\obj\Release\WinstonChurchill.Backend.pdb
+G:\Brown\Projetos\WinstonChurchill\Backend\bin\Release\WinstonChurchill.API.Common.dll.config
