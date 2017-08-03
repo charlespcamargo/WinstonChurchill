@@ -31,6 +31,13 @@ namespace WinstonChurchill.Backend.Model
         [Column("QtdDesejada")]
         public decimal QtdDesejada { get; set; }
 
+        [Column("RodadasLeilao")] 
+        public int RodadasLeilao { get; set; }
+
+        [Column("DiasCadaRodada")] 
+        public int DiasCadaRodada { get; set; }
+
+
         [Column("DataAbertura")]
         [JsonConverter(typeof(CustomDate))]
         public DateTime DataAbertura { get; set; }

@@ -63,6 +63,72 @@ namespace WinstonChurchill.API.Controllers
                 throw new HttpResponseException(errorResponse);
             }
         }
+        
+        [HttpGet, Route("lances/{id}")]
+        public HttpResponseMessage Lances(int id)
+        {
+            try
+            {
+                Usuario usuario = UsuarioToken.Obter(this);
+                Leilao leilao = LeilaoBusiness.New.Lances(usuario, id);
+
+                return Request.CreateResponse(HttpStatusCode.OK, leilao);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+        
+        [HttpPost, Route("salvarComprador")]
+        public HttpResponseMessage SalvarComprador([FromBody] LeilaoComprador leilaoComprador)
+        {
+            try
+            {
+                Usuario usuario = UsuarioToken.Obter(this);
+                LeilaoBusiness.New.SalvarComprador(usuario, leilaoComprador);
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
+        [HttpPost, Route("salvarFornecedor")]
+        public HttpResponseMessage SalvarFornecedor([FromBody] LeilaoFornecedor leilaoFornecedor)
+        {
+            try
+            {
+                Usuario usuario = UsuarioToken.Obter(this);
+                LeilaoBusiness.New.SalvarFornecedor(usuario, leilaoFornecedor);
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
 
         //[HttpDelete, Route("{id}")]
         [HttpPost, Route("excluir/{id}")]

@@ -58,8 +58,33 @@
 
             id = HelperJS.getQueryString("id");
 
-            if (id)
+
+            if (id) 
                 Leilao.editar();
+            else
+                Leilao.carregarDadosBasicos();
+        },
+
+        carregarDadosBasicos: function () {
+
+            HelperJS.callApi(
+                {
+                    url: "parametro/carregar",
+                    type: "GET",
+                    data: null,
+                    functionOnSucess: Leilao.dadosBasicosCarregados,
+                    functionOnError: HelperJS.showError
+                });
+
+        },
+
+        dadosBasicosCarregados: function (parametro) {
+            if (parametro)
+            {
+                $("#txtDuracaoCadaRodada").val(parametro.DiasCadaRodada + " dia(s)");
+                $("#txtQtdRodadas").val(parametro.RodadasLeilao); 
+            }
+
         },
 
         editar: function () {
@@ -71,7 +96,7 @@
 
                 id = data.ID;
 
-                
+
                 Comprador.listar(data.Compradores);
                 Fornecedor.listar(data.Fornecedores);
             }
@@ -97,16 +122,17 @@
                 item = $('#formDados').obterJson();
                 item.ID = Leilao.GetID();
                 item.Ativo = $("#chkAtivo").prop("checked");
+                item.DataFinalFormacao = HelperJS.inverterMesDia($("#txtDataFormacao").val());
+                item.DataAbertura = HelperJS.inverterMesDia($("#txtDataAbertura").val());
                 item.Compradores = Comprador.get();
                 item.Fornecedores = Fornecedor.get();
 
-                
+
                 HelperJS.callApi({ url: "leilao/salvar", type: "POST", data: item, functionOnSucess: Leilao.salvo, functionOnError: HelperJS.showError });
             }
         },
 
-        salvo: function ()
-        {
+        salvo: function () {
             HelperJS.showSuccess("Dados salvos com sucesso!");
             setTimeout(function () { window.location.href = 'Leiloes.aspx'; }, 2000);
         },
@@ -132,8 +158,7 @@ var Comprador = function () {
             return json;
         },
 
-        set: function (obj)
-        {
+        set: function (obj) {
             //if (!obj.ID)
             //{
             //    let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
@@ -159,9 +184,8 @@ var Comprador = function () {
             obj.ParceiroNegocio = $('#hfComprador').getSelect2Data();
             obj.ParceiroNegocioID = obj.ParceiroNegocio.ID;
             obj.Participando = false;
-            
-            function fnAny(result)
-            {
+
+            function fnAny(result) {
                 if (!result || result.ID !== 0 && result.ID === obj.ID) return false;
 
                 let listMsg = new Array();
@@ -253,7 +277,7 @@ var Fornecedor = function () {
             //    let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
             //    obj.ID = max + 1;
             //}
-             
+
             obj.LeilaoID = Leilao.GetID();
             json = $.grep(json, function (e) { return e.ParceiroNegocioID != obj.ParceiroNegocioID });
             json.push(obj);
@@ -338,6 +362,7 @@ var Fornecedor = function () {
             json = $.grep(json, function (e) { return e.ID != _id });
             Fornecedor.listar();
         },
+
 
     }
 

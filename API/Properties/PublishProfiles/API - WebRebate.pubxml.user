@@ -10,10 +10,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>07/31/2017 00:02:06</publishTime>
+      <publishTime>08/03/2017 00:22:36</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>07/31/2017 00:02:06</publishTime>
+      <publishTime>08/03/2017 00:22:36</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/28/2017 20:46:10</publishTime>
@@ -151,19 +151,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/30/2017 23:01:15</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.API.dll">
-      <publishTime>07/31/2017 00:01:56</publishTime>
+      <publishTime>08/03/2017 00:22:05</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.API.pdb">
-      <publishTime>07/31/2017 00:01:56</publishTime>
+      <publishTime>08/03/2017 00:22:05</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.Backend.dll">
-      <publishTime>07/31/2017 00:01:51</publishTime>
+      <publishTime>08/03/2017 00:21:57</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.Backend.dll.config">
       <publishTime>06/28/2017 22:37:41</publishTime>
     </File>
     <File Include="bin/WinstonChurchill.Backend.pdb">
-      <publishTime>07/31/2017 00:01:51</publishTime>
+      <publishTime>08/03/2017 00:21:57</publishTime>
     </File>
     <File Include="crossdomain.xml">
       <publishTime>07/18/2017 20:35:14</publishTime>
@@ -172,7 +172,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 20:45:15</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>07/31/2017 00:01:58</publishTime>
+      <publishTime>08/03/2017 00:22:09</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>07/18/2017 23:31:41</publishTime>

@@ -310,9 +310,12 @@ CREATE TABLE IF NOT EXISTS Leilao
   DataFinalFormacao	DATETIME		NOT NULL,
   QtdDesejada		NUMERIC(10,3)	NOT NULL,				
   DataAbertura		DATETIME		NOT NULL,
+  RodadasLeilao 	INT 		 	NOT NULL,
+  DiasCadaRodada 	INT 		 	NOT NULL,
   CriadorID			INT				NOT NULL,
   RepresentanteID	INT				NOT NULL,  
   Ativo 			BIT 			NOT NULL,
+  
   
   CONSTRAINT fk_Leilao_Produto 		 FOREIGN KEY (ProdutoID)    		REFERENCES Produto(ID),
   CONSTRAINT fk_Leilao_Criacao 		 FOREIGN KEY (CriadorID)	   		REFERENCES Usuario(ID),

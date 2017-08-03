@@ -528,6 +528,7 @@ var Responsavel = function () {
 
         init: function () {
             Responsavel.eventos();
+            Responsavel.combos(1);
         },
 
         combos: function (_tipo) {

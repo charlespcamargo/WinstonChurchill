@@ -13,7 +13,7 @@ namespace WinstonChurchill.API.Controllers
     [RoutePrefix("parametro")]
     public class ParametroController : ApiController
     {
-        [HttpGet, Route("carregar")]
+        [HttpGet, AllowAnonymous, Route("carregar")]
         public HttpResponseMessage Carregar()
         {
             try

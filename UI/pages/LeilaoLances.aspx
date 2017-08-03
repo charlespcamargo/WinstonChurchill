@@ -4,8 +4,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cphContent" runat="server">
-
-
     <!-- BEGIN PAGE CONTAINER-->
     <div class="container-fluid">
         <!-- BEGIN PAGE HEADER-->
@@ -33,7 +31,7 @@
             <div class="portlet box grey" id="formDados">
                 <div class="portlet-title">
                     <div class="caption">
-                        Dados Básicos do Leilão
+                        Dados do Leilão
                     </div>
                     <div class="tools ">
                         <a href="javascript:;" class="collapse"></a>
@@ -45,31 +43,39 @@
                             <h4>Nome do Leilão</h4>
                             <input type="text" class="span12 m-wrap" readonly="readonly" data-json="Nome" />
                         </div>
-                        <div class="span5 controls">
+                        <div class="span4 controls">
                             <h4>Produto</h4>
                             <input type="text" class="span12 m-wrap" readonly="readonly" data-json="Produto.Nome" />
                         </div>
-                        <div class="span3 controls">
-                            <h4>Data de Formação</h4>
-                            <input type="text" class="span12 m-wrap" readonly="readonly" data-json="DataFinalFormacao" />
-                        </div>
-                    </div>
-                    <div class="row-fluid">
                         <div class="span4 controls">
                             <h4>Representante Comercial</h4>
                             <input type="text" class="span12 m-wrap" readonly="readonly" data-json="Representante.Nome" />
                         </div>
+                    </div>
+                    <div class="row-fluid">
                         <div class="span2 controls">
                             <h4>Quantidade Total</h4>
                             <input type="text" class="span12 m-wrap" readonly="readonly" data-json="QtdDesejada" />
                         </div>
-                        <div class="span3 controls">
-                            <h4>Duração da rodada(dias)</h4>
-                            <input type="text" class="span12 m-wrap" readonly="readonly" data-json="DuracaoRodadasDias" />
+                        <div class="span2 controls">
+                            <h4>Duração da rodada</h4>
+                            <input type="text" class="span12 m-wrap" readonly="readonly" data-json="DiasCadaRodada" />
                         </div>
-                        <div class="span3 controls">
+                        <div class="span2 controls">
+                            <h4>Qtd de Rodadas</h4>
+                            <input class="span12 m-wrap" type="text" value="0" id="txtQtdRodadas" data-json="RodadasLeilao" readonly="readonly" />
+                        </div>
+                        <div class="span2 controls">
+                            <h4>Data de Formação</h4>
+                            <input type="text" class="span12 m-wrap" readonly="readonly" data-json="DataFinalFormacao" />
+                        </div>
+                        <div class="span2 controls">
                             <h4>Data de Abertura</h4>
                             <input type="text" class="span12 m-wrap" readonly="readonly" data-json="DataAbertura" />
+                        </div>
+                        <div class="span2 controls">
+                            <h4>Ativo</h4>
+                            <input class="span12 m-wrap" type="checkbox" id="chkAtivo" data-json="Ativo" checked="checked" />
                         </div>
                     </div>
                 </div>
@@ -77,10 +83,10 @@
         </div>
 
         <div class="row-fluid">
-            <div class="portlet box grey" id="formFornecedor">
+            <div class="portlet box grey hide" id="formComprador">
                 <div class="portlet-title">
                     <div class="caption">
-                        Informações do Fornecedor
+                        Compradores
                     </div>
                     <div class="tools ">
                         <a href="javascript:;" class="collapse"></a>
@@ -88,34 +94,56 @@
                 </div>
                 <div class="portlet-body form">
                     <div class="row-fluid">
-                        <div class="span3 controls">
-                            <h4>Fornecedor</h4>
-                            <input type="hidden" class="select2-offscreen" id="hfFornecedor" style="width: 100%" value="" for="ddlFornecedor" data-json="" validate-json="Informe o Fornecedor" />
-                            <input type="text" class="hidden" id="ddlFornecedor" name="ddlFornecedor" value="" />
+                        <!-- Listagem -->
+                        <div class="portlet-body no-more-tables">
+                            <table id="gridComprador" class="table table-striped table-bordered table-hover table-full-width" data-qtdregistros="5" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%;">Comprador</th>
+                                        <th style="width: 20%;">Participando</th>
+                                        <th style="width: 20%;">Qtd Desejada</th>
+                                        <th style="width: 20%;">*</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="span3 controls">
-                            <h4>Quantidade Minima</h4>
-                            <input type="text" class="span12 m-wrap" id="txtQtdMinima" data-json="QtdMinima" mascara="9999999" validate-json="Informe a Quantidade Maxima" />
-                        </div>
-                        <div class="span3 controls">
-                            <h4>Quantidade Maxima</h4>
-                            <input type="text" class="span12 m-wrap" id="txtQtdMaxima" data-json="QtdMinima" mascara="9999999" validate-json="Informe a Quantidade Maxima" />
-                        </div>
-                        <div class="span3 controls">
-                            <h4>Participando</h4>
-                            <input class="span12 m-wrap" type="checkbox" id="chkParticipando" data-json="Participando" />
-                        </div>
+                        <!-- FIM - Listagem -->
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="portlet box grey hide" id="formFornecedor">
+                <div class="portlet-title">
+                    <div class="caption">
+                        Fornecedores
+                    </div>
+                    <div class="tools ">
+                        <a href="javascript:;" class="collapse"></a>
+                    </div>
+                </div>
+                <div class="portlet-body form">
                     <div class="row-fluid">
-                        <div class="span2 controls">
-                            <a id="btnCancelar" class="btn red btn-margin-5px" style="width: 110px;" > <i class="icon-circle-arrow-left"></i> Cancelar</a>
+                        <!-- Listagem -->
+                        <div class="portlet-body no-more-tables">
+                            <table id="gridFornecedor" class="table table-striped table-bordered table-hover table-full-width" data-qtdregistros="5" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%;">Forncedor</th>
+                                        <th style="width: 20%;">Participando</th>
+                                        <th style="width: 20%;">Qtd Minima</th>
+                                        <th style="width: 20%;">Qtd Máxima</th>
+                                        <th style="width: 20%;">*</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="span8 controls">
-                        </div>
-                        <div class="span2 controls">
-                            <a href="javascript:;" class="btn green button-submit" style="width: 100px" id="btnSalvar">Salvar <i class="m-icon-swapright m-icon-white"></i>
-                            </a>
-                        </div>
+                        <!-- FIM - Listagem -->
                     </div>
                 </div>
             </div>
@@ -123,6 +151,47 @@
         <!-- END PAGE CONTENT-->
     </div>
     <!-- END PAGE CONTAINER-->
+
+    <div id="modal" class="modal hide fade container" tabindex="-1" data-backdrop="fixed">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>Parceiro de Negócio</div>
+            </div>
+        </div>
+        <div class="modal-body" id="formModal">
+            <div class="row-fluid">
+                <div class="controls span6">
+                    <h4>Razão Social</h4>
+                    <input type="text" class="span12 m-wrap" id="txtRazaoSocial" data-json="ParceiroNegocio.RazaoSocial" readonly="readonly" />
+                </div>
+                <div class="controls span6">
+                    <h4>Nome Fantasia</h4>
+                    <input type="text" class="span12 m-wrap" id="txtNomeFantasia" data-json="ParceiroNegocio.NomeFantasia" readonly="readonly" />
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="controls span3">
+                    <h4>Participando</h4>
+                    <input class="span12 m-wrap" type="checkbox" id="chkParticipando" data-json="Participando" checked="checked" />
+                </div>
+                <div class="controls span3">
+                    <h4 id="lblQtdEdicao" >Quantidade Desejada/Quantidade Minima</h4>
+                    <input type="text" class="span12 m-wrap hide" id="txtQuantidadeDesejada" data-json="QtdDesejada" /> 
+                    <input type="text" class="span12 m-wrap hide" id="txtQuantidadeMin" data-json="QtdMinima" />
+                </div>
+                <div class="controls span3">
+                    <h4 id="lblQtdMax"> Quantidade Máxima</h4>
+                    <input type="text" class="span12 m-wrap" id="txtQuantidadeMax" data-json="QtdMaxima" />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" >            
+            <a type="button" class="btn btn-margin-5px red" data-dismiss="modal">Cancelar | <i class="icon-off"></i></a>
+            <a type="button" class="btn btn-margin-5px green" id="btnSalvar" onclick="javascript:;">Salvar | <i class="icon-save"></i></a>            
+        </div>
+    </div>
+
+
 </asp:Content>
 
 

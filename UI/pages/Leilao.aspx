@@ -83,49 +83,51 @@
                                             </div>
                                             <div class="portlet-body form">
                                                 <div class="row-fluid">
-                                                    <div class="span6 controls">
+                                                    <div class="span4 controls">
                                                         <h4>Nome do Leilão</h4>
                                                         <input type="text" class="span12 m-wrap" name="nome" value="" data-json="Nome" validate-json="Informe o Nome do Leilão" />
                                                     </div>
-                                                    <div class="span3 controls">
+                                                    <div class="span2 controls">
                                                         <h4>Data de Formação</h4>
                                                         <div class="input-append date date-picker" data-date-format="dd-mm-yyyy">
-                                                            <input class="span12 m-wrap date-picker" type="text" value="" data-json="DataFinalFormacao" validate-json="Informe a Data de Formação" />
+                                                            <input class="span10 m-wrap date-picker" type="text" value="" id="txtDataFormacao" data-json="DataFinalFormacao" validate-json="Informe a Data de Formação" />
                                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                                         </div>
                                                     </div>
-                                                    <div class="span3 controls">
+                                                    <div class="span2 controls">
                                                         <h4>Data de Abertura</h4>
                                                         <div class="input-append date date-picker" data-date-format="dd-mm-yyyy">
-                                                            <input class="span12 m-wrap date-picker" type="text" value="" data-json="DataAbertura" validate-json="Informe a Data de Abertura" />
+                                                            <input class="span10 m-wrap date-picker" type="text" value=""  id="txtDataAbertura" data-json="DataAbertura" validate-json="Informe a Data de Abertura" />
                                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                                         </div>
+                                                    </div>
+                                                    <div class="span2 controls">
+                                                        <h4>Duração da rodada</h4>
+                                                        <input class="span12 m-wrap" type="text" value="0" id="txtDuracaoCadaRodada" data-json="DiasCadaRodada"  readonly="readonly" />
+                                                    </div>
+                                                    <div class="span2 controls">
+                                                        <h4>Qtd de Rodadas</h4>
+                                                        <input class="span12 m-wrap" type="text" value="0" id="txtQtdRodadas" data-json="RodadasLeilao" readonly="readonly" />
                                                     </div>
                                                 </div>
                                                 <div class="row-fluid">
-                                                    <div class="span6 controls">
+                                                    <div class="span4 controls">
                                                         <h4>Produto</h4>
                                                         <input type="hidden" class="select2-offscreen" id="hfProduto" style="width: 100%" value="" for="ddlProduto" data-json="ProdutoID" validate-json="Informe o Produto" />
                                                         <input type="text" class="hidden" id="ddlProduto" name="ddlProduto" value="" />
                                                     </div>
-                                                    <div class="span3 controls">
-                                                        <h4>Quantidade Total</h4>
-                                                        <input type="text" class="span12 m-wrap" name="quantidade" value="0" readonly data-json="QtdDesejada" />
-                                                    </div>
-                                                    <div class="span3 controls">
-                                                        <h4>Duração da rodada(dias)</h4>
-                                                        <input class="span12 m-wrap" type="text" value="0" data-json="DuracaoRodadasDias" mascara="99" />
-                                                    </div>
-                                                </div>
-                                                <div class="row-fluid">
-                                                    <div class="span3 controls">
-                                                        <h4>Ativo</h4>
-                                                        <input class="span12 m-wrap" type="checkbox" id="chkAtivo" data-json="Ativo" />
-                                                    </div>
-                                                    <div class="span3 controls">
+                                                    <div class="span4 controls">
                                                         <h4>Representante Comercial</h4>
                                                         <input type="hidden" class="select2-offscreen" id="hfRepresentanteComercial" style="width: 100%" value="" for="ddlRepresentanteComercial" data-json="RepresentanteID" validate-json="Informe o Representante Comercial" />
                                                         <input type="text" class="hidden" id="ddlRepresentanteComercial" name="ddlRepresentanteComercial" value="" />
+                                                    </div>
+                                                    <div class="span2 controls">
+                                                        <h4>Quantidade Total</h4>
+                                                        <input type="text" class="span12 m-wrap" name="quantidade" value="0" readonly="readonly" data-json="QtdDesejada" />
+                                                    </div>
+                                                    <div class="span2 controls">
+                                                        <h4>Ativo</h4>
+                                                        <input class="span12 m-wrap" type="checkbox" id="chkAtivo" data-json="Ativo" checked="checked" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,11 +199,11 @@
                                                 </div>
                                                 <div class="controls span2">
                                                     <span>Qtd Minima</span>
-                                                    <input type="text" class="span12 m-wrap" id="txtQtdMinima" data-json="QtdMaxima" mascara="9999999" validate-json="Informe a Quantidade Minima" />
+                                                    <input type="text" class="span12 m-wrap" id="txtQtdMinima" data-json="QtdMinima" mascara="9999999" validate-json="Informe a Quantidade Minima" />
                                                 </div>
                                                 <div class="controls span2">
                                                     <span>Qtd Máxima</span>
-                                                    <input type="text" class="span12 m-wrap" id="txtQtdMaxima" data-json="QtdMinima" mascara="9999999" validate-json="Informe a Quantidade Maxima" />
+                                                    <input type="text" class="span12 m-wrap" id="txtQtdMaxima" data-json="QtdMaxima" mascara="9999999" validate-json="Informe a Quantidade Maxima" />
                                                 </div>
                                                 <div class="controls span2">
                                                     <a id="btnAddFornecedor" class="btn blue btn-margin-5px" style="width: 110px; margin-top: 20px;">Adicionar| <i class="icon-plus"></i></a>
