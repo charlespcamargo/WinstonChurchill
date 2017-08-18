@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinstonChurchill.UI", "UI\WinstonChurchill.UI.csproj", "{1D9F4258-6470-4B1A-91F6-124DE7E7DEC4}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{875A90EF-E478-4C7A-BE66-EC04FC1A5A37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinstonChurchill.BackEnd.Test", "WinstonChurchill.BackEnd.Test\WinstonChurchill.BackEnd.Test.csproj", "{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinstonChurchill.Publico", "WinstonChurchill.Publico\WinstonChurchill.Publico.csproj", "{3D499CD8-0DB4-4261-949E-8AB26160255D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,12 @@ Global
 		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}.LocalOffLine|Any CPU.Build.0 = Release|Any CPU
 		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D499CD8-0DB4-4261-949E-8AB26160255D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D499CD8-0DB4-4261-949E-8AB26160255D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D499CD8-0DB4-4261-949E-8AB26160255D}.LocalOffLine|Any CPU.ActiveCfg = Release|Any CPU
+		{3D499CD8-0DB4-4261-949E-8AB26160255D}.LocalOffLine|Any CPU.Build.0 = Release|Any CPU
+		{3D499CD8-0DB4-4261-949E-8AB26160255D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D499CD8-0DB4-4261-949E-8AB26160255D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +72,6 @@ Global
 		{B98613CA-646B-47E6-A707-2812D0408000} = {B84AAF84-B759-498D-8B4E-851217E4C189}
 		{30A8DD59-9C44-4D2B-AD76-CF64EA08FB1A} = {B84AAF84-B759-498D-8B4E-851217E4C189}
 		{9721E96D-2360-4C4B-99BC-F8CAB5787C4B} = {B84AAF84-B759-498D-8B4E-851217E4C189}
+		{3D499CD8-0DB4-4261-949E-8AB26160255D} = {875A90EF-E478-4C7A-BE66-EC04FC1A5A37}
 	EndGlobalSection
 EndGlobal
