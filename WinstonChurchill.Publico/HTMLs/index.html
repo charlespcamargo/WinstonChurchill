@@ -1,15 +1,73 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WinstonChurchill.Publico.Default" %>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
 
-<asp:Content ID="cphHead" ContentPlaceHolderID="cphHead" runat="server">
-</asp:Content>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<asp:Content ID="cphConteudo" ContentPlaceHolderID="cphConteudo" runat="server">
+    <title>WebRebate</title>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link href="css/webrebate.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">WebRebate</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#home">Home</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="about.html">O que fazemos?</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="register.html">Cadastre-se</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#quemconfia">Quem confia</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#institucional">Institucional</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="contact.html">Contato</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <header>
         <div id="header" class="container">
-            <div id="home" class="row">
+            <div class="row">
                 <div class="col-sm-5">
                     <div class="header-content">
                         <div id="header-content" class="header-content-inner">
@@ -21,10 +79,10 @@
                             </h3>
                             <div id="header-dl-button" class="row">
                                 <div class="col-sm-6 col-md-6 col-lg-6 btn-padding">
-                                    <a href="/Cadastro.aspx" id="lnkParticipar" class="btn btn-outline btn-xl page-scroll second-color">Participar</a>
+                                    <a href="#download" class="btn btn-outline btn-xl page-scroll second-color">Participar</a>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-6 btn-padding">
-                                    <a href="/Sobre.aspx" class="btn btn-outline btn-xl page-scroll">Como funciona?</a>
+                                    <a href="#download" class="btn btn-outline btn-xl page-scroll">Como funciona?</a>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +114,7 @@
                     <img src="img/img-dashboard.png" class="shadow no-mobile" />
                     <div class="row">
                         <div class="col-sm-12 paddingtop-bottom btn-padding">
-                            <a href="#participar" class="btn btn-outline btn-xl page-scroll second-color">Participar</a>
+                            <a href="#download" class="btn btn-outline btn-xl page-scroll second-color">Participar</a>
                         </div>
                     </div>
                 </div>
@@ -117,8 +175,7 @@
             <div class="row">
                 <div class="col-sm-6 col-xs-6 col-lg-12 text-center">
                     <div class="plc-video no-mobile">
-                        <iframe src="https://player.vimeo.com/video/228355212?title=0&byline=0&portrait=0" width="840" height="400"
-                            frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <span>Video</span>
                     </div>
                 </div>
             </div>
@@ -173,21 +230,70 @@
         </div>
     </section>
 
+    <!--footer-->
+    <footer class="main-green">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 footerleft ">
+                    <div class="logofooter">
+                        <img src="img/logo.png" />
+                    </div>
+                </div>
 
-</asp:Content>
+                <div class="col-md-3 col-sm-6 paddingtop-bottom">
+                    <h6 class="heading7">ENDEREÇO</h6>
+                    <div class="post">
+                        <p><i class="fa fa-map-pin"></i> Rua Lorem Ipsum, 99, São Paulo</p>
+                        <p><i class="fa fa-phone"></i> Telefone : +11 9999 878 398</p>
+                        <p><i class="fa fa-envelope"></i> E-mail : info@webrebate.com</p>
+                    </div>
+                </div>
 
+                <div class="col-md-3 col-sm-6 paddingtop-bottom">
+                    <h6 class="heading7">LINKS</h6>
+                    <ul class="footer-ul">
+                        <li><a href="index.html"> Home</a></li>
+                        <li><a href="about.html"> O que fazemos?</a></li>
+                        <li><a href="register.html"> Cadastre-se</a></li>
+                        <li><a href="#"> Quem confia</a></li>
+                        <li><a href="#"> Institucional</a></li>
+                        <li><a href="contact.html"> Contato</a></li>
+                    </ul>
+                </div>
 
-<asp:Content ID="cphScripts" ContentPlaceHolderID="cphScript" runat="server">
+                <div class="col-md-3 col-sm-6 paddingtop-bottom">
+                    <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-height="300" data-small-header="false"
+                        style="margin-bottom:15px;" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                        <div class="fb-xfbml-parse-ignore">
+                            <blockquote cite="https://www.facebook.com/facebook"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--footer-->
 
-    <script src="/Default.js?v=<%=new Random().Next(0,10000)%>"></script>
+    <div class="copyright main-green2">
+        <div class="container">
+            <div class="col-lg-12">
+                <p>© 2017 - WebRebate. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </div>
 
-    <script type="text/javascript">
-        Home.init(true);
-    </script>
+    <!-- jQuery -->
+    <script src="lib/jquery/jquery.min.js"></script>
 
+    <!-- Bootstrap Core JavaScript -->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
-</asp:Content>
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
+    <!-- Theme JavaScript -->
+    <script src="js/webrebate.js"></script>
 
+</body>
 
-
+</html>

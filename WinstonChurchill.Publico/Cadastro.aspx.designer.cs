@@ -10,6 +10,6 @@
 namespace WinstonChurchill.Publico {
     
     
-    public partial class Default {
+    public partial class Cadastro {
     }
 }

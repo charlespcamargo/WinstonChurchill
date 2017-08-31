@@ -1,17 +1,25 @@
 ﻿var Home = function () {
 
+    var ehHome = false;
 
     return {
 
-        init: function () {
+        init: function (ehHome) {
+
+            if (ehHome)
+            {
+                Home.ehHome = true;
+            }
+            else
+            {
+                $("#lnkHomeFooter, #lnkHome, #lnkQuemConfiaFooter, #lnkQuemConfia").hide();
+            }
+
             Home.links();
         },
 
         links: function () {
-            $("#lnkParticipar").on("click", function () { Home.redirecionar(1) });
-            $("#lnkCadastre").on("click", function () { Home.redirecionar(1) });
-            $("#lnkInstitucional").on("click", function () { Home.redirecionar(2) });
-            $("#lnkContato").on("click", function () { Home.redirecionar(3) });
+            $("#lnkLogin, #lnkLoginFooter").on("click", function () { Home.redirecionar(1) });
         },
 
         redirecionar: function (id) {

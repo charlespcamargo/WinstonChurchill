@@ -65,14 +65,42 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cadastro.aspx" />
     <Content Include="Contato.aspx" />
     <Content Include="Default.js" />
-    <Content Include="Institucional.aspx" />
+    <Content Include="HTMLs\about.html" />
+    <Content Include="HTMLs\contact.html" />
+    <Content Include="HTMLs\css\main.css" />
+    <Content Include="HTMLs\css\webrebate.css" />
+    <Content Include="HTMLs\default.html" />
+    <Content Include="HTMLs\img\header-bg.jpg" />
+    <Content Include="HTMLs\img\img-dashboard.png" />
+    <Content Include="HTMLs\img\logo.png" />
+    <Content Include="HTMLs\img\logo1.png" />
+    <Content Include="HTMLs\img\logo2.png" />
+    <Content Include="HTMLs\img\press-1.png" />
+    <Content Include="HTMLs\img\video.png" />
+    <Content Include="HTMLs\index.html" />
+    <Content Include="HTMLs\js\webrebate.js" />
+    <Content Include="HTMLs\lib\bootstrap\css\bootstrap.css" />
+    <Content Include="HTMLs\lib\bootstrap\css\bootstrap.min.css" />
+    <Content Include="HTMLs\lib\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="HTMLs\lib\bootstrap\js\bootstrap.js" />
+    <Content Include="HTMLs\lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="HTMLs\lib\jquery\jquery.js" />
+    <Content Include="HTMLs\lib\jquery\jquery.min.js" />
+    <Content Include="HTMLs\register.html" />
+    <Content Include="lib\jquery.easing.min.js" />
     <Content Include="packages.config" />
     <Content Include="lib\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="lib\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="lib\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="lib\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="HTMLs\lib\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="HTMLs\lib\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="HTMLs\lib\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="HTMLs\lib\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="MasterPage.Master" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -102,9 +130,17 @@
     <Content Include="lib\jquery\jquery.js" />
     <Content Include="lib\jquery\jquery.min.js" />
     <Content Include="Redirecionar.aspx" />
+    <Content Include="Sobre.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cadastro.aspx.cs">
+      <DependentUpon>Cadastro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cadastro.aspx.designer.cs">
+      <DependentUpon>Cadastro.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contato.aspx.cs">
       <DependentUpon>Contato.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -122,12 +158,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Institucional.aspx.cs">
-      <DependentUpon>Institucional.aspx</DependentUpon>
+    <Compile Include="MasterPage.Master.cs">
+      <DependentUpon>MasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Institucional.aspx.designer.cs">
-      <DependentUpon>Institucional.aspx</DependentUpon>
+    <Compile Include="MasterPage.Master.designer.cs">
+      <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Redirecionar.aspx.cs">
@@ -137,10 +173,16 @@
     <Compile Include="Redirecionar.aspx.designer.cs">
       <DependentUpon>Redirecionar.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sobre.aspx.cs">
+      <DependentUpon>Sobre.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sobre.aspx.designer.cs">
+      <DependentUpon>Sobre.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
