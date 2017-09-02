@@ -50,16 +50,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="username" class="cols-sm-2 control-label">Nome de Usuário</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="username" id="username" placeholder="Coloque seu nome de usuário" />
-                                </div>
-                            </div>
-                        </div>
+                         
 
                         <div class="form-group">
                             <label for="password" class="cols-sm-2 control-label">Senha</label>

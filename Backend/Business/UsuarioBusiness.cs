@@ -55,12 +55,24 @@ namespace WinstonChurchill.Backend.Business
             {
                 usuario.Grupos = UoW.UsuarioXGrupoUsuarioRepository.Listar(p => p.UsuarioID == usuario.ID, null, "GrupoUsuario");
 
-                //Lista apenas os usuários de responsabilidade de cada admin
-                if (usuario.Grupos != null && usuario.Grupos.Any(a => a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.SuperUsuario && a.GrupoUsuario.ID == (int)eTipoGrupoUsuario.Administrador))
-                    predicate = predicate.And(p => p.Grupos.Any(w => w.ResponsavelID == usuario.ID) || p.ID == usuario.ID);
+                if (usuario.Grupos != null)
+                {
+                    // SE FOR SUPER USUARIO, LISTO EU E TODOS OS OUTROS USUÁRIO QUE NÃO FOREM SUPER USUARIO...
+                    if (usuario.Grupos.Any(a => a.GrupoUsuario.ID == (int)eTipoGrupoUsuario.SuperUsuario))
+                        predicate = predicate.And(p => p.Grupos.Any(a => a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.SuperUsuario) || p.ID == usuario.ID);
 
-                else if (usuario.Grupos != null && !usuario.Grupos.Any(a => a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.SuperUsuario && a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.Administrador))   //Se for usuário comum lista apenas informações dele
-                    predicate = predicate.And(p => p.ID == usuario.ID);
+                    // SE ADMINISTRADOR, LISTO EU E TODOS OS OUTROS USUÁRIO QUE NÃO FOREM SUPER USUARIO E ADMINISTRADOR...
+                    else if (usuario.Grupos.Any(a => a.GrupoUsuario.ID == (int)eTipoGrupoUsuario.Administrador))
+                        predicate = predicate.And(p => p.Grupos.Any(w => w.GrupoUsuario.ID != (int)eTipoGrupoUsuario.SuperUsuario && w.GrupoUsuario.ID != (int)eTipoGrupoUsuario.Administrador) || p.ID == usuario.ID);
+
+                    // SE FOR usuário Representante
+                    else if (usuario.Grupos.Any(a => a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.RepresentanteComercial))
+                        predicate = predicate.And(p => p.ID == usuario.ID || p.ResponsavelID == usuario.ID);
+
+                    // SE FOR usuário comum lista apenas informações dele
+                    else if (usuario.Grupos.Any(a => a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.SuperUsuario && a.GrupoUsuario.ID != (int)eTipoGrupoUsuario.Administrador))
+                        predicate = predicate.And(p => p.ID == usuario.ID);
+                }
 
                 data = UoW.UsuarioRepository.Listar(predicate, null, "Grupos.GrupoUsuario");
             }

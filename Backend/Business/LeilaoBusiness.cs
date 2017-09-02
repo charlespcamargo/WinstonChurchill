@@ -147,7 +147,7 @@ namespace WinstonChurchill.Backend.Business
                 }
 
 
-                
+
             }
         }
 
@@ -295,11 +295,11 @@ namespace WinstonChurchill.Backend.Business
                     if (salvo.ProdutoID != leilao.ProdutoID)
                         throw new ArgumentException("Não é permitido alterar o [Produto] após a adesão de algum Fornecedor/Comprador.");
 
-                    if (salvo.Fornecedores.Exists(e => !leilao.Fornecedores.Any(a => e.Participando && a.ParceiroNegocioID == e.ParceiroNegocioID)))
-                        throw new ArgumentException("Removeu um Fornecedor que iria participar!!!");
+                    if (salvo.Fornecedores.Exists(s => s.Participando && !leilao.Fornecedores.Exists(a => a.ParceiroNegocioID == s.ParceiroNegocioID)))
+                        throw new ArgumentException("Não é possível remover um Fornecedor que iria participar! É necessário cancelar a participação antes.");
 
-                    if (salvo.Compradores.Exists(e => !leilao.Compradores.Any(a => e.Participando && a.ParceiroNegocioID == e.ParceiroNegocioID)))
-                        throw new ArgumentException("Removeu um Comprador que iria participar!!!");
+                    if (salvo.Compradores.Exists(s => s.Participando && !leilao.Compradores.Exists(a => a.ParceiroNegocioID == s.ParceiroNegocioID)))
+                        throw new ArgumentException("Não é possível remover um Comprador que iria participar! É necessário cancelar a participação antes.");
                 }
             }
 

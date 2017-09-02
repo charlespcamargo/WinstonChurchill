@@ -13,6 +13,13 @@ namespace WinstonChurchill.Backend.Model.Enumeradores
         Comprador_Fornecedor = 3
     }
 
+    public enum eTipoGrupo
+    {
+        Todos = 0,
+        Comprador = 1,
+        Fornecedor = 2
+    }
+
     public enum eTipoGrupoUsuario
     {
         SuperUsuario = 1000,

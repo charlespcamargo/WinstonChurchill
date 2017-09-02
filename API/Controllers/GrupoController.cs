@@ -7,6 +7,7 @@ using System.Web.Http;
 using WinstonChurchill.API.Autenticacao;
 using WinstonChurchill.Backend.Business;
 using WinstonChurchill.Backend.Model;
+using WinstonChurchill.Backend.Model.Enumeradores;
 
 namespace WinstonChurchill.API.Controllers
 {
@@ -20,9 +21,10 @@ namespace WinstonChurchill.API.Controllers
             try
             {
                 Grupo filtro = new Grupo();
-                filtro.UsuarioID = UsuarioToken.ObterId(this);
+                filtro.Usuario = UsuarioToken.Obter(this);
 
-                if (tipo.HasValue && tipo > 0)
+                // eTipoGrupo.Todos
+                if (tipo.HasValue && tipo.Value > 0)
                     filtro.TipoGrupo = Convert.ToInt32(tipo);
 
                 List<Grupo> lista = GrupoBusiness.New.Listar(filtro);
