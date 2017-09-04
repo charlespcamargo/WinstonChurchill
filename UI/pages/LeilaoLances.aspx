@@ -75,7 +75,7 @@
                         </div>
                         <div class="span2 controls">
                             <h4>Ativo</h4>
-                            <input class="span12 m-wrap" type="checkbox" id="chkAtivo" data-json="Ativo" checked="checked" />
+                            <input class="span12 m-wrap" type="checkbox" id="chkAtivo" data-json="Ativo" checked="checked" disabled="disabled" />
                         </div>
                     </div>
                 </div>
@@ -175,19 +175,20 @@
                     <input class="span12 m-wrap" type="checkbox" id="chkParticipando" data-json="Participando" checked="checked" />
                 </div>
                 <div class="controls span3">
-                    <h4 id="lblQtdEdicao" >Quantidade Desejada/Quantidade Minima</h4>
-                    <input type="text" class="span12 m-wrap hide" id="txtQuantidadeDesejada" data-json="QtdDesejada" /> 
+                    <h4 id="lblQtdEdicao">Quantidade Desejada/Quantidade Minima</h4>
+                    <input type="text" class="span12 m-wrap hide" id="txtQuantidadeDesejada" data-json="QtdDesejada" />
                     <input type="text" class="span12 m-wrap hide" id="txtQuantidadeMin" data-json="QtdMinima" />
                 </div>
                 <div class="controls span3">
-                    <h4 id="lblQtdMax"> Quantidade Máxima</h4>
+                    <h4 id="lblQtdMax">Quantidade Máxima</h4>
                     <input type="text" class="span12 m-wrap" id="txtQuantidadeMax" data-json="QtdMaxima" />
                 </div>
             </div>
         </div>
-        <div class="modal-footer" >            
+        <div class="modal-footer">
             <a type="button" class="btn btn-margin-5px red" data-dismiss="modal">Cancelar | <i class="icon-off"></i></a>
-            <a type="button" class="btn btn-margin-5px green" id="btnSalvar" onclick="javascript:;">Salvar | <i class="icon-save"></i></a>            
+            <a type="button" class="btn btn-margin-5px green" id="btnSalvar" onclick="javascript:;">Salvar | <i class="icon-save"></i></a>
+            <a type="button" class="btn btn-margin-5px green hide" id="btnLance" onclick="javascript:;">Lance | <i class="icon-save"></i></a>
         </div>
     </div>
 

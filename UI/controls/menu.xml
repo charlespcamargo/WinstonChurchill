@@ -14,7 +14,7 @@
 
   <SubMenu text="Leilões" tipoAcesso="1" icone="icon-legal">
     <SubMenu text="Listagem de Leilões" url="/Pages/Leiloes.aspx"  icone="icon-list-ol" tipoAcesso="1" />
-    <SubMenu text="Cadastro" url="/Pages/Leilao.aspx"  icone="icon-pencil" tipoAcesso="2" />
+    <!--<SubMenu text="Cadastro" url="/Pages/Leilao.aspx"  icone="icon-pencil" tipoAcesso="2" />-->
     <!--<SubMenu text="Lances" url="/Pages/LeilaoLances.aspx"  icone="icon-legal" tipoAcesso="1" />-->
   </SubMenu>
 

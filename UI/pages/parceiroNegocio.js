@@ -561,7 +561,7 @@ var Responsavel = function () {
                 var colunas = new Array();
                 colunas.push({ mData: "Usuario.Nome", sClass: "text-left", sType: "string" });
                 colunas.push({
-                    mData: "ID", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
+                    mData: "Usuario.ID", sClass: "text-left", sType: "numeric", mRender: function (source, type, full) {
 
                         var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="Responsavel.excluir(' + source + ')"><i class="icon-remove"></i></a>';
 
@@ -584,7 +584,7 @@ var Responsavel = function () {
         },
 
         excluir: function (_id) {
-            json = $.grep(json, function (e) { return e.ID != _id });
+            json = $.grep(json, function (e) { return e.Usuario.ID != _id });
             Responsavel.listar();
         },
 
@@ -612,10 +612,8 @@ var Responsavel = function () {
             };
 
             Responsavel.set(obj);
-
             $('#formResponsavel').limpar();
             Responsavel.listar();
-
             id = 0;
         },
 

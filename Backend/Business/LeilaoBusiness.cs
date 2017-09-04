@@ -109,6 +109,11 @@ namespace WinstonChurchill.Backend.Business
             {
                 //usuario TEM PERMISSÂO????
 
+                var leilao = uow.LeilaoRepository.Carregar(c => c.ID == leilaoFornecedor.LeilaoID, o => o.OrderBy(by => by.ID));
+
+                if (leilao.DataFinalFormacao < DateTime.Now)
+                    throw new ArgumentException("Não é permitido alterar a participação do [Fornecedor] após a [Data Final de Formação]");
+
                 var salvo = uow.LeilaoFornecedorRepository.Carregar(c => c.LeilaoID == leilaoFornecedor.LeilaoID && c.ParceiroNegocioID == leilaoFornecedor.ParceiroNegocioID,
                                                                     o => o.OrderBy(by => by.ID));
 
@@ -127,6 +132,12 @@ namespace WinstonChurchill.Backend.Business
             using (UnitOfWork uow = new UnitOfWork())
             {
                 //usuario TEM PERMISSÂO????
+
+                var leilaoSalvo = uow.LeilaoRepository.Carregar(c => c.ID == leilaoComprador.LeilaoID, o => o.OrderBy(by => by.ID));
+
+                if (leilaoSalvo.DataFinalFormacao < DateTime.Now)
+                    throw new ArgumentException("Não é permitido alterar a participação do [Comprador] após a [Data Final de Formação]");
+
                 var salvo = uow.LeilaoCompradorRepository.Carregar(c => c.LeilaoID == leilaoComprador.LeilaoID && c.ParceiroNegocioID == leilaoComprador.ParceiroNegocioID,
                                                                    o => o.OrderBy(by => by.ID));
 
@@ -145,9 +156,6 @@ namespace WinstonChurchill.Backend.Business
                     uow.LeilaoRepository.Alterar(leilao, "ID");
                     uow.Save();
                 }
-
-
-
             }
         }
 
@@ -240,7 +248,7 @@ namespace WinstonChurchill.Backend.Business
 
         public void ValidarSalvar(Usuario usuario, Leilao leilao, Leilao salvo)
         {
-            if (leilao.DataFinalFormacao <= DateTime.Today)
+            if ((salvo == null && leilao.DataFinalFormacao <= DateTime.Today) || (salvo != null && salvo.DataFinalFormacao.Date != leilao.DataFinalFormacao.Date && leilao.DataFinalFormacao <= DateTime.Today))
                 throw new ArgumentException("A [Data de Formação] é inválida! O Leilão precisa ser ao menos 1 dias após a data de criação");
 
             if (leilao.DataFinalFormacao >= leilao.DataAbertura)
@@ -258,16 +266,14 @@ namespace WinstonChurchill.Backend.Business
             if (leilao.Compradores != null && leilao.Compradores.Exists(e => e.QtdDesejada <= 0))
                 throw new Exception("A Quantidade do Desejada pelo Comprador não pode ser igual ou menor que zero.");
 
-
+            if (!usuario.ehAdministrador && leilao.RepresentanteID != usuario.ID)
+            {
+                throw new ArgumentException("Somente Administradores podem escolher um [Representante Comercial] para o Leilão.");
+            }
 
             // INSERÇÃO
             if (salvo == null)
             {
-                if (!usuario.ehAdministrador)
-                {
-                    if (leilao.RepresentanteID != usuario.ID)
-                        throw new ArgumentException("Somente Administradores podem escolher um [Representante Comercial] para o Leilão.");
-                }
 
             }
             // ATUALIZAÇÃO
@@ -289,17 +295,17 @@ namespace WinstonChurchill.Backend.Business
                     if (!usuario.ehAdministrador && salvo.Ativo && !leilao.Ativo)
                         throw new ArgumentException("Somente Administradores podem [Inativar] um Leilão após a adesão de algum Fornecedor/Comprador.");
 
-                    if (!usuario.ehAdministrador && salvo.DataAbertura != leilao.DataAbertura)
+                    if (!usuario.ehAdministrador && salvo.DataAbertura.Date != leilao.DataAbertura.Date)
                         throw new ArgumentException("Somente Administradores podem alterar a [Data de Abertura] após a adesão de algum Fornecedor/Comprador.");
 
                     if (salvo.ProdutoID != leilao.ProdutoID)
                         throw new ArgumentException("Não é permitido alterar o [Produto] após a adesão de algum Fornecedor/Comprador.");
 
                     if (salvo.Fornecedores.Exists(s => s.Participando && !leilao.Fornecedores.Exists(a => a.ParceiroNegocioID == s.ParceiroNegocioID)))
-                        throw new ArgumentException("Não é possível remover um Fornecedor que iria participar! É necessário cancelar a participação antes.");
+                        throw new ArgumentException("Não é possível remover um Fornecedor que irá participar! É necessário cancelar a participação antes.");
 
                     if (salvo.Compradores.Exists(s => s.Participando && !leilao.Compradores.Exists(a => a.ParceiroNegocioID == s.ParceiroNegocioID)))
-                        throw new ArgumentException("Não é possível remover um Comprador que iria participar! É necessário cancelar a participação antes.");
+                        throw new ArgumentException("Não é possível remover um Comprador que irá participar! É necessário cancelar a participação antes.");
                 }
             }
 

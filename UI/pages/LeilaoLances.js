@@ -17,6 +17,7 @@
 
         eventos: function () {
             $('#btnSalvar').click(function () { LeilaoLances.salvar(); });
+            $('#btnLance').click(function () { LeilaoLances.lance(); });
         },
 
         configurarControles: function () {
@@ -28,8 +29,33 @@
         carregar: function () {
             id = HelperJS.getQueryString("id");
 
-            var fnSuccess = function (leilao) {
+            var fnSuccess = function (leilao)
+            {
                 $('#formDados').popularCampos({ data: leilao });
+
+                var dataFormacao = new Date(HelperJS.RecuperarData(leilao.DataFinalFormacao));
+                dataFormacao.setDate(dataFormacao.getDate() + 1);
+                dataFormacao.setTime(dataFormacao.getTime() - 1);
+
+                // SE A DATA DE FORMAÇÃO FICOU NO PASSADO
+                if (dataFormacao < new Date())
+                {
+                    $("#chkParticipando").prop("disabled", "disabled");
+                    $("#txtQuantidadeDesejada").prop("disabled", "disabled");
+                    $("#txtQuantidadeMin").prop("disabled", "disabled");
+                    $("#txtQuantidadeMax").prop("disabled", "disabled");
+                    $("#btnSalvar").hide();
+
+                    var dataAbertura = new Date(HelperJS.RecuperarData(leilao.DataAbertura));
+                    dataAbertura.setDate(dataAbertura.getDate() + 1);
+                    dataAbertura.setTime(dataAbertura.getTime() - 1);
+
+                    // SE JÁ CHEGOU A DATA DE ABERTURA 
+                    if (dataAbertura < new Date())
+                    {
+                        $("#btnLance").show();
+                    }
+                }
 
                 LeilaoLances.listarCompradores(leilao.Compradores);
                 LeilaoLances.listarFornecedores(leilao.Fornecedores);

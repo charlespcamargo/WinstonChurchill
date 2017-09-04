@@ -59,7 +59,7 @@
             id = HelperJS.getQueryString("id");
 
 
-            if (id) 
+            if (id)
                 Leilao.editar();
             else
                 Leilao.carregarDadosBasicos();
@@ -79,10 +79,9 @@
         },
 
         dadosBasicosCarregados: function (parametro) {
-            if (parametro)
-            {
+            if (parametro) {
                 $("#txtDuracaoCadaRodada").val(parametro.DiasCadaRodada + " dia(s)");
-                $("#txtQtdRodadas").val(parametro.RodadasLeilao); 
+                $("#txtQtdRodadas").val(parametro.RodadasLeilao);
             }
 
         },
@@ -117,8 +116,7 @@
 
         salvar: function () {
 
-            if ($('#formDados').ehValido())
-            {
+            if ($('#formDados').ehValido()) {
                 item = $('#formDados').obterJson();
                 item.ID = Leilao.GetID();
                 item.Ativo = $("#chkAtivo").prop("checked");
@@ -159,6 +157,7 @@ var Comprador = function () {
         },
 
         set: function (obj) {
+
             //if (!obj.ID)
             //{
             //    let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
@@ -197,8 +196,7 @@ var Comprador = function () {
             if (HelperJS.any('ParceiroNegocio.ID', json, obj.ParceiroNegocio.ID, fnAny)) {
                 return;
             }
-
-
+            
             Comprador.set(obj);
             $('#formComprador').limpar();
             Comprador.listar();
@@ -227,7 +225,11 @@ var Comprador = function () {
                 colunas.push({ mData: "QtdDesejada", sClass: "text-left", sType: "decimal" });
                 colunas.push({
                     mData: "ID", mRender: function (source, type, full) {
-                        var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="Comprador.excluir(' + full.ID + ')"><i class="icon-remove"></i></a>';
+                        var excluir = '';
+
+                        if (!full.Participando)
+                            excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="Comprador.excluir(' + full.ParceiroNegocio.ID + ')"><i class="icon-remove"></i></a>';
+
                         return excluir;
                     }
                 });
@@ -246,7 +248,7 @@ var Comprador = function () {
         },
 
         excluir: function (_id) {
-            json = $.grep(json, function (e) { return e.ID != _id });
+            json = $.grep(json, function (e) { return e.ParceiroNegocio.ID != _id });
             Comprador.listar();
         },
 
@@ -273,7 +275,8 @@ var Fornecedor = function () {
 
         set: function (obj) {
 
-            //if (!obj.ID) {
+            //if (!obj.ID)
+            //{
             //    let max = json.length > 0 ? HelperJS.getMax(json, 'ID', true) : 0;
             //    obj.ID = max + 1;
             //}
@@ -298,8 +301,10 @@ var Fornecedor = function () {
             obj.Participando = false;
             obj.ID = id;
 
-            function fnAny(result) {
-                if (!result || result.ID !== 0 && result.ID === obj.ID) return false;
+            function fnAny(result)
+            {
+                if (!result || result.ID !== 0 && result.ID === obj.ID)
+                    return false;
 
                 let listMsg = new Array();
                 listMsg.push({ Mensagem: 'O fornecedor[' + obj.ParceiroNegocio.NomeFantasia + '] já foi adicionado!', IdControle: '' });
@@ -335,7 +340,12 @@ var Fornecedor = function () {
                 colunas.push({ mData: "QtdMaxima", sClass: "text-left", sType: "decimal" });
                 colunas.push({
                     mData: "ID", mRender: function (source, type, full) {
-                        var excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="Fornecedor.excluir(' + full.ID + ')"><i class="icon-remove"></i></a>';
+
+                        var excluir = '';
+
+                        if (!full.Participando)
+                            excluir = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Excluir" onclick="Fornecedor.excluir(' + full.ParceiroNegocio.ID + ')"><i class="icon-remove"></i></a>';
+
                         return excluir;
                     }
                 });
@@ -359,7 +369,7 @@ var Fornecedor = function () {
         },
 
         excluir: function (_id) {
-            json = $.grep(json, function (e) { return e.ID != _id });
+            json = $.grep(json, function (e) { return e.ParceiroNegocio.ID != _id });
             Fornecedor.listar();
         },
 
