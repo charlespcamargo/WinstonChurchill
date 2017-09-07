@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\Charles\Desktop\Temp\published\web</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\ChNbk\Desktop\Temp\Publicado\WebRebate\UI</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="assets/css/animate.css">
@@ -6733,7 +6733,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/30/2017 23:57:31</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>09/03/2017 22:38:03</publishTime>
+      <publishTime>09/03/2017 22:40:58</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>09/03/2017 22:37:46</publishTime>
