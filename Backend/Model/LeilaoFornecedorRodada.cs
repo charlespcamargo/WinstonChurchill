@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using WinstonChurchill.API.Common.Conversores;
 
 namespace WinstonChurchill.Backend.Model
 {
+    [Table("leilaofornecedorrodada")]
     public class LeilaoFornecedorRodada
     {
         [Key]
@@ -18,16 +20,26 @@ namespace WinstonChurchill.Backend.Model
         [Column("LeilaoFornecedorID")]
         public int LeilaoFornecedorID { get; set; }
 
+        [Column("LeilaoRodadaID")]
+        public int LeilaoRodadaID { get; set; }
+
         [Column("ValorPrimeiraMargem")]
         public decimal ValorPrimeiraMargem { get; set; }
 
         [Column("ValorSegundaMargem")]
         public decimal ValorSegundaMargem { get; set; }
+        
+        [Column("DataLance")]
+        [JsonConverter(typeof(CustomDate))]
+        public DateTime DataLance { get; set; }
 
         #region ForeignKeys
-         
+
         [ForeignKey("LeilaoFornecedorID")]
         public LeilaoFornecedor LeilaoFornecedor { get; set; }
+
+        [ForeignKey("LeilaoRodadaID")]
+        public LeilaoRodada LeilaoRodada { get; set; }
 
         #endregion
 

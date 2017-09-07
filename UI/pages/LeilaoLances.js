@@ -3,8 +3,10 @@
     var _id = 0;
     var _lstCompradores = [];
     var _lstFornecedores = [];
+    var _lstLances = [];
     var _item = {};
     var _tipo = 0;
+    var _abertoLance = false;
 
     return {
 
@@ -24,13 +26,15 @@
             LeilaoLances.lstCompradores([]);
             LeilaoLances.lstFornecedores([]);
             $('#hfFornecedor').parceiros({ multiplo: false, tipo: 2 });
+
+            $("#txtValorLance1").attr("data-original-title", "....... 1111");
+            $("#txtValorLance2").attr("data-original-title", "2222");
         },
 
         carregar: function () {
             id = HelperJS.getQueryString("id");
 
-            var fnSuccess = function (leilao)
-            {
+            var fnSuccess = function (leilao) {
                 $('#formDados').popularCampos({ data: leilao });
 
                 var dataFormacao = new Date(HelperJS.RecuperarData(leilao.DataFinalFormacao));
@@ -38,8 +42,7 @@
                 dataFormacao.setTime(dataFormacao.getTime() - 1);
 
                 // SE A DATA DE FORMAÇÃO FICOU NO PASSADO
-                if (dataFormacao < new Date())
-                {
+                if (dataFormacao < new Date()) {
                     $("#chkParticipando").prop("disabled", "disabled");
                     $("#txtQuantidadeDesejada").prop("disabled", "disabled");
                     $("#txtQuantidadeMin").prop("disabled", "disabled");
@@ -52,13 +55,12 @@
 
                     // SE JÁ CHEGOU A DATA DE ABERTURA 
                     if (dataAbertura < new Date())
-                    {
-                        $("#btnLance").show();
-                    }
+                        LeilaoLances.abertoLance(true);
                 }
 
                 LeilaoLances.listarCompradores(leilao.Compradores);
                 LeilaoLances.listarFornecedores(leilao.Fornecedores);
+                LeilaoLances.listarLances(leilao.Rodadas[0].lstFornecedoresRodada);
 
                 LeilaoLances.id(leilao.ID);
             }
@@ -95,7 +97,7 @@
                 return colunas;
             }
 
-            if (data) {
+            if (data && data.length > 0) {
                 LeilaoLances.lstCompradores(data);
                 $("#formComprador").show();
             }
@@ -125,16 +127,42 @@
                 return colunas;
             }
 
-            if (data) {
+            if (data && data.length > 0) {
                 LeilaoLances.lstFornecedores(data);
                 $("#formFornecedor").show();
             }
-
-
+            
             $('#gridFornecedor').bindDataTable({
                 columns: fnColunasFornecedor(),
                 sorter: [[0, 'asc']],
                 data: LeilaoLances.lstFornecedores(),
+            });
+        },
+
+        listarLances: function (data) {
+
+            var fnColunasLances = function () {
+
+                var colunas = new Array();
+                colunas.push({ mData: "ID", mRender: function (source, type, full) { return full.LeilaoFornecedor.ParceiroNegocio.ID + ' - ' + full.LeilaoFornecedor.ParceiroNegocio.NomeFantasia } });
+                colunas.push({ mData: "ID", mRender: function (source, type, full) { return full.LeilaoRodada.Numero; } });
+                colunas.push({ mData: "DataLance", mRender: function (source, type, full) { return source; } });
+                colunas.push({ mData: "ValorPrimeiraMargem", sClass: "text-left", sType: "decimal" });
+                colunas.push({ mData: "ValorSegundaMargem", sClass: "text-left", sType: "decimal" });
+                
+                return colunas;
+            }
+
+            if (data && data.length > 0) {
+                LeilaoLances.lstLances(data);
+                $("#formLances").show();
+            }
+
+
+            $('#gridLances').bindDataTable({
+                columns: fnColunasLances(),
+                sorter: [[0, 'asc']],
+                data: LeilaoLances.lstLances(),
             });
         },
 
@@ -173,6 +201,20 @@
                 return LeilaoLances._lstFornecedores;
         },
 
+        lstLances: function (_lstLances) {
+            if (_lstLances !== undefined)
+                LeilaoLances._lstLances = _lstLances;
+            else
+                return LeilaoLances._lstLances;
+        },
+
+        abertoLance: function (_abertoLance) {
+            if (_abertoLance !== undefined)
+                LeilaoLances._abertoLance = _abertoLance;
+            else
+                return LeilaoLances._abertoLance;
+        },
+
         editar: function (_id, _tipo) {
 
             LeilaoLances.id(_id);
@@ -181,22 +223,25 @@
 
             $('#formModal').popularCampos({ data: LeilaoLances.item() });
 
-            if (_tipo == 1)
-            {
-                $("#lblQtdEdicao").html("Quantidade Desejada");
+            if (_tipo == 1) {
+                $("#lblQtdEdicao").html("Qtd. Desejada");
 
                 $("#txtQuantidadeDesejada").show();
 
+                $("#btnLance").hide();
                 $("#txtQuantidadeMin").hide();
                 $("#lblQtdMax").hide();
                 $("#txtQuantidadeMax").hide();
+                $("#lance_valor_container").hide();
             }
             else {
-                $("#lblQtdEdicao").html("Quantidade Minima");
+                $("#lblQtdEdicao").html("Qtd. Minima");
 
                 $("#txtQuantidadeMin").show();
                 $("#lblQtdMax").show();
                 $("#txtQuantidadeMax").show();
+                $("#btnLance").show();
+                $("#lance_valor_container").show();
 
                 $("#txtQuantidadeDesejada").hide();
             }
@@ -214,13 +259,12 @@
 
         salvar: function () {
             var urlRecurso = "";
-            
+
             var obj = LeilaoLances.item();
             obj.ParceiroNegocio = null;
             obj.Participando = $("#chkParticipando").prop("checked");
 
-            if (LeilaoLances.tipo() == 1)
-            {
+            if (LeilaoLances.tipo() == 1) {
                 urlRecurso = "leilao/salvarComprador/";
                 obj.QtdDesejada = parseFloat($("#txtQuantidadeDesejada").val());
             }
@@ -228,7 +272,7 @@
                 urlRecurso = "leilao/salvarFornecedor/";
                 obj.QtdMinima = parseFloat($("#txtQuantidadeMin").val());
                 obj.QtdMaxima = parseFloat($("#txtQuantidadeMax").val());
-            } 
+            }
 
             HelperJS.callApi(
                 {
@@ -241,6 +285,32 @@
         },
 
         salvo: function () {
+            HelperJS.showSuccess("Salvo com sucesso!");
+            LeilaoLances.carregar();
+            $("#modal").modal('hide');
+        },
+
+        lance: function () {
+
+            var obj = LeilaoLances.item();
+            obj.ParceiroNegocio = null;
+            obj.QtdMinima = parseFloat($("#txtQuantidadeMin").val());
+            obj.QtdMaxima = parseFloat($("#txtQuantidadeMax").val());
+
+            console.log("lance", obj);
+
+            HelperJS.callApi(
+                {
+                    url: "leilao/efetuarlance/",
+                    type: "POST",
+                    data: obj,
+                    functionOnSucess: LeilaoLances.lance_efetuado,
+                    functionOnError: HelperJS.showError
+                });
+        },
+
+        lance_efetuado: function ()
+        {
             HelperJS.showSuccess("Salvo com sucesso!");
             LeilaoLances.carregar();
             $("#modal").modal('hide');

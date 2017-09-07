@@ -25,12 +25,16 @@ namespace WinstonChurchill.Backend.Model
         [Column("DataEncerramento")]
         public DateTime DataEncerramento { get; set; }
 
-        
-        
+
+
         #region ForeignKeys
 
         [ForeignKey("LeilaoID")]
         public Leilao Leilao { get; set; }
+
+        [ForeignKey("LeilaoFornecedorID")]
+        public List<LeilaoFornecedorRodada> lstFornecedoresRodada { get; set; }
+
 
         #endregion
 

@@ -12,6 +12,7 @@
 	DROP TABLE CompradorProduto;
 	DROP TABLE GrupoCategoria;
 	DROP TABLE ParceiroNegocioGrupo;
+    DROP TABLE ParceiroNegocioUsuario;
 	DROP TABLE Grupo;
 	DROP TABLE Parametro;
 	DROP TABLE LeilaoFornecedorRodada;
@@ -366,10 +367,15 @@ CREATE TABLE IF NOT EXISTS LeilaoFornecedorRodada
 (
   ID                	INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
   LeilaoFornecedorID	INT				NOT NULL,
+  LeilaoRodadaID		INT				NOT NULL,
   ValorPrimeiraMargem	DECIMAL(12,2) 	NOT NULL,
   ValorSegundaMargem 	DECIMAL(12,2) 	NOT NULL,
+  DataLance				DATETIME		NOT NULL,
   
-  CONSTRAINT fk_LeilaoFornecedorRodada_Leilao  	FOREIGN KEY (LeilaoFornecedorID) REFERENCES LeilaoFornecedor(ID)
+  
+  CONSTRAINT fk_LeilaoFornecedorRodada_Leilao  	FOREIGN KEY (LeilaoFornecedorID) REFERENCES LeilaoFornecedor(ID),
+  CONSTRAINT fk_LeilaoFornecedorRodada_Rodada 	FOREIGN KEY (LeilaoRodadaID) REFERENCES LeilaoRodada(ID)
+  
 );
 
 

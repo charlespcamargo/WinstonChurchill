@@ -85,7 +85,29 @@ namespace WinstonChurchill.API.Controllers
                 throw new HttpResponseException(errorResponse);
             }
         }
-        
+
+        [HttpPost, Route("efetuarlance")]
+        public HttpResponseMessage EfetuarLance([FromBody] LeilaoFornecedorRodada lance)
+        {
+            try
+            {
+                Usuario usuario = UsuarioToken.Obter(this);
+                LeilaoBusiness.New.EfetuarLance(usuario, lance);
+                
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (ArgumentException aex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.BadRequest, new HttpError(aex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = Request.CreateErrorResponse(HttpStatusCode.Conflict, new HttpError(ex.Message));
+                throw new HttpResponseException(errorResponse);
+            }
+        }
+
         [HttpPost, Route("salvarComprador")]
         public HttpResponseMessage SalvarComprador([FromBody] LeilaoComprador leilaoComprador)
         {

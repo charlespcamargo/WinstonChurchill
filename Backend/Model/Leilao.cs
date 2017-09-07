@@ -72,6 +72,9 @@ namespace WinstonChurchill.Backend.Model
         [ForeignKey("LeilaoID")]
         public List<LeilaoFornecedor> Fornecedores { get; set; }
 
+        [ForeignKey("LeilaoID")]
+        public List<LeilaoRodada> Rodadas { get; set; }
+
         public bool temParticipantes
         {
             get
@@ -83,8 +86,11 @@ namespace WinstonChurchill.Backend.Model
             }
         }
 
-        
+
         #endregion
+
+
+
 
     }
 }

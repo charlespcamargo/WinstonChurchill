@@ -9,6 +9,7 @@
     DELETE FROM FornecedorProduto WHERE ID > 0;
     DELETE FROM LeilaoComprador WHERE ID > 0;
     DELETE FROM LeilaoFornecedor WHERE ID > 0;
+    DELETE FROM LeilaoRodada WHERE ID > 0;
     DELETE FROM Leilao WHERE ID > 0;
     DELETE FROM Produto WHERE ID > 0;
     DELETE FROM Contato WHERE ID > 0;
@@ -18,16 +19,26 @@
     DELETE FROM Endereco WHERE ID > 0;
     DELETE FROM Grupo WHERE ID > 0;
 	DELETE FROM Usuario WHERE ID > 0;
-    
-    ALTER TABLE Usuario AUTO_INCREMENT = 1;
-    ALTER TABLE Produto AUTO_INCREMENT = 1;
-    ALTER TABLE Categoria AUTO_INCREMENT = 1;
-    ALTER TABLE CaracteristicaProduto AUTO_INCREMENT = 1;
-    ALTER TABLE Endereco AUTO_INCREMENT = 1;
-    ALTER TABLE ParceiroNegocioUsuario AUTO_INCREMENT = 1;
-    ALTER TABLE ParceiroNegocio AUTO_INCREMENT = 1;
-    ALTER TABLE Grupo AUTO_INCREMENT = 1;
-    ALTER TABLE Leilao AUTO_INCREMENT = 1;
+       
+	ALTER TABLE UsuarioxGrupoUsuario AUTO_INCREMENT = 1;
+	ALTER TABLE CaracteristicaProduto AUTO_INCREMENT = 1;
+	ALTER TABLE CategoriaProduto AUTO_INCREMENT = 1;
+	ALTER TABLE GrupoCategoria AUTO_INCREMENT = 1;
+	ALTER TABLE Categoria AUTO_INCREMENT = 1;
+	ALTER TABLE CompradorProduto AUTO_INCREMENT = 1;
+	ALTER TABLE FornecedorProduto AUTO_INCREMENT = 1;
+	ALTER TABLE LeilaoComprador AUTO_INCREMENT = 1;
+	ALTER TABLE LeilaoFornecedor AUTO_INCREMENT = 1;
+	ALTER TABLE LeilaoRodada AUTO_INCREMENT = 1;
+	ALTER TABLE Leilao AUTO_INCREMENT = 1;
+	ALTER TABLE Produto AUTO_INCREMENT = 1;
+	ALTER TABLE Contato AUTO_INCREMENT = 1;
+	ALTER TABLE ParceiroNegocioGrupo AUTO_INCREMENT = 1;
+	ALTER TABLE ParceiroNegocioUsuario AUTO_INCREMENT = 1;       
+	ALTER TABLE ParceiroNegocio AUTO_INCREMENT = 1;       
+	ALTER TABLE Endereco AUTO_INCREMENT = 1;
+	ALTER TABLE Grupo AUTO_INCREMENT = 1;
+	ALTER TABLE Usuario AUTO_INCREMENT = 1;
     
 
 INSERT INTO Usuario(Nome, Email, Ativo, DataCadastro, Senha) VALUES('Super Usuário 2', 'superusuario@gmail.com', 1, Now(), '3C9909AFEC25354D551DAE21590BB26E38D53F2173B8D3DC3EEE4C047E7AB1C1EB8B85103E3BE7BA613B31BB5C9C36214DC9F14A42FD7A2FDB84856BCA5C44C2');
@@ -137,37 +148,45 @@ INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, 
 VALUES ('45.138.277/0001-13', 'Compradora A','Compradora A', '(15)3333-3333', '(15)99999-9999', 'contato@empresaA.com.br',  1, 3, 1, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Comprador A', 'contato@comprador-a.com.br', '(15)9999-9999', 1);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (1, 7, 1, Now());
+
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('57.850.568/0001-19', 'Compradora B','Compradora B', '(15)3333-3333', '(15)99999-9999', 'contato@empresa-b.com.br',  1, 3, 1, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Comprador B', 'contato@comprador-b.com.br', '(15)9999-9999', 2);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (2, 8, 1, Now());
+
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('01.442.356/0001-48', 'Compradora C','Compradora C', '(15)3333-3333', '(15)99999-9999', 'contato@empresa-c.com.br',  1, 3, 1, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Comprador C', 'contato@comprador-c.com.br', '(15)9999-9999', 3);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (3, 9, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('85.885.829/0001-71', 'Compradora D','Compradora D', '(15)3333-3333', '(15)99999-9999', 'contato@empresa-d.com.br',  1, 2, 1, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Comprador D', 'contato@comprador-d.com.br', '(15)9999-9999', 4);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (4, 10, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('85.885.829/0001-71', 'Compradora E','Compradora E', '(15)3333-3333', '(15)99999-9999', 'contato@empresa-e.com.br',  1, 2, 1, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Comprador E', 'contato@comprador-e.com.br', '(15)9999-9999', 5);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (5, 11, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('62.753.968/0001-46', 'Compradora F','Compradora F', '(15)3333-3333', '(15)99999-9999', 'contato@empresa-f.com.br',  1, 4, 1, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Comprador F', 'contato@comprador-f.com.br', '(15)9999-9999', 6);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (6, 12, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('63.413.446/0001-68', 'Compradora G','Compradora G', '(15)3333-3333', '(15)99999-9999', 'contato@empresa-g.com.br',  1, 4, 1, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Comprador G', 'contato@comprador-G.com.br', '(15)9999-9999', 7);
-
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (7, 13, 1, Now());
 
 
 
@@ -175,37 +194,43 @@ INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, 
 VALUES ('06.257.727/0001-35', 'Fornecedor A','Fornecedor A', '(15)3333-3333', '(15)99999-9999', 'contato@fornecedorA.com.br',  1, 3, 2, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Fornecedor A', 'contato@fornecedor-a.com.br', '(15)9999-9999', 8);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (8, 14, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('74.068.244/0001-42', 'Fornecedor B','Fornecedor B', '(15)3333-3333', '(15)99999-9999', 'contato@fornecedorB.com.br',  1, 3, 2, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Fornecedor B', 'contato@fornecedor-b.com.br', '(15)9999-9999', 9);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (9, 15, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('54.388.337/0001-47', 'Fornecedor C','Fornecedor C', '(15)3333-3333', '(15)99999-9999', 'contato@fornecedorC.com.br',  1, 4, 2, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Fornecedor C', 'contato@fornecedor-c.com.br', '(15)9999-9999', 10);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (10, 16, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('21.305.353/0001-70', 'Fornecedor D','Fornecedor D', '(15)3333-3333', '(15)99999-9999', 'contato@fornecedorD.com.br',  1, 4, 2, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Fornecedor D', 'contato@fornecedor-d.com.br', '(15)9999-9999', 11);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (11, 17, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('31.231.806/0001-14', 'Fornecedor E','Fornecedor E', '(15)3333-3333', '(15)99999-9999', 'contato@fornecedorE.com.br',  1, 5, 2, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Fornecedor E', 'contato@fornecedor-e.com.br', '(15)9999-9999', 12);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (12, 18, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('99.020.403/0001-60', 'Fornecedor F','Fornecedor F', '(15)3333-3333', '(15)99999-9999', 'contato@fornecedorF.com.br',  1, 5, 2, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Fornecedor F', 'contato@fornecedor-f.com.br', '(15)9999-9999', 13);
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (13, 19, 1, Now());
 
 INSERT INTO ParceiroNegocio(CNPJ, RazaoSocial, NomeFantasia, Telefone, Celular, Email, EnderecoID, UsuarioID, TipoParceiro, DataCadastro)
 VALUES ('68.175.536/0001-81', 'Fornecedor G','Fornecedor G', '(15)3333-3333', '(15)99999-9999', 'contato@fornecedorG.com.br',  1, 25, 2, Now());
 INSERT INTO Contato (Nome, Email, Telefone, ParceiroID) 
 VALUES ('Contato Fornecedor G', 'contato@fornecedor-g.com.br', '(15)9999-9999', 14);
-
+INSERT INTO ParceiroNegocioUsuario(ParceiroNegocioID, UsuarioID, CriadorID, DataCadastro) VALUES (14, 20, 1, Now());
 
 
 
@@ -239,18 +264,90 @@ INSERT INTO FornecedorProduto(Valor, Volume, CapacidadeMaxima, ParceiroID, Produ
 
 
 
+
+/* ---------------------- LEILAO ---------------------- */
 INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertura, RodadasLeilao, DiasCadaRodada, CriadorID, RepresentanteID, Ativo)
-			VALUES ('Leilão de Farinha Branca', 1, DATE_ADD(Now(), INTERVAL -3 DAY), 400.00, DATE_ADD(Now(), INTERVAL 5 DAY), 2, 1, 3, 4, 1);
+			VALUES ('Leilão de Trigo', 3, DATE_ADD(Now(), INTERVAL -3 DAY), 6350.00, DATE_ADD(Now(), INTERVAL -1 DAY), 2, 1, 5, 5, 1);
 
-INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 1, 1, 113);
-INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 6, 0, 113);
-INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 7, 1, 113);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 1, 1, 150);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 2, 1, 300);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 3, 1,  50);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 4, 1, 650);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 5, 1, 1200);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 6, 1, 3350);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 7, 1,  500);
 
-INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 8, 1, 100, 3000);
-INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 10, 0, 100, 3000);
-INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 11, 1, 100, 3000);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 8,  1,  50,  300);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 9,  1, 100, 1500);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 10, 1, 200, 1000);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 11, 1,  75, 1200);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 12, 1, 1000, 10000);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 13, 1, 200, 3000);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 14, 1, 100, 800);
+
+INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (1, 1, DATE_ADD(Now(), INTERVAL -1 + 2 DAY));
+INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (1, 2, DATE_ADD(Now(), INTERVAL -1 + 4 DAY));
+
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(1, 				   1, 			   1000, 				800, 					now());
+                            
+                            
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(2, 				   1, 			   1100, 				900, 					now());
+                            
+                            
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(3, 				   1, 			   999, 				880, 					now());
+
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(4, 				   1, 			   800, 				780, 					now());
+                            
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(5, 				   1, 			   790, 				700, 					now());
+                            
+                            
+/* ---------------------- LEILAO ---------------------- */
+
+
+
+
+
+/* ---------------------- LEILAO ---------------------- */
+INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertura, RodadasLeilao, DiasCadaRodada, CriadorID, RepresentanteID, Ativo)
+			VALUES ('Leilão de Farinha Escura', 2, DATE_ADD(Now(), INTERVAL -1 DAY), 950.00, DATE_ADD(Now(), INTERVAL 4 DAY), 2, 1, 5, 5, 1);
+
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (2, 1, 1, 150);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (2, 6, 0, 300);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (2, 7, 1, 500);
+
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (2, 8,  1,   50, 1000);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (2, 10, 0, 300, 1500);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (2, 11, 1, 500, 5000);
+
+INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (2, 1, DATE_ADD(Now(), INTERVAL 4 + 2 DAY));
+INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (2, 2, DATE_ADD(Now(), INTERVAL 4 + 4 DAY));
+/* ---------------------- LEILAO ---------------------- */
+
+
+
+/* ---------------------- LEILAO ---------------------- */
+INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertura, RodadasLeilao, DiasCadaRodada, CriadorID, RepresentanteID, Ativo)
+			VALUES ('Farinha Branca', 1, DATE_ADD(Now(), INTERVAL -1 DAY), 400.00, DATE_ADD(Now(), INTERVAL 2 DAY), 2, 1, 3, 4, 1);
+
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (3, 1, 1, 200);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (3, 6, 0, 130);
+INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (3, 7, 1,  70);
+
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (3, 8, 1,  100, 3000);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (3, 10, 0, 300, 3000);
+INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (3, 11, 1, 100, 3000);
+
+INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (3, 1, DATE_ADD(Now(), INTERVAL 2 + 2 DAY));
+INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (3, 2, DATE_ADD(Now(), INTERVAL 2 + 4 DAY));
+/* ---------------------- LEILAO ---------------------- */
+
                       
-
+                      
                       
                       
                       

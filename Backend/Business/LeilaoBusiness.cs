@@ -80,7 +80,14 @@ namespace WinstonChurchill.Backend.Business
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                Leilao leilao = uow.LeilaoRepository.Carregar(p => p.ID == id, o => o.OrderBy(p => p.ID), "Produto,Representante");
+                Leilao leilao = uow.LeilaoRepository.Carregar(p => p.ID == id, o => o.OrderBy(p => p.ID), "Produto,Representante,Rodadas");
+                leilao.Rodadas.ForEach(f =>
+                {
+                    f.lstFornecedoresRodada = uow.LeilaoFornecedorRodadaRepository.Listar(l => l.LeilaoRodadaID == f.ID,
+                                                                                          o => o.OrderBy(by => by.ID),
+                                                                                          "LeilaoFornecedor,LeilaoFornecedor.ParceiroNegocio");
+                });
+
 
                 if (usuario.ehAdministrador)
                 {
@@ -97,9 +104,55 @@ namespace WinstonChurchill.Backend.Business
 
                     leilao.Fornecedores = uow.LeilaoFornecedorRepository.Listar(l => l.LeilaoID == leilao.ID, o => o.OrderBy(by => by.ID), "ParceiroNegocio");
                     leilao.Fornecedores = leilao.Fornecedores.Where(w => lstPN.Exists(e => e.ID == w.ParceiroNegocioID)).ToList();
+
+                    leilao.Rodadas.ForEach(rodada =>
+                    {
+                        rodada.lstFornecedoresRodada = rodada.lstFornecedoresRodada.Where(w => leilao.Fornecedores.Exists(e => e.ID == w.LeilaoFornecedorID)).ToList();                        
+                    });
                 }
 
+
+
                 return leilao;
+            }
+        }
+
+        public void EfetuarLance(Usuario usuario, LeilaoFornecedorRodada lance)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                if (!usuario.ehAdministrador)
+                {
+                    ParceiroNegocio pn = uow.ParceiroNegocioRepository.Carregar(p => p.UsuarioID == usuario.ID || p.Usuarios.Any(a => a.UsuarioID == usuario.ID));
+
+                    if (pn == null)
+                        throw new ArgumentException("O usuário não tem permissão para efetuar esta ação!");
+                }
+
+                LeilaoFornecedor leilaoFornecedor = uow.LeilaoFornecedorRepository.Carregar(c => c.ID == lance.LeilaoFornecedorID, o => o.OrderBy(by => by.ID), "Leilao");
+
+                if (leilaoFornecedor.Leilao.DataAbertura > DateTime.Now)
+                    throw new ArgumentException("O Leilão não esta aberto ainda para Lances!");
+
+                LeilaoFornecedorRodada salvo = uow.LeilaoFornecedorRodadaRepository.Carregar(c => c.LeilaoFornecedorID == lance.LeilaoFornecedorID && c.LeilaoRodadaID == lance.LeilaoRodadaID,
+                                                                                             o => o.OrderBy(by => by.ID));
+
+                if (salvo != null)
+                    lance.ID = salvo.ID;
+
+                lance.DataLance = DateTime.Now;
+                lance.LeilaoRodadaID = lance.LeilaoRodadaID;
+                lance.LeilaoFornecedorID = lance.LeilaoFornecedorID;
+                lance.ValorPrimeiraMargem = lance.ValorPrimeiraMargem;
+                lance.ValorSegundaMargem = lance.ValorSegundaMargem;
+
+                if (lance.ID == 0)
+                    uow.LeilaoFornecedorRodadaRepository.Inserir(lance);
+                else
+                    uow.LeilaoFornecedorRodadaRepository.Alterar(lance, "ID");
+
+
+                uow.Save();
             }
         }
 
@@ -107,7 +160,13 @@ namespace WinstonChurchill.Backend.Business
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                //usuario TEM PERMISSÂO????
+                if (!usuario.ehAdministrador)
+                {
+                    ParceiroNegocio pn = uow.ParceiroNegocioRepository.Carregar(p => p.UsuarioID == usuario.ID || p.Usuarios.Any(a => a.UsuarioID == usuario.ID));
+
+                    if (pn == null)
+                        throw new ArgumentException("O usuário não tem permissão para efetuar esta ação!");
+                }
 
                 var leilao = uow.LeilaoRepository.Carregar(c => c.ID == leilaoFornecedor.LeilaoID, o => o.OrderBy(by => by.ID));
 
@@ -131,7 +190,13 @@ namespace WinstonChurchill.Backend.Business
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                //usuario TEM PERMISSÂO????
+                if (!usuario.ehAdministrador)
+                {
+                    ParceiroNegocio pn = uow.ParceiroNegocioRepository.Carregar(p => p.UsuarioID == usuario.ID || p.Usuarios.Any(a => a.UsuarioID == usuario.ID));
+
+                    if (pn == null)
+                        throw new ArgumentException("O usuário não tem permissão para efetuar esta ação!");
+                }
 
                 var leilaoSalvo = uow.LeilaoRepository.Carregar(c => c.ID == leilaoComprador.LeilaoID, o => o.OrderBy(by => by.ID));
 
