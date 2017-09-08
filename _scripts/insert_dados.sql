@@ -8,6 +8,7 @@
     DELETE FROM CompradorProduto WHERE ID > 0;
     DELETE FROM FornecedorProduto WHERE ID > 0;
     DELETE FROM LeilaoComprador WHERE ID > 0;
+    DELETE FROM LeilaoFornecedorRodada WHERE ID > 0;
     DELETE FROM LeilaoFornecedor WHERE ID > 0;
     DELETE FROM LeilaoRodada WHERE ID > 0;
     DELETE FROM Leilao WHERE ID > 0;
@@ -28,6 +29,7 @@
 	ALTER TABLE CompradorProduto AUTO_INCREMENT = 1;
 	ALTER TABLE FornecedorProduto AUTO_INCREMENT = 1;
 	ALTER TABLE LeilaoComprador AUTO_INCREMENT = 1;
+    ALTER TABLE LeilaoFornecedorRodada AUTO_INCREMENT = 1;
 	ALTER TABLE LeilaoFornecedor AUTO_INCREMENT = 1;
 	ALTER TABLE LeilaoRodada AUTO_INCREMENT = 1;
 	ALTER TABLE Leilao AUTO_INCREMENT = 1;
@@ -266,8 +268,8 @@ INSERT INTO FornecedorProduto(Valor, Volume, CapacidadeMaxima, ParceiroID, Produ
 
 
 /* ---------------------- LEILAO ---------------------- */
-INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertura, RodadasLeilao, DiasCadaRodada, CriadorID, RepresentanteID, Ativo)
-			VALUES ('Leilão de Trigo', 3, DATE_ADD(Now(), INTERVAL -3 DAY), 6350.00, DATE_ADD(Now(), INTERVAL -1 DAY), 2, 1, 5, 5, 1);
+INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertura, RodadasLeilao, DiasCadaRodada, CriadorID, RepresentanteID, Ativo, MargemGarantiaPreco, SegundaMargemGarantiaPreco)
+			VALUES ('Leilão de Trigo', 3, DATE_ADD(Now(), INTERVAL -3 DAY), 6350.00, DATE_ADD(Now(), INTERVAL -1 DAY), 2, 1, 5, 5, 1, 10.00, 20.00);
 
 INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 1, 1, 150);
 INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (1, 2, 1, 300);
@@ -285,27 +287,29 @@ INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima
 INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 13, 1, 200, 3000);
 INSERT INTO LeilaoFornecedor(LeilaoID,ParceiroNegocioID, Participando, QtdMinima, QtdMaxima) VALUES (1, 14, 1, 100, 800);
 
-INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (1, 1, DATE_ADD(Now(), INTERVAL -1 + 2 DAY));
-INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (1, 2, DATE_ADD(Now(), INTERVAL -1 + 4 DAY));
+INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (1, 1, DATE_ADD(Now(), INTERVAL -2 + 2 DAY));
+INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (1, 2, DATE_ADD(Now(), INTERVAL -2 + 4 DAY));
+
 
 INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
-							VALUES(1, 				   1, 			   1000, 				800, 					now());
-                            
+							VALUES(1, 				   1, 			   12700, 				13000, 					now());
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(2, 				   1, 			   12500, 				13500, 					now());
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(3, 				   1, 			   12000, 				12000, 					now());
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(4, 				   1, 			   15000, 				16000, 					now());
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(5, 				   1, 			   14000, 				14200, 					now());
+INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
+							VALUES(6, 				   1, 			    9500, 				10000, 					now());
                             
 INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
-							VALUES(2, 				   1, 			   1100, 				900, 					now());
-                            
-                            
+							VALUES(3, 				   2, 			   11500, 				11500, 					DATE_ADD(Now(), INTERVAL 2 DAY));
 INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
-							VALUES(3, 				   1, 			   999, 				880, 					now());
-
+							VALUES(2, 				   2, 			   11500, 				12000, 					DATE_ADD(Now(), INTERVAL 2 DAY));
 INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
-							VALUES(4, 				   1, 			   800, 				780, 					now());
-                            
-INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrimeiraMargem, ValorSegundaMargem, DataLance) 
-							VALUES(5, 				   1, 			   790, 				700, 					now());
-                            
-                            
+							VALUES(6, 				   2, 			   9400, 				10000, 					DATE_ADD(Now(), INTERVAL 2 DAY));
 /* ---------------------- LEILAO ---------------------- */
 
 
@@ -313,8 +317,8 @@ INSERT INTO LeilaoFornecedorRodada(LeilaoFornecedorID, LeilaoRodadaID, ValorPrim
 
 
 /* ---------------------- LEILAO ---------------------- */
-INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertura, RodadasLeilao, DiasCadaRodada, CriadorID, RepresentanteID, Ativo)
-			VALUES ('Leilão de Farinha Escura', 2, DATE_ADD(Now(), INTERVAL -1 DAY), 950.00, DATE_ADD(Now(), INTERVAL 4 DAY), 2, 1, 5, 5, 1);
+INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertura, RodadasLeilao, DiasCadaRodada, CriadorID, RepresentanteID, Ativo, MargemGarantiaPreco, SegundaMargemGarantiaPreco)
+			VALUES ('Leilão de Farinha Escura', 2, DATE_ADD(Now(), INTERVAL -1 DAY), 950.00, DATE_ADD(Now(), INTERVAL 4 DAY), 2, 1, 5, 5, 1, 10.00, 20.00);
 
 INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (2, 1, 1, 150);
 INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (2, 6, 0, 300);
@@ -331,8 +335,8 @@ INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (2, 2, DATE
 
 
 /* ---------------------- LEILAO ---------------------- */
-INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertura, RodadasLeilao, DiasCadaRodada, CriadorID, RepresentanteID, Ativo)
-			VALUES ('Farinha Branca', 1, DATE_ADD(Now(), INTERVAL -1 DAY), 400.00, DATE_ADD(Now(), INTERVAL 2 DAY), 2, 1, 3, 4, 1);
+INSERT INTO Leilao (Nome, ProdutoID, DataFinalFormacao, QtdDesejada, DataAbertura, RodadasLeilao, DiasCadaRodada, CriadorID, RepresentanteID, Ativo, MargemGarantiaPreco, SegundaMargemGarantiaPreco)
+			VALUES ('Farinha Branca', 1, DATE_ADD(Now(), INTERVAL -1 DAY), 400.00, DATE_ADD(Now(), INTERVAL 2 DAY), 2, 1, 3, 4, 1, 10.00, 20.00);
 
 INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (3, 1, 1, 200);
 INSERT INTO LeilaoComprador (LeilaoID, ParceiroNegocioID, Participando, QtdDesejada) 		  VALUES (3, 6, 0, 130);
@@ -350,7 +354,7 @@ INSERT INTO LeilaoRodada (LeilaoID, Numero, DataEncerramento) VALUES (3, 2, DATE
                       
                       
                       
-                      
+                      select * from LeilaoRodada
                       
                       
                       

@@ -6688,10 +6688,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/02/2017 19:30:32</publishTime>
     </File>
     <File Include="pages/LeilaoLances.aspx">
-      <publishTime>09/02/2017 20:39:41</publishTime>
+      <publishTime>09/07/2017 22:01:24</publishTime>
     </File>
     <File Include="pages/LeilaoLances.js">
-      <publishTime>09/02/2017 20:36:30</publishTime>
+      <publishTime>09/07/2017 22:01:11</publishTime>
     </File>
     <File Include="pages/Leiloes.aspx">
       <publishTime>08/02/2017 19:51:29</publishTime>
@@ -6733,7 +6733,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/30/2017 23:57:31</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>09/03/2017 22:40:58</publishTime>
+      <publishTime>09/07/2017 22:03:34</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>09/03/2017 22:37:46</publishTime>

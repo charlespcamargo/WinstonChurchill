@@ -20,15 +20,36 @@
         eventos: function () {
             $('#btnSalvar').click(function () { LeilaoLances.salvar(); });
             $('#btnLance').click(function () { LeilaoLances.lance(); });
+
+            //$("#txtValorLance1, #txtValorLance2").on("keypress", function (event) { return LeilaoLances.digitacaoValorLance(this, event); });
+        },
+
+        digitacaoValorLance: function (controle, event)
+        {
+            var retorno = false;
+
+            // numeros
+            if (event.charCode >= 48 && event.charCode <= 57)
+                retorno = true;
+
+            if (event.charCode == 44)
+                retorno = true;
+
+            if (event.charCode == 8)
+                retorno = true;
+
+            if ($(controle).val().length == 2 && $(controle).val().indexOf(",") == -1 && event.charCode != 44)
+                $(controle).val($(controle).val() + ",");
+
+            return retorno;
         },
 
         configurarControles: function () {
             LeilaoLances.lstCompradores([]);
             LeilaoLances.lstFornecedores([]);
+            LeilaoLances.lstLances([]);
             $('#hfFornecedor').parceiros({ multiplo: false, tipo: 2 });
 
-            $("#txtValorLance1").attr("data-original-title", "....... 1111");
-            $("#txtValorLance2").attr("data-original-title", "2222");
         },
 
         carregar: function () {
@@ -60,9 +81,13 @@
 
                 LeilaoLances.listarCompradores(leilao.Compradores);
                 LeilaoLances.listarFornecedores(leilao.Fornecedores);
-                LeilaoLances.listarLances(leilao.Rodadas[0].lstFornecedoresRodada);
+                LeilaoLances.listarLances(leilao.Lances);
 
                 LeilaoLances.id(leilao.ID);
+
+
+                $("#txtValorLance1").attr("data-original-title", "O valor deve ser garantido para compras dentro da 1ª margem[" + leilao.MargemGarantiaPreco + "%] de quantidade, ou seja, até a quantidade minima[" + leilao.QtdDesejadaPrimeiraMargem + "]");
+                $("#txtValorLance2").attr("data-original-title", "O valor deve ser garantido para compras dentro da 2ª margem[" + leilao.SegundaMargemGarantiaPreco + "%] de quantidade, ou seja, até a quantidade minima[" + leilao.QtdDesejadaSegundaMargem + "]");
             }
 
             HelperJS.callApi(
@@ -78,6 +103,7 @@
         inicializarGrid: function () {
             LeilaoLances.listarCompradores();
             LeilaoLances.listarFornecedores();
+            LeilaoLances.listarLances();
         },
 
         listarCompradores: function (data) {
@@ -89,7 +115,11 @@
                 colunas.push({ mData: "QtdDesejada", sClass: "text-left", sType: "decimal" });
                 colunas.push({
                     mData: "ID", mRender: function (source, type, full) {
-                        var editar = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="LeilaoLances.editar(' + full.ParceiroNegocioID + ', 1)"><i class="icon-edit"></i></a>';
+                        var editar = '';
+
+                        if (!LeilaoLances.abertoLance)
+                            editar = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="LeilaoLances.editar(' + full.ParceiroNegocioID + ', 1)"><i class="icon-edit"></i></a>';
+
                         return editar;
                     }
                 });
@@ -119,7 +149,12 @@
                 colunas.push({ mData: "QtdMaxima", sClass: "text-left", sType: "decimal" });
                 colunas.push({
                     mData: "ID", mRender: function (source, type, full) {
-                        var editar = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="LeilaoLances.editar(' + full.ParceiroNegocioID + ', 2)"><i class="icon-edit"></i></a>';
+
+                        var editar = '';
+
+                        if (!LeilaoLances.abertoLance)
+                            editar = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Editar" onclick="LeilaoLances.editar(' + full.ParceiroNegocioID + ', 2)"><i class="icon-edit"></i></a>';
+
                         return editar;
                     }
                 });
@@ -131,7 +166,7 @@
                 LeilaoLances.lstFornecedores(data);
                 $("#formFornecedor").show();
             }
-            
+
             $('#gridFornecedor').bindDataTable({
                 columns: fnColunasFornecedor(),
                 sorter: [[0, 'asc']],
@@ -144,12 +179,28 @@
             var fnColunasLances = function () {
 
                 var colunas = new Array();
-                colunas.push({ mData: "ID", mRender: function (source, type, full) { return full.LeilaoFornecedor.ParceiroNegocio.ID + ' - ' + full.LeilaoFornecedor.ParceiroNegocio.NomeFantasia } });
-                colunas.push({ mData: "ID", mRender: function (source, type, full) { return full.LeilaoRodada.Numero; } });
-                colunas.push({ mData: "DataLance", mRender: function (source, type, full) { return source; } });
-                colunas.push({ mData: "ValorPrimeiraMargem", sClass: "text-left", sType: "decimal" });
-                colunas.push({ mData: "ValorSegundaMargem", sClass: "text-left", sType: "decimal" });
-                
+                colunas.push({ mData: "RodadaNumero", mRender: function (source, type, full) { return source; } });
+                colunas.push({ mData: "RodadaNumero", mRender: function (source, type, full) { return full.ParceiroNegocio.ID + ' - ' + full.ParceiroNegocio.NomeFantasia } });
+                colunas.push({ mData: "FornecedoresRodada.DataLance", mRender: function (source, type, full) { return source; } });
+                colunas.push({
+                    mData: "FornecedoresRodada.ValorPrimeiraMargem", sClass: "text-left", sType: "decimal",
+                    mRender: function (source, type, full) { return "R$ " + source; }
+                });
+                colunas.push({
+                    mData: "FornecedoresRodada.ValorSegundaMargem", sClass: "text-left", sType: "decimal",
+                    mRender: function (source, type, full) { return "R$ " + source; }
+                });
+                colunas.push({
+                    mData: "RodadaNumero", mRender: function (source, type, full) {
+
+                        var editar = '';
+
+                        if (LeilaoLances.abertoLance && !full.RodadaEncerrada)
+                            editar = '<a class="icons-dataTable tooltips" data-toggle="tooltip" data-original-title="Lance" onclick="LeilaoLances.editarLance(' + full.ParceiroNegocio.ID + ',' + full.RodadaNumero + ')"><i class="icon-legal"></i></a>';
+
+                        return editar;
+                    }
+                });
                 return colunas;
             }
 
@@ -158,10 +209,9 @@
                 $("#formLances").show();
             }
 
-
             $('#gridLances').bindDataTable({
                 columns: fnColunasLances(),
-                sorter: [[0, 'asc']],
+                sorter: [[0, 'desc']],
                 data: LeilaoLances.lstLances(),
             });
         },
@@ -215,6 +265,28 @@
                 return LeilaoLances._abertoLance;
         },
 
+        editarLance: function (_id, _rodadaNumero) {
+
+            LeilaoLances.id(_id);
+            LeilaoLances.tipo(_tipo);
+            LeilaoLances.item(LeilaoLances.findItem(_id, 3, _rodadaNumero).FornecedoresRodada);
+
+            $('#formModal').popularCampos({ data: LeilaoLances.item() });
+            $('#formModal').popularCampos({ data: LeilaoLances.item().LeilaoFornecedor });
+
+            $("#lblQtdEdicao").html("Qtd. Minima");
+
+            $("#txtQuantidadeMin").show();
+            $("#lblQtdMax").show();
+            $("#txtQuantidadeMax").show();
+            $("#btnLance").show();
+            $("#lance_valor_container").show();
+
+            $("#txtQuantidadeDesejada").hide();
+
+            $("#modal").modal();
+        },
+
         editar: function (_id, _tipo) {
 
             LeilaoLances.id(_id);
@@ -249,12 +321,14 @@
             $("#modal").modal();
         },
 
-        findItem: function (_id, _tipo) {
+        findItem: function (_id, _tipo, _rodada) {
 
             if (_tipo == 1)
                 return $.grep(LeilaoLances.lstCompradores(), function (e) { return e.ParceiroNegocioID == _id })[0];
-            else
+            else if (_tipo == 2)
                 return $.grep(LeilaoLances.lstFornecedores(), function (e) { return e.ParceiroNegocioID == _id })[0];
+            else if (_tipo == 3)
+                return $.grep(LeilaoLances.lstLances(), function (e) { return e.ParceiroNegocio.ID == _id && e.RodadaNumero == _rodada })[0];
         },
 
         salvar: function () {
@@ -293,25 +367,44 @@
         lance: function () {
 
             var obj = LeilaoLances.item();
-            obj.ParceiroNegocio = null;
-            obj.QtdMinima = parseFloat($("#txtQuantidadeMin").val());
-            obj.QtdMaxima = parseFloat($("#txtQuantidadeMax").val());
 
-            console.log("lance", obj);
+            var objLance = {};
+            objLance.LeilaoRodadaID = obj.LeilaoRodadaID;
+            objLance.LeilaoFornecedorID = obj.LeilaoFornecedorID;
+            objLance.ValorPrimeiraMargem = Number(HelperJS.formataDecimal($("#txtValorLance1").val()));
+            objLance.ValorSegundaMargem = Number(HelperJS.formataDecimal($("#txtValorLance2").val()));
 
-            HelperJS.callApi(
-                {
-                    url: "leilao/efetuarlance/",
-                    type: "POST",
-                    data: obj,
-                    functionOnSucess: LeilaoLances.lance_efetuado,
-                    functionOnError: HelperJS.showError
-                });
+            if (LeilaoLances.validar_lance())
+            {
+                HelperJS.callApi(
+                    {
+                        url: "leilao/efetuarlance/",
+                        type: "POST",
+                        data: objLance,
+                        functionOnSucess: LeilaoLances.lance_efetuado,
+                        functionOnError: HelperJS.showError
+                    });
+            }
         },
 
-        lance_efetuado: function ()
-        {
-            HelperJS.showSuccess("Salvo com sucesso!");
+        validar_lance: function () {
+            var lstMsgs = []
+
+            if ($("#txtValorLance1").val() == '')
+                lstMsgs.push({ Mensagem: "O valor do Lance é obrigatório!", IdControle: "txtValorLance1" });
+
+
+            if ($("#txtValorLance2").val() == '') 
+                lstMsgs.push({ Mensagem: "O valor para a 2ª Margem é obrigatório!", IdControle: "txtValorLance2" });
+
+            if (lstMsgs.length > 0)
+                HelperJS.showListaAlert(lstMsgs);
+
+            return lstMsgs.length == 0;
+        },
+
+        lance_efetuado: function () {
+            HelperJS.showSuccess("Lance efetuado com sucesso!");
             LeilaoLances.carregar();
             $("#modal").modal('hide');
         },

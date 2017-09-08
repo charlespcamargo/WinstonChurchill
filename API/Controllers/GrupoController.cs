@@ -92,6 +92,7 @@ namespace WinstonChurchill.API.Controllers
                 Grupo filtro = new Grupo();
 
                 Usuario usuario = UsuarioToken.Obter(this);
+                filtro.Usuario = usuario;
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
                 Grupo Grupo = GrupoBusiness.New.Carregar(filtro);

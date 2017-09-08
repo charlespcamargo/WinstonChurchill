@@ -305,17 +305,19 @@ CREATE TABLE IF NOT EXISTS GrupoUsuarioRecurso (
 
 CREATE TABLE IF NOT EXISTS Leilao 
 (
-  ID                INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
-  Nome	            VARCHAR(50) 	NOT NULL,
-  ProdutoID         INT 			NOT NULL,
-  DataFinalFormacao	DATETIME		NOT NULL,
-  QtdDesejada		NUMERIC(10,3)	NOT NULL,				
-  DataAbertura		DATETIME		NOT NULL,
-  RodadasLeilao 	INT 		 	NOT NULL,
-  DiasCadaRodada 	INT 		 	NOT NULL,
-  CriadorID			INT				NOT NULL,
-  RepresentanteID	INT				NOT NULL,  
-  Ativo 			BIT 			NOT NULL,
+  ID                			INT 			NOT NULL AUTO_INCREMENT  PRIMARY KEY,
+  Nome	           				VARCHAR(50) 	NOT NULL,
+  ProdutoID        				INT 			NOT NULL,
+  DataFinalFormacao				DATETIME		NOT NULL,
+  QtdDesejada					NUMERIC(10,3)	NOT NULL,				
+  DataAbertura					DATETIME		NOT NULL,
+  RodadasLeilao 				INT 		 	NOT NULL,
+  DiasCadaRodada 				INT 		 	NOT NULL,
+  CriadorID						INT				NOT NULL,
+  RepresentanteID				INT				NOT NULL,  
+  Ativo 						BIT 			NOT NULL,
+  MargemGarantiaPreco 			DECIMAL(5,2)	NOT NULL,
+  SegundaMargemGarantiaPreco 	DECIMAL(5,2) 	NOT NULL,
   
   
   CONSTRAINT fk_Leilao_Produto 		 FOREIGN KEY (ProdutoID)    		REFERENCES Produto(ID),

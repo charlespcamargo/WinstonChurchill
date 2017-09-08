@@ -31,10 +31,29 @@ namespace WinstonChurchill.Backend.Model
         [Column("QtdDesejada")]
         public decimal QtdDesejada { get; set; }
 
-        [Column("RodadasLeilao")] 
+        [NotMapped]
+        public decimal QtdDesejadaPrimeiraMargem
+        {
+            get
+            {
+                return QtdDesejada - (QtdDesejada * MargemGarantiaPreco / 100);
+            }
+        }
+
+        [NotMapped]
+        public decimal QtdDesejadaSegundaMargem
+        {
+            get
+            {
+                return QtdDesejada - (QtdDesejada * SegundaMargemGarantiaPreco / 100);
+            }
+        }
+
+
+        [Column("RodadasLeilao")]
         public int RodadasLeilao { get; set; }
 
-        [Column("DiasCadaRodada")] 
+        [Column("DiasCadaRodada")]
         public int DiasCadaRodada { get; set; }
 
 
@@ -50,6 +69,16 @@ namespace WinstonChurchill.Backend.Model
 
         [Column("Ativo")]
         public bool Ativo { get; set; }
+
+        [Column("MargemGarantiaPreco")]
+        [JsonConverter(typeof(CustomMoneyReal))]
+        [Required(ErrorMessage = "Margem de Garantia de Preço é obrigatório")]
+        public decimal MargemGarantiaPreco { get; set; }
+
+        [Column("SegundaMargemGarantiaPreco")]
+        [JsonConverter(typeof(CustomMoneyReal))]
+        [Required(ErrorMessage = "Segunda Margem de Garantia de Preço é obrigatório")]
+        public decimal SegundaMargemGarantiaPreco { get; set; }
 
         [NotMapped]
         public int DuracaoRodadasDias { get; set; }
@@ -90,7 +119,8 @@ namespace WinstonChurchill.Backend.Model
         #endregion
 
 
-
+        [NotMapped]
+        public List<FornecedorLanceCustom> Lances { get; set; }
 
     }
 }

@@ -107,11 +107,26 @@ namespace WinstonChurchill.Backend.Business
 
                     leilao.Rodadas.ForEach(rodada =>
                     {
-                        rodada.lstFornecedoresRodada = rodada.lstFornecedoresRodada.Where(w => leilao.Fornecedores.Exists(e => e.ID == w.LeilaoFornecedorID)).ToList();                        
+                        rodada.lstFornecedoresRodada = rodada.lstFornecedoresRodada.Where(w => leilao.Fornecedores.Exists(e => e.ID == w.LeilaoFornecedorID)).ToList();
                     });
                 }
 
+                FornecedorLanceCustom lance = null;
+                leilao.Lances = new List<FornecedorLanceCustom>();
 
+                leilao.Rodadas.ForEach(rodada =>
+                {
+                    rodada.lstFornecedoresRodada.ForEach(fornecedorRodada =>
+                    {
+                        lance = new FornecedorLanceCustom();
+                        lance.ParceiroNegocio = fornecedorRodada.LeilaoFornecedor.ParceiroNegocio;
+                        lance.RodadaNumero = rodada.Numero;
+                        lance.FornecedoresRodada = fornecedorRodada;
+                        lance.RodadaEncerrada = rodada.DataEncerramento < DateTime.Now;
+
+                        leilao.Lances.Add(lance);
+                    });
+                });
 
                 return leilao;
             }
@@ -129,10 +144,10 @@ namespace WinstonChurchill.Backend.Business
                         throw new ArgumentException("O usuário não tem permissão para efetuar esta ação!");
                 }
 
-                LeilaoFornecedor leilaoFornecedor = uow.LeilaoFornecedorRepository.Carregar(c => c.ID == lance.LeilaoFornecedorID, o => o.OrderBy(by => by.ID), "Leilao");
+                LeilaoRodada leilaoRodada = uow.LeilaoRodadaRepository.Carregar(c => c.ID == lance.LeilaoRodadaID, o => o.OrderBy(by => by.ID));
 
-                if (leilaoFornecedor.Leilao.DataAbertura > DateTime.Now)
-                    throw new ArgumentException("O Leilão não esta aberto ainda para Lances!");
+                if (leilaoRodada.DataEncerramento < DateTime.Now)
+                    throw new ArgumentException("Esta rodada já esta encerrada!");
 
                 LeilaoFornecedorRodada salvo = uow.LeilaoFornecedorRodadaRepository.Carregar(c => c.LeilaoFornecedorID == lance.LeilaoFornecedorID && c.LeilaoRodadaID == lance.LeilaoRodadaID,
                                                                                              o => o.OrderBy(by => by.ID));
@@ -140,6 +155,8 @@ namespace WinstonChurchill.Backend.Business
                 if (salvo != null)
                     lance.ID = salvo.ID;
 
+                lance.LeilaoFornecedor = null;
+                lance.LeilaoRodada = null;
                 lance.DataLance = DateTime.Now;
                 lance.LeilaoRodadaID = lance.LeilaoRodadaID;
                 lance.LeilaoFornecedorID = lance.LeilaoFornecedorID;
@@ -302,6 +319,8 @@ namespace WinstonChurchill.Backend.Business
                     Parametro p = uow.ParametroRepository.Carregar(c => c.ID > 0, o => o.OrderByDescending(by => by.ID));
                     leilao.DiasCadaRodada = p.DiasCadaRodada;
                     leilao.RodadasLeilao = p.RodadasLeilao;
+                    leilao.MargemGarantiaPreco = p.MargemGarantiaPreco;
+                    leilao.SegundaMargemGarantiaPreco = p.SegundaMargemGarantiaPreco;
 
                     uow.LeilaoRepository.Inserir(leilao);
                 }

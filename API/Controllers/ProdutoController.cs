@@ -85,6 +85,7 @@ namespace WinstonChurchill.API.Controllers
                 Produto filtro = new Produto();
 
                 Usuario usuario = UsuarioToken.Obter(this);
+                filtro.Usuario = usuario;
                 filtro.UsuarioID = usuario.ID;
                 filtro.ID = id;
                 Produto produto = ProdutoBusiness.New.Carregar(filtro);

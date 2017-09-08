@@ -24,9 +24,11 @@ namespace WinstonChurchill.Backend.Model
         public int LeilaoRodadaID { get; set; }
 
         [Column("ValorPrimeiraMargem")]
+        [JsonConverter(typeof(CustomMoneyReal))]
         public decimal ValorPrimeiraMargem { get; set; }
 
         [Column("ValorSegundaMargem")]
+        [JsonConverter(typeof(CustomMoneyReal))]
         public decimal ValorSegundaMargem { get; set; }
         
         [Column("DataLance")]
